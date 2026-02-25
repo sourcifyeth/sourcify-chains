@@ -47,13 +47,6 @@
       },
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=ethereum&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -99,13 +92,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.optimism.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=optimism&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -139,12 +125,6 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.flare-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=flare&dkey={API_KEY}",
@@ -412,13 +392,6 @@
       "https://bsc-rpc.publicnode.com",
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.bsc.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bsc&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -527,12 +500,6 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.joc-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://rpc-1.japanopenchain.org:8545",
       "https://rpc-2.japanopenchain.org:8545",
       "https://rpc-3.japanopenchain.org"
@@ -622,13 +589,6 @@
       "https://bsc-testnet-rpc.publicnode.com",
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.bsc-testnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bsc-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -656,13 +616,6 @@
     },
     "rpc": [
       "https://rpc.gnosischain.com",
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.xdai.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=gnosis&dkey={API_KEY}",
@@ -765,12 +718,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.flare-coston2.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=flare-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -851,12 +798,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.unichain-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=unichain&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -897,13 +838,6 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_POLYGON"
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.matic.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=polygon&dkey={API_KEY}",
@@ -957,12 +891,6 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_SONIC"
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.sonic-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=sonic&dkey={API_KEY}",
@@ -1115,12 +1043,6 @@
     "sourcifyName": "X Layer Mainnet",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.xlayer-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=xlayer&dkey={API_KEY}",
@@ -1316,12 +1238,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.fantom.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=fantom&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -1344,12 +1260,6 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_FRAXTAL"
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.fraxtal-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=fraxtal&dkey={API_KEY}",
@@ -1447,12 +1357,6 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.hedera-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://mainnet.hashio.io/api",
       "https://hedera.linkpool.pro"
     ]
@@ -1461,12 +1365,6 @@
     "sourcifyName": "Hedera Testnet",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.hedera-testnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://testnet.hashio.io/api"
     ]
   },
@@ -1479,12 +1377,6 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.zksync-sepolia.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zksync-sepolia&dkey={API_KEY}",
@@ -1543,12 +1435,6 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.zksync-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zksync&dkey={API_KEY}",
@@ -1730,12 +1616,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.worldchain-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=worldchain&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -1771,12 +1651,6 @@
     "sourcifyName": "Flow EVM Testnet",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.flow-testnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://testnet.evm.nodes.onflow.org"
     ]
   },
@@ -1841,12 +1715,6 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.redstone-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://rpc.redstonechain.com"
     ]
   },
@@ -1878,12 +1746,6 @@
     "sourcifyName": "Flow EVM Mainnet",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.flow-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://mainnet.evm.nodes.onflow.org"
     ]
   },
@@ -2077,12 +1939,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.kaia-kairos.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn-baobab&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -2236,12 +2092,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.zkevm-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=polygon-zkevm&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -2342,12 +2192,6 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.lisk-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=lisk&dkey={API_KEY}",
@@ -2495,12 +2339,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.unichain-sepolia.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=unichain-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -2524,12 +2362,6 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.story-aeneid.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=story-aeneid-testnet&dkey={API_KEY}",
@@ -2561,12 +2393,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.sei-atlantic.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=sei-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -2584,12 +2410,6 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_SEI"
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.sei-pacific.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=sei&dkey={API_KEY}",
@@ -2660,12 +2480,6 @@
     "sourcifyName": "Vana",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.vana-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://rpc.vana.org/"
     ]
   },
@@ -2692,12 +2506,6 @@
     "sourcifyName": "Story Testnet",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.story-testnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=story-testnet&dkey={API_KEY}",
@@ -3032,12 +2840,6 @@
     "sourcifyName": "B3 Sepolia Testnet",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.b3-sepolia.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://sepolia.b3.fun"
     ]
   },
@@ -3330,12 +3132,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.zkevm-cardona.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=polygon-zkevm-cardona&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -3395,12 +3191,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.abstract-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=abstract&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -3434,12 +3224,6 @@
     "sourcifyName": "Morph Holesky",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.morph-holesky.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://rpc-quicknode-holesky.morphl2.io",
       "https://rpc-holesky.morphl2.io"
     ]
@@ -3448,12 +3232,6 @@
     "sourcifyName": "Morph",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.morph-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://rpc.morphl2.io",
       "https://rpc-quicknode.morphl2.io"
     ]
@@ -3533,12 +3311,6 @@
     "sourcifyName": "peaq Mainnet",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.peaq-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://quicknode1.peaq.xyz",
       "https://quicknode2.peaq.xyz",
       "https://quicknode3.peaq.xyz"
@@ -3927,12 +3699,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.worldchain-sepolia.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=worldchain-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -3982,13 +3748,6 @@
       "https://mantle-rpc.publicnode.com",
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.mantle-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=mantle&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -4021,13 +3780,6 @@
     },
     "rpc": [
       "https://rpc.sepolia.mantle.xyz",
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.mantle-sepolia.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=mantle-sepolia&dkey={API_KEY}",
@@ -4434,20 +4186,6 @@
     "sourcifyName": "Chain 7534",
     "supported": true
   },
-  "7560": {
-    "sourcifyName": "Cyber Mainnet",
-    "supported": true,
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.cyber-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://cyber.alt.technology/",
-      "https://rpc.cyber.co/"
-    ]
-  },
   "7668": {
     "sourcifyName": "The Root Network Mainnet",
     "supported": true,
@@ -4532,12 +4270,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.kaia-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -4567,12 +4299,6 @@
     "sourcifyName": "B3",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.b3-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://mainnet-rpc.b3.fun"
     ]
   },
@@ -4612,13 +4338,6 @@
       "https://mainnet.base.org/",
       "https://developer-access-mainnet.base.org/",
       "https://base.gateway.tenderly.co",
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.base-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=base&dkey={API_KEY}",
@@ -4803,12 +4522,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.plasma-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=plasma&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -4829,12 +4542,6 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY"
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.plasma-testnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=plasma-testnet&dkey={API_KEY}",
@@ -5047,12 +4754,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.abstract-testnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=abstract-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -5161,12 +4862,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.imx-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=immutable-zkevm&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -5183,12 +4878,6 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.imx-testnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=immutable-zkevm-testnet&dkey={API_KEY}",
@@ -5252,12 +4941,6 @@
     "sourcifyName": "Vana Moksha Testnet",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.vana-moksha.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://rpc.moksha.vana.org"
     ]
   },
@@ -5290,12 +4973,6 @@
     "sourcifyName": "0G-Newton-Testnet",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.0g-newton.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=0g-newton-testnet&dkey={API_KEY}",
@@ -5339,12 +5016,6 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.ethereum-holesky.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=holesky&dkey={API_KEY}",
@@ -5647,12 +5318,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.mode-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=mode&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -5772,13 +5437,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.arbitrum-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=arbitrum&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -5798,13 +5456,6 @@
       "https://nova.arbitrum.io/rpc",
       "https://arbitrum-nova.gateway.tenderly.co",
       "https://arbitrum-nova-rpc.publicnode.com",
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.nova-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=arbitrum-nova&dkey={API_KEY}",
@@ -5833,13 +5484,6 @@
     "rpc": [
       "https://forno.celo.org",
       "https://rpc.ankr.com/celo",
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.celo-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=celo&dkey={API_KEY}",
@@ -5893,13 +5537,6 @@
     "supported": true,
     "rpc": [
       "https://rpc.testnet.tempo.xyz",
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.tempo-testnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=tempo-testnet&dkey={API_KEY}",
@@ -5976,13 +5613,6 @@
       "https://avalanche-fuji-c-chain-rpc.publicnode.com",
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.avalanche-testnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=avalanche-fuji&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -6007,13 +5637,6 @@
     "rpc": [
       "https://api.avax.network/ext/bc/C/rpc",
       "https://avalanche-c-chain-rpc.publicnode.com",
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.avalanche-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=avalanche&dkey={API_KEY}",
@@ -6369,12 +5992,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.linea-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=linea&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -6647,13 +6264,6 @@
       "https://polygon-amoy-bor-rpc.publicnode.com",
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.matic-amoy.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=polygon-amoy&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -6689,12 +6299,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.bera-bepolia.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=berachain-bepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -6707,26 +6311,8 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.bera-bartio.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bartio&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      }
-    ]
-  },
-  "80085": {
-    "sourcifyName": "Berachain Artio",
-    "supported": true,
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.bera-artio.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       }
     ]
   },
@@ -6744,12 +6330,6 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY"
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.bera-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=berachain&dkey={API_KEY}",
@@ -6785,13 +6365,6 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_BLAST"
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.blast-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=blast&dkey={API_KEY}",
@@ -6844,13 +6417,6 @@
     "rpc": [
       "https://sepolia.base.org",
       "https://base-sepolia-rpc.publicnode.com",
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.base-sepolia.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=base-sepolia&dkey={API_KEY}",
@@ -7513,13 +7079,6 @@
       "https://arbitrum-sepolia.blockpi.network/v1/rpc/public",
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.arbitrum-sepolia.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=arbitrum-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -7605,13 +7164,6 @@
       "https://rpc.ankr.com/scroll_sepolia_testnet",
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.scroll-testnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=scroll-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -7639,13 +7191,6 @@
       "https://rpc.scroll.io",
       "https://scroll.blockpi.network/v1/rpc/public",
       "https://1rpc.io/scroll",
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.scroll-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=scroll&dkey={API_KEY}",
@@ -7698,13 +7243,6 @@
     },
     "rpc": [
       "https://rpc.hoodi.ethpandaops.io",
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.ethereum-hoodi.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hoodi&dkey={API_KEY}",
@@ -7779,12 +7317,6 @@
     "sourcifyName": "Xai Mainnet",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.xai-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://xai-chain.net/rpc"
     ]
   },
@@ -7931,12 +7463,6 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.ink-sepolia.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=ink-sepolia&dkey={API_KEY}",
@@ -8202,12 +7728,6 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.zora-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zora&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -8298,13 +7818,6 @@
       },
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.ethereum-sepolia.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
-      },
-      {
-        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       },
@@ -8338,13 +7851,6 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_OPTIMISM"
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.optimism-sepolia.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=optimism-sepolia&dkey={API_KEY}",
@@ -8498,20 +8004,6 @@
       "https://rpc.polygon-blackberry.gelato.digital"
     ]
   },
-  "111557560": {
-    "sourcifyName": "Cyber Testnet",
-    "supported": true,
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.cyber-sepolia.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://cyber-testnet.alt.technology/",
-      "https://rpc.testnet.cyber.co/"
-    ]
-  },
   "123420111": {
     "sourcifyName": "OP Celestia Raspberry",
     "supported": true,
@@ -8549,12 +8041,6 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY"
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.blast-sepolia.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=blast-sepolia&dkey={API_KEY}",
@@ -8986,12 +8472,6 @@
     "sourcifyName": "Xai Testnet",
     "supported": true,
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.xai-testnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
       "https://testnet-v2.xai-chain.net/rpc"
     ]
   },
