@@ -52,6 +52,7 @@ interface ChainEntry {
 interface SourcifyChainExtension {
   sourcifyName: string;
   supported: boolean;
+  discoveredBy: string[];
   etherscanApi?: {
     supported: boolean;
     apiKeyEnvName: string;
@@ -59,6 +60,9 @@ interface SourcifyChainExtension {
   fetchContractCreationTxUsing?: Record<string, unknown>;
   rpc?: Array<string | RpcEntry>;
 }
+
+// Input type for additional-chains.json (no discoveredBy — injected at output time)
+type AdditionalChainEntry = Omit<SourcifyChainExtension, "discoveredBy">;
 
 interface RpcEntry {
   type: "BaseRPC" | "APIKeyRPC" | "FetchRequest";
@@ -190,7 +194,7 @@ async function main() {
 
   const additionalChains = JSON.parse(
     fs.readFileSync(path.join(REPO_ROOT, "additional-chains.json"), "utf8"),
-  ) as Record<string, SourcifyChainExtension>;
+  ) as Record<string, AdditionalChainEntry>;
 
   const deprecatedChains = JSON.parse(
     fs.readFileSync(path.join(REPO_ROOT, "deprecated-chains.json"), "utf8"),
@@ -289,9 +293,18 @@ async function main() {
       fetchUsing["routescanApi"] = { type: routescan.workspace };
     }
 
+    // Build discoveredBy
+    const discoveredBy: string[] = [];
+    if (qn) discoveredBy.push("quicknode");
+    if (drpc) discoveredBy.push("drpc");
+    if (etherscan) discoveredBy.push("etherscan");
+    if (blockscout?.hostedBy === "blockscout") discoveredBy.push("blockscout");
+    if (override) discoveredBy.push("chain-overrides");
+
     const entry: SourcifyChainExtension = {
       sourcifyName,
       supported: override?.supported ?? true,
+      discoveredBy,
       ...(Object.keys(fetchUsing).length > 0
         ? { fetchContractCreationTxUsing: fetchUsing }
         : {}),
@@ -305,7 +318,7 @@ async function main() {
   // Add additional-chains.json entries (full definitions, not auto-discovered)
   for (const [chainIdStr, entry] of Object.entries(additionalChains)) {
     if (!deprecatedSet.has(parseInt(chainIdStr, 10))) {
-      output[chainIdStr] = entry;
+      output[chainIdStr] = { ...entry, discoveredBy: ["additional-chains"] };
     }
   }
 
