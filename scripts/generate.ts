@@ -99,12 +99,14 @@ async function fetchWithRetry<T>(
       console.log(`  ${name}: ${data.size} chains`);
       return data;
     } catch (error) {
+      const cause = error instanceof Error ? (error as Error & { cause?: Error }).cause : undefined;
       const message = error instanceof Error ? error.message : String(error);
+      const detail = cause ? ` (${cause.message})` : "";
       if (attempt < RETRY_COUNT) {
-        console.warn(`  ${name}: attempt ${attempt} failed — ${message}, retrying in ${RETRY_DELAY_MS}ms...`);
+        console.warn(`  ${name}: attempt ${attempt} failed — ${message}${detail}, retrying in ${RETRY_DELAY_MS}ms...`);
         await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
       } else {
-        throw new Error(`${name} failed after ${RETRY_COUNT} attempts: ${message}`);
+        throw new Error(`${name} failed after ${RETRY_COUNT} attempts: ${message}${detail}`);
       }
     }
   }

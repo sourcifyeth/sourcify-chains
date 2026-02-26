@@ -26,7 +26,9 @@ const ETHERSCAN_CHAINLIST_URL = "https://api.etherscan.io/v2/chainlist";
 export async function fetchEtherscanChains(): Promise<
   Map<number, EtherscanChainData>
 > {
-  const response = await fetch(ETHERSCAN_CHAINLIST_URL);
+  const response = await fetch(ETHERSCAN_CHAINLIST_URL, {
+    signal: AbortSignal.timeout(15_000),
+  });
 
   if (!response.ok) {
     throw new Error(
