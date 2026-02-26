@@ -7,6 +7,7 @@
     "generate": "tsx scripts/generate.ts"
   },
   "dependencies": {
+    "dotenv": "^16.0.0",
     "tsx": "^4.19.2",
     "yamljs": "^0.3.0"
   },

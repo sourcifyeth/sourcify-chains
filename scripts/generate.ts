@@ -18,6 +18,9 @@
  *   4. Public RPCs from chainid.network (non-template URLs only)
  */
 
+import dotenv from "dotenv";
+dotenv.config();
+
 import { fetchQuickNodeChains } from "./providers/quicknode.js";
 import type { QuickNodeChainData } from "./providers/quicknode.js";
 import { fetchDrpcChains } from "./providers/drpc.js";
