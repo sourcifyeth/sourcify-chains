@@ -1,7 +1,6 @@
 {
   "1": {
     "sourcifyName": "Ethereum Mainnet",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_MAINNET",
     "fetchContractCreationTxUsing": {
       "avalancheApi": true
     },
@@ -36,17 +35,8 @@
       }
     ]
   },
-  "167000": {
-    "sourcifyName": "Taiko Aleshia",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_TAIKO"
-  },
-  "81457": {
-    "sourcifyName": "Blast",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_BLAST"
-  },
   "11155111": {
     "sourcifyName": "Ethereum Sepolia Testnet",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY",
     "rpc": [
       {
         "type": "FetchRequest",
@@ -66,7 +56,6 @@
   },
   "560048": {
     "sourcifyName": "Ethereum Hoodi Testnet",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY",
     "rpc": [
       "https://rpc.hoodi.ethpandaops.io"
     ]
@@ -97,40 +86,14 @@
       }
     }
   },
-  "56": {
-    "sourcifyName": "Binance Smart Chain Mainnet",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_BSC"
-  },
-  "97": {
-    "sourcifyName": "Binance Smart Chain Testnet",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_BSC"
-  },
-  "100": {
-    "sourcifyName": "Gnosis Mainnet",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_GNOSIS"
-  },
-  "137": {
-    "sourcifyName": "Polygon Mainnet",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_POLYGON"
-  },
-  "42161": {
-    "sourcifyName": "Arbitrum One Mainnet",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_ARBITRUM"
-  },
-  "421614": {
-    "sourcifyName": "Arbitrum Sepolia Testnet",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_ARBITRUM"
-  },
   "43113": {
     "sourcifyName": "Avalanche Fuji Testnet",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_AVALANCHE",
     "fetchContractCreationTxUsing": {
       "avalancheApi": true
     }
   },
   "43114": {
     "sourcifyName": "Avalanche C-Chain Mainnet",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_AVALANCHE",
     "fetchContractCreationTxUsing": {
       "avalancheApi": true
     }
@@ -143,14 +106,6 @@
       }
     }
   },
-  "10": {
-    "sourcifyName": "Optimism Mainnet",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_OPTIMISM"
-  },
-  "11155420": {
-    "sourcifyName": "OP Sepolia Testnet",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_OPTIMISM"
-  },
   "106": {
     "sourcifyName": "Velas Mainnet",
     "fetchContractCreationTxUsing": {
@@ -158,18 +113,6 @@
         "url": "https://evmexplorer.velas.com/"
       }
     }
-  },
-  "1284": {
-    "sourcifyName": "Moonbeam",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_MOONBEAM"
-  },
-  "1285": {
-    "sourcifyName": "Moonriver",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_MOONRIVER"
-  },
-  "1287": {
-    "sourcifyName": "Moonbase",
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_MOONBEAM"
   },
   "7001": {
     "sourcifyName": "ZetaChain: Athens Testnet",
@@ -248,7 +191,6 @@
   "8453": {
     "sourcifyName": "Base Mainnet",
     "supported": true,
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_BASE",
     "traceSupport": "trace_transaction",
     "rpc": [
       "https://mainnet.base.org/",
@@ -258,8 +200,7 @@
   },
   "252": {
     "sourcifyName": "Fraxtal",
-    "supported": true,
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_FRAXTAL"
+    "supported": true
   },
   "888": {
     "sourcifyName": "Wanchain Mainnet",
@@ -344,7 +285,6 @@
   "5000": {
     "sourcifyName": "Mantle Mainnet",
     "supported": true,
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_MANTLE",
     "fetchContractCreationTxUsing": {
       "blockscoutScrape": {
         "url": "https://explorer.mantle.xyz/"
@@ -359,7 +299,6 @@
   "5003": {
     "sourcifyName": "Mantle Sepolia Testnet",
     "supported": true,
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_MANTLE",
     "fetchContractCreationTxUsing": {
       "blockscoutScrape": {
         "url": "https://explorer.sepolia.mantle.xyz/"
@@ -373,7 +312,6 @@
   "534352": {
     "sourcifyName": "Scroll",
     "supported": true,
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_SCROLL",
     "traceSupport": "debug_traceTransaction",
     "rpc": [
       "https://rpc.scroll.io",
@@ -384,7 +322,6 @@
   "534351": {
     "sourcifyName": "Scroll Sepolia Testnet",
     "supported": true,
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_SCROLL",
     "traceSupport": "debug_traceTransaction",
     "rpc": [
       "https://sepolia-rpc.scroll.io",
@@ -420,7 +357,6 @@
   "80002": {
     "sourcifyName": "Polygon Amoy Testnet",
     "supported": true,
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_POLYGON",
     "traceSupport": "trace_transaction",
     "rpc": [
       "https://rpc-amoy.polygon.technology",
@@ -453,7 +389,6 @@
   "84532": {
     "sourcifyName": "Base Sepolia Tesnet",
     "supported": true,
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_BASE",
     "traceSupport": "trace_transaction",
     "rpc": [
       "https://sepolia.base.org",
@@ -462,13 +397,11 @@
   },
   "59144": {
     "sourcifyName": "Linea Mainnet",
-    "supported": true,
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_LINEA"
+    "supported": true
   },
   "59141": {
     "sourcifyName": "Linea Sepolia",
-    "supported": true,
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_LINEA"
+    "supported": true
   },
   "33111": {
     "sourcifyName": "Curtis",
@@ -545,13 +478,11 @@
   },
   "480": {
     "sourcifyName": "WorldChain",
-    "supported": true,
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_WORLDCHAIN"
+    "supported": true
   },
   "146": {
     "sourcifyName": "Sonic Mainnet",
-    "supported": true,
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_SONIC"
+    "supported": true
   },
   "5042002": {
     "sourcifyName": "ARC-testnet",
@@ -560,13 +491,11 @@
   },
   "1328": {
     "sourcifyName": "Sei Testnet",
-    "supported": true,
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_SEI"
+    "supported": true
   },
   "1329": {
     "sourcifyName": "Sei Network",
-    "supported": true,
-    "etherscanApiKeyEnvName": "ETHERSCAN_API_KEY_SEI"
+    "supported": true
   },
   "1122": {
     "sourcifyName": "LuxePorts MainNet",

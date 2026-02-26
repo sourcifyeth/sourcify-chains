@@ -77,7 +77,6 @@ interface RpcEntry {
 interface ChainOverride {
   sourcifyName?: string;
   supported?: boolean;
-  etherscanApiKeyEnvName?: string;
   fetchContractCreationTxUsing?: Record<string, unknown>;
   traceSupport?: string;
   rpc?: Array<string | RpcEntry>;
@@ -200,6 +199,10 @@ async function main() {
     fs.readFileSync(path.join(REPO_ROOT, "deprecated-chains.json"), "utf8"),
   ) as Record<string, string>;
 
+  const etherscanApiKeys = JSON.parse(
+    fs.readFileSync(path.join(REPO_ROOT, "etherscan-api-keys.json"), "utf8"),
+  ) as Record<string, string>;
+
   const deprecatedSet = new Set<number>(Object.keys(deprecatedChains).map(Number));
 
   // Auto-supported = union of QuickNode + dRPC + Etherscan +
@@ -274,7 +277,7 @@ async function main() {
       ? {
           supported: true,
           apiKeyEnvName:
-            override?.etherscanApiKeyEnvName ?? "ETHERSCAN_API_KEY",
+            etherscanApiKeys[chainId.toString()] ?? "ETHERSCAN_API_KEY",
         }
       : undefined;
 
