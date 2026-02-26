@@ -16,7 +16,7 @@
  *   1. Manual override RPCs (from chain-overrides.json)
  *   2. QuickNode APIKeyRPC
  *   3. dRPC APIKeyRPC
- *   4. Public RPCs from chainid.network (non-template URLs only)
+ *   4. Public RPCs from chainid.network — only if none of the above exist
  */
 
 import dotenv from "dotenv";
@@ -260,8 +260,8 @@ async function main() {
       rpcs.push(buildDrpcRpc(drpc.shortName));
     }
 
-    // 4. Public RPCs from chainid.network (fallback)
-    if (meta?.rpc?.length) {
+    // 4. Public RPCs from chainid.network — only if no provider or override RPCs exist
+    if (rpcs.length === 0 && meta?.rpc?.length) {
       rpcs.push(...filterPublicRpcs(meta.rpc));
     }
 

@@ -56,20 +56,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=ethereum&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.mycryptoapi.com/eth",
-      "https://cloudflare-eth.com",
-      "https://ethereum-rpc.publicnode.com",
-      "https://mainnet.gateway.tenderly.co",
-      "https://rpc.blocknative.com/boost",
-      "https://rpc.flashbots.net",
-      "https://rpc.flashbots.net/fast",
-      "https://rpc.mevblocker.io",
-      "https://rpc.mevblocker.io/fast",
-      "https://rpc.mevblocker.io/noreverts",
-      "https://rpc.mevblocker.io/fullprivacy",
-      "https://eth.drpc.org",
-      "https://api.securerpc.com/v1"
+      }
     ]
   },
   "10": {
@@ -100,11 +87,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=optimism&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet.optimism.io",
-      "https://optimism-rpc.publicnode.com",
-      "https://optimism.gateway.tenderly.co",
-      "https://optimism.drpc.org"
+      }
     ]
   },
   "14": {
@@ -129,16 +112,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=flare&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://flare-api.flare.network/ext/C/rpc",
-      "https://flare.rpc.thirdweb.com",
-      "https://flare-bundler.etherspot.io",
-      "https://rpc.ankr.com/flare",
-      "https://01-gravelines-003-01.rpc.tatum.io/ext/bc/C/rpc",
-      "https://01-vinthill-003-02.rpc.tatum.io/ext/bc/C/rpc",
-      "https://rpc.au.cc/flare",
-      "https://flare.enosys.global/ext/C/rpc",
-      "https://flare.solidifi.app/ext/C/rpc"
+      }
     ]
   },
   "16": {
@@ -154,13 +128,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=songbird-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://coston-api.flare.network/ext/C/rpc",
-      "https://songbird-testnet-coston.rpc.thirdweb.com",
-      "https://01-gravelines-004-01.rpc.tatum.io/ext/bc/C/rpc",
-      "https://02-chicago-004-02.rpc.tatum.io/ext/bc/C/rpc",
-      "https://02-tokyo-004-03.rpc.tatum.io/ext/bc/C/rpc",
-      "https://coston.enosys.global/ext/C/rpc"
+      }
     ]
   },
   "18": {
@@ -171,9 +139,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=thundercore-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://testnet-rpc.thundercore.com",
-      "https://thundercore-testnet.drpc.org"
+      }
     ]
   },
   "19": {
@@ -192,14 +158,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=songbird&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://songbird-api.flare.network/ext/C/rpc",
-      "https://01-gravelines-006-01.rpc.tatum.io/ext/bc/C/rpc",
-      "https://01-vinthill-006-02.rpc.tatum.io/ext/bc/C/rpc",
-      "https://02-tokyo-006-03.rpc.tatum.io/ext/bc/C/rpc",
-      "https://rpc.au.cc/songbird",
-      "https://songbird.enosys.global/ext/C/rpc",
-      "https://songbird.solidifi.app/ext/C/rpc"
+      }
     ]
   },
   "25": {
@@ -210,10 +169,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=cronos&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://evm.cronos.org",
-      "https://cronos-evm-rpc.publicnode.com",
-      "https://cronos.drpc.org"
+      }
     ]
   },
   "30": {
@@ -229,9 +185,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=rootstock&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://public-node.rsk.co",
-      "https://mycrypto.rsk.co"
+      }
     ]
   },
   "31": {
@@ -247,9 +201,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=rootstock-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://public-node.testnet.rsk.co",
-      "https://mycrypto.testnet.rsk.co"
+      }
     ]
   },
   "40": {
@@ -265,9 +217,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=telos&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.telos.net",
-      "https://telos.drpc.org"
+      }
     ]
   },
   "41": {
@@ -283,9 +233,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=telos-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.testnet.telos.net",
-      "https://telos-testnet.drpc.org"
+      }
     ]
   },
   "44": {
@@ -324,10 +272,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=xdc-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.apothem.network",
-      "https://erpc.apothem.network",
-      "https://apothem.xdcrpc.com"
+      }
     ]
   },
   "56": {
@@ -353,20 +298,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bsc&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://bsc-dataseed1.bnbchain.org",
-      "https://bsc-dataseed2.bnbchain.org",
-      "https://bsc-dataseed3.bnbchain.org",
-      "https://bsc-dataseed4.bnbchain.org",
-      "https://bsc-dataseed1.defibit.io",
-      "https://bsc-dataseed2.defibit.io",
-      "https://bsc-dataseed3.defibit.io",
-      "https://bsc-dataseed4.defibit.io",
-      "https://bsc-dataseed1.ninicoin.io",
-      "https://bsc-dataseed2.ninicoin.io",
-      "https://bsc-dataseed3.ninicoin.io",
-      "https://bsc-dataseed4.ninicoin.io",
-      "https://bsc-rpc.publicnode.com"
+      }
     ]
   },
   "57": {
@@ -397,12 +329,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=ethereum-classic&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://etc.rivet.link",
-      "https://besu-at.etc-network.info",
-      "https://geth-at.etc-network.info",
-      "https://etc.etcdesktop.com",
-      "https://etc.mytokenpocket.vip"
+      }
     ]
   },
   "63": {
@@ -426,8 +353,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=oktc-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://exchaintestrpc.okex.org"
+      }
     ]
   },
   "66": {
@@ -438,9 +364,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=oktc&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://exchainrpc.okex.org",
-      "https://okc-mainnet.gateway.pokt.network/v1/lb/6275309bea1b320039c893ff"
+      }
     ]
   },
   "81": {
@@ -457,10 +381,7 @@
         "url": "https://{SUBDOMAIN}.joc-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://rpc-1.japanopenchain.org:8545",
-      "https://rpc-2.japanopenchain.org:8545",
-      "https://rpc-3.japanopenchain.org"
+      }
     ]
   },
   "82": {
@@ -490,8 +411,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=viction&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.viction.xyz"
+      }
     ]
   },
   "89": {
@@ -507,8 +427,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=viction-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc-testnet.viction.xyz"
+      }
     ]
   },
   "96": {
@@ -549,14 +468,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bsc-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://data-seed-prebsc-1-s1.bnbchain.org:8545",
-      "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
-      "https://data-seed-prebsc-1-s2.bnbchain.org:8545",
-      "https://data-seed-prebsc-2-s2.bnbchain.org:8545",
-      "https://data-seed-prebsc-1-s3.bnbchain.org:8545",
-      "https://data-seed-prebsc-2-s3.bnbchain.org:8545",
-      "https://bsc-testnet-rpc.publicnode.com"
+      }
     ]
   },
   "100": {
@@ -585,17 +497,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=gnosis&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.gnosischain.com",
-      "https://rpc.gnosis.gateway.fm",
-      "https://rpc.ankr.com/gnosis",
-      "https://gnosischain-rpc.gateway.pokt.network",
-      "https://gnosis-mainnet.public.blastapi.io",
-      "https://gnosis.api.onfinality.io/public",
-      "https://gnosis.blockpi.network/v1/rpc/public",
-      "https://web3endpoints.com/gnosischain-mainnet",
-      "https://gnosis.oat.farm",
-      "https://gnosis-rpc.publicnode.com"
+      }
     ]
   },
   "106": {
@@ -619,10 +521,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=thundercore&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet-rpc.thundercore.com",
-      "https://mainnet-rpc.thundertoken.net",
-      "https://mainnet-rpc.thundercore.io"
+      }
     ]
   },
   "109": {
@@ -633,10 +532,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=shibarium&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://www.shibrpc.com",
-      "https://rpc.shibrpc.com",
-      "https://shib.nownodes.io"
+      }
     ]
   },
   "114": {
@@ -658,14 +554,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=flare-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://coston2-api.flare.network/ext/C/rpc",
-      "https://flare-testnet-coston2.rpc.thirdweb.com",
-      "https://flaretestnet-bundler.etherspot.io",
-      "https://01-gravelines-005-01.rpc.tatum.io/ext/bc/C/rpc",
-      "https://02-chicago-005-02.rpc.tatum.io/ext/bc/C/rpc",
-      "https://02-tokyo-005-03.rpc.tatum.io/ext/bc/C/rpc",
-      "https://coston2.enosys.global/ext/C/rpc"
+      }
     ]
   },
   "122": {
@@ -681,9 +570,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=fuse&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.fuse.io",
-      "https://fuse.drpc.org"
+      }
     ]
   },
   "123": {
@@ -706,8 +593,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=heco&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://http-mainnet.hecochain.com"
+      }
     ]
   },
   "130": {
@@ -737,9 +623,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=unichain&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet.unichain.org",
-      "https://unichain-rpc.publicnode.com"
+      }
     ]
   },
   "133": {
@@ -750,8 +634,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hashkey-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://hashkeychain-testnet.alt.technology"
+      }
     ]
   },
   "137": {
@@ -779,16 +662,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=polygon&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://polygon-rpc.com/",
-      "https://rpc-mainnet.matic.network",
-      "https://matic-mainnet.chainstacklabs.com",
-      "https://rpc-mainnet.maticvigil.com",
-      "https://rpc-mainnet.matic.quiknode.pro",
-      "https://matic-mainnet-full-rpc.bwarelabs.com",
-      "https://polygon-bor-rpc.publicnode.com",
-      "https://polygon.gateway.tenderly.co",
-      "https://polygon.drpc.org"
+      }
     ]
   },
   "143": {
@@ -806,8 +680,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=monad-mainnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.monad.xyz"
+      }
     ]
   },
   "146": {
@@ -831,9 +704,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=sonic&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.soniclabs.com",
-      "https://sonic-rpc.publicnode.com"
+      }
     ]
   },
   "148": {
@@ -856,9 +727,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=manta-pacific&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://pacific-rpc.manta.network/http",
-      "https://manta-pacific.drpc.org"
+      }
     ]
   },
   "177": {
@@ -874,8 +743,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hashkey&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet.hsk.xyz"
+      }
     ]
   },
   "180": {
@@ -899,9 +767,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=xlayer&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.xlayer.tech",
-      "https://xlayerrpc.okx.com"
+      }
     ]
   },
   "199": {
@@ -919,9 +785,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bittorrent&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.bt.io",
-      "https://bittorrent.drpc.org"
+      }
     ]
   },
   "204": {
@@ -939,12 +803,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=opbnb&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://opbnb-mainnet-rpc.bnbchain.org",
-      "https://opbnb-mainnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3",
-      "https://opbnb-mainnet.nodereal.io/v1/e9a36765eb8a40b9bd12e680a1fd2bc5",
-      "https://opbnb-rpc.publicnode.com",
-      "https://opbnb.drpc.org"
+      }
     ]
   },
   "212": {
@@ -978,8 +837,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=lens&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.lens.xyz"
+      }
     ]
   },
   "239": {
@@ -1004,8 +862,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=cronos-zkevm-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://testnet.zkevm.cronos.org"
+      }
     ]
   },
   "246": {
@@ -1028,8 +885,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=oasys&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.mainnet.oasys.games"
+      }
     ]
   },
   "250": {
@@ -1046,10 +902,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=fantom&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.ftm.tools",
-      "https://fantom-rpc.publicnode.com",
-      "https://fantom.drpc.org"
+      }
     ]
   },
   "252": {
@@ -1076,9 +929,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=fraxtal&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.frax.com",
-      "https://fraxtal-rpc.publicnode.com"
+      }
     ]
   },
   "255": {
@@ -1089,9 +940,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=kroma&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.kroma.network",
-      "https://rpc-kroma.rockx.com"
+      }
     ]
   },
   "256": {
@@ -1102,8 +951,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=heco-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://http-testnet.hecochain.com"
+      }
     ]
   },
   "288": {
@@ -1122,12 +970,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=boba-eth&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet.boba.network",
-      "https://replica.boba.network",
-      "https://boba-ethereum.gateway.tenderly.co",
-      "https://gateway.tenderly.co/public/boba-ethereum",
-      "https://boba-eth.drpc.org"
+      }
     ]
   },
   "295": {
@@ -1144,9 +987,7 @@
         "url": "https://{SUBDOMAIN}.hedera-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://mainnet.hashio.io/api",
-      "https://hedera.linkpool.pro"
+      }
     ]
   },
   "296": {
@@ -1158,8 +999,7 @@
         "url": "https://{SUBDOMAIN}.hedera-testnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://testnet.hashio.io/api"
+      }
     ]
   },
   "300": {
@@ -1181,9 +1021,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zksync-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://sepolia.era.zksync.dev",
-      "https://zksync-sepolia.drpc.org"
+      }
     ]
   },
   "314": {
@@ -1199,12 +1037,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=filecoin&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.node.glif.io/",
-      "https://rpc.ankr.com/filecoin",
-      "https://filecoin-mainnet.chainstacklabs.com/rpc/v1",
-      "https://filfox.info/rpc/v1",
-      "https://filecoin.drpc.org"
+      }
     ]
   },
   "324": {
@@ -1229,9 +1062,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zksync&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet.era.zksync.io",
-      "https://zksync.drpc.org"
+      }
     ]
   },
   "335": {
@@ -1269,9 +1100,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=cronos-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://evm-t3.cronos.org",
-      "https://cronos-testnet.drpc.org"
+      }
     ]
   },
   "369": {
@@ -1289,10 +1118,7 @@
         "url": "https://rpc-pulsechain.g4mm4.io",
         "type": "BaseRPC",
         "traceSupport": "trace_transaction"
-      },
-      "https://rpc.pulsechain.com",
-      "https://pulsechain-rpc.publicnode.com",
-      "https://rpc-pulsechain.g4mm4.io"
+      }
     ]
   },
   "388": {
@@ -1303,8 +1129,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=cronos-zkevm&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet.zkevm.cronos.org"
+      }
     ]
   },
   "480": {
@@ -1328,10 +1153,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=worldchain&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://worldchain-mainnet.g.alchemy.com/public",
-      "https://480.rpc.thirdweb.com",
-      "https://worldchain-mainnet.gateway.tenderly.co"
+      }
     ]
   },
   "488": {
@@ -1355,8 +1177,7 @@
         "url": "https://{SUBDOMAIN}.flow-testnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://testnet.evm.nodes.onflow.org"
+      }
     ]
   },
   "648": {
@@ -1380,8 +1201,7 @@
         "url": "https://{SUBDOMAIN}.redstone-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://rpc.redstonechain.com"
+      }
     ]
   },
   "698": {
@@ -1405,8 +1225,7 @@
         "url": "https://{SUBDOMAIN}.flow-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://mainnet.evm.nodes.onflow.org"
+      }
     ]
   },
   "841": {
@@ -1437,8 +1256,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=mode-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://sepolia.mode.network"
+      }
     ]
   },
   "945": {
@@ -1449,8 +1267,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bittensor-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://test.chain.opentensor.ai"
+      }
     ]
   },
   "957": {
@@ -1468,8 +1285,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bittensor&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://lite.chain.opentensor.ai"
+      }
     ]
   },
   "970": {
@@ -1501,8 +1317,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hyperliquid-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.hyperliquid-testnet.xyz/evm"
+      }
     ]
   },
   "999": {
@@ -1523,8 +1338,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hyperliquid&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://gwan-ssl.wandevs.org:46891/"
+      }
     ]
   },
   "1001": {
@@ -1541,8 +1355,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn-baobab&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://public-en-kairos.node.kaia.io"
+      }
     ]
   },
   "1028": {
@@ -1553,8 +1366,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bittorrent-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://testrpc.bittorrentchain.io/"
+      }
     ]
   },
   "1029": {
@@ -1627,10 +1439,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=metis&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://andromeda.metis.io/?owner=1088",
-      "https://metis.drpc.org",
-      "https://metis-rpc.publicnode.com"
+      }
     ]
   },
   "1100": {
@@ -1641,9 +1450,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=dymension&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://dymension-evm.blockpi.network/v1/rpc/public",
-      "https://dymension-evm-rpc.publicnode.com"
+      }
     ]
   },
   "1101": {
@@ -1660,9 +1467,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=polygon-zkevm&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://zkevm-rpc.com",
-      "https://polygon-zkevm.drpc.org"
+      }
     ]
   },
   "1111": {
@@ -1673,8 +1478,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=wemix&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.wemix.com"
+      }
     ]
   },
   "1112": {
@@ -1685,8 +1489,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=wemix-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.test.wemix.com"
+      }
     ]
   },
   "1114": {
@@ -1697,8 +1500,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=core-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.test2.btcs.network/"
+      }
     ]
   },
   "1115": {
@@ -1716,10 +1518,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=core&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.coredao.org/",
-      "https://rpc-core.icecreamswap.com",
-      "https://core.drpc.org"
+      }
     ]
   },
   "1122": {
@@ -1749,8 +1548,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=lisk&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.api.lisk.com"
+      }
     ]
   },
   "1284": {
@@ -1768,14 +1566,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=moonbeam&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.api.moonbeam.network",
-      "https://moonbeam.public.blastapi.io",
-      "https://moonbeam-rpc.dwellir.com",
-      "https://moonbeam.api.onfinality.io/public",
-      "https://moonbeam.unitedbloc.com",
-      "https://moonbeam-rpc.publicnode.com",
-      "https://moonbeam.drpc.org"
+      }
     ]
   },
   "1285": {
@@ -1793,14 +1584,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=moonriver&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.api.moonriver.moonbeam.network",
-      "https://moonriver.public.blastapi.io",
-      "https://moonriver-rpc.dwellir.com",
-      "https://moonriver.api.onfinality.io/public",
-      "https://moonriver.unitedbloc.com",
-      "https://moonriver-rpc.publicnode.com",
-      "https://moonriver.drpc.org"
+      }
     ]
   },
   "1287": {
@@ -1818,13 +1602,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=moonbase-alpha&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.api.moonbase.moonbeam.network",
-      "https://moonbase-alpha.public.blastapi.io",
-      "https://moonbase-rpc.dwellir.com",
-      "https://moonbeam-alpha.api.onfinality.io/public",
-      "https://moonbase.unitedbloc.com",
-      "https://moonbase-alpha.drpc.org"
+      }
     ]
   },
   "1301": {
@@ -1854,9 +1632,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=unichain-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://sepolia.unichain.org",
-      "https://unichain-sepolia-rpc.publicnode.com"
+      }
     ]
   },
   "1315": {
@@ -1878,8 +1654,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=story-aeneid-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://aeneid.storyrpc.io"
+      }
     ]
   },
   "1328": {
@@ -1903,8 +1678,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=sei-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://evm-rpc-testnet.sei-apis.com"
+      }
     ]
   },
   "1329": {
@@ -1928,8 +1702,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=sei&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://evm-rpc.sei-apis.com"
+      }
     ]
   },
   "1339": {
@@ -1954,8 +1727,7 @@
         "url": "https://{SUBDOMAIN}.vana-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://rpc.vana.org/"
+      }
     ]
   },
   "1513": {
@@ -1972,8 +1744,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=story-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://testnet.storyrpc.io"
+      }
     ]
   },
   "1514": {
@@ -1989,8 +1760,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=story&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet.storyrpc.io"
+      }
     ]
   },
   "1597": {
@@ -2008,9 +1778,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=gravity-alpha&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.gravity.xyz",
-      "https://rpc.ankr.com/gravity"
+      }
     ]
   },
   "1740": {
@@ -2021,8 +1789,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=metall2-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://testnet.rpc.metall2.com"
+      }
     ]
   },
   "1750": {
@@ -2033,8 +1800,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=metall2&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.metall2.com"
+      }
     ]
   },
   "1829": {
@@ -2045,8 +1811,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=playnance&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.playblock.io"
+      }
     ]
   },
   "1868": {
@@ -2062,8 +1827,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=soneium&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.soneium.org"
+      }
     ]
   },
   "1890": {
@@ -2108,9 +1872,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=swell&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://swell-mainnet.alt.technology",
-      "https://rpc.ankr.com/swell"
+      }
     ]
   },
   "1924": {
@@ -2128,9 +1890,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=swell-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://swell-testnet.alt.technology",
-      "https://rpc.ankr.com/swell-testnet"
+      }
     ]
   },
   "1946": {
@@ -2146,8 +1906,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=soneium-minato&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.minato.soneium.org"
+      }
     ]
   },
   "1952": {
@@ -2170,8 +1929,7 @@
         "url": "https://{SUBDOMAIN}.b3-sepolia.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://sepolia.b3.fun"
+      }
     ]
   },
   "2000": {
@@ -2196,8 +1954,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=ronin&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.roninchain.com/rpc"
+      }
     ]
   },
   "2021": {
@@ -2224,8 +1981,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=alephzero-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.alephzero-testnet.gelato.digital"
+      }
     ]
   },
   "2047": {
@@ -2260,8 +2016,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=snaxchain&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet.snaxchain.io"
+      }
     ]
   },
   "2201": {
@@ -2291,10 +2046,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=kava-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://evm.testnet.kava.io",
-      "https://kava-evm-testnet.rpc.thirdweb.com",
-      "https://kava-testnet.drpc.org"
+      }
     ]
   },
   "2222": {
@@ -2305,14 +2057,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=kava&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://evm.kava.io",
-      "https://kava-rpc.gateway.pokt.network",
-      "https://kava-evm.rpc.thirdweb.com",
-      "https://kava-evm-rpc.publicnode.com",
-      "https://evm.kava-rpc.com",
-      "https://rpc.ankr.com/kava_evm",
-      "https://kava.drpc.org"
+      }
     ]
   },
   "2288": {
@@ -2334,8 +2079,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=goat-mainnet-alpha&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.goat.network"
+      }
     ]
   },
   "2366": {
@@ -2390,8 +2134,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=polygon-zkevm-cardona&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.cardona.zkevm-rpc.com"
+      }
     ]
   },
   "2523": {
@@ -2409,8 +2152,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=fraxtal-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.testnet.frax.com"
+      }
     ]
   },
   "2741": {
@@ -2434,8 +2176,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=abstract&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.mainnet.abs.xyz"
+      }
     ]
   },
   "2810": {
@@ -2447,9 +2188,7 @@
         "url": "https://{SUBDOMAIN}.morph-holesky.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://rpc-quicknode-holesky.morphl2.io",
-      "https://rpc-holesky.morphl2.io"
+      }
     ]
   },
   "2818": {
@@ -2461,9 +2200,7 @@
         "url": "https://{SUBDOMAIN}.morph-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://rpc.morphl2.io",
-      "https://rpc-quicknode.morphl2.io"
+      }
     ]
   },
   "3111": {
@@ -2482,10 +2219,7 @@
         "url": "https://{SUBDOMAIN}.peaq-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://quicknode1.peaq.xyz",
-      "https://quicknode2.peaq.xyz",
-      "https://quicknode3.peaq.xyz"
+      }
     ]
   },
   "3737": {
@@ -2541,10 +2275,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=fantom-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.testnet.fantom.network",
-      "https://fantom-testnet-rpc.publicnode.com",
-      "https://fantom-testnet.drpc.org"
+      }
     ]
   },
   "4114": {
@@ -2569,10 +2300,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=merlin&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.merlinchain.io",
-      "https://merlin-mainnet-enterprise.unifra.io",
-      "https://rpc-merlin.rockx.com"
+      }
     ]
   },
   "4202": {
@@ -2588,8 +2316,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=lisk-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.sepolia-api.lisk.com"
+      }
     ]
   },
   "4217": {
@@ -2646,8 +2373,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=iotex&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://babel-api.mainnet.iotex.io"
+      }
     ]
   },
   "4690": {
@@ -2658,8 +2384,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=iotex-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://babel-api.testnet.iotex.io"
+      }
     ]
   },
   "4801": {
@@ -2683,10 +2408,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=worldchain-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://worldchain-sepolia.g.alchemy.com/public",
-      "https://4801.rpc.thirdweb.com",
-      "https://worldchain-sepolia.gateway.tenderly.co"
+      }
     ]
   },
   "4888": {
@@ -2731,9 +2453,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=mantle&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.mantle.xyz",
-      "https://mantle-rpc.publicnode.com"
+      }
     ]
   },
   "5003": {
@@ -2762,8 +2482,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=mantle-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.sepolia.mantle.xyz"
+      }
     ]
   },
   "5031": {
@@ -2774,8 +2493,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=somnia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.infra.mainnet.somnia.network"
+      }
     ]
   },
   "5115": {
@@ -2803,8 +2521,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=superseed&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet.superseed.xyz"
+      }
     ]
   },
   "5611": {
@@ -2822,11 +2539,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=opbnb-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://opbnb-testnet-rpc.bnbchain.org",
-      "https://opbnb-testnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3",
-      "https://opbnb-testnet.nodereal.io/v1/e9a36765eb8a40b9bd12e680a1fd2bc5",
-      "https://opbnb-testnet-rpc.publicnode.com"
+      }
     ]
   },
   "5700": {
@@ -2869,8 +2582,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=megaeth-deprecated&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://carrot.megaeth.com/rpc"
+      }
     ]
   },
   "6343": {
@@ -2902,8 +2614,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=everclear-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.connext-sepolia.gelato.digital/"
+      }
     ]
   },
   "7000": {
@@ -2919,12 +2630,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zeta-chain&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://zetachain-evm.blockpi.network/v1/rpc/public",
-      "https://zetachain-mainnet.g.allthatnode.com/archive/evm",
-      "https://zeta-chain.drpc.org",
-      "https://zetachain-mainnet.public.blastapi.io",
-      "https://7000.rpc.thirdweb.com"
+      }
     ]
   },
   "7001": {
@@ -2940,12 +2646,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zeta-chain-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://zetachain-athens-evm.blockpi.network/v1/rpc/public",
-      "https://zetachain-testnet.public.blastapi.io",
-      "https://zetachain-athens.g.allthatnode.com/archive/evm",
-      "https://7001.rpc.thirdweb.com",
-      "https://zeta-chain-testnet.drpc.org"
+      }
     ]
   },
   "7200": {
@@ -2964,9 +2665,7 @@
         "url": "https://{SUBDOMAIN}.cyber-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://cyber.alt.technology/",
-      "https://rpc.cyber.co/"
+      }
     ]
   },
   "7668": {
@@ -3019,8 +2718,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://public-en.node.kaia.io"
+      }
     ]
   },
   "8333": {
@@ -3032,8 +2730,7 @@
         "url": "https://{SUBDOMAIN}.b3-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://mainnet-rpc.b3.fun"
+      }
     ]
   },
   "8408": {
@@ -3079,11 +2776,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=base&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet.base.org/",
-      "https://developer-access-mainnet.base.org/",
-      "https://base.gateway.tenderly.co",
-      "https://base-rpc.publicnode.com"
+      }
     ]
   },
   "8822": {
@@ -3106,9 +2799,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=evmos&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://evmos.lava.build",
-      "https://evmos-evm-rpc.publicnode.com"
+      }
     ]
   },
   "9372": {
@@ -3119,8 +2810,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=oasys-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.testnet.oasys.games"
+      }
     ]
   },
   "9700": {
@@ -3154,8 +2844,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=plasma&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.plasma.to"
+      }
     ]
   },
   "9746": {
@@ -3182,8 +2871,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=plasma-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://testnet-rpc.plasma.to"
+      }
     ]
   },
   "9996": {
@@ -3216,8 +2904,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=monad-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://testnet-rpc.monad.xyz"
+      }
     ]
   },
   "10200": {
@@ -3233,11 +2920,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=gnosis-chiado&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.chiadochain.net",
-      "https://rpc.chiado.gnosis.gateway.fm",
-      "https://gnosis-chiado-rpc.publicnode.com",
-      "https://gnosis-chiado.drpc.org"
+      }
     ]
   },
   "10849": {
@@ -3274,8 +2957,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=gameswift-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc-testnet.gameswift.io"
+      }
     ]
   },
   "11124": {
@@ -3299,8 +2981,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=abstract-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.testnet.abs.xyz"
+      }
     ]
   },
   "11235": {
@@ -3311,10 +2992,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=haqq&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.eth.haqq.network",
-      "https://haqq-evm-rpc.publicnode.com",
-      "https://haqq.drpc.org"
+      }
     ]
   },
   "13371": {
@@ -3336,9 +3014,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=immutable-zkevm&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.immutable.com",
-      "https://immutable-zkevm.drpc.org"
+      }
     ]
   },
   "13473": {
@@ -3360,9 +3036,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=immutable-zkevm-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.testnet.immutable.com",
-      "https://immutable-zkevm-testnet.drpc.org"
+      }
     ]
   },
   "13505": {
@@ -3373,8 +3047,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=gravity-alpha-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc-sepolia.gravity.xyz"
+      }
     ]
   },
   "14601": {
@@ -3392,8 +3065,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=sonic-testnet-v2&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.testnet.soniclabs.com"
+      }
     ]
   },
   "14800": {
@@ -3405,8 +3077,7 @@
         "url": "https://{SUBDOMAIN}.vana-moksha.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://rpc.moksha.vana.org"
+      }
     ]
   },
   "16180": {
@@ -3444,8 +3115,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=0g-galileo-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://evmrpc-testnet.0g.ai"
+      }
     ]
   },
   "16661": {
@@ -3456,8 +3126,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=0g-mainnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://evmrpc.0g.ai"
+      }
     ]
   },
   "17000": {
@@ -3482,11 +3151,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=holesky&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.holesky.ethpandaops.io",
-      "https://ethereum-holesky-rpc.publicnode.com",
-      "https://holesky.drpc.org",
-      "https://rpc-holesky.rockx.com"
+      }
     ]
   },
   "19011": {
@@ -3542,8 +3207,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=everclear&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.everclear.raas.gelato.cloud"
+      }
     ]
   },
   "25925": {
@@ -3566,8 +3230,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=mezo-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.test.mezo.org"
+      }
     ]
   },
   "31612": {
@@ -3578,11 +3241,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=mezo&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc_evm-mezo.imperator.co",
-      "https://rpc-http.mezo.boar.network",
-      "https://mainnet.mezo.public.validationcloud.io",
-      "https://rpc-internal.mezo.org"
+      }
     ]
   },
   "31911": {
@@ -3635,8 +3294,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=apechain-curtis&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.curtis.apechain.com"
+      }
     ]
   },
   "33139": {
@@ -3654,8 +3312,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=apechain&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.apechain.com"
+      }
     ]
   },
   "34443": {
@@ -3677,9 +3334,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=mode&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet.mode.network",
-      "https://mode.drpc.org"
+      }
     ]
   },
   "35441": {
@@ -3714,8 +3369,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=lens-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.testnet.lens.dev"
+      }
     ]
   },
   "39797": {
@@ -3738,8 +3392,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=alephzero&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.alephzero.raas.gelato.cloud"
+      }
     ]
   },
   "42161": {
@@ -3770,9 +3423,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=arbitrum&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://arb1.arbitrum.io/rpc",
-      "https://arbitrum-one-rpc.publicnode.com"
+      }
     ]
   },
   "42170": {
@@ -3798,9 +3449,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=arbitrum-nova&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://nova.arbitrum.io/rpc",
-      "https://arbitrum-nova-rpc.publicnode.com"
+      }
     ]
   },
   "42220": {
@@ -3833,8 +3482,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=celo&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://forno.celo.org"
+      }
     ]
   },
   "42261": {
@@ -3879,8 +3527,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=tempo-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.testnet.tempo.xyz"
+      }
     ]
   },
   "42431": {
@@ -3892,8 +3539,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=tempo-moderato-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.moderato.tempo.xyz"
+      }
     ]
   },
   "42766": {
@@ -3928,8 +3574,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hemi&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.hemi.network/rpc"
+      }
     ]
   },
   "43113": {
@@ -3960,9 +3605,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=avalanche-fuji&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.avax-test.network/ext/bc/C/rpc",
-      "https://avalanche-fuji-c-chain-rpc.publicnode.com"
+      }
     ]
   },
   "43114": {
@@ -3993,9 +3636,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=avalanche&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.avax.network/ext/bc/C/rpc",
-      "https://avalanche-c-chain-rpc.publicnode.com"
+      }
     ]
   },
   "43521": {
@@ -4031,8 +3672,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zircuit-garfield-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://garfield-testnet.zircuit.com/"
+      }
     ]
   },
   "48900": {
@@ -4043,8 +3683,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zircuit-mainnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet.zircuit.com"
+      }
     ]
   },
   "49797": {
@@ -4072,8 +3711,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=sophon&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.sophon.xyz"
+      }
     ]
   },
   "50312": {
@@ -4084,8 +3722,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=somnia-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://dream-rpc.somnia.network"
+      }
     ]
   },
   "53302": {
@@ -4101,8 +3738,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=superseed-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://sepolia.superseed.xyz"
+      }
     ]
   },
   "53935": {
@@ -4126,8 +3762,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=haqq-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.eth.testedge2.haqq.network"
+      }
     ]
   },
   "56288": {
@@ -4143,11 +3778,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=boba-bnb&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://bnb.boba.network",
-      "https://boba-bnb.gateway.tenderly.co/",
-      "https://gateway.tenderly.co/public/boba-bnb",
-      "https://replica.bnb.boba.network"
+      }
     ]
   },
   "57054": {
@@ -4158,9 +3789,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=sonic-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.blaze.soniclabs.com",
-      "https://sonic-blaze-rpc.publicnode.com"
+      }
     ]
   },
   "57073": {
@@ -4176,9 +3805,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=ink&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc-gel.inkonchain.com",
-      "https://rpc-qnd.inkonchain.com"
+      }
     ]
   },
   "59141": {
@@ -4196,9 +3823,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=linea-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.sepolia.linea.build",
-      "https://linea-sepolia-rpc.publicnode.com"
+      }
     ]
   },
   "59144": {
@@ -4222,9 +3847,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=linea&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.linea.build",
-      "https://linea-rpc.publicnode.com"
+      }
     ]
   },
   "59901": {
@@ -4254,9 +3877,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=snaxchain-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.gobob.xyz",
-      "https://bob-mainnet.public.blastapi.io"
+      }
     ]
   },
   "62621": {
@@ -4354,9 +3975,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=polygon-amoy&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc-amoy.polygon.technology",
-      "https://polygon-amoy-bor-rpc.publicnode.com"
+      }
     ]
   },
   "80069": {
@@ -4383,8 +4002,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=berachain-bepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://bepolia.rpc.berachain.com"
+      }
     ]
   },
   "80084": {
@@ -4440,10 +4058,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=berachain&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.berachain.com",
-      "https://berachain-rpc.publicnode.com",
-      "https://rpc.berachain-apis.com"
+      }
     ]
   },
   "81457": {
@@ -4471,13 +4086,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=blast&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.blast.io",
-      "https://rpc.ankr.com/blast",
-      "https://blast.din.dev/rpc",
-      "https://blastl2-mainnet.public.blastapi.io",
-      "https://blast.blockpi.network/v1/rpc/public",
-      "https://blast-rpc.publicnode.com"
+      }
     ]
   },
   "84532": {
@@ -4510,9 +4119,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=base-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://sepolia.base.org",
-      "https://base-sepolia-rpc.publicnode.com"
+      }
     ]
   },
   "97476": {
@@ -4523,8 +4130,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=doma-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc-testnet.doma.xyz"
+      }
     ]
   },
   "97477": {
@@ -4535,8 +4141,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=doma&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.doma.xyz"
+      }
     ]
   },
   "98866": {
@@ -4547,8 +4152,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=plume&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.plume.org"
+      }
     ]
   },
   "100009": {
@@ -4562,8 +4166,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=vechain&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc-mainnet.vechain.energy"
+      }
     ]
   },
   "100010": {
@@ -4574,8 +4177,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=vechain-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc-testnet.vechain.energy"
+      }
     ]
   },
   "101010": {
@@ -4603,8 +4205,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=creditcoin&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet3.creditcoin.network"
+      }
     ]
   },
   "102031": {
@@ -4620,8 +4221,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=creditcoin-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.cc3-testnet.creditcoin.network"
+      }
     ]
   },
   "102032": {
@@ -4637,8 +4237,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=creditcoin-devnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.cc3-devnet.creditcoin.network"
+      }
     ]
   },
   "105105": {
@@ -4668,10 +4267,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=real&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.realforreal.gelato.digital",
-      "https://tangible-real.gateway.tenderly.co",
-      "https://real.drpc.org"
+      }
     ]
   },
   "127823": {
@@ -4713,9 +4309,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=taiko&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.mainnet.taiko.xyz",
-      "https://taiko-rpc.publicnode.com"
+      }
     ]
   },
   "167009": {
@@ -4749,15 +4343,13 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=taiko-hoodi&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.hoodi.taiko.xyz"
+      }
     ]
   },
   "181228": {
     "sourcifyName": "HPP Sepolia Testnet",
     "supported": true,
     "rpc": [
-      "https://sepolia.hpp.io",
       "https://sepolia.hpp.io"
     ]
   },
@@ -4765,7 +4357,6 @@
     "sourcifyName": "HPP Mainnet",
     "supported": true,
     "rpc": [
-      "https://mainnet.hpp.io",
       "https://mainnet.hpp.io"
     ]
   },
@@ -4796,9 +4387,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=ronin-saigon&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://saigon-testnet.roninchain.com/rpc",
-      "https://ronin-saigon.drpc.org"
+      }
     ]
   },
   "205205": {
@@ -4839,13 +4428,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=filecoin-calibration&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.calibration.node.glif.io/rpc/v1",
-      "https://rpc.ankr.com/filecoin_testnet",
-      "https://filecoin-calibration.chainstacklabs.com/rpc/v1",
-      "https://filecoin-calibration.chainup.net/rpc/v1",
-      "https://calibration.filfox.info/rpc/v1",
-      "https://filecoin-calibration.drpc.org"
+      }
     ]
   },
   "323432": {
@@ -4890,9 +4473,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=arbitrum-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://sepolia-rollup.arbitrum.io/rpc",
-      "https://arbitrum-sepolia-rpc.publicnode.com"
+      }
     ]
   },
   "432201": {
@@ -4956,12 +4537,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=scroll-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://sepolia-rpc.scroll.io",
-      "https://rpc.ankr.com/scroll_sepolia_testnet",
-      "https://scroll-sepolia.chainstacklabs.com",
-      "https://scroll-testnet-public.unifra.io",
-      "https://scroll-sepolia-rpc.publicnode.com"
+      }
     ]
   },
   "534352": {
@@ -4992,11 +4568,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=scroll&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.scroll.io",
-      "https://rpc.ankr.com/scroll",
-      "https://scroll-mainnet.chainstacklabs.com",
-      "https://scroll-rpc.publicnode.com"
+      }
     ]
   },
   "543210": {
@@ -5007,8 +4579,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zero&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.zerion.io/v1/zero"
+      }
     ]
   },
   "560048": {
@@ -5040,8 +4611,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hoodi&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.hoodi.ethpandaops.io"
+      }
     ]
   },
   "612044": {
@@ -5083,8 +4653,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=open-campus-codex-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.open-campus-codex.gelato.digital"
+      }
     ]
   },
   "660279": {
@@ -5096,8 +4665,7 @@
         "url": "https://{SUBDOMAIN}.xai-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://xai-chain.net/rpc"
+      }
     ]
   },
   "686868": {
@@ -5108,8 +4676,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=merlin-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.wonnetwork.org"
+      }
     ]
   },
   "695569": {
@@ -5132,9 +4699,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=sei-devnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://evm-rpc-arctic-1.sei-apis.com",
-      "https://evm-rpc.arctic-1.seinetwork.io"
+      }
     ]
   },
   "723107": {
@@ -5146,7 +4711,6 @@
       }
     },
     "rpc": [
-      "https://subnets.avax.network/tixchain/testnet/rpc",
       "https://subnets.avax.network/tixchain/testnet/rpc"
     ]
   },
@@ -5165,8 +4729,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=katana-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc-bokuto.katanarpc.com"
+      }
     ]
   },
   "743111": {
@@ -5182,8 +4745,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hemi-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://testnet.rpc.hemi.network/rpc"
+      }
     ]
   },
   "747474": {
@@ -5201,10 +4763,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=katana&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.katana.network",
-      "https://katana.gateway.tenderly.co/",
-      "https://rpc.katanarpc.com/"
+      }
     ]
   },
   "763373": {
@@ -5226,8 +4785,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=ink-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc-gel-sepolia.inkonchain.com"
+      }
     ]
   },
   "808813": {
@@ -5238,8 +4796,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bob-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://bob-sepolia.rpc.gobob.xyz"
+      }
     ]
   },
   "1440000": {
@@ -5250,8 +4807,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=xrpl&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.xrplevm.org"
+      }
     ]
   },
   "1440002": {
@@ -5262,8 +4818,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=xrpl-devnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.devnet.xrplevm.org"
+      }
     ]
   },
   "1449000": {
@@ -5274,8 +4829,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=xrpl-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.testnet.xrplevm.org"
+      }
     ]
   },
   "2019775": {
@@ -5300,8 +4854,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=manta-pacific-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://pacific-rpc.sepolia-testnet.manta.network/http"
+      }
     ]
   },
   "5042002": {
@@ -5312,10 +4865,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=arc-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.testnet.arc.network",
-      "https://rpc.quicknode.testnet.arc.network",
-      "https://rpc.blockdaemon.testnet.arc.network"
+      }
     ]
   },
   "5278000": {
@@ -5370,8 +4920,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zora&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.zora.energy/"
+      }
     ]
   },
   "11142220": {
@@ -5392,8 +4941,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=celo-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://forno.celo-sepolia.celo-testnet.org"
+      }
     ]
   },
   "11155111": {
@@ -5438,14 +4986,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.sepolia.org",
-      "https://rpc2.sepolia.org",
-      "https://rpc.sepolia.ethpandaops.io",
-      "https://sepolia.gateway.tenderly.co",
-      "https://ethereum-sepolia-rpc.publicnode.com",
-      "https://sepolia.drpc.org",
-      "https://eth-sepolia.g.alchemy.com/v2/WddzdzI2o9S3COdT73d5w6AIogbKq4X-"
+      }
     ]
   },
   "11155420": {
@@ -5476,9 +5017,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=optimism-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://sepolia.optimism.io",
-      "https://optimism-sepolia.drpc.org"
+      }
     ]
   },
   "20180427": {
@@ -5515,8 +5054,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=polygon-blackberry-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.polygon-blackberry.gelato.digital"
+      }
     ]
   },
   "111557560": {
@@ -5528,9 +5066,7 @@
         "url": "https://{SUBDOMAIN}.cyber-sepolia.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://cyber-testnet.alt.technology/",
-      "https://rpc.testnet.cyber.co/"
+      }
     ]
   },
   "123420111": {
@@ -5541,8 +5077,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=opcelestia-raspberry-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.opcelestia-raspberry.gelato.digital"
+      }
     ]
   },
   "161221135": {
@@ -5580,9 +5115,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=blast-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://sepolia.blast.io",
-      "https://blast-sepolia.drpc.org"
+      }
     ]
   },
   "245022926": {
@@ -5598,9 +5131,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=neon-evm-devnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://devnet.neonevm.org",
-      "https://neon-evm-devnet.drpc.org"
+      }
     ]
   },
   "245022934": {
@@ -5616,9 +5147,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=neon-evm&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://neon-proxy-mainnet.solana.p2p.org",
-      "https://neon-evm.drpc.org"
+      }
     ]
   },
   "311752642": {
@@ -5630,7 +5159,6 @@
       }
     },
     "rpc": [
-      "https://mainnet-rpc.oneledger.network",
       "https://mainnet-rpc.oneledger.network"
     ]
   },
@@ -5665,8 +5193,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=sophon-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.testnet.sophon.xyz"
+      }
     ]
   },
   "666666666": {
@@ -5693,9 +5220,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=tron&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.ankr.com/tron_jsonrpc",
-      "https://api.trongrid.io/jsonrpc"
+      }
     ]
   },
   "999999999": {
@@ -5711,8 +5236,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zora-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://sepolia.rpc.zora.energy"
+      }
     ]
   },
   "1313161554": {
@@ -5723,9 +5247,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=aurora&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://mainnet.aurora.dev",
-      "https://aurora.drpc.org"
+      }
     ]
   },
   "1313161555": {
@@ -5736,9 +5258,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=aurora-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://testnet.aurora.dev/",
-      "https://aurora-testnet.drpc.org"
+      }
     ]
   },
   "1666600000": {
@@ -5749,13 +5269,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=harmony-0&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.harmony.one",
-      "https://a.api.s0.t.hmny.io",
-      "https://api.s0.t.hmny.io",
-      "https://rpc.ankr.com/harmony",
-      "https://1rpc.io/one",
-      "https://harmony-0.drpc.org"
+      }
     ]
   },
   "1666600001": {
@@ -5766,9 +5280,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=harmony-1&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.s1.t.hmny.io",
-      "https://harmony-1.drpc.org"
+      }
     ]
   },
   "2494104990": {
@@ -5779,8 +5291,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=tron-shasta&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.shasta.trongrid.io/jsonrpc"
+      }
     ]
   },
   "3735928814": {
@@ -5805,8 +5316,7 @@
         "type": "APIKeyRPC",
         "url": "https://palm-testnet.infura.io/v3/{API_KEY}",
         "apiKeyEnvName": "INFURA_API_KEY"
-      },
-      "https://palm-testnet.public.blastapi.io"
+      }
     ]
   },
   "11297108109": {
@@ -5822,8 +5332,7 @@
         "type": "APIKeyRPC",
         "url": "https://palm-mainnet.infura.io/v3/{API_KEY}",
         "apiKeyEnvName": "INFURA_API_KEY"
-      },
-      "https://palm-mainnet.public.blastapi.io"
+      }
     ]
   },
   "37714555429": {
@@ -5835,8 +5344,7 @@
         "url": "https://{SUBDOMAIN}.xai-testnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
-      },
-      "https://testnet-v2.xai-chain.net/rpc"
+      }
     ]
   },
   "80998896642": {
@@ -5858,8 +5366,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=arb-blueberry-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://rpc.arb-blueberry.gelato.digital"
+      }
     ]
   },
   "383414847825": {
