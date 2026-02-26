@@ -37,7 +37,7 @@ const CHAINID_NETWORK_URL = "https://chainid.network/chains.json";
 // Types
 // ---------------------------------------------------------------------------
 
-interface ChainMetadata {
+interface ChainEntry {
   name: string;
   chainId: number;
   shortName?: string;
@@ -96,13 +96,13 @@ async function safeFetch<T>(
   }
 }
 
-async function fetchChainMetadata(): Promise<Map<number, ChainMetadata>> {
+async function fetchChainList(): Promise<Map<number, ChainEntry>> {
   const response = await fetch(CHAINID_NETWORK_URL);
   if (!response.ok) {
     throw new Error(`chainid.network returned ${response.status}`);
   }
-  const chains = (await response.json()) as ChainMetadata[];
-  const map = new Map<number, ChainMetadata>();
+  const chains = (await response.json()) as ChainEntry[];
+  const map = new Map<number, ChainEntry>();
   for (const chain of chains) {
     map.set(chain.chainId, chain);
   }
@@ -152,25 +152,30 @@ async function main() {
     );
   }
 
-  console.log("Fetching chain metadata from chainid.network...");
-  const chainMetadata = await fetchChainMetadata();
-  console.log(`  Found ${chainMetadata.size} chains`);
+  console.log("Fetching chain list and provider/explorer data in parallel...");
+  const [
+    chainListResult,
+    quicknodeResult,
+    drpcResult,
+    etherscanResult,
+    blockscoutResult,
+    routescanResult,
+  ] = await Promise.all([
+    safeFetch("chainid.network", fetchChainList),
+    quicknodeApiKey
+      ? safeFetch("QuickNode", () => fetchQuickNodeChains(quicknodeApiKey))
+      : Promise.resolve<FetchResult<QuickNodeChainData>>({
+          name: "QuickNode",
+          data: null,
+          error: "No API key",
+        }),
+    safeFetch("dRPC", fetchDrpcChains),
+    safeFetch("Etherscan", fetchEtherscanChains),
+    safeFetch("Blockscout", fetchBlockscoutChains),
+    safeFetch("Routescan", fetchRoutescanChains),
+  ]);
 
-  console.log("\nFetching provider and explorer data...");
-  const [quicknodeResult, drpcResult, etherscanResult, blockscoutResult, routescanResult] =
-    await Promise.all([
-      quicknodeApiKey
-        ? safeFetch("QuickNode", () => fetchQuickNodeChains(quicknodeApiKey))
-        : Promise.resolve<FetchResult<QuickNodeChainData>>({
-            name: "QuickNode",
-            data: null,
-            error: "No API key",
-          }),
-      safeFetch("dRPC", fetchDrpcChains),
-      safeFetch("Etherscan", fetchEtherscanChains),
-      safeFetch("Blockscout", fetchBlockscoutChains),
-      safeFetch("Routescan", fetchRoutescanChains),
-    ]);
+  const chainList = chainListResult.data;
 
   // Load source files
   const chainOverrides = JSON.parse(
@@ -212,7 +217,7 @@ async function main() {
 
   for (const chainId of [...autoChainIds].sort((a, b) => a - b)) {
     const override = chainOverrides[chainId.toString()] as ChainOverride | undefined;
-    const meta = chainMetadata.get(chainId);
+    const meta = chainList?.get(chainId);
     const qn = quicknodeResult.data?.get(chainId);
     const drpc = drpcResult.data?.get(chainId);
     const etherscan = etherscanResult.data?.get(chainId);
@@ -311,7 +316,7 @@ async function main() {
   console.log(`  With Etherscan API: ${withEtherscan}`);
   console.log(`  With fetchContractCreationTxUsing: ${withFetchUsing}`);
 
-  const failures = [quicknodeResult, drpcResult, etherscanResult, blockscoutResult, routescanResult]
+  const failures = [chainListResult, quicknodeResult, drpcResult, etherscanResult, blockscoutResult, routescanResult]
     .filter((r) => r.data === null);
   if (failures.length > 0) {
     console.warn(`\nWarning: ${failures.length} source(s) failed:`);
