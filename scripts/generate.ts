@@ -7,9 +7,10 @@
  *
  * Run via: npm run generate
  *
- * Auto-supported chains = union of QuickNode + dRPC + Blockscout + Routescan.
- * Etherscan alone does not qualify a chain for inclusion (it's used for
- * etherscanApi and fetchContractCreationTxUsing configuration only).
+ * Auto-supported chains = union of QuickNode + dRPC + Etherscan +
+ * Blockscout chains hosted by Blockscout (hostedBy === "blockscout").
+ * Routescan and third-party Blockscout instances do not qualify a chain for
+ * inclusion on their own (used for fetchContractCreationTxUsing only).
  *
  * RPC priority for each chain:
  *   1. Manual override RPCs (from chain-overrides.json)
@@ -195,14 +196,25 @@ async function main() {
 
   const deprecatedSet = new Set<number>(Object.keys(deprecatedChains).map(Number));
 
-  // Auto-supported = union of QuickNode + dRPC + Blockscout + Routescan (not Etherscan alone)
+  // Auto-supported = union of QuickNode + dRPC + Etherscan +
+  // Blockscout chains hosted by Blockscout (hostedBy === "blockscout").
+  // Routescan and third-party Blockscout instances do not qualify for inclusion
+  // on their own — they are only used for fetchContractCreationTxUsing.
   const autoChainIds = new Set<number>();
-  for (const result of [quicknodeResult, drpcResult, blockscoutResult, routescanResult]) {
+  for (const result of [quicknodeResult, drpcResult, etherscanResult]) {
     if (result.data) {
       for (const chainId of result.data.keys()) {
         if (!deprecatedSet.has(chainId)) {
           autoChainIds.add(chainId);
         }
+      }
+    }
+  }
+  // Only Blockscout-hosted instances qualify
+  if (blockscoutResult.data) {
+    for (const [chainId, entry] of blockscoutResult.data.entries()) {
+      if (entry.hostedBy === "blockscout" && !deprecatedSet.has(chainId)) {
+        autoChainIds.add(chainId);
       }
     }
   }
