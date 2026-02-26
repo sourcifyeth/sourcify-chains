@@ -54,5 +54,7 @@ export async function fetchBlockscoutChains(): Promise<
     }
   }
 
+  console.log(`Blockscout: ${result.size} chains, ${Array.from(result.values()).filter(c => c.hostedBy === "blockscout").length} hosted by Blockscout`);
+
   return result;
 }
