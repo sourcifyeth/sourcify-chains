@@ -83,21 +83,29 @@ interface ChainOverride {
 // Helpers
 // ---------------------------------------------------------------------------
 
-type FetchResult<T> = { name: string; data: Map<number, T> | null; error?: string };
+const RETRY_COUNT = 3;
+const RETRY_DELAY_MS = 2000;
 
-async function safeFetch<T>(
+async function fetchWithRetry<T>(
   name: string,
   fetchFn: () => Promise<Map<number, T>>,
-): Promise<FetchResult<T>> {
-  try {
-    const data = await fetchFn();
-    console.log(`  ${name}: ${data.size} chains`);
-    return { name, data };
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    console.error(`  ${name}: FAILED — ${message}`);
-    return { name, data: null, error: message };
+): Promise<Map<number, T>> {
+  for (let attempt = 1; attempt <= RETRY_COUNT; attempt++) {
+    try {
+      const data = await fetchFn();
+      console.log(`  ${name}: ${data.size} chains`);
+      return data;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      if (attempt < RETRY_COUNT) {
+        console.warn(`  ${name}: attempt ${attempt} failed — ${message}, retrying in ${RETRY_DELAY_MS}ms...`);
+        await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+      } else {
+        throw new Error(`${name} failed after ${RETRY_COUNT} attempts: ${message}`);
+      }
+    }
   }
+  throw new Error("unreachable");
 }
 
 async function fetchChainList(): Promise<Map<number, ChainEntry>> {
@@ -158,28 +166,22 @@ async function main() {
 
   console.log("Fetching chain list and provider/explorer data in parallel...");
   const [
-    chainListResult,
-    quicknodeResult,
-    drpcResult,
-    etherscanResult,
-    blockscoutResult,
-    routescanResult,
+    chainList,
+    quicknodeChains,
+    drpcChains,
+    etherscanChains,
+    blockscoutChains,
+    routescanChains,
   ] = await Promise.all([
-    safeFetch("chainid.network", fetchChainList),
+    fetchWithRetry("chainid.network", fetchChainList),
     quicknodeApiKey
-      ? safeFetch("QuickNode", () => fetchQuickNodeChains(quicknodeApiKey))
-      : Promise.resolve<FetchResult<QuickNodeChainData>>({
-          name: "QuickNode",
-          data: null,
-          error: "No API key",
-        }),
-    safeFetch("dRPC", fetchDrpcChains),
-    safeFetch("Etherscan", fetchEtherscanChains),
-    safeFetch("Blockscout", fetchBlockscoutChains),
-    safeFetch("Routescan", fetchRoutescanChains),
+      ? fetchWithRetry("QuickNode", () => fetchQuickNodeChains(quicknodeApiKey))
+      : Promise.resolve<Map<number, QuickNodeChainData> | null>(null),
+    fetchWithRetry("dRPC", fetchDrpcChains),
+    fetchWithRetry("Etherscan", fetchEtherscanChains),
+    fetchWithRetry("Blockscout", fetchBlockscoutChains),
+    fetchWithRetry("Routescan", fetchRoutescanChains),
   ]);
-
-  const chainList = chainListResult.data;
 
   // Load source files
   const chainOverrides = JSON.parse(
@@ -201,9 +203,9 @@ async function main() {
   // Routescan and third-party Blockscout instances do not qualify for inclusion
   // on their own — they are only used for fetchContractCreationTxUsing.
   const autoChainIds = new Set<number>();
-  for (const result of [quicknodeResult, drpcResult, etherscanResult]) {
-    if (result.data) {
-      for (const chainId of result.data.keys()) {
+  for (const chains of [quicknodeChains, drpcChains, etherscanChains]) {
+    if (chains) {
+      for (const chainId of chains.keys()) {
         if (!deprecatedSet.has(chainId)) {
           autoChainIds.add(chainId);
         }
@@ -211,11 +213,9 @@ async function main() {
     }
   }
   // Only Blockscout-hosted instances qualify
-  if (blockscoutResult.data) {
-    for (const [chainId, entry] of blockscoutResult.data.entries()) {
-      if (entry.hostedBy === "blockscout" && !deprecatedSet.has(chainId)) {
-        autoChainIds.add(chainId);
-      }
+  for (const [chainId, entry] of blockscoutChains.entries()) {
+    if (entry.hostedBy === "blockscout" && !deprecatedSet.has(chainId)) {
+      autoChainIds.add(chainId);
     }
   }
   // Also include chains explicitly listed in chain-overrides.json (they may not be auto-discovered)
@@ -232,12 +232,12 @@ async function main() {
 
   for (const chainId of [...autoChainIds].sort((a, b) => a - b)) {
     const override = chainOverrides[chainId.toString()] as ChainOverride | undefined;
-    const meta = chainList?.get(chainId);
-    const qn = quicknodeResult.data?.get(chainId);
-    const drpc = drpcResult.data?.get(chainId);
-    const etherscan = etherscanResult.data?.get(chainId);
-    const blockscout = blockscoutResult.data?.get(chainId);
-    const routescan = routescanResult.data?.get(chainId);
+    const meta = chainList.get(chainId);
+    const qn = quicknodeChains?.get(chainId);
+    const drpc = drpcChains.get(chainId);
+    const etherscan = etherscanChains.get(chainId);
+    const blockscout = blockscoutChains.get(chainId);
+    const routescan = routescanChains.get(chainId);
 
     const sourcifyName =
       override?.sourcifyName ?? meta?.name ?? `Chain ${chainId}`;
@@ -330,13 +330,6 @@ async function main() {
   console.log(`  With RPCs: ${withRpc}`);
   console.log(`  With Etherscan API: ${withEtherscan}`);
   console.log(`  With fetchContractCreationTxUsing: ${withFetchUsing}`);
-
-  const failures = [chainListResult, quicknodeResult, drpcResult, etherscanResult, blockscoutResult, routescanResult]
-    .filter((r) => r.data === null);
-  if (failures.length > 0) {
-    console.warn(`\nWarning: ${failures.length} source(s) failed:`);
-    failures.forEach((f) => console.warn(`  - ${f.name}: ${f.error}`));
-  }
 }
 
 main().catch((err) => {
