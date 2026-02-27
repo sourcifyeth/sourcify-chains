@@ -1,1 +1,149 @@
-{}
+{
+  "25": {
+    "sourcifyName": "Cronos Mainnet Beta"
+  },
+  "30": {
+    "sourcifyName": "Rootstock"
+  },
+  "57": {
+    "sourcifyName": "Syscoin Mainnet"
+  },
+  "82": {
+    "sourcifyName": "Meter Mainnet"
+  },
+  "83": {
+    "sourcifyName": "Meter Testnet"
+  },
+  "146": {
+    "sourcifyName": "Sonic Mainnet"
+  },
+  "223": {
+    "sourcifyName": "B2 Mainnet"
+  },
+  "252": {
+    "sourcifyName": "Fraxtal"
+  },
+  "480": {
+    "sourcifyName": "WorldChain"
+  },
+  "690": {
+    "sourcifyName": "Redstone"
+  },
+  "888": {
+    "sourcifyName": "Wanchain Mainnet"
+  },
+  "999": {
+    "sourcifyName": "Wanchain Testnet"
+  },
+  "1030": {
+    "sourcifyName": "Conflux eSpace"
+  },
+  "1114": {
+    "sourcifyName": "Core Blockchain Testnet2"
+  },
+  "1116": {
+    "sourcifyName": "Core Blockchain Mainnet"
+  },
+  "1122": {
+    "sourcifyName": "LuxePorts MainNet"
+  },
+  "1328": {
+    "sourcifyName": "Sei Testnet"
+  },
+  "1329": {
+    "sourcifyName": "Sei Network"
+  },
+  "1890": {
+    "sourcifyName": "Lightlink Phoenix Mainnet"
+  },
+  "1891": {
+    "sourcifyName": "Lightlink Pegasus Testnet"
+  },
+  "2222": {
+    "sourcifyName": "Kava EVM"
+  },
+  "3111": {
+    "sourcifyName": "Alpha Chain Mainnet"
+  },
+  "3338": {
+    "sourcifyName": "peaq Mainnet"
+  },
+  "4114": {
+    "sourcifyName": "Citrea Mainnet"
+  },
+  "5115": {
+    "sourcifyName": "Citrea Testnet"
+  },
+  "5700": {
+    "sourcifyName": "Syscoin Testnet Tanenbaum"
+  },
+  "7672": {
+    "sourcifyName": "The Root Network Porcini (Testnet)"
+  },
+  "19011": {
+    "sourcifyName": "HOME Verse Mainnet"
+  },
+  "31612": {
+    "sourcifyName": "Mezo"
+  },
+  "32769": {
+    "sourcifyName": "Zilliqa EVM"
+  },
+  "33101": {
+    "sourcifyName": "Zilliqa EVM Testnet"
+  },
+  "33111": {
+    "sourcifyName": "Curtis"
+  },
+  "34443": {
+    "sourcifyName": "Mode"
+  },
+  "42793": {
+    "sourcifyName": "Etherlink"
+  },
+  "48898": {
+    "sourcifyName": "Zircuit Garfield Testnet"
+  },
+  "48900": {
+    "sourcifyName": "Zircuit Mainnet"
+  },
+  "54211": {
+    "sourcifyName": "Haqq Testnet"
+  },
+  "59141": {
+    "sourcifyName": "Linea Sepolia"
+  },
+  "59144": {
+    "sourcifyName": "Linea Mainnet"
+  },
+  "59902": {
+    "sourcifyName": "Metis Sepolia Testnet"
+  },
+  "128123": {
+    "sourcifyName": "Etherlink Testnet"
+  },
+  "200810": {
+    "sourcifyName": "Bitlayer Testnet"
+  },
+  "205205": {
+    "sourcifyName": "Auroria Testnet"
+  },
+  "511111": {
+    "sourcifyName": "Alpha Chain  Testnet"
+  },
+  "660279": {
+    "sourcifyName": "Xai Mainnet"
+  },
+  "7777777": {
+    "sourcifyName": "ZORA"
+  },
+  "21000000": {
+    "sourcifyName": "Corn Mainnet"
+  },
+  "999999999": {
+    "sourcifyName": "ZORA Sepolia Testnet"
+  },
+  "37714555429": {
+    "sourcifyName": "Xai Testnet"
+  }
+}

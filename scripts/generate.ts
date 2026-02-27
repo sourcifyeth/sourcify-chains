@@ -61,8 +61,10 @@ interface SourcifyChainExtension {
   rpc?: Array<string | RpcEntry>;
 }
 
-// Input type for additional-chains.json (no discoveredBy — injected at output time)
-type AdditionalChainEntry = Omit<SourcifyChainExtension, "discoveredBy">;
+// Input type for additional-chains.json — only the chain name; supported/discoveredBy injected at output time
+interface AdditionalChainEntry {
+  sourcifyName: string;
+}
 
 interface RpcEntry {
   type: "BaseRPC" | "APIKeyRPC" | "FetchRequest";
@@ -322,9 +324,10 @@ async function main() {
 
   // Add additional-chains.json entries (full definitions, not auto-discovered)
   for (const [chainIdStr, entry] of Object.entries(additionalChains)) {
-    if (!deprecatedSet.has(parseInt(chainIdStr, 10))) {
-      output[chainIdStr] = { ...entry, discoveredBy: ["additional-chains"] };
+    if (deprecatedSet.has(parseInt(chainIdStr, 10))) {
+      throw new Error(`Chain ${entry.sourcifyName} #${chainIdStr} appears in both additional-chains.json and deprecated-chains.json`);
     }
+    output[chainIdStr] = { ...entry, supported: true, discoveredBy: ["additional-chains"] };
   }
 
   // Sort output by numeric chain ID
