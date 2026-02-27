@@ -78,7 +78,6 @@ interface RpcEntry {
 // chain-overrides.json entry (small — only override/extension fields)
 interface ChainOverride {
   sourcifyName?: string;
-  supported?: boolean;
   fetchContractCreationTxUsing?: Record<string, unknown>;
   traceSupport?: string;
   rpc?: Array<string | RpcEntry>;
@@ -328,7 +327,7 @@ async function main() {
 
     const entry: SourcifyChainExtension = {
       sourcifyName,
-      supported: override?.supported ?? true,
+      supported: true,
       discoveredBy,
       ...(Object.keys(fetchUsing).length > 0
         ? { fetchContractCreationTxUsing: fetchUsing }
