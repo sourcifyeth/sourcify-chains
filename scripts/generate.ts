@@ -138,13 +138,31 @@ function filterPublicRpcs(rpcs: string[]): string[] {
   );
 }
 
+// QuickNode slugs that require an /ext/bc/C/rpc/ path suffix (Avalanche/Flare subnets)
+const QUICKNODE_SUBNET_SLUGS = new Set([
+  "avalanche-mainnet",
+  "avalanche-testnet",
+  "flare-mainnet",
+  "flare-coston2",
+]);
+
 function buildQuickNodeRpc(
   qn: QuickNodeChainData,
   traceSupport?: string,
 ): RpcEntry {
+  let url: string;
+  if (qn.networkSlug === "mainnet") {
+    // Ethereum mainnet: slug is not embedded in the subdomain
+    url = `https://{SUBDOMAIN}.quiknode.pro/{API_KEY}/`;
+  } else if (QUICKNODE_SUBNET_SLUGS.has(qn.networkSlug)) {
+    // Avalanche/Flare: require /ext/bc/C/rpc/ path suffix
+    url = `https://{SUBDOMAIN}.${qn.networkSlug}.quiknode.pro/{API_KEY}/ext/bc/C/rpc/`;
+  } else {
+    url = `https://{SUBDOMAIN}.${qn.networkSlug}.quiknode.pro/{API_KEY}/`;
+  }
   return {
     type: "APIKeyRPC",
-    url: `https://{SUBDOMAIN}.${qn.networkSlug}.quiknode.pro/{API_KEY}/`,
+    url,
     apiKeyEnvName: "QUICKNODE_API_KEY",
     subDomainEnvName: "QUICKNODE_SUBDOMAIN",
     ...(traceSupport ? { traceSupport } : {}),
