@@ -18,11 +18,17 @@ A chain is **auto-included** if it appears in any of:
 
 Routescan and third-party Blockscout instances do **not** qualify a chain for inclusion on their own — they only contribute `fetchContractCreationTxUsing` data.
 
+Beyond auto-discovery, chains can also be manually included or excluded:
+
+- **`additional-chains.json`** — manually include chains that are not auto-discovered
+- **`deprecated-chains.json`** — manually exclude chains, even if they appear in provider APIs
+- **`chain-overrides.json`** — override or extend fields for any included chain (custom RPCs, trace support, etc.)
+
 ## Source files (inputs to generation)
 
 ### `chain-overrides.json`
 
-Override or extend fields for **auto-discovered** chains. Only chains that need non-default configuration belong here (e.g. custom RPCs, trace support, custom `fetchContractCreationTxUsing`).
+Override or extend fields for any chain. A chain-overrides entry alone is sufficient to include a chain in the output — it does not need to be auto-discovered first. Use this for chains that need non-default configuration (e.g. custom RPCs, trace support, custom `fetchContractCreationTxUsing`).
 
 ```json
 {
@@ -48,7 +54,6 @@ Allowed fields per entry:
 | Field | Description |
 |---|---|
 | `sourcifyName` | Display name (overrides chainid.network name) |
-| `supported` | Set to `false` to exclude despite being auto-discovered |
 | `fetchContractCreationTxUsing` | Additional fetch methods (`avalancheApi`, `telosApi`, etc.) |
 | `traceSupport` | `"trace_transaction"` or `"debug_traceTransaction"` |
 | `rpc` | Priority RPCs prepended before provider RPCs |
@@ -64,7 +69,7 @@ Chains that are **not auto-discovered** but are still supported by Sourcify. Eac
 }
 ```
 
-The generator injects `supported: true` and `discoveredBy: ["additional-chains"]` at output time. Do not add `supported` or other fields here — this file is intentionally minimal.
+The generator injects `supported: true` and `discoveredBy: ["additional-chains"]` at output time. This file is intentionally minimal — only `sourcifyName` belongs here.
 
 A chain must not appear in both `additional-chains.json` and `deprecated-chains.json` (the generator will throw).
 
@@ -146,13 +151,15 @@ Wait for the next nightly run — it will be picked up automatically. If you nee
 
 ### Chain is not auto-discovered
 
-Open a PR adding an entry to `additional-chains.json`:
+If the chain needs only a name and no custom config, add it to `additional-chains.json`:
 
 ```json
 {
   "12345": { "sourcifyName": "My Chain Mainnet" }
 }
 ```
+
+If the chain also needs custom RPCs or other config, add it to `chain-overrides.json` instead — a chain-overrides entry alone is sufficient to include a chain.
 
 ### Deprecating a chain
 
