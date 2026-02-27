@@ -10,7 +10,6 @@
       "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
-      "avalancheApi": true,
       "etherscanApi": true,
       "blockscoutApi": {
         "url": "https://eth.blockscout.com/"
@@ -54,7 +53,7 @@
       },
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.mainnet.quiknode.pro/{API_KEY}/",
+        "url": "https://{SUBDOMAIN}.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       },
@@ -110,7 +109,7 @@
       "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
+      "blockscoutApi": {
         "url": "https://flare-explorer.flare.network/"
       },
       "routescanApi": {
@@ -120,7 +119,7 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.flare-mainnet.quiknode.pro/{API_KEY}/",
+        "url": "https://{SUBDOMAIN}.flare-mainnet.quiknode.pro/{API_KEY}/ext/bc/C/rpc/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       },
@@ -172,7 +171,7 @@
       "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
+      "blockscoutApi": {
         "url": "https://songbird-explorer.flare.network/"
       },
       "routescanApi": {
@@ -446,15 +445,7 @@
     "sourcifyName": "Bitkub Chain",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides"
-    ],
-    "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
-        "url": "https://bkcscan.com/"
-      }
-    },
-    "rpc": [
-      "https://rpc.bitkubchain.io"
+      "additional-chains"
     ]
   },
   "97": {
@@ -526,16 +517,7 @@
     "sourcifyName": "Velas Mainnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides"
-    ],
-    "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
-        "url": "https://evmexplorer.velas.com/"
-      }
-    },
-    "rpc": [
-      "https://evmexplorer.velas.com/rpc",
-      "https://explorer.velas.com/rpc"
+      "additional-chains"
     ]
   },
   "108": {
@@ -581,7 +563,7 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.flare-coston2.quiknode.pro/{API_KEY}/",
+        "url": "https://{SUBDOMAIN}.flare-coston2.quiknode.pro/{API_KEY}/ext/bc/C/rpc/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       },
@@ -1143,15 +1125,13 @@
     "rpc": [
       {
         "url": "https://rpc.pulsechain.com",
-        "type": "BaseRPC",
-        "traceSupport": "trace_transaction"
+        "type": "BaseRPC"
       },
       "https://pulsechain-rpc.publicnode.com",
       "wss://pulsechain-rpc.publicnode.com",
       {
         "url": "https://rpc-pulsechain.g4mm4.io",
-        "type": "BaseRPC",
-        "traceSupport": "trace_transaction"
+        "type": "BaseRPC"
       }
     ]
   },
@@ -1802,21 +1782,7 @@
     "sourcifyName": "Soneium",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "blockscout",
-      "chain-overrides"
-    ],
-    "fetchContractCreationTxUsing": {
-      "blockscoutApi": {
-        "url": "https://soneium.blockscout.com"
-      }
-    },
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=soneium&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
-      }
+      "additional-chains"
     ]
   },
   "1890": {
@@ -1978,7 +1944,8 @@
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true
+      "etherscanApi": true,
+      "avalancheApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -2195,15 +2162,7 @@
     "sourcifyName": "Ozone Chain Mainnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides"
-    ],
-    "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
-        "url": "https://ozonescan.io/"
-      }
-    },
-    "rpc": [
-      "https://node1.ozonechain.io"
+      "additional-chains"
     ]
   },
   "4002": {
@@ -2385,9 +2344,6 @@
       "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
-        "url": "https://explorer.mantle.xyz/"
-      },
       "etherscanApi": true,
       "routescanApi": {
         "type": "mainnet"
@@ -2404,8 +2360,7 @@
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.mantle-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       },
       {
         "type": "APIKeyRPC",
@@ -2424,9 +2379,6 @@
       "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
-        "url": "https://explorer.sepolia.mantle.xyz/"
-      },
       "etherscanApi": true
     },
     "etherscanApi": {
@@ -2439,8 +2391,7 @@
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.mantle-sepolia.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       },
       {
         "type": "APIKeyRPC",
@@ -2627,7 +2578,8 @@
       },
       "routescanApi": {
         "type": "mainnet"
-      }
+      },
+      "avalancheApi": true
     }
   },
   "8217": {
@@ -2712,8 +2664,7 @@
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.base-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       },
       {
         "type": "APIKeyRPC",
@@ -3144,8 +3095,8 @@
       "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
-        "url": "https://testnet.bkcscan.com/"
+      "blockscoutApi": {
+        "url": "https://testnet.kubscan.com/"
       }
     },
     "rpc": [
@@ -3323,8 +3274,7 @@
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.nova-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       },
       {
         "type": "APIKeyRPC",
@@ -3412,8 +3362,7 @@
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.tempo-testnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       },
       {
         "type": "APIKeyRPC",
@@ -3470,15 +3419,14 @@
     "discoveredBy": [
       "quicknode",
       "drpc",
-      "etherscan",
-      "chain-overrides"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "avalancheApi": true,
       "etherscanApi": true,
       "routescanApi": {
         "type": "testnet"
-      }
+      },
+      "avalancheApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -3487,7 +3435,7 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.avalanche-testnet.quiknode.pro/{API_KEY}/",
+        "url": "https://{SUBDOMAIN}.avalanche-testnet.quiknode.pro/{API_KEY}/ext/bc/C/rpc/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       },
@@ -3499,20 +3447,19 @@
     ]
   },
   "43114": {
-    "sourcifyName": "Avalanche C-Chain Mainnet",
+    "sourcifyName": "Avalanche C-Chain",
     "supported": true,
     "discoveredBy": [
       "quicknode",
       "drpc",
-      "etherscan",
-      "chain-overrides"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "avalancheApi": true,
       "etherscanApi": true,
       "routescanApi": {
         "type": "mainnet"
-      }
+      },
+      "avalancheApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -3521,7 +3468,7 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.avalanche-mainnet.quiknode.pro/{API_KEY}/",
+        "url": "https://{SUBDOMAIN}.avalanche-mainnet.quiknode.pro/{API_KEY}/ext/bc/C/rpc/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       },
@@ -3792,8 +3739,7 @@
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.matic-amoy.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       },
       {
         "type": "APIKeyRPC",
@@ -3942,8 +3888,7 @@
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.base-sepolia.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       },
       {
         "type": "APIKeyRPC",
@@ -4354,8 +4299,7 @@
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.scroll-testnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       },
       {
         "type": "APIKeyRPC",
@@ -4392,8 +4336,7 @@
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.scroll-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       },
       {
         "type": "APIKeyRPC",
@@ -4550,7 +4493,8 @@
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true
+      "etherscanApi": true,
+      "avalancheApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -4705,15 +4649,7 @@
     "sourcifyName": "ARC-testnet",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "chain-overrides"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=arc-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
-      }
+      "additional-chains"
     ]
   },
   "5278000": {
