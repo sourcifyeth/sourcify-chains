@@ -79,7 +79,6 @@
   },
   "51": {
     "sourcifyName": "XDC Apothem Testnet",
-    "supported": true,
     "fetchContractCreationTxUsing": {
       "blocksScanApi": {
         "url": "https://apothem.xdcscan.io/"
@@ -124,7 +123,6 @@
   },
   "42262": {
     "sourcifyName": "Oasis Emerald Mainnet",
-    "supported": true,
     "fetchContractCreationTxUsing": {
       "nexusApi": {
         "url": "https://nexus.oasis.io/",
@@ -134,7 +132,6 @@
   },
   "42261": {
     "sourcifyName": "Oasis Emerald Testnet",
-    "supported": true,
     "fetchContractCreationTxUsing": {
       "nexusApi": {
         "url": "https://testnet.nexus.oasis.io/",
@@ -144,7 +141,6 @@
   },
   "23294": {
     "sourcifyName": "Oasis Sapphire Mainnet",
-    "supported": true,
     "fetchContractCreationTxUsing": {
       "nexusApi": {
         "url": "https://nexus.oasis.io/",
@@ -154,7 +150,6 @@
   },
   "23295": {
     "sourcifyName": "Oasis Sapphire Testnet",
-    "supported": true,
     "fetchContractCreationTxUsing": {
       "nexusApi": {
         "url": "https://testnet.nexus.oasis.io/",
@@ -164,7 +159,6 @@
   },
   "19": {
     "sourcifyName": "Songbird Canary Network",
-    "supported": true,
     "fetchContractCreationTxUsing": {
       "blockscoutScrape": {
         "url": "https://songbird-explorer.flare.network/"
@@ -173,7 +167,6 @@
   },
   "14": {
     "sourcifyName": "Flare Mainnet",
-    "supported": true,
     "fetchContractCreationTxUsing": {
       "blockscoutScrape": {
         "url": "https://flare-explorer.flare.network/"
@@ -182,7 +175,6 @@
   },
   "8453": {
     "sourcifyName": "Base Mainnet",
-    "supported": true,
     "traceSupport": "trace_transaction",
     "rpc": [
       "https://mainnet.base.org/",
@@ -192,7 +184,6 @@
   },
   "25925": {
     "sourcifyName": "Bitkub Chain Testnet",
-    "supported": true,
     "fetchContractCreationTxUsing": {
       "blockscoutScrape": {
         "url": "https://testnet.bkcscan.com/"
@@ -201,7 +192,6 @@
   },
   "96": {
     "sourcifyName": "Bitkub Chain",
-    "supported": true,
     "fetchContractCreationTxUsing": {
       "blockscoutScrape": {
         "url": "https://bkcscan.com/"
@@ -210,7 +200,6 @@
   },
   "42170": {
     "sourcifyName": "Arbitrum Nova",
-    "supported": true,
     "traceSupport": "debug_traceTransaction",
     "rpc": [
       "https://nova.arbitrum.io/rpc",
@@ -220,7 +209,6 @@
   },
   "5000": {
     "sourcifyName": "Mantle Mainnet",
-    "supported": true,
     "fetchContractCreationTxUsing": {
       "blockscoutScrape": {
         "url": "https://explorer.mantle.xyz/"
@@ -234,7 +222,6 @@
   },
   "5003": {
     "sourcifyName": "Mantle Sepolia Testnet",
-    "supported": true,
     "fetchContractCreationTxUsing": {
       "blockscoutScrape": {
         "url": "https://explorer.sepolia.mantle.xyz/"
@@ -247,7 +234,6 @@
   },
   "534352": {
     "sourcifyName": "Scroll",
-    "supported": true,
     "traceSupport": "debug_traceTransaction",
     "rpc": [
       "https://rpc.scroll.io",
@@ -257,7 +243,6 @@
   },
   "534351": {
     "sourcifyName": "Scroll Sepolia Testnet",
-    "supported": true,
     "traceSupport": "debug_traceTransaction",
     "rpc": [
       "https://sepolia-rpc.scroll.io",
@@ -267,7 +252,6 @@
   },
   "4000": {
     "sourcifyName": "Ozone Chain Mainnet",
-    "supported": true,
     "fetchContractCreationTxUsing": {
       "blockscoutScrape": {
         "url": "https://ozonescan.io/"
@@ -276,7 +260,6 @@
   },
   "80002": {
     "sourcifyName": "Polygon Amoy Testnet",
-    "supported": true,
     "traceSupport": "trace_transaction",
     "rpc": [
       "https://rpc-amoy.polygon.technology",
@@ -285,14 +268,12 @@
   },
   "100009": {
     "sourcifyName": "VeChain Mainnet",
-    "supported": true,
     "fetchContractCreationTxUsing": {
       "veChainApi": true
     }
   },
   "84532": {
     "sourcifyName": "Base Sepolia Tesnet",
-    "supported": true,
     "traceSupport": "trace_transaction",
     "rpc": [
       "https://sepolia.base.org",
@@ -301,7 +282,6 @@
   },
   "1088": {
     "sourcifyName": "Metis Andromeda Mainnet",
-    "supported": true,
     "rpc": [
       "https://andromeda.metis.io/?owner=1088",
       "https://metis.drpc.org",
@@ -310,7 +290,6 @@
   },
   "42429": {
     "sourcifyName": "Tempo Testnet (Andantino)",
-    "supported": true,
     "traceSupport": "trace_transaction",
     "rpc": [
       "https://rpc.testnet.tempo.xyz"
@@ -318,31 +297,26 @@
   },
   "42431": {
     "sourcifyName": "Tempo Testnet (Moderato)",
-    "supported": true,
     "rpc": [
       "https://rpc.moderato.tempo.xyz"
     ]
   },
   "1868": {
     "sourcifyName": "Soneium",
-    "supported": true,
     "traceSupport": "debug_traceTransaction"
   },
   "5042002": {
     "sourcifyName": "ARC-testnet",
-    "supported": true,
     "traceSupport": "trace_transaction"
   },
   "190415": {
     "sourcifyName": "HPP Mainnet",
-    "supported": true,
     "rpc": [
       "https://mainnet.hpp.io"
     ]
   },
   "181228": {
     "sourcifyName": "HPP Sepolia Testnet",
-    "supported": true,
     "rpc": [
       "https://sepolia.hpp.io"
     ]
