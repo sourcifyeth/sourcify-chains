@@ -158,7 +158,7 @@
   "19": {
     "sourcifyName": "Songbird Canary Network",
     "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
+      "blockscoutApi": {
         "url": "https://songbird-explorer.flare.network/"
       }
     }
@@ -166,7 +166,7 @@
   "14": {
     "sourcifyName": "Flare Mainnet",
     "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
+      "blockscoutApi": {
         "url": "https://flare-explorer.flare.network/"
       }
     }
@@ -182,8 +182,8 @@
   "25925": {
     "sourcifyName": "Bitkub Chain Testnet",
     "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
-        "url": "https://testnet.bkcscan.com/"
+      "blockscoutApi": {
+        "url": "https://testnet.kubscan.com/"
       }
     }
   },
@@ -191,7 +191,7 @@
     "sourcifyName": "Bitkub Chain",
     "fetchContractCreationTxUsing": {
       "blockscoutScrape": {
-        "url": "https://bkcscan.com/"
+        "url": "https://www.kubscan.com/"
       }
     }
   },
@@ -205,11 +205,6 @@
   },
   "5000": {
     "sourcifyName": "Mantle Mainnet",
-    "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
-        "url": "https://explorer.mantle.xyz/"
-      }
-    },
     "rpc": [
       "https://rpc.mantle.xyz",
       "https://mantle-rpc.publicnode.com"
@@ -217,11 +212,6 @@
   },
   "5003": {
     "sourcifyName": "Mantle Sepolia Testnet",
-    "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
-        "url": "https://explorer.sepolia.mantle.xyz/"
-      }
-    },
     "rpc": [
       "https://rpc.sepolia.mantle.xyz"
     ]
