@@ -1,9 +1,6 @@
 {
   "1": {
     "sourcifyName": "Ethereum Mainnet",
-    "fetchContractCreationTxUsing": {
-      "avalancheApi": true
-    },
     "rpc": [
       {
         "type": "FetchRequest",
@@ -81,18 +78,6 @@
       "blocksScanApi": {
         "url": "https://apothem.xdcscan.io/"
       }
-    }
-  },
-  "43113": {
-    "sourcifyName": "Avalanche Fuji Testnet",
-    "fetchContractCreationTxUsing": {
-      "avalancheApi": true
-    }
-  },
-  "43114": {
-    "sourcifyName": "Avalanche C-Chain Mainnet",
-    "fetchContractCreationTxUsing": {
-      "avalancheApi": true
     }
   },
   "40": {
