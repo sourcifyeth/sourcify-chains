@@ -14,6 +14,12 @@
   "83": {
     "sourcifyName": "Meter Testnet"
   },
+  "96": {
+    "sourcifyName": "Bitkub Chain"
+  },
+  "106": {
+    "sourcifyName": "Velas Mainnet"
+  },
   "146": {
     "sourcifyName": "Sonic Mainnet"
   },
@@ -70,6 +76,9 @@
   },
   "3338": {
     "sourcifyName": "peaq Mainnet"
+  },
+  "4000": {
+    "sourcifyName": "Ozone Chain Mainnet"
   },
   "4114": {
     "sourcifyName": "Citrea Mainnet"
