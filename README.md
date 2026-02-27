@@ -16,7 +16,7 @@ A chain is **auto-included** if it appears in any of:
 - Etherscan chainlist API
 - Blockscout's own hosted instances (where `hostedBy === "blockscout"`)
 
-Routescan and third-party Blockscout instances do **not** qualify a chain for inclusion on their own — they only contribute `fetchContractCreationTxUsing` data.
+Routescan and third-party Blockscout instances do **not** qualify a chain for inclusion on their own — they only contribute `fetchContractCreationTxUsing` data. We also make use of the [chainid.network/chains.json](https://chainid.network/chains.json) (a.k.a "chainlist") file to get the public RPCs of the chains if no paid provider RPCs are available.
 
 Beyond auto-discovery, chains can also be manually included or excluded:
 
@@ -56,7 +56,7 @@ Allowed fields per entry:
 | `sourcifyName` | Display name (overrides chainid.network name) |
 | `fetchContractCreationTxUsing` | Additional fetch methods (`avalancheApi`, `telosApi`, etc.) |
 | `traceSupport` | `"trace_transaction"` or `"debug_traceTransaction"` |
-| `rpc` | Priority RPCs prepended before provider RPCs |
+| `rpc` | RPCs defined here have higher priority than auto-discovered provider RPCs |
 
 ### `additional-chains.json`
 
@@ -69,13 +69,13 @@ Chains that are **not auto-discovered** but are still supported by Sourcify. Eac
 }
 ```
 
-The generator injects `supported: true` and `discoveredBy: ["additional-chains"]` at output time. This file is intentionally minimal — only `sourcifyName` belongs here.
+The generator injects `supported: true` and `discoveredBy: ["additional-chains"]` at output time. This file is intentionally minimal — only `sourcifyName` belongs here for easier human inspection. Typically the RPCs of these chains are imported from the [chainid.network/chains.json](https://chainid.network/chains.json) (a.k.a "chainlist") file.
 
 A chain must not appear in both `additional-chains.json` and `deprecated-chains.json` (the generator will throw).
 
 ### `deprecated-chains.json`
 
-Chains that should be excluded from the output entirely, even if they appear in provider APIs:
+Chains that should be excluded from the output entirely, even if they appear in provider APIs or are auto-discovered. These will have `"supported": false` in the output:
 
 ```json
 {
