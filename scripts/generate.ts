@@ -25,6 +25,7 @@ dotenv.config();
 import { fetchQuickNodeChains } from "./providers/quicknode.js";
 import type { QuickNodeChainData } from "./providers/quicknode.js";
 import { fetchDrpcChains } from "./providers/drpc.js";
+import { fetchAvalancheChains } from "./providers/avalanche.js";
 import { fetchEtherscanChains } from "./block-explorers/etherscan.js";
 import { fetchBlockscoutChains } from "./block-explorers/blockscout.js";
 import { fetchRoutescanChains } from "./block-explorers/routescan.js";
@@ -93,6 +94,30 @@ async function fetchWithRetry<T>(
   name: string,
   fetchFn: () => Promise<Map<number, T>>,
 ): Promise<Map<number, T>> {
+  for (let attempt = 1; attempt <= RETRY_COUNT; attempt++) {
+    try {
+      const data = await fetchFn();
+      console.log(`  ${name}: ${data.size} chains`);
+      return data;
+    } catch (error) {
+      const cause = error instanceof Error ? (error as Error & { cause?: Error }).cause : undefined;
+      const message = error instanceof Error ? error.message : String(error);
+      const detail = cause ? ` (${cause.message})` : "";
+      if (attempt < RETRY_COUNT) {
+        console.warn(`  ${name}: attempt ${attempt} failed — ${message}${detail}, retrying in ${RETRY_DELAY_MS}ms...`);
+        await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+      } else {
+        throw new Error(`${name} failed after ${RETRY_COUNT} attempts: ${message}${detail}`);
+      }
+    }
+  }
+  throw new Error("unreachable");
+}
+
+async function fetchWithRetrySet(
+  name: string,
+  fetchFn: () => Promise<Set<number>>,
+): Promise<Set<number>> {
   for (let attempt = 1; attempt <= RETRY_COUNT; attempt++) {
     try {
       const data = await fetchFn();
@@ -188,6 +213,7 @@ async function main() {
     chainList,
     quicknodeChains,
     drpcChains,
+    avalancheChains,
     etherscanChains,
     blockscoutChains,
     routescanChains,
@@ -197,6 +223,7 @@ async function main() {
       ? fetchWithRetry("QuickNode", () => fetchQuickNodeChains(quicknodeApiKey))
       : Promise.resolve<Map<number, QuickNodeChainData> | null>(null),
     fetchWithRetry("dRPC", fetchDrpcChains),
+    fetchWithRetrySet("Avalanche", fetchAvalancheChains),
     fetchWithRetry("Etherscan", fetchEtherscanChains),
     fetchWithRetry("Blockscout", fetchBlockscoutChains),
     fetchWithRetry("Routescan", fetchRoutescanChains),
@@ -310,6 +337,9 @@ async function main() {
     if (routescan && !fetchUsing["routescanApi"]) {
       // routescan workspace is e.g. "mainnet", "testnet"
       fetchUsing["routescanApi"] = { type: routescan.workspace };
+    }
+    if (avalancheChains.has(chainId) && !fetchUsing["avalancheApi"]) {
+      fetchUsing["avalancheApi"] = true;
     }
 
     // Build discoveredBy
