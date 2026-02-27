@@ -301,14 +301,6 @@
       "https://rpc.moderato.tempo.xyz"
     ]
   },
-  "1868": {
-    "sourcifyName": "Soneium",
-    "traceSupport": "debug_traceTransaction"
-  },
-  "5042002": {
-    "sourcifyName": "ARC-testnet",
-    "traceSupport": "trace_transaction"
-  },
   "190415": {
     "sourcifyName": "HPP Mainnet",
     "rpc": [
