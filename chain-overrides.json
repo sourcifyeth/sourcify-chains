@@ -103,14 +103,6 @@
       }
     }
   },
-  "106": {
-    "sourcifyName": "Velas Mainnet",
-    "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
-        "url": "https://evmexplorer.velas.com/"
-      }
-    }
-  },
   "7001": {
     "sourcifyName": "ZetaChain: Athens Testnet",
     "fetchContractCreationTxUsing": {
@@ -187,14 +179,6 @@
       }
     }
   },
-  "96": {
-    "sourcifyName": "Bitkub Chain",
-    "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
-        "url": "https://www.kubscan.com/"
-      }
-    }
-  },
   "42170": {
     "sourcifyName": "Arbitrum Nova",
     "rpc": [
@@ -231,14 +215,6 @@
       "https://scroll-sepolia-rpc.publicnode.com",
       "https://rpc.ankr.com/scroll_sepolia_testnet"
     ]
-  },
-  "4000": {
-    "sourcifyName": "Ozone Chain Mainnet",
-    "fetchContractCreationTxUsing": {
-      "blockscoutScrape": {
-        "url": "https://ozonescan.io/"
-      }
-    }
   },
   "80002": {
     "sourcifyName": "Polygon Amoy Testnet",
