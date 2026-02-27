@@ -365,11 +365,19 @@ async function main() {
   }
 
   // Add additional-chains.json entries (full definitions, not auto-discovered)
+  const additionalOverlapErrors: string[] = [];
   for (const [chainIdStr, entry] of Object.entries(additionalChains)) {
     if (deprecatedSet.has(parseInt(chainIdStr, 10))) {
       throw new Error(`Chain ${entry.sourcifyName} #${chainIdStr} appears in both additional-chains.json and deprecated-chains.json`);
     }
+    if (output[chainIdStr]) {
+      additionalOverlapErrors.push(`  #${chainIdStr} ${entry.sourcifyName} (discoveredBy: [${output[chainIdStr].discoveredBy.join(", ")}])`);
+      continue;
+    }
     output[chainIdStr] = { ...entry, supported: true, discoveredBy: ["additional-chains"] };
+  }
+  if (additionalOverlapErrors.length > 0) {
+    throw new Error(`The following chains appear in both additional-chains.json and are auto-discovered. Remove them from additional-chains.json:\n${additionalOverlapErrors.join("\n")}`);
   }
 
   // Sort output by numeric chain ID
