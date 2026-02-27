@@ -79,7 +79,6 @@ interface RpcEntry {
 interface ChainOverride {
   sourcifyName?: string;
   fetchContractCreationTxUsing?: Record<string, unknown>;
-  traceSupport?: string;
   rpc?: Array<string | RpcEntry>;
 }
 
@@ -145,10 +144,7 @@ const QUICKNODE_SUBNET_SLUGS = new Set([
   "flare-coston2",
 ]);
 
-function buildQuickNodeRpc(
-  qn: QuickNodeChainData,
-  traceSupport?: string,
-): RpcEntry {
+function buildQuickNodeRpc(qn: QuickNodeChainData): RpcEntry {
   let url: string;
   if (qn.networkSlug === "mainnet") {
     // Ethereum mainnet: slug is not embedded in the subdomain
@@ -164,7 +160,6 @@ function buildQuickNodeRpc(
     url,
     apiKeyEnvName: "QUICKNODE_API_KEY",
     subDomainEnvName: "QUICKNODE_SUBDOMAIN",
-    ...(traceSupport ? { traceSupport } : {}),
   };
 }
 
@@ -280,7 +275,7 @@ async function main() {
 
     // 2. QuickNode
     if (qn) {
-      rpcs.push(buildQuickNodeRpc(qn, override?.traceSupport));
+      rpcs.push(buildQuickNodeRpc(qn));
     }
 
     // 3. dRPC
