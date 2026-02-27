@@ -55,7 +55,6 @@ Allowed fields per entry:
 |---|---|
 | `sourcifyName` | Display name (overrides chainid.network name) |
 | `fetchContractCreationTxUsing` | Additional fetch methods (`avalancheApi`, `telosApi`, etc.) |
-| `traceSupport` | `"trace_transaction"` or `"debug_traceTransaction"` |
 | `rpc` | RPCs defined here have higher priority than auto-discovered provider RPCs |
 
 ### `additional-chains.json`
@@ -64,14 +63,14 @@ Chains that are **not auto-discovered** but are still supported by Sourcify. Eac
 
 ```json
 {
-  "25": { "sourcifyName": "Cronos Mainnet Beta" },
-  "30": { "sourcifyName": "Rootstock" }
+  "57": { "sourcifyName": "Syscoin Mainnet" },
+  "82": { "sourcifyName": "Meter Mainnet" }
 }
 ```
 
 The generator injects `supported: true` and `discoveredBy: ["additional-chains"]` at output time. This file is intentionally minimal — only `sourcifyName` belongs here for easier human inspection. Typically the RPCs of these chains are imported from the [chainid.network/chains.json](https://chainid.network/chains.json) (a.k.a "chainlist") file.
 
-A chain must not appear in both `additional-chains.json` and `deprecated-chains.json` (the generator will throw).
+A chain must not appear in `additional-chains.json` if it is already auto-discovered — the generator will throw. If a chain becomes auto-discovered over time, remove it from `additional-chains.json` (and add a `chain-overrides.json` entry if a custom name or config is still needed). A chain must also not appear in both `additional-chains.json` and `deprecated-chains.json` (the generator will throw).
 
 ### `deprecated-chains.json`
 
