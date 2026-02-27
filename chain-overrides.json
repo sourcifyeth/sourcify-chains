@@ -65,15 +65,13 @@
     "rpc": [
       {
         "url": "https://rpc.pulsechain.com",
-        "type": "BaseRPC",
-        "traceSupport": "trace_transaction"
+        "type": "BaseRPC"
       },
       "https://pulsechain-rpc.publicnode.com",
       "wss://pulsechain-rpc.publicnode.com",
       {
         "url": "https://rpc-pulsechain.g4mm4.io",
-        "type": "BaseRPC",
-        "traceSupport": "trace_transaction"
+        "type": "BaseRPC"
       }
     ]
   },
@@ -175,7 +173,6 @@
   },
   "8453": {
     "sourcifyName": "Base Mainnet",
-    "traceSupport": "trace_transaction",
     "rpc": [
       "https://mainnet.base.org/",
       "https://developer-access-mainnet.base.org/",
@@ -200,7 +197,6 @@
   },
   "42170": {
     "sourcifyName": "Arbitrum Nova",
-    "traceSupport": "debug_traceTransaction",
     "rpc": [
       "https://nova.arbitrum.io/rpc",
       "https://arbitrum-nova.gateway.tenderly.co",
@@ -214,7 +210,6 @@
         "url": "https://explorer.mantle.xyz/"
       }
     },
-    "traceSupport": "debug_traceTransaction",
     "rpc": [
       "https://rpc.mantle.xyz",
       "https://mantle-rpc.publicnode.com"
@@ -227,14 +222,12 @@
         "url": "https://explorer.sepolia.mantle.xyz/"
       }
     },
-    "traceSupport": "debug_traceTransaction",
     "rpc": [
       "https://rpc.sepolia.mantle.xyz"
     ]
   },
   "534352": {
     "sourcifyName": "Scroll",
-    "traceSupport": "debug_traceTransaction",
     "rpc": [
       "https://rpc.scroll.io",
       "https://scroll.blockpi.network/v1/rpc/public",
@@ -243,7 +236,6 @@
   },
   "534351": {
     "sourcifyName": "Scroll Sepolia Testnet",
-    "traceSupport": "debug_traceTransaction",
     "rpc": [
       "https://sepolia-rpc.scroll.io",
       "https://scroll-sepolia-rpc.publicnode.com",
@@ -260,7 +252,6 @@
   },
   "80002": {
     "sourcifyName": "Polygon Amoy Testnet",
-    "traceSupport": "trace_transaction",
     "rpc": [
       "https://rpc-amoy.polygon.technology",
       "https://polygon-amoy-bor-rpc.publicnode.com"
@@ -274,7 +265,6 @@
   },
   "84532": {
     "sourcifyName": "Base Sepolia Tesnet",
-    "traceSupport": "trace_transaction",
     "rpc": [
       "https://sepolia.base.org",
       "https://base-sepolia-rpc.publicnode.com"
@@ -290,7 +280,6 @@
   },
   "42429": {
     "sourcifyName": "Tempo Testnet (Andantino)",
-    "traceSupport": "trace_transaction",
     "rpc": [
       "https://rpc.testnet.tempo.xyz"
     ]
