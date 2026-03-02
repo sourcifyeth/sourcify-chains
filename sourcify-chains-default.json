@@ -214,6 +214,7 @@
     "sourcifyName": "Telos Mainnet",
     "supported": true,
     "discoveredBy": [
+      "drpc",
       "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
@@ -222,8 +223,12 @@
       }
     },
     "rpc": [
-      "https://rpc.telos.net",
-      "https://telos.drpc.org"
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=telos&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
+      }
     ]
   },
   "51": {
@@ -1047,7 +1052,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=filecoin&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -1808,20 +1814,6 @@
       }
     ]
   },
-  "1829": {
-    "sourcifyName": "PlayBlock",
-    "supported": true,
-    "discoveredBy": [
-      "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=playnance&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
-      }
-    ]
-  },
   "1868": {
     "sourcifyName": "Soneium",
     "supported": true,
@@ -1939,7 +1931,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=soneium-minato&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -2082,21 +2074,6 @@
       "https://spb.rpc.tac.build",
       "https://rpc.ankr.com/tac_spb",
       "https://spb-ws.rpc.tac.build"
-    ]
-  },
-  "2442": {
-    "sourcifyName": "Polygon zkEVM Cardona Testnet",
-    "supported": true,
-    "discoveredBy": [
-      "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=polygon-zkevm-cardona&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
-      }
     ]
   },
   "2523": {
@@ -2550,7 +2527,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zeta-chain-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -2872,7 +2849,7 @@
     "sourcifyName": "Immutable zkEVM Testnet",
     "supported": true,
     "discoveredBy": [
-      "drpc",
+      "quicknode",
       "blockscout"
     ],
     "fetchContractCreationTxUsing": {
@@ -2883,8 +2860,9 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=immutable-zkevm-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
+        "url": "https://{SUBDOMAIN}.imx-testnet.quiknode.pro/{API_KEY}/",
+        "apiKeyEnvName": "QUICKNODE_API_KEY",
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
       }
     ]
@@ -3066,6 +3044,21 @@
       "https://rpc-testnet.bitkubchain.io"
     ]
   },
+  "31611": {
+    "sourcifyName": "Mezo Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=mezo-testnet&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      }
+    ]
+  },
   "31612": {
     "sourcifyName": "Mezo",
     "supported": true,
@@ -3173,7 +3166,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=mode&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -4886,6 +4879,21 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=aurora&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      }
+    ]
+  },
+  "1313161555": {
+    "sourcifyName": "Aurora Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=aurora-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       }
