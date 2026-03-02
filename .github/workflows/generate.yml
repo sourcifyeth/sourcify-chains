@@ -33,6 +33,9 @@ jobs:
         run: npm run generate
         env:
           QUICKNODE_CONSOLE_API_KEY: ${{ secrets.QUICKNODE_CONSOLE_API_KEY }}
+          QUICKNODE_API_KEY: ${{ secrets.QUICKNODE_API_KEY }}
+          QUICKNODE_SUBDOMAIN: ${{ secrets.QUICKNODE_SUBDOMAIN }}
+          DRPC_API_KEY: ${{ secrets.DRPC_API_KEY }}
 
       - name: Commit and push if changed
         run: |

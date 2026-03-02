@@ -29,6 +29,8 @@ import { fetchAvalancheChains } from "./providers/avalanche.js";
 import { fetchEtherscanChains } from "./block-explorers/etherscan.js";
 import { fetchBlockscoutChains } from "./block-explorers/blockscout.js";
 import { fetchRoutescanChains } from "./block-explorers/routescan.js";
+import { probeChain, withConcurrency } from "./probe.js";
+import type { TraceCacheValue } from "./probe.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -208,6 +210,17 @@ async function main() {
     );
   }
 
+  const quicknodeRpcKey = process.env.QUICKNODE_API_KEY;
+  const quicknodeSubdomain = process.env.QUICKNODE_SUBDOMAIN;
+  const drpcApiKey = process.env.DRPC_API_KEY;
+  const canProbeQuickNode = !!(quicknodeRpcKey && quicknodeSubdomain);
+  const canProbeDrpc = !!drpcApiKey;
+  if (!canProbeQuickNode && !canProbeDrpc) {
+    console.warn(
+      "Warning: QUICKNODE_API_KEY+QUICKNODE_SUBDOMAIN and DRPC_API_KEY not set — trace support probing will be skipped",
+    );
+  }
+
   console.log("Fetching chain list and provider/explorer data in parallel...");
   const [
     chainList,
@@ -276,6 +289,72 @@ async function main() {
     }
   }
 
+  // Probe every QuickNode and dRPC chain fresh each run.
+  // Results are held in memory — no cache file.
+  // QuickNode and dRPC are probed independently: they can expose different trace methods.
+  // Values: TraceMethod (alive + trace), "none" (alive, no trace), null (not served/inactive)
+  const qnResults = new Map<number, TraceCacheValue>();
+  const drpcResults = new Map<number, TraceCacheValue>();
+
+  interface ProbePair { chainId: number; probeUrl: string }
+  const qnProbePairs: ProbePair[] = [];
+  const drpcProbePairs: ProbePair[] = [];
+
+  if (canProbeQuickNode && quicknodeChains) {
+    for (const [chainId, qn] of quicknodeChains) {
+      const url = buildQuickNodeRpc(qn).url
+        .replace("{API_KEY}", quicknodeRpcKey!)
+        .replace("{SUBDOMAIN}", quicknodeSubdomain!);
+      qnProbePairs.push({ chainId, probeUrl: url });
+    }
+  }
+  if (canProbeDrpc) {
+    for (const [chainId, drpc] of drpcChains) {
+      const url = buildDrpcRpc(drpc.shortName).url.replace("{API_KEY}", drpcApiKey!);
+      drpcProbePairs.push({ chainId, probeUrl: url });
+    }
+  }
+
+  const totalToProbe = qnProbePairs.length + drpcProbePairs.length;
+  const CHAIN_PROBE_TIMEOUT_MS = 10_000; // 10s per chain
+
+  if (totalToProbe > 0) {
+    console.log(
+      `\nProbing ${qnProbePairs.length} QuickNode + ${drpcProbePairs.length} dRPC chains (concurrency=10, timeout=${CHAIN_PROBE_TIMEOUT_MS / 1000}s)...`,
+    );
+    const makeTasks = (
+      pairs: ProbePair[],
+      results: Map<number, TraceCacheValue>,
+      provider: "quicknode" | "drpc",
+    ) =>
+      pairs.map(({ chainId, probeUrl }) => async () => {
+        const name = chainList.get(chainId)?.name ?? `Chain ${chainId}`;
+        const lines: string[] = [];
+        let didTimeout = false;
+        const timeoutPromise = new Promise<null>((resolve) =>
+          setTimeout(() => { didTimeout = true; resolve(null); }, CHAIN_PROBE_TIMEOUT_MS),
+        );
+        const result = await Promise.race([
+          probeChain(probeUrl, (msg) => lines.push(msg)),
+          timeoutPromise,
+        ]);
+        // Print header + all buffered lines atomically (prevents interleaved output)
+        const label = didTimeout ? `null (timed out after ${CHAIN_PROBE_TIMEOUT_MS / 1000}s)` : String(result);
+        console.log(`\n[${provider}] #${chainId} ${name} → ${label}`);
+        for (const line of lines) console.log(line);
+        results.set(chainId, result);
+      });
+
+    await withConcurrency(
+      [
+        ...makeTasks(qnProbePairs, qnResults, "quicknode"),
+        ...makeTasks(drpcProbePairs, drpcResults, "drpc"),
+      ],
+      10,
+    );
+    console.log(`  Done probing.`);
+  }
+
   console.log(`\nBuilding output for ${autoChainIds.size} auto-discovered/override chains...`);
 
   const output: Record<string, SourcifyChainExtension> = {};
@@ -289,6 +368,22 @@ async function main() {
     const blockscout = blockscoutChains.get(chainId);
     const routescan = routescanChains.get(chainId);
 
+    // A provider only qualifies as a discovery source if it's not dead.
+    // Absent from results (keys not probed — e.g. no API keys) is treated as alive.
+    const qnProbed = qnResults.get(chainId);
+    const drpcProbed = drpcResults.get(chainId);
+    const qnQualifies = !!qn && qnProbed !== null;
+    const drpcQualifies = !!drpc && drpcProbed !== null;
+
+    // Skip chains where every discovery source is dead or absent
+    const hasActiveSource =
+      qnQualifies ||
+      drpcQualifies ||
+      !!etherscan ||
+      blockscout?.hostedBy === "blockscout" ||
+      !!override;
+    if (!hasActiveSource) continue;
+
     const sourcifyName =
       override?.sourcifyName ?? meta?.name ?? `Chain ${chainId}`;
 
@@ -300,14 +395,22 @@ async function main() {
       rpcs.push(...override.rpc);
     }
 
-    // 2. QuickNode
-    if (qn) {
-      rpcs.push(buildQuickNodeRpc(qn));
+    // 2. QuickNode — only if alive; set traceSupport if a method was detected
+    if (qnQualifies) {
+      const rpc = buildQuickNodeRpc(qn!);
+      if (qnProbed === "trace_transaction" || qnProbed === "debug_traceTransaction") {
+        rpc.traceSupport = qnProbed;
+      }
+      rpcs.push(rpc);
     }
 
-    // 3. dRPC
-    if (drpc) {
-      rpcs.push(buildDrpcRpc(drpc.shortName));
+    // 3. dRPC — only if alive; set traceSupport if a method was detected
+    if (drpcQualifies) {
+      const rpc = buildDrpcRpc(drpc!.shortName);
+      if (drpcProbed === "trace_transaction" || drpcProbed === "debug_traceTransaction") {
+        rpc.traceSupport = drpcProbed;
+      }
+      rpcs.push(rpc);
     }
 
     // 4. Public RPCs from chainid.network — only if no provider or override RPCs exist
@@ -342,10 +445,10 @@ async function main() {
       fetchUsing["avalancheApi"] = true;
     }
 
-    // Build discoveredBy
+    // Build discoveredBy — only include providers that actively qualify
     const discoveredBy: string[] = [];
-    if (qn) discoveredBy.push("quicknode");
-    if (drpc) discoveredBy.push("drpc");
+    if (qnQualifies) discoveredBy.push("quicknode");
+    if (drpcQualifies) discoveredBy.push("drpc");
     if (etherscan) discoveredBy.push("etherscan");
     if (blockscout?.hostedBy === "blockscout") discoveredBy.push("blockscout");
     if (override) discoveredBy.push("chain-overrides");

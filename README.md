@@ -7,14 +7,35 @@ Canonical chain configuration for [Sourcify](https://sourcify.dev) — the open-
 `sourcify-chains-default.json` is **auto-generated** by a nightly CI job (and on every push to `main`) that:
 
 1. Fetches supported chains from external APIs: **QuickNode**, **dRPC**, **Etherscan**, and **Blockscout**
-2. Merges with manually maintained config files in this repo
-3. Writes the merged result to `sourcify-chains-default.json`
+2. **Probes each QuickNode and dRPC chain** to verify it is alive and detect trace support (see below)
+3. Merges with manually maintained config files in this repo
+4. Writes the merged result to `sourcify-chains-default.json`
 
 A chain is **auto-included** if it appears in any of:
-- QuickNode console API
-- dRPC chains API
+- QuickNode console API — and is not dead (see probing below)
+- dRPC chains API — and is not dead (see probing below)
 - Etherscan chainlist API
 - Blockscout's own hosted instances (where `hostedBy === "blockscout"`)
+
+### RPC liveness and trace probing
+
+Every QuickNode and dRPC chain is probed on each run. Probing:
+
+1. Calls `eth_getBlockByNumber("latest")` on the provider URL. If the provider returns an error (e.g. "Unknown network"), the chain is **dead** on that provider.
+2. Scans back up to 100 blocks looking for a transaction. If none is found, the chain is treated as **inactive** (dead).
+3. If a transaction is found, calls `trace_transaction` then `debug_traceTransaction` on it to detect which trace method the provider supports for that chain.
+
+**Dead** chains (step 1–2 failed) are excluded from the provider's RPC list and do not count as a discovery source. A chain with no remaining active sources is removed from the output entirely.
+
+**Trace support** result per provider:
+| Value | Meaning |
+|---|---|
+| `"trace_transaction"` | Provider supports Parity-style tracing for this chain |
+| `"debug_traceTransaction"` | Provider supports Geth-style tracing for this chain |
+| `"none"` | Chain is alive but neither trace method is available |
+| `null` | Chain is dead on this provider |
+
+QuickNode and dRPC are probed independently — they may expose different trace methods for the same chain. Each probe has a 10 s total timeout (3 s per individual RPC call).
 
 Routescan and third-party Blockscout instances do **not** qualify a chain for inclusion on their own — they only contribute `fetchContractCreationTxUsing` data. We also make use of the [chainid.network/chains.json](https://chainid.network/chains.json) (a.k.a "chainlist") file to get the public RPCs of the chains if no paid provider RPCs are available.
 
@@ -108,7 +129,7 @@ Each entry includes:
 | `sourcifyName` | Human-readable chain name |
 | `supported` | Always `true` in output (deprecated chains are excluded entirely) |
 | `discoveredBy` | Which sources caused this chain to be included (e.g. `["quicknode", "drpc", "etherscan"]`) |
-| `rpc` | Ordered list: override RPCs → QuickNode → dRPC → public (chainid.network) |
+| `rpc` | Ordered list: override RPCs → QuickNode (if alive) → dRPC (if alive) → public (chainid.network) |
 | `etherscanApi` | Etherscan API config, if the chain is on Etherscan's chainlist |
 | `fetchContractCreationTxUsing` | APIs used to look up contract creation transactions |
 
@@ -127,8 +148,8 @@ Example output entry for Ethereum Mainnet:
   "etherscanApi": { "supported": true, "apiKeyEnvName": "ETHERSCAN_API_KEY_MAINNET" },
   "rpc": [
     { "type": "FetchRequest", "url": "https://rpc.mainnet.ethpandaops.io", "headers": [...] },
-    { "type": "APIKeyRPC", "url": "https://{SUBDOMAIN}.quiknode.pro/{API_KEY}/", "apiKeyEnvName": "QUICKNODE_API_KEY", "subDomainEnvName": "QUICKNODE_SUBDOMAIN" },
-    { "type": "APIKeyRPC", "url": "https://lb.drpc.org/ogrpc?network=ethereum&dkey={API_KEY}", "apiKeyEnvName": "DRPC_API_KEY" }
+    { "type": "APIKeyRPC", "url": "https://{SUBDOMAIN}.quiknode.pro/{API_KEY}/", "apiKeyEnvName": "QUICKNODE_API_KEY", "subDomainEnvName": "QUICKNODE_SUBDOMAIN", "traceSupport": "trace_transaction" },
+    { "type": "APIKeyRPC", "url": "https://lb.drpc.org/ogrpc?network=ethereum&dkey={API_KEY}", "apiKeyEnvName": "DRPC_API_KEY", "traceSupport": "trace_transaction" }
   ]
 }
 ```
@@ -184,13 +205,26 @@ The generation workflow (`.github/workflows/generate.yml`) runs:
 
 If `sourcify-chains-default.json` changes, the bot commits and pushes it automatically.
 
-Required secret: `QUICKNODE_CONSOLE_API_KEY` (QuickNode Console API key, separate from an RPC key).
+Required secrets:
+
+| Secret | Purpose |
+|---|---|
+| `QUICKNODE_CONSOLE_API_KEY` | Fetches the list of chains QuickNode supports (Console API, separate from RPC key) |
+| `QUICKNODE_API_KEY` | RPC key used to probe chain liveness and trace support on QuickNode |
+| `QUICKNODE_SUBDOMAIN` | Subdomain for the QuickNode RPC endpoint |
+| `DRPC_API_KEY` | RPC key used to probe chain liveness and trace support on dRPC |
 
 ## Running locally
 
 ```bash
 npm install
-QUICKNODE_CONSOLE_API_KEY=<key> npm run generate
+QUICKNODE_CONSOLE_API_KEY=<key> \
+QUICKNODE_API_KEY=<key> \
+QUICKNODE_SUBDOMAIN=<subdomain> \
+DRPC_API_KEY=<key> \
+npm run generate
 ```
 
-The script writes `sourcify-chains-default.json` and prints a summary of how many chains were included and from which sources.
+`QUICKNODE_CONSOLE_API_KEY` is required to fetch the chain list. The RPC keys (`QUICKNODE_API_KEY`, `QUICKNODE_SUBDOMAIN`, `DRPC_API_KEY`) are optional — without them, probing is skipped and no `traceSupport` is set on provider RPCs.
+
+The script probes all QuickNode and dRPC chains, writes `sourcify-chains-default.json`, and prints a summary.
