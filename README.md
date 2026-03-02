@@ -203,7 +203,7 @@ The generation workflow (`.github/workflows/generate.yml`) runs:
 - **Nightly** at 02:00 UTC (to pick up new chains from provider APIs)
 - **Manually** via `workflow_dispatch`
 
-If `sourcify-chains-default.json` changes, the bot commits and pushes it automatically.
+If `sourcify-chains-default.json` changes, the bot opens a PR from a fixed branch `chore/regenerate-chains` targeting `main`. If a PR for that branch is already open, it force-pushes the update to it instead of opening a new one. The PR must be reviewed and merged manually.
 
 Required secrets:
 
