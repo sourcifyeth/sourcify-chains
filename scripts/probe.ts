@@ -3,15 +3,16 @@ export type TraceMethod = "trace_transaction" | "debug_traceTransaction";
 /**
  * Result of probing a chain on a specific provider:
  *   - "trace_transaction" / "debug_traceTransaction" — alive, trace method detected
- *   - "none"  — alive (tx found in last 100 blocks), but neither trace method available
- *   - null    — provider doesn't serve this chain, or no tx found in last 100 blocks
+ *   - "none"  — alive (tx found in scan window), but neither trace method available
+ *   - null    — provider doesn't serve this chain, or no tx found in scan window
  *
  * null chains are excluded from the provider's RPC list entirely.
  * "none" chains are included but without a traceSupport field.
  */
 export type TraceCacheValue = TraceMethod | "none" | null;
 
-const LOOKBACK_BLOCKS = 100; // Max blocks to scan back looking for a transaction
+const SCAN_START_OFFSET = 50; // Start scanning this many blocks behind latest (avoid unindexed traces)
+const SCAN_END_OFFSET = 150; // Stop scanning at this many blocks behind latest
 
 interface JsonRpcResponse<T = unknown> {
   jsonrpc: string;
@@ -41,8 +42,8 @@ async function rpcCall<T>(
 }
 
 /**
- * Finds a recent transaction hash by scanning back from the latest block.
- * Returns null if the provider doesn't serve this chain or no tx found in LOOKBACK_BLOCKS.
+ * Finds a transaction hash by scanning blocks [latest-SCAN_START_OFFSET .. latest-SCAN_END_OFFSET].
+ * Returns null if the provider doesn't serve this chain or no tx is found in the scan window.
  */
 async function findRecentTxHash(
   url: string,
@@ -62,18 +63,12 @@ async function findRecentTxHash(
     return null;
   }
 
-  const latest = latestResp.result;
-  const latestNum = parseInt(latest.number, 16);
-  log(`    Latest block: #${latestNum} (${latest.transactions.length} txs)`);
+  const latestNum = parseInt(latestResp.result.number, 16);
+  log(`    Latest block: #${latestNum}, scanning #${latestNum - SCAN_START_OFFSET}–#${latestNum - SCAN_END_OFFSET}`);
 
-  if (latest.transactions.length > 0) {
-    const tx = latest.transactions[0];
-    log(`    Using tx: ${typeof tx === "string" ? tx : JSON.stringify(tx).slice(0, 80)}`);
-    return typeof tx === "string" ? tx : null;
-  }
-
-  // Latest block was empty — step back block by block
-  for (let i = 1; i < LOOKBACK_BLOCKS; i++) {
+  // Skip the most recent blocks — their traces may not be indexed yet.
+  // Scan from SCAN_START_OFFSET to SCAN_END_OFFSET blocks behind latest.
+  for (let i = SCAN_START_OFFSET; i <= SCAN_END_OFFSET; i++) {
     const blockHex = "0x" + (latestNum - i).toString(16);
     const resp = await rpcCall<BlockResult>(url, "eth_getBlockByNumber", [blockHex, false]);
     if (resp.error || !resp.result) continue;
@@ -86,14 +81,17 @@ async function findRecentTxHash(
     log(`    Block #${latestNum - i}: empty`);
   }
 
-  log(`    No transactions found in last ${LOOKBACK_BLOCKS} blocks`);
+  log(`    No transactions found in blocks #${latestNum - SCAN_START_OFFSET}–#${latestNum - SCAN_END_OFFSET}`);
   return null;
 }
 
 /**
  * Probes a provider RPC URL for chain liveness and trace method support.
  *
- * Step 1 — liveness: find a real transaction by scanning back up to LOOKBACK_BLOCKS.
+ * Step 1 — liveness: find a real transaction by scanning blocks
+ *   [latest - SCAN_START_OFFSET .. latest - SCAN_END_OFFSET].
+ *   Skipping the most recent blocks avoids using transactions whose traces
+ *   are not yet indexed by the provider.
  *   - Provider error (e.g. "Unknown network") or no tx found → null
  *     Null chains are excluded from the provider's RPC list entirely.
  *
