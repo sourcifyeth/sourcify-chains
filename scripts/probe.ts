@@ -12,7 +12,7 @@ export type TraceMethod = "trace_transaction" | "debug_traceTransaction";
 export type TraceCacheValue = TraceMethod | "none" | null;
 
 const SCAN_START_OFFSET = 50; // Start scanning this many blocks behind latest (avoid unindexed traces)
-const SCAN_END_OFFSET = 100; // Stop scanning at this many blocks behind latest
+const SCAN_END_OFFSET = 150; // Stop scanning at this many blocks behind latest
 
 interface JsonRpcResponse<T = unknown> {
   jsonrpc: string;
