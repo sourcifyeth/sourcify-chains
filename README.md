@@ -13,7 +13,7 @@ Canonical chain configuration for [Sourcify](https://sourcify.dev) — the open-
 
 A chain is **auto-included** if it appears in any of:
 - QuickNode console API — and is not dead (see probing below)
-- dRPC chains API — and is not dead (see probing below)
+- dRPC chains API (`https://drpc.org/api/blockchains-list`) — and is not dead (see probing below)
 - Etherscan chainlist API
 - Blockscout's own hosted instances (where `hostedBy === "blockscout"`)
 
@@ -21,8 +21,8 @@ A chain is **auto-included** if it appears in any of:
 
 Every QuickNode and dRPC chain is probed on each run. Probing:
 
-1. Calls `eth_getBlockByNumber("latest")` on the provider URL. If the provider returns an error (e.g. "Unknown network"), the chain is **dead** on that provider.
-2. Scans back up to 100 blocks looking for a transaction. If none is found, the chain is treated as **inactive** (dead).
+1. Calls `eth_getBlockByNumber("latest")` on the provider URL to get the current block number. If the provider returns an error (e.g. "Unknown network"), the chain is **dead** on that provider.
+2. Scans blocks `[latest-50 .. latest-150]` looking for a transaction. Skipping the most recent 50 blocks avoids transactions whose traces may not yet be indexed. If no transaction is found in that window, the chain is treated as **inactive** (dead).
 3. If a transaction is found, calls `trace_transaction` then `debug_traceTransaction` on it to detect which trace method the provider supports for that chain.
 
 **Dead** chains (step 1–2 failed) are excluded from the provider's RPC list and do not count as a discovery source. A chain with no remaining active sources is removed from the output entirely.
