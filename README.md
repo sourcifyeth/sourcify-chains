@@ -148,8 +148,8 @@ Example output entry for Ethereum Mainnet:
   "etherscanApi": { "supported": true, "apiKeyEnvName": "ETHERSCAN_API_KEY_MAINNET" },
   "rpc": [
     { "type": "FetchRequest", "url": "https://rpc.mainnet.ethpandaops.io", "headers": [...] },
-    { "type": "APIKeyRPC", "url": "https://{SUBDOMAIN}.quiknode.pro/{API_KEY}/", "apiKeyEnvName": "QUICKNODE_API_KEY", "subDomainEnvName": "QUICKNODE_SUBDOMAIN", "traceSupport": "trace_transaction" },
-    { "type": "APIKeyRPC", "url": "https://lb.drpc.org/ogrpc?network=ethereum&dkey={API_KEY}", "apiKeyEnvName": "DRPC_API_KEY", "traceSupport": "trace_transaction" }
+    { "type": "APIKeyRPC", "url": "https://lb.drpc.org/ogrpc?network=ethereum&dkey={API_KEY}", "apiKeyEnvName": "DRPC_API_KEY", "traceSupport": "trace_transaction" },
+    { "type": "APIKeyRPC", "url": "https://{SUBDOMAIN}.quiknode.pro/{API_KEY}/", "apiKeyEnvName": "QUICKNODE_API_KEY", "subDomainEnvName": "QUICKNODE_SUBDOMAIN", "traceSupport": "trace_transaction" }
   ]
 }
 ```
@@ -159,8 +159,8 @@ Example output entry for Ethereum Mainnet:
 For each chain, the generator builds the RPC list in this priority order:
 
 1. **Override RPCs** from `chain-overrides.json` (e.g. ethpandaops `FetchRequest` entries)
-2. **QuickNode** `APIKeyRPC` (if the chain is on QuickNode)
-3. **dRPC** `APIKeyRPC` (if the chain is on dRPC)
+2. **dRPC** `APIKeyRPC` (if the chain is on dRPC) — preferred due to lower cost
+3. **QuickNode** `APIKeyRPC` (if the chain is on QuickNode)
 4. **Public RPCs** from chainid.network — only if none of the above exist
 
 ## How to add a chain
