@@ -12,10 +12,10 @@
  * Routescan and third-party Blockscout instances do not qualify a chain for
  * inclusion on their own (used for fetchContractCreationTxUsing only).
  *
- * RPC priority for each chain:
+ * RPC priority for each chain (cost-based):
  *   1. Manual override RPCs (from chain-overrides.json)
- *   2. QuickNode APIKeyRPC
- *   3. dRPC APIKeyRPC
+ *   2. dRPC APIKeyRPC — preferred due to lower cost
+ *   3. QuickNode APIKeyRPC
  *   4. Public RPCs from chainid.network — only if none of the above exist
  */
 
@@ -25,7 +25,7 @@ dotenv.config();
 import { fetchQuickNodeChains } from "./providers/quicknode.js";
 import type { QuickNodeChainData } from "./providers/quicknode.js";
 import { fetchDrpcChains } from "./providers/drpc.js";
-import { fetchAvalancheChains } from "./providers/avalanche.js";
+import { fetchAvalancheChains } from "./otherAPIs/avalanche.js";
 import { fetchEtherscanChains } from "./block-explorers/etherscan.js";
 import { fetchBlockscoutChains } from "./block-explorers/blockscout.js";
 import { fetchRoutescanChains } from "./block-explorers/routescan.js";
@@ -395,20 +395,20 @@ async function main() {
       rpcs.push(...override.rpc);
     }
 
-    // 2. QuickNode — only if alive; set traceSupport if a method was detected
-    if (qnQualifies) {
-      const rpc = buildQuickNodeRpc(qn!);
-      if (qnProbed === "trace_transaction" || qnProbed === "debug_traceTransaction") {
-        rpc.traceSupport = qnProbed;
-      }
-      rpcs.push(rpc);
-    }
-
-    // 3. dRPC — only if alive; set traceSupport if a method was detected
+    // 2. dRPC — only if alive; set traceSupport if a method was detected
     if (drpcQualifies) {
       const rpc = buildDrpcRpc(drpc!.shortName);
       if (drpcProbed === "trace_transaction" || drpcProbed === "debug_traceTransaction") {
         rpc.traceSupport = drpcProbed;
+      }
+      rpcs.push(rpc);
+    }
+
+    // 3. QuickNode — only if alive; set traceSupport if a method was detected
+    if (qnQualifies) {
+      const rpc = buildQuickNodeRpc(qn!);
+      if (qnProbed === "trace_transaction" || qnProbed === "debug_traceTransaction") {
+        rpc.traceSupport = qnProbed;
       }
       rpcs.push(rpc);
     }
