@@ -259,6 +259,11 @@ async function main() {
     fs.readFileSync(path.join(REPO_ROOT, "etherscan-api-keys.json"), "utf8"),
   ) as Record<string, string>;
 
+  const drpcIgnore = JSON.parse(
+    fs.readFileSync(path.join(REPO_ROOT, "drpc-ignore.json"), "utf8"),
+  ) as Record<string, string>;
+  const drpcIgnoreSet = new Set<number>(Object.keys(drpcIgnore).map(Number));
+
   const deprecatedSet = new Set<number>(Object.keys(deprecatedChains).map(Number));
 
   // Auto-supported = union of QuickNode + dRPC + Etherscan +
@@ -310,6 +315,7 @@ async function main() {
   }
   if (canProbeDrpc) {
     for (const [chainId, drpc] of drpcChains) {
+      if (drpcIgnoreSet.has(chainId)) continue;
       const url = buildDrpcRpc(drpc.shortName).url.replace("{API_KEY}", drpcApiKey!);
       drpcProbePairs.push({ chainId, probeUrl: url });
     }
@@ -373,7 +379,7 @@ async function main() {
     const qnProbed = qnResults.get(chainId);
     const drpcProbed = drpcResults.get(chainId);
     const qnQualifies = !!qn && qnProbed !== null;
-    const drpcQualifies = !!drpc && drpcProbed !== null;
+    const drpcQualifies = !!drpc && drpcProbed !== null && !drpcIgnoreSet.has(chainId);
 
     // Skip chains where every discovery source is dead or absent
     const hasActiveSource =
