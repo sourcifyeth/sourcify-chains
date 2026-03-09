@@ -202,7 +202,8 @@ export async function probeChain(
         // not EVM errors, and must be retried rather than counted as "method exists":
         //   -32053: dRPC "API key is not allowed to access method" (plan restriction)
         //   -32001: dRPC "incorrect response body" (malformed upstream response)
-        const INFRA_CODES_IN_EVM_RANGE = new Set([-32053, -32001]);
+        //   -32005: rate limited
+        const INFRA_CODES_IN_EVM_RANGE = new Set([-32053, -32001, -32005]);
         if (code >= -32099 && code <= -32000 && !INFRA_CODES_IN_EVM_RANGE.has(code)) {
           log(`    ${method}: ✓ EVM error (${code}: "${d.error.message}")`);
           return { trace: method, txHash };
