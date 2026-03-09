@@ -31,14 +31,26 @@ async function rpcCall<T>(
   method: string,
   params: unknown[],
   timeoutMs = 3_000,
+  retries = 2,
 ): Promise<JsonRpcResponse<T>> {
-  const resp = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }),
-    signal: AbortSignal.timeout(timeoutMs),
-  });
-  return resp.json() as Promise<JsonRpcResponse<T>>;
+  let lastError: unknown;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const resp = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }),
+        signal: AbortSignal.timeout(timeoutMs),
+      });
+      return resp.json() as Promise<JsonRpcResponse<T>>;
+    } catch (e) {
+      lastError = e;
+      if (attempt < retries) {
+        await new Promise((r) => setTimeout(r, 500));
+      }
+    }
+  }
+  throw lastError;
 }
 
 /**
