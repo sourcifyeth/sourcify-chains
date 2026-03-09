@@ -22,7 +22,7 @@ A chain is **auto-included** if it appears in any of:
 Every QuickNode and dRPC chain is probed on each run. Probing:
 
 1. Calls `eth_getBlockByNumber("latest")` on the provider URL to get the current block number. If the provider returns an error (e.g. "Unknown network"), the chain is **dead** on that provider.
-2. Scans blocks `[latest-50 .. latest-150]` looking for a transaction. Skipping the most recent 50 blocks avoids transactions whose traces may not yet be indexed. If no transaction is found in that window, the chain is treated as **inactive** (dead).
+2. Looks up a cached transaction hash from `tx-cache.json` (keyed by chain ID). If one exists, it is used directly and the block scan is skipped. Otherwise, scans blocks `[latest-50 .. latest-550]` (a 500-block window) looking for a transaction. Skipping the most recent 50 blocks avoids transactions whose traces may not yet be indexed. If no transaction is found in that window, the chain is treated as **inactive** (dead).
 3. If a transaction is found, calls `trace_transaction` then `debug_traceTransaction` on it to detect which trace method the provider supports for that chain.
 
 **Dead** chains (step 1–2 failed) are excluded from the provider's RPC list and do not count as a discovery source. A chain with no remaining active sources is removed from the output entirely.
@@ -112,6 +112,19 @@ Chains whose dRPC endpoint is too unreliable to probe or use. These chains are e
 {
   "1284": "Moonbeam",
   "1313161555": "Aurora Testnet"
+}
+```
+
+### `tx-cache.json`
+
+A cache of known transaction hashes, keyed by chain ID. When a cached hash is available for a chain, the probe skips the 500-block scan entirely and uses it directly. This prevents false "chain inactive" results for low-activity chains where no transaction happens to appear in the scan window.
+
+The cache is updated automatically after each generation run and committed alongside `sourcify-chains-default.json`. It only caches the tx hash — trace probe results are never cached; those are always re-probed fresh each run.
+
+```json
+{
+  "1": "0xabc123...",
+  "137": "0xdef456..."
 }
 ```
 
@@ -214,7 +227,7 @@ The generation workflow (`.github/workflows/generate.yml`) runs:
 - **Nightly** at 02:00 UTC (to pick up new chains from provider APIs)
 - **Manually** via `workflow_dispatch`
 
-If `sourcify-chains-default.json` changes, the bot opens a PR from a fixed branch `chore/regenerate-chains` targeting `main`. If a PR for that branch is already open, it force-pushes the update to it instead of opening a new one. The PR must be reviewed and merged manually.
+If `sourcify-chains-default.json` or `tx-cache.json` changes, the bot opens a PR from a fixed branch `chore/regenerate-chains` targeting `main`. If a PR for that branch is already open, it force-pushes the update to it instead of opening a new one. The PR must be reviewed and merged manually.
 
 Required secrets:
 

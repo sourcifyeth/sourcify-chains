@@ -11,6 +11,16 @@ export type TraceMethod = "trace_transaction" | "debug_traceTransaction";
  */
 export type TraceCacheValue = TraceMethod | "none" | null;
 
+/**
+ * Result returned by probeChain, including the tx hash used for probing.
+ * txHash is non-null whenever the chain was alive (trace may still be "none").
+ * Callers should persist txHash to the tx cache so future runs can skip block scanning.
+ */
+export type ProbeChainResult = {
+  trace: TraceCacheValue;
+  txHash: string | null;
+};
+
 const SCAN_START_OFFSET = 50; // Start scanning this many blocks behind latest (avoid unindexed traces)
 const SCAN_END_OFFSET = 550; // Stop scanning at this many blocks behind latest (500-block window)
 
@@ -115,16 +125,12 @@ async function findRecentTxHash(
 /**
  * Probes a provider RPC URL for chain liveness and trace method support.
  *
- * Step 1 — liveness: find a real transaction by scanning blocks
- *   [latest - SCAN_START_OFFSET .. latest - SCAN_END_OFFSET] (500-block window).
- *   Skipping the most recent blocks avoids using transactions whose traces
- *   are not yet indexed by the provider.
- *   - Provider error (e.g. "Unknown network") or no tx found → null
- *     Null chains are excluded from the provider's RPC list entirely.
+ * If cachedTxHash is provided, it is used directly for trace probing and the
+ * 500-block scan is skipped entirely. If not provided, findRecentTxHash scans
+ * blocks [latest-50 .. latest-550] to find a transaction; the found hash is
+ * returned in the result so callers can persist it to the tx cache.
  *
- * Step 2 — trace support (only if alive): call trace_transaction then
- *   debug_traceTransaction with the found tx hash. Each method is attempted
- *   up to TRACE_PROBE_RETRIES+1 times:
+ * Trace support probing: each method is attempted up to TRACE_PROBE_RETRIES+1 times:
  *   - -32601: Method not found → definitive, try next method (no retry)
  *   - result present → method supported → return it
  *   - standard JSON-RPC server error (-32000 to -32099) → method exists → return it
@@ -138,15 +144,21 @@ async function findRecentTxHash(
 export async function probeChain(
   url: string,
   log: (msg: string) => void = () => {},
-): Promise<TraceCacheValue> {
+  cachedTxHash?: string,
+): Promise<ProbeChainResult> {
   let txHash: string | null;
-  try {
-    txHash = await findRecentTxHash(url, log);
-  } catch {
-    return null;
-  }
 
-  if (!txHash) return null; // Provider doesn't serve this chain or chain is inactive
+  if (cachedTxHash) {
+    log(`    Using cached tx: ${cachedTxHash}`);
+    txHash = cachedTxHash;
+  } else {
+    try {
+      txHash = await findRecentTxHash(url, log);
+    } catch {
+      return { trace: null, txHash: null };
+    }
+    if (!txHash) return { trace: null, txHash: null };
+  }
 
   for (const method of [
     "trace_transaction",
@@ -177,7 +189,7 @@ export async function probeChain(
         // Got a real result — method is supported
         const preview = JSON.stringify(d.result).slice(0, 120);
         log(`    ${method}: ✓ result ${preview}`);
-        return method;
+        return { trace: method, txHash };
       }
 
       if (d.error) {
@@ -193,7 +205,7 @@ export async function probeChain(
         const INFRA_CODES_IN_EVM_RANGE = new Set([-32053, -32001]);
         if (code >= -32099 && code <= -32000 && !INFRA_CODES_IN_EVM_RANGE.has(code)) {
           log(`    ${method}: ✓ EVM error (${code}: "${d.error.message}")`);
-          return method;
+          return { trace: method, txHash };
         }
         // Any other error (infrastructure, routing, plan restriction) — possibly transient; retry
         if (attempt < TRACE_PROBE_RETRIES) {
@@ -215,7 +227,7 @@ export async function probeChain(
       break;
     }
   }
-  return "none"; // Chain is alive but neither trace method is available
+  return { trace: "none", txHash }; // Chain is alive but neither trace method is available
 }
 
 /**

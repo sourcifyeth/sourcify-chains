@@ -43,9 +43,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add sourcify-chains-default.json
+          git add sourcify-chains-default.json tx-cache.json
           if git diff --staged --quiet; then
-            echo "No changes to sourcify-chains-default.json"
+            echo "No changes to sourcify-chains-default.json or tx-cache.json"
             exit 0
           fi
           BRANCH="chore/regenerate-chains"

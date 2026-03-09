@@ -30,7 +30,7 @@ import { fetchEtherscanChains } from "./block-explorers/etherscan.js";
 import { fetchBlockscoutChains } from "./block-explorers/blockscout.js";
 import { fetchRoutescanChains } from "./block-explorers/routescan.js";
 import { probeChain, withConcurrency } from "./probe.js";
-import type { TraceCacheValue } from "./probe.js";
+import type { TraceCacheValue, ProbeChainResult } from "./probe.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -264,6 +264,11 @@ async function main() {
   ) as Record<string, string>;
   const drpcIgnoreSet = new Set<number>(Object.keys(drpcIgnore).map(Number));
 
+  const txCachePath = path.join(REPO_ROOT, "tx-cache.json");
+  const txCache: Record<string, string> = fs.existsSync(txCachePath)
+    ? (JSON.parse(fs.readFileSync(txCachePath, "utf8")) as Record<string, string>)
+    : {};
+
   const deprecatedSet = new Set<number>(Object.keys(deprecatedChains).map(Number));
 
   // Auto-supported = union of QuickNode + dRPC + Etherscan +
@@ -337,18 +342,21 @@ async function main() {
         const name = chainList.get(chainId)?.name ?? `Chain ${chainId}`;
         const lines: string[] = [];
         let didTimeout = false;
-        const timeoutPromise = new Promise<null>((resolve) =>
-          setTimeout(() => { didTimeout = true; resolve(null); }, CHAIN_PROBE_TIMEOUT_MS),
-        );
-        const result = await Promise.race([
-          probeChain(probeUrl, (msg) => lines.push(msg)),
+        const timeoutPromise = new Promise<null>((resolve) => {
+          const t = setTimeout(() => { didTimeout = true; resolve(null); }, CHAIN_PROBE_TIMEOUT_MS);
+          t.unref(); // don't keep the process alive if everything else is done
+        });
+        const probeResult: ProbeChainResult | null = await Promise.race([
+          probeChain(probeUrl, (msg) => lines.push(msg), txCache[chainId.toString()]),
           timeoutPromise,
         ]);
         // Print header + all buffered lines atomically (prevents interleaved output)
-        const label = didTimeout ? `null (timed out after ${CHAIN_PROBE_TIMEOUT_MS / 1000}s)` : String(result);
+        const traceValue = probeResult?.trace ?? null;
+        const label = didTimeout ? `null (timed out after ${CHAIN_PROBE_TIMEOUT_MS / 1000}s)` : String(traceValue);
         console.log(`\n[${provider}] #${chainId} ${name} → ${label}`);
         for (const line of lines) console.log(line);
-        results.set(chainId, result);
+        results.set(chainId, traceValue);
+        if (probeResult?.txHash) txCache[chainId.toString()] = probeResult.txHash;
       });
 
     await withConcurrency(
@@ -359,6 +367,8 @@ async function main() {
       10,
     );
     console.log(`  Done probing.`);
+    fs.writeFileSync(txCachePath, JSON.stringify(txCache, null, 2) + "\n");
+    console.log(`  Updated tx-cache.json (${Object.keys(txCache).length} cached tx hashes).`);
   }
 
   console.log(`\nBuilding output for ${autoChainIds.size} auto-discovered/override chains...`);
