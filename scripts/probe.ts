@@ -78,7 +78,6 @@ async function findRecentTxHash(
       log(`    Block #${latestNum - i}: ${txs.length} txs, using tx: ${typeof tx === "string" ? tx : JSON.stringify(tx).slice(0, 80)}`);
       return typeof tx === "string" ? tx : null;
     }
-    log(`    Block #${latestNum - i}: empty`);
   }
 
   log(`    No transactions found in blocks #${latestNum - SCAN_START_OFFSET}–#${latestNum - SCAN_END_OFFSET}`);
