@@ -100,6 +100,7 @@ async function findRecentTxHash(
  *   - -32601: Method not found → try next method
  *   - result present → method supported → return it
  *   - standard JSON-RPC server error (-32000 to -32099) → method exists → return it
+ *     (except -32053 and -32001 which are dRPC infrastructure errors, not EVM errors)
  *   - non-standard code (positive like 12/19, or e.g. -32053) → infrastructure error → skip
  *   - Neither method available → "none"
  *
@@ -149,13 +150,18 @@ export async function probeChain(
         // Standard JSON-RPC server errors (-32000 to -32099) are EVM/RPC level,
         // meaning the method exists but had a node-side issue (e.g. tx not in archive).
         // We use recent blocks so this shouldn't happen, but handle it just in case.
-        if (code >= -32099 && code <= -32000) {
+        //
+        // Exceptions — some codes in this range are provider infrastructure errors,
+        // not EVM errors, and must be skipped rather than counted as "method exists":
+        //   -32053: dRPC "API key is not allowed to access method" (plan restriction)
+        //   -32001: dRPC "incorrect response body" (malformed upstream response)
+        const INFRA_CODES_IN_EVM_RANGE = new Set([-32053, -32001]);
+        if (code >= -32099 && code <= -32000 && !INFRA_CODES_IN_EVM_RANGE.has(code)) {
           log(`    ${method}: ✓ EVM error (${code}: "${d.error.message}")`);
           return method;
         }
-        // Non-standard codes (positive like 12/19, or negative like -32053/-32010):
-        // these are provider/infrastructure errors (routing failure, access control),
-        // not evidence that the method exists on this chain. Skip.
+        // Non-standard codes (positive like 12/19) or excluded codes above:
+        // provider/infrastructure errors, not evidence the method exists. Skip.
         log(`    ${method}: ? skip — infrastructure error (${code}: "${d.error.message}")`);
         continue;
       }
