@@ -129,6 +129,20 @@
       }
     ]
   },
+  "18": {
+    "sourcifyName": "ThunderCore Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=thundercore-testnet&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
+    ]
+  },
   "19": {
     "sourcifyName": "Songbird Canary Network",
     "supported": true,
@@ -327,6 +341,20 @@
     "rpc": [
       "https://rpc.mordor.etccooperative.org",
       "https://geth-mordor.etc-network.info"
+    ]
+  },
+  "66": {
+    "sourcifyName": "OKXChain Mainnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=oktc&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
     ]
   },
   "81": {
@@ -1052,7 +1080,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=filecoin&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -1319,8 +1348,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn-baobab&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -1418,20 +1446,6 @@
         "url": "https://lb.drpc.org/ogrpc?network=metis&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      }
-    ]
-  },
-  "1100": {
-    "sourcifyName": "Dymension",
-    "supported": true,
-    "discoveredBy": [
-      "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=dymension&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1557,7 +1571,6 @@
     "sourcifyName": "Moonbeam",
     "supported": true,
     "discoveredBy": [
-      "drpc",
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
@@ -1568,12 +1581,13 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_MOONBEAM"
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=moonbeam&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
-      }
+      "https://rpc.api.moonbeam.network",
+      "https://moonbeam.public.blastapi.io",
+      "https://moonbeam-rpc.dwellir.com",
+      "https://moonbeam.api.onfinality.io/public",
+      "https://moonbeam.unitedbloc.com",
+      "https://moonbeam-rpc.publicnode.com",
+      "https://moonbeam.drpc.org"
     ]
   },
   "1285": {
@@ -1664,6 +1678,7 @@
     "sourcifyName": "Story Aeneid Testnet",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "blockscout"
     ],
     "fetchContractCreationTxUsing": {
@@ -1672,7 +1687,13 @@
       }
     },
     "rpc": [
-      "https://aeneid.storyrpc.io"
+      {
+        "type": "APIKeyRPC",
+        "url": "https://{SUBDOMAIN}.story-aeneid.quiknode.pro/{API_KEY}/",
+        "apiKeyEnvName": "QUICKNODE_API_KEY",
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
+        "traceSupport": "debug_traceTransaction"
+      }
     ]
   },
   "1328": {
@@ -2009,6 +2030,21 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=kava&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
+      }
+    ]
+  },
+  "2288": {
+    "sourcifyName": "Chain 2288",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=moca&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -2862,8 +2898,6 @@
     "sourcifyName": "Immutable zkEVM Testnet",
     "supported": true,
     "discoveredBy": [
-      "quicknode",
-      "drpc",
       "blockscout"
     ],
     "fetchContractCreationTxUsing": {
@@ -2872,19 +2906,8 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=immutable-zkevm-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
-      },
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.imx-testnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
-      }
+      "https://rpc.testnet.immutable.com",
+      "https://immutable-zkevm-testnet.drpc.org"
     ]
   },
   "13505": {
@@ -4555,21 +4578,6 @@
       }
     ]
   },
-  "3441006": {
-    "sourcifyName": "Manta Pacific Sepolia Testnet",
-    "supported": true,
-    "discoveredBy": [
-      "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=manta-pacific-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
-      }
-    ]
-  },
   "5042002": {
     "sourcifyName": "Arc Network Testnet",
     "supported": true,
@@ -4845,7 +4853,6 @@
     "sourcifyName": "Neon EVM Mainnet",
     "supported": true,
     "discoveredBy": [
-      "drpc",
       "blockscout"
     ],
     "fetchContractCreationTxUsing": {
@@ -4854,11 +4861,8 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=neon-evm&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
-      }
+      "https://neon-proxy-mainnet.solana.p2p.org",
+      "https://neon-evm.drpc.org"
     ]
   },
   "420120000": {
