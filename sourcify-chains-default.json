@@ -1562,6 +1562,7 @@
     "sourcifyName": "Moonbeam",
     "supported": true,
     "discoveredBy": [
+      "drpc",
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
@@ -1572,13 +1573,12 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_MOONBEAM"
     },
     "rpc": [
-      "https://rpc.api.moonbeam.network",
-      "https://moonbeam.public.blastapi.io",
-      "https://moonbeam-rpc.dwellir.com",
-      "https://moonbeam.api.onfinality.io/public",
-      "https://moonbeam.unitedbloc.com",
-      "https://moonbeam-rpc.publicnode.com",
-      "https://moonbeam.drpc.org"
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=moonbeam&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      }
     ]
   },
   "1285": {
@@ -3388,17 +3388,10 @@
     "supported": true,
     "discoveredBy": [
       "quicknode",
-      "drpc",
       "chain-overrides"
     ],
     "rpc": [
       "https://rpc.testnet.tempo.xyz",
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=tempo-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.tempo-testnet.quiknode.pro/{API_KEY}/",
@@ -4172,21 +4165,6 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
-    ]
-  },
-  "222888": {
-    "sourcifyName": "Chain 222888",
-    "supported": true,
-    "discoveredBy": [
-      "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=moca-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
-      }
     ]
   },
   "314159": {
@@ -4990,6 +4968,20 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=aurora&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
+    ]
+  },
+  "1313161555": {
+    "sourcifyName": "Aurora Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=aurora-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       }
