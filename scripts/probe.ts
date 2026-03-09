@@ -64,16 +64,29 @@ async function findRecentTxHash(
   url: string,
   log: (msg: string) => void,
 ): Promise<string | null> {
-  // Fetch the latest block first (tx hashes only, not full objects)
-  const latestResp = await rpcCall<BlockResult>(url, "eth_getBlockByNumber", [
-    "latest",
-    false,
-  ]);
-  if (latestResp.error) {
-    log(`    eth_getBlockByNumber(latest): error ${latestResp.error.code ?? "?"} ${latestResp.error.message ?? ""}`);
-    return null;
+  // Fetch the latest block, retrying on transient errors (e.g. rate limits).
+  let latestResp: JsonRpcResponse<BlockResult> | null = null;
+  for (let attempt = 0; attempt <= TRACE_PROBE_RETRIES; attempt++) {
+    let resp: JsonRpcResponse<BlockResult>;
+    try {
+      resp = await rpcCall<BlockResult>(url, "eth_getBlockByNumber", ["latest", false]);
+    } catch (e) {
+      log(`    eth_getBlockByNumber(latest): exception: ${e instanceof Error ? e.message : String(e)}`);
+      return null;
+    }
+    if (!resp.error) {
+      latestResp = resp;
+      break;
+    }
+    if (attempt < TRACE_PROBE_RETRIES) {
+      log(`    eth_getBlockByNumber(latest): retry ${attempt + 1}/${TRACE_PROBE_RETRIES} — error ${resp.error.code ?? "?"} ${resp.error.message ?? ""}`);
+      await new Promise((r) => setTimeout(r, TRACE_PROBE_RETRY_DELAY));
+    } else {
+      log(`    eth_getBlockByNumber(latest): error ${resp.error.code ?? "?"} ${resp.error.message ?? ""}`);
+      return null;
+    }
   }
-  if (!latestResp.result) {
+  if (!latestResp?.result) {
     log(`    eth_getBlockByNumber(latest): null result`);
     return null;
   }
