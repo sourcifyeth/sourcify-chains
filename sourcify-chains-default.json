@@ -927,6 +927,7 @@
     "sourcifyName": "Fraxtal",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
       "etherscan"
     ],
@@ -946,6 +947,12 @@
         "url": "https://lb.drpc.org/ogrpc?network=fraxtal&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
+      },
+      {
+        "type": "APIKeyRPC",
+        "url": "https://{SUBDOMAIN}.fraxtal-mainnet.quiknode.pro/{API_KEY}/",
+        "apiKeyEnvName": "QUICKNODE_API_KEY",
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       }
     ]
   },
@@ -1335,7 +1342,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn-baobab&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       },
       {
         "type": "APIKeyRPC",
@@ -2008,8 +2015,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=kava&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -2474,8 +2480,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=opbnb-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -2556,7 +2561,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zeta-chain-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -2611,7 +2616,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       },
       {
         "type": "APIKeyRPC",
@@ -3190,6 +3195,7 @@
     "sourcifyName": "Mode",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc"
     ],
     "fetchContractCreationTxUsing": {
@@ -3203,6 +3209,12 @@
         "url": "https://lb.drpc.org/ogrpc?network=mode&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "trace_transaction"
+      },
+      {
+        "type": "APIKeyRPC",
+        "url": "https://{SUBDOMAIN}.mode-mainnet.quiknode.pro/{API_KEY}/",
+        "apiKeyEnvName": "QUICKNODE_API_KEY",
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       }
     ]
   },
@@ -3216,7 +3228,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=lens-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -4318,7 +4331,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zero&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -4620,6 +4634,7 @@
     "sourcifyName": "Zora",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc"
     ],
     "fetchContractCreationTxUsing": {
@@ -4633,6 +4648,12 @@
         "url": "https://lb.drpc.org/ogrpc?network=zora&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "trace_transaction"
+      },
+      {
+        "type": "APIKeyRPC",
+        "url": "https://{SUBDOMAIN}.zora-mainnet.quiknode.pro/{API_KEY}/",
+        "apiKeyEnvName": "QUICKNODE_API_KEY",
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       }
     ]
   },
