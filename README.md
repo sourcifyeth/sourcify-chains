@@ -104,6 +104,17 @@ Chains that should be excluded from the output entirely, even if they appear in 
 }
 ```
 
+### `drpc-ignore.json`
+
+Chains whose dRPC endpoint is too unreliable to probe or use. These chains are excluded from dRPC probing entirely and will not get a dRPC RPC entry in the output, even if they appear in the dRPC chain list. They may still be discovered and served via other providers (QuickNode, Etherscan, Blockscout):
+
+```json
+{
+  "1284": "Moonbeam",
+  "1313161555": "Aurora Testnet"
+}
+```
+
 ### `etherscan-api-keys.json`
 
 Maps chain IDs to the environment variable name holding their Etherscan API key. Chains not listed here fall back to `ETHERSCAN_API_KEY`:
