@@ -15,7 +15,7 @@ const SCAN_START_OFFSET = 50; // Start scanning this many blocks behind latest (
 const SCAN_END_OFFSET = 550; // Stop scanning at this many blocks behind latest (500-block window)
 
 const TRACE_PROBE_RETRIES = 4; // 5 attempts total per trace method
-const TRACE_PROBE_RETRY_DELAY = 500; // ms between trace probe retries
+const TRACE_PROBE_RETRY_DELAY = 10_000; // ms between trace probe retries
 
 interface JsonRpcResponse<T = unknown> {
   jsonrpc: string;
@@ -127,9 +127,7 @@ async function findRecentTxHash(
  *   up to TRACE_PROBE_RETRIES+1 times:
  *   - -32601: Method not found → definitive, try next method (no retry)
  *   - result present → method supported → return it
- *   - standard JSON-RPC server error (-32000 to -32099) → method exists → return it
- *     (except -32053 and -32001 which are dRPC infrastructure errors, not EVM errors)
- *   - any other response → possibly transient routing issue → retry up to TRACE_PROBE_RETRIES times
+ *   - any error response → possibly transient → retry up to TRACE_PROBE_RETRIES times
  *   - Neither method available after all retries → "none"
  *
  * Callers pass a `log` callback so concurrent probes can buffer their output
@@ -182,21 +180,7 @@ export async function probeChain(
 
       if (d.error) {
         const code = d.error.code;
-        // Standard JSON-RPC server errors (-32000 to -32099) are EVM/RPC level,
-        // meaning the method exists but had a node-side issue (e.g. tx not in archive).
-        // We use recent blocks so this shouldn't happen, but handle it just in case.
-        //
-        // Exceptions — some codes in this range are provider infrastructure errors,
-        // not EVM errors, and must be retried rather than counted as "method exists":
-        //   -32053: dRPC "API key is not allowed to access method" (plan restriction)
-        //   -32001: dRPC "incorrect response body" (malformed upstream response)
-        //   -32005: rate limited
-        const INFRA_CODES_IN_EVM_RANGE = new Set([-32053, -32001, -32005]);
-        if (code >= -32099 && code <= -32000 && !INFRA_CODES_IN_EVM_RANGE.has(code)) {
-          log(`    ${method}: ✓ EVM error (${code}: "${d.error.message}")`);
-          return method;
-        }
-        // Any other error (infrastructure, routing, plan restriction) — possibly transient; retry
+        // Any error response — possibly transient; retry
         if (attempt < TRACE_PROBE_RETRIES) {
           log(`    ${method}: ? retry ${attempt + 1}/${TRACE_PROBE_RETRIES} — (${code}: "${d.error.message}")`);
           await new Promise((r) => setTimeout(r, TRACE_PROBE_RETRY_DELAY));
