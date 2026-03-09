@@ -12,7 +12,10 @@ export type TraceMethod = "trace_transaction" | "debug_traceTransaction";
 export type TraceCacheValue = TraceMethod | "none" | null;
 
 const SCAN_START_OFFSET = 50; // Start scanning this many blocks behind latest (avoid unindexed traces)
-const SCAN_END_OFFSET = 150; // Stop scanning at this many blocks behind latest
+const SCAN_END_OFFSET = 550; // Stop scanning at this many blocks behind latest (500-block window)
+
+const TRACE_PROBE_RETRIES = 4; // 5 attempts total per trace method
+const TRACE_PROBE_RETRY_DELAY = 500; // ms between trace probe retries
 
 interface JsonRpcResponse<T = unknown> {
   jsonrpc: string;
@@ -67,7 +70,7 @@ async function findRecentTxHash(
     false,
   ]);
   if (latestResp.error) {
-    log(`    eth_getBlockByNumber(latest): error ${latestResp.error.code} ${latestResp.error.message}`);
+    log(`    eth_getBlockByNumber(latest): error ${latestResp.error.code ?? "?"} ${latestResp.error.message ?? ""}`);
     return null;
   }
   if (!latestResp.result) {
@@ -100,20 +103,21 @@ async function findRecentTxHash(
  * Probes a provider RPC URL for chain liveness and trace method support.
  *
  * Step 1 — liveness: find a real transaction by scanning blocks
- *   [latest - SCAN_START_OFFSET .. latest - SCAN_END_OFFSET].
+ *   [latest - SCAN_START_OFFSET .. latest - SCAN_END_OFFSET] (500-block window).
  *   Skipping the most recent blocks avoids using transactions whose traces
  *   are not yet indexed by the provider.
  *   - Provider error (e.g. "Unknown network") or no tx found → null
  *     Null chains are excluded from the provider's RPC list entirely.
  *
  * Step 2 — trace support (only if alive): call trace_transaction then
- *   debug_traceTransaction with the found tx hash:
- *   - -32601: Method not found → try next method
+ *   debug_traceTransaction with the found tx hash. Each method is attempted
+ *   up to TRACE_PROBE_RETRIES+1 times:
+ *   - -32601: Method not found → definitive, try next method (no retry)
  *   - result present → method supported → return it
  *   - standard JSON-RPC server error (-32000 to -32099) → method exists → return it
  *     (except -32053 and -32001 which are dRPC infrastructure errors, not EVM errors)
- *   - non-standard code (positive like 12/19, or e.g. -32053) → infrastructure error → skip
- *   - Neither method available → "none"
+ *   - any other response → possibly transient routing issue → retry up to TRACE_PROBE_RETRIES times
+ *   - Neither method available after all retries → "none"
  *
  * Callers pass a `log` callback so concurrent probes can buffer their output
  * and flush it atomically, preventing interleaved log lines.
@@ -139,14 +143,21 @@ export async function probeChain(
       method === "trace_transaction"
         ? [txHash]
         : [txHash, { tracer: "callTracer" }];
-    try {
-      const data = await rpcCall<unknown>(url, method, params);
-      const d = data as { result?: unknown; error?: { code: number; message: string; data?: unknown } };
+
+    for (let attempt = 0; attempt <= TRACE_PROBE_RETRIES; attempt++) {
+      let d: { result?: unknown; error?: { code: number; message: string; data?: unknown } };
+      try {
+        d = await rpcCall<unknown>(url, method, params) as typeof d;
+      } catch (e) {
+        // rpcCall already retried internally on network errors; all attempts exhausted
+        log(`    ${method}: ✗ (exception: ${e instanceof Error ? e.message : String(e)})`);
+        break; // try next method
+      }
 
       if (d.error?.code === -32601) {
-        // Standard JSON-RPC "method not found" — this chain doesn't have the method
+        // Standard JSON-RPC "method not found" — definitive, no retry
         log(`    ${method}: ✗ not found (-32601: "${d.error.message}")`);
-        continue;
+        break;
       }
 
       if (d.result !== undefined && d.result !== null) {
@@ -163,7 +174,7 @@ export async function probeChain(
         // We use recent blocks so this shouldn't happen, but handle it just in case.
         //
         // Exceptions — some codes in this range are provider infrastructure errors,
-        // not EVM errors, and must be skipped rather than counted as "method exists":
+        // not EVM errors, and must be retried rather than counted as "method exists":
         //   -32053: dRPC "API key is not allowed to access method" (plan restriction)
         //   -32001: dRPC "incorrect response body" (malformed upstream response)
         const INFRA_CODES_IN_EVM_RANGE = new Set([-32053, -32001]);
@@ -171,18 +182,24 @@ export async function probeChain(
           log(`    ${method}: ✓ EVM error (${code}: "${d.error.message}")`);
           return method;
         }
-        // Non-standard codes (positive like 12/19) or excluded codes above:
-        // provider/infrastructure errors, not evidence the method exists. Skip.
-        log(`    ${method}: ? skip — infrastructure error (${code}: "${d.error.message}")`);
-        continue;
+        // Any other error (infrastructure, routing, plan restriction) — possibly transient; retry
+        if (attempt < TRACE_PROBE_RETRIES) {
+          log(`    ${method}: ? retry ${attempt + 1}/${TRACE_PROBE_RETRIES} — (${code}: "${d.error.message}")`);
+          await new Promise((r) => setTimeout(r, TRACE_PROBE_RETRY_DELAY));
+          continue;
+        }
+        log(`    ${method}: ? skip after ${TRACE_PROBE_RETRIES + 1} attempts — (${code}: "${d.error.message}")`);
+        break;
       }
 
-      // result is null/undefined and no error — ambiguous, skip
-      log(`    ${method}: ? skip — null result, no error`);
-      continue;
-    } catch (e) {
-      log(`    ${method}: ✗ (exception: ${e instanceof Error ? e.message : String(e)})`);
-      continue;
+      // result is null/undefined and no error — ambiguous, retry
+      if (attempt < TRACE_PROBE_RETRIES) {
+        log(`    ${method}: ? retry ${attempt + 1}/${TRACE_PROBE_RETRIES} — null result, no error`);
+        await new Promise((r) => setTimeout(r, TRACE_PROBE_RETRY_DELAY));
+        continue;
+      }
+      log(`    ${method}: ? skip after ${TRACE_PROBE_RETRIES + 1} attempts — null result, no error`);
+      break;
     }
   }
   return "none"; // Chain is alive but neither trace method is available
