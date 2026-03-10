@@ -67,6 +67,34 @@ async function rpcCall<T>(
 }
 
 /**
+ * Checks chain liveness by calling eth_getBlockByNumber("latest").
+ * Returns the latest block number if the provider is alive, or null if it
+ * errors or returns no result. Uses rpcCall's internal retry behaviour only
+ * (2 retries, 500ms apart) — no extra delays.
+ */
+async function checkLiveness(
+  url: string,
+  log: (msg: string) => void,
+): Promise<number | null> {
+  let resp: JsonRpcResponse<BlockResult>;
+  try {
+    resp = await rpcCall<BlockResult>(url, "eth_getBlockByNumber", ["latest", false]);
+  } catch (e) {
+    log(`    eth_getBlockByNumber(latest): exception: ${e instanceof Error ? e.message : String(e)}`);
+    return null;
+  }
+  if (resp.error) {
+    log(`    eth_getBlockByNumber(latest): error ${resp.error.code ?? "?"} ${resp.error.message ?? ""}`);
+    return null;
+  }
+  if (!resp.result) {
+    log(`    eth_getBlockByNumber(latest): null result`);
+    return null;
+  }
+  return parseInt(resp.result.number, 16);
+}
+
+/**
  * Finds a transaction hash by scanning blocks [latest-SCAN_START_OFFSET .. latest-SCAN_END_OFFSET].
  * Returns null if the provider doesn't serve this chain or no tx is found in the scan window.
  */
@@ -74,34 +102,9 @@ async function findRecentTxHash(
   url: string,
   log: (msg: string) => void,
 ): Promise<string | null> {
-  // Fetch the latest block, retrying on transient errors (e.g. rate limits).
-  let latestResp: JsonRpcResponse<BlockResult> | null = null;
-  for (let attempt = 0; attempt <= TRACE_PROBE_RETRIES; attempt++) {
-    let resp: JsonRpcResponse<BlockResult>;
-    try {
-      resp = await rpcCall<BlockResult>(url, "eth_getBlockByNumber", ["latest", false]);
-    } catch (e) {
-      log(`    eth_getBlockByNumber(latest): exception: ${e instanceof Error ? e.message : String(e)}`);
-      return null;
-    }
-    if (!resp.error) {
-      latestResp = resp;
-      break;
-    }
-    if (attempt < TRACE_PROBE_RETRIES) {
-      log(`    eth_getBlockByNumber(latest): retry ${attempt + 1}/${TRACE_PROBE_RETRIES} — error ${resp.error.code ?? "?"} ${resp.error.message ?? ""}`);
-      await new Promise((r) => setTimeout(r, TRACE_PROBE_RETRY_DELAY));
-    } else {
-      log(`    eth_getBlockByNumber(latest): error ${resp.error.code ?? "?"} ${resp.error.message ?? ""}`);
-      return null;
-    }
-  }
-  if (!latestResp?.result) {
-    log(`    eth_getBlockByNumber(latest): null result`);
-    return null;
-  }
+  const latestNum = await checkLiveness(url, log);
+  if (latestNum === null) return null;
 
-  const latestNum = parseInt(latestResp.result.number, 16);
   log(`    Latest block: #${latestNum}, scanning #${latestNum - SCAN_START_OFFSET}–#${latestNum - SCAN_END_OFFSET}`);
 
   // Skip the most recent blocks — their traces may not be indexed yet.
@@ -125,12 +128,14 @@ async function findRecentTxHash(
 /**
  * Probes a provider RPC URL for chain liveness and trace method support.
  *
- * If cachedTxHash is provided, it is used directly for trace probing and the
- * 500-block scan is skipped entirely. If not provided, findRecentTxHash scans
- * blocks [latest-50 .. latest-550] to find a transaction; the found hash is
- * returned in the result so callers can persist it to the tx cache.
+ * Step 1 — liveness: always calls eth_getBlockByNumber("latest") to confirm
+ *   the provider is alive and serving this chain. If it errors → null (dead).
  *
- * Trace support probing: each method is attempted up to TRACE_PROBE_RETRIES+1 times:
+ * Step 2 — tx hash: if cachedTxHash is provided it is used directly (skipping
+ *   the 500-block scan). Otherwise findRecentTxHash scans blocks [latest-50 ..
+ *   latest-550]; if no tx is found → null (chain inactive).
+ *
+ * Step 3 — trace support: each method is attempted up to TRACE_PROBE_RETRIES+1 times:
  *   - -32601: Method not found → definitive, try next method (no retry)
  *   - result present → method supported → return it
  *   - any error response → possibly transient → retry up to TRACE_PROBE_RETRIES times
@@ -147,6 +152,11 @@ export async function probeChain(
   let txHash: string | null;
 
   if (cachedTxHash) {
+    // Always verify the provider is alive even when we have a cached tx.
+    // Without this check a dead provider would be probed for trace support
+    // and return "none" instead of null.
+    const latestNum = await checkLiveness(url, log);
+    if (latestNum === null) return { trace: null, txHash: null };
     log(`    Using cached tx: ${cachedTxHash}`);
     txHash = cachedTxHash;
   } else {
