@@ -92,10 +92,7 @@ interface ChainOverride {
 const RETRY_COUNT = 3;
 const RETRY_DELAY_MS = 2000;
 
-async function fetchWithRetry<T>(
-  name: string,
-  fetchFn: () => Promise<Map<number, T>>,
-): Promise<Map<number, T>> {
+async function fetchWithRetry<T>(name: string, fetchFn: () => Promise<Map<number, T>>): Promise<Map<number, T>> {
   for (let attempt = 1; attempt <= RETRY_COUNT; attempt++) {
     try {
       const data = await fetchFn();
@@ -116,10 +113,7 @@ async function fetchWithRetry<T>(
   throw new Error("unreachable");
 }
 
-async function fetchWithRetrySet(
-  name: string,
-  fetchFn: () => Promise<Set<number>>,
-): Promise<Set<number>> {
+async function fetchWithRetrySet(name: string, fetchFn: () => Promise<Set<number>>): Promise<Set<number>> {
   for (let attempt = 1; attempt <= RETRY_COUNT; attempt++) {
     try {
       const data = await fetchFn();
@@ -159,17 +153,12 @@ function filterPublicRpcs(rpcs: string[]): string[] {
     (rpc) =>
       !rpc.includes("${") &&
       !rpc.startsWith("wss://") && // prefer HTTP
-      rpc.startsWith("https://"),
+      rpc.startsWith("https://")
   );
 }
 
 // QuickNode slugs that require an /ext/bc/C/rpc/ path suffix (Avalanche/Flare subnets)
-const QUICKNODE_SUBNET_SLUGS = new Set([
-  "avalanche-mainnet",
-  "avalanche-testnet",
-  "flare-mainnet",
-  "flare-coston2",
-]);
+const QUICKNODE_SUBNET_SLUGS = new Set(["avalanche-mainnet", "avalanche-testnet", "flare-mainnet", "flare-coston2"]);
 
 function buildQuickNodeRpc(qn: QuickNodeChainData): RpcEntry {
   let url: string;
@@ -205,9 +194,7 @@ function buildDrpcRpc(shortName: string): RpcEntry {
 async function main() {
   const quicknodeApiKey = process.env.QUICKNODE_CONSOLE_API_KEY;
   if (!quicknodeApiKey) {
-    console.warn(
-      "Warning: QUICKNODE_CONSOLE_API_KEY not set — QuickNode data will be skipped",
-    );
+    console.warn("Warning: QUICKNODE_CONSOLE_API_KEY not set — QuickNode data will be skipped");
   }
 
   const quicknodeRpcKey = process.env.QUICKNODE_API_KEY;
@@ -217,51 +204,46 @@ async function main() {
   const canProbeDrpc = !!drpcApiKey;
   if (!canProbeQuickNode && !canProbeDrpc) {
     console.warn(
-      "Warning: QUICKNODE_API_KEY+QUICKNODE_SUBDOMAIN and DRPC_API_KEY not set — trace support probing will be skipped",
+      "Warning: QUICKNODE_API_KEY+QUICKNODE_SUBDOMAIN and DRPC_API_KEY not set — trace support probing will be skipped"
     );
   }
 
   console.log("Fetching chain list and provider/explorer data in parallel...");
-  const [
-    chainList,
-    quicknodeChains,
-    drpcChains,
-    avalancheChains,
-    etherscanChains,
-    blockscoutChains,
-    routescanChains,
-  ] = await Promise.all([
-    fetchWithRetry("chainid.network", fetchChainList),
-    quicknodeApiKey
-      ? fetchWithRetry("QuickNode", () => fetchQuickNodeChains(quicknodeApiKey))
-      : Promise.resolve<Map<number, QuickNodeChainData> | null>(null),
-    fetchWithRetry("dRPC", fetchDrpcChains),
-    fetchWithRetrySet("Avalanche", fetchAvalancheChains),
-    fetchWithRetry("Etherscan", fetchEtherscanChains),
-    fetchWithRetry("Blockscout", fetchBlockscoutChains),
-    fetchWithRetry("Routescan", fetchRoutescanChains),
-  ]);
+  const [chainList, quicknodeChains, drpcChains, avalancheChains, etherscanChains, blockscoutChains, routescanChains] =
+    await Promise.all([
+      fetchWithRetry("chainid.network", fetchChainList),
+      quicknodeApiKey
+        ? fetchWithRetry("QuickNode", () => fetchQuickNodeChains(quicknodeApiKey))
+        : Promise.resolve<Map<number, QuickNodeChainData> | null>(null),
+      fetchWithRetry("dRPC", fetchDrpcChains),
+      fetchWithRetrySet("Avalanche", fetchAvalancheChains),
+      fetchWithRetry("Etherscan", fetchEtherscanChains),
+      fetchWithRetry("Blockscout", fetchBlockscoutChains),
+      fetchWithRetry("Routescan", fetchRoutescanChains),
+    ]);
 
   // Load source files
-  const chainOverrides = JSON.parse(
-    fs.readFileSync(path.join(REPO_ROOT, "chain-overrides.json"), "utf8"),
-  ) as Record<string, ChainOverride>;
+  const chainOverrides = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, "chain-overrides.json"), "utf8")) as Record<
+    string,
+    ChainOverride
+  >;
 
   const additionalChains = JSON.parse(
-    fs.readFileSync(path.join(REPO_ROOT, "additional-chains.json"), "utf8"),
+    fs.readFileSync(path.join(REPO_ROOT, "additional-chains.json"), "utf8")
   ) as Record<string, AdditionalChainEntry>;
 
   const deprecatedChains = JSON.parse(
-    fs.readFileSync(path.join(REPO_ROOT, "deprecated-chains.json"), "utf8"),
+    fs.readFileSync(path.join(REPO_ROOT, "deprecated-chains.json"), "utf8")
   ) as Record<string, string>;
 
   const etherscanApiKeys = JSON.parse(
-    fs.readFileSync(path.join(REPO_ROOT, "etherscan-api-keys.json"), "utf8"),
+    fs.readFileSync(path.join(REPO_ROOT, "etherscan-api-keys.json"), "utf8")
   ) as Record<string, string>;
 
-  const drpcIgnore = JSON.parse(
-    fs.readFileSync(path.join(REPO_ROOT, "drpc-ignore.json"), "utf8"),
-  ) as Record<string, string>;
+  const drpcIgnore = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, "drpc-ignore.json"), "utf8")) as Record<
+    string,
+    string
+  >;
   const drpcIgnoreSet = new Set<number>(Object.keys(drpcIgnore).map(Number));
 
   const txCachePath = path.join(REPO_ROOT, "tx-cache.json");
@@ -306,14 +288,17 @@ async function main() {
   const qnResults = new Map<number, TraceCacheValue>();
   const drpcResults = new Map<number, TraceCacheValue>();
 
-  interface ProbePair { chainId: number; probeUrl: string }
+  interface ProbePair {
+    chainId: number;
+    probeUrl: string;
+  }
   const qnProbePairs: ProbePair[] = [];
   const drpcProbePairs: ProbePair[] = [];
 
   if (canProbeQuickNode && quicknodeChains) {
     for (const [chainId, qn] of quicknodeChains) {
-      const url = buildQuickNodeRpc(qn).url
-        .replace("{API_KEY}", quicknodeRpcKey!)
+      const url = buildQuickNodeRpc(qn)
+        .url.replace("{API_KEY}", quicknodeRpcKey!)
         .replace("{SUBDOMAIN}", quicknodeSubdomain!);
       qnProbePairs.push({ chainId, probeUrl: url });
     }
@@ -327,23 +312,24 @@ async function main() {
   }
 
   const totalToProbe = qnProbePairs.length + drpcProbePairs.length;
-  const CHAIN_PROBE_TIMEOUT_MS = 60_000; // 60s per chain (accommodates retries)
+  const CHAIN_PROBE_TIMEOUT_MS = 200_000; // 200s per chain (accommodates retries)
 
   if (totalToProbe > 0) {
     console.log(
-      `\nProbing ${qnProbePairs.length} QuickNode + ${drpcProbePairs.length} dRPC chains (concurrency=10, timeout=${CHAIN_PROBE_TIMEOUT_MS / 1000}s)...`,
+      `\nProbing ${qnProbePairs.length} QuickNode + ${drpcProbePairs.length} dRPC chains (concurrency=20, timeout=${
+        CHAIN_PROBE_TIMEOUT_MS / 1000
+      }s)...`
     );
-    const makeTasks = (
-      pairs: ProbePair[],
-      results: Map<number, TraceCacheValue>,
-      provider: "quicknode" | "drpc",
-    ) =>
+    const makeTasks = (pairs: ProbePair[], results: Map<number, TraceCacheValue>, provider: "quicknode" | "drpc") =>
       pairs.map(({ chainId, probeUrl }) => async () => {
         const name = chainList.get(chainId)?.name ?? `Chain ${chainId}`;
         const lines: string[] = [];
         let didTimeout = false;
         const timeoutPromise = new Promise<null>((resolve) => {
-          const t = setTimeout(() => { didTimeout = true; resolve(null); }, CHAIN_PROBE_TIMEOUT_MS);
+          const t = setTimeout(() => {
+            didTimeout = true;
+            resolve(null);
+          }, CHAIN_PROBE_TIMEOUT_MS);
           t.unref(); // don't keep the process alive if everything else is done
         });
         const probeResult: ProbeChainResult | null = await Promise.race([
@@ -360,11 +346,8 @@ async function main() {
       });
 
     await withConcurrency(
-      [
-        ...makeTasks(qnProbePairs, qnResults, "quicknode"),
-        ...makeTasks(drpcProbePairs, drpcResults, "drpc"),
-      ],
-      10,
+      [...makeTasks(qnProbePairs, qnResults, "quicknode"), ...makeTasks(drpcProbePairs, drpcResults, "drpc")],
+      20
     );
     console.log(`  Done probing.`);
     fs.writeFileSync(txCachePath, JSON.stringify(txCache, null, 2) + "\n");
@@ -393,15 +376,10 @@ async function main() {
 
     // Skip chains where every discovery source is dead or absent
     const hasActiveSource =
-      qnQualifies ||
-      drpcQualifies ||
-      !!etherscan ||
-      blockscout?.hostedBy === "blockscout" ||
-      !!override;
+      qnQualifies || drpcQualifies || !!etherscan || blockscout?.hostedBy === "blockscout" || !!override;
     if (!hasActiveSource) continue;
 
-    const sourcifyName =
-      override?.sourcifyName ?? meta?.name ?? `Chain ${chainId}`;
+    const sourcifyName = override?.sourcifyName ?? meta?.name ?? `Chain ${chainId}`;
 
     // Build RPC list
     const rpcs: Array<string | RpcEntry> = [];
@@ -438,8 +416,7 @@ async function main() {
     const etherscanApi = etherscan
       ? {
           supported: true,
-          apiKeyEnvName:
-            etherscanApiKeys[chainId.toString()] ?? "ETHERSCAN_API_KEY",
+          apiKeyEnvName: etherscanApiKeys[chainId.toString()] ?? "ETHERSCAN_API_KEY",
         }
       : undefined;
 
@@ -473,9 +450,7 @@ async function main() {
       sourcifyName,
       supported: true,
       discoveredBy,
-      ...(Object.keys(fetchUsing).length > 0
-        ? { fetchContractCreationTxUsing: fetchUsing }
-        : {}),
+      ...(Object.keys(fetchUsing).length > 0 ? { fetchContractCreationTxUsing: fetchUsing } : {}),
       ...(etherscanApi ? { etherscanApi } : {}),
       ...(rpcs.length > 0 ? { rpc: rpcs } : {}),
     };
@@ -487,16 +462,24 @@ async function main() {
   const additionalOverlapErrors: string[] = [];
   for (const [chainIdStr, entry] of Object.entries(additionalChains)) {
     if (deprecatedSet.has(parseInt(chainIdStr, 10))) {
-      throw new Error(`Chain ${entry.sourcifyName} #${chainIdStr} appears in both additional-chains.json and deprecated-chains.json`);
+      throw new Error(
+        `Chain ${entry.sourcifyName} #${chainIdStr} appears in both additional-chains.json and deprecated-chains.json`
+      );
     }
     if (output[chainIdStr]) {
-      additionalOverlapErrors.push(`  #${chainIdStr} ${entry.sourcifyName} (discoveredBy: [${output[chainIdStr].discoveredBy.join(", ")}])`);
+      additionalOverlapErrors.push(
+        `  #${chainIdStr} ${entry.sourcifyName} (discoveredBy: [${output[chainIdStr].discoveredBy.join(", ")}])`
+      );
       continue;
     }
     output[chainIdStr] = { ...entry, supported: true, discoveredBy: ["additional-chains"] };
   }
   if (additionalOverlapErrors.length > 0) {
-    throw new Error(`The following chains appear in both additional-chains.json and are auto-discovered. Remove them from additional-chains.json:\n${additionalOverlapErrors.join("\n")}`);
+    throw new Error(
+      `The following chains appear in both additional-chains.json and are auto-discovered. Remove them from additional-chains.json:\n${additionalOverlapErrors.join(
+        "\n"
+      )}`
+    );
   }
 
   // Sort output by numeric chain ID
@@ -512,7 +495,7 @@ async function main() {
   const withRpc = Object.values(sorted).filter((e) => e.rpc && e.rpc.length > 0).length;
   const withEtherscan = Object.values(sorted).filter((e) => e.etherscanApi).length;
   const withFetchUsing = Object.values(sorted).filter(
-    (e) => e.fetchContractCreationTxUsing && Object.keys(e.fetchContractCreationTxUsing).length > 0,
+    (e) => e.fetchContractCreationTxUsing && Object.keys(e.fetchContractCreationTxUsing).length > 0
   ).length;
 
   console.log(`\nWrote ${outputPath}`);
