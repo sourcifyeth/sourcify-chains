@@ -312,7 +312,7 @@ async function main() {
   }
 
   const totalToProbe = qnProbePairs.length + drpcProbePairs.length;
-  const CHAIN_PROBE_TIMEOUT_MS = 200_000; // 200s per chain (accommodates retries)
+  const CHAIN_PROBE_TIMEOUT_MS = 45_000; // 45s per chain (accommodates retries)
 
   if (totalToProbe > 0) {
     console.log(
