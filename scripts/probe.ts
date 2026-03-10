@@ -25,7 +25,7 @@ const SCAN_START_OFFSET = 50; // Start scanning this many blocks behind latest (
 const SCAN_END_OFFSET = 550; // Stop scanning at this many blocks behind latest (500-block window)
 
 const TRACE_PROBE_RETRIES = 4; // 5 attempts total per trace method
-const TRACE_PROBE_RETRY_DELAY = 10_000; // ms between trace probe retries
+const TRACE_PROBE_RETRY_DELAY = 45_000; // ms between trace probe retries
 
 interface JsonRpcResponse<T = unknown> {
   jsonrpc: string;
