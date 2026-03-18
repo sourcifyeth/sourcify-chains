@@ -1,5 +1,12 @@
 # sourcify-chains
 
+TODO: deprecated chains should be supported: false
+TODO: Use node v22
+TODO: Check why zetachain lost RPC support
+TODO: Handle cases when there's blockscout but no RPC.
+TODO: Add probing for Etherscan creation tx fetching, some instances don't support free tier
+TODO: Add https://docs.nodereal.io/reference/nr_getcontractcreationtransaction probing
+
 Canonical chain configuration for [Sourcify](https://sourcify.dev) — the open-source smart contract verification service. The Sourcify server fetches [`sourcify-chains-default.json`](./sourcify-chains-default.json) from this repository at startup.
 
 ## How it works
@@ -12,6 +19,7 @@ Canonical chain configuration for [Sourcify](https://sourcify.dev) — the open-
 4. Writes the merged result to `sourcify-chains-default.json`
 
 A chain is **auto-included** if it appears in any of:
+
 - QuickNode console API — and is not dead (see probing below)
 - dRPC chains API (`https://drpc.org/api/blockchains-list`) — and is not dead (see probing below)
 - Etherscan chainlist API
@@ -72,11 +80,11 @@ Override or extend fields for any chain. A chain-overrides entry alone is suffic
 
 Allowed fields per entry:
 
-| Field | Description |
-|---|---|
-| `sourcifyName` | Display name (overrides chainid.network name) |
-| `fetchContractCreationTxUsing` | Additional fetch methods (`avalancheApi`, `telosApi`, etc.) |
-| `rpc` | RPCs defined here have higher priority than auto-discovered provider RPCs |
+| Field                          | Description                                                               |
+| ------------------------------ | ------------------------------------------------------------------------- |
+| `sourcifyName`                 | Display name (overrides chainid.network name)                             |
+| `fetchContractCreationTxUsing` | Additional fetch methods (`avalancheApi`, `telosApi`, etc.)               |
+| `rpc`                          | RPCs defined here have higher priority than auto-discovered provider RPCs |
 
 ### `additional-chains.json`
 
@@ -148,14 +156,14 @@ Maps chain IDs to the environment variable name holding their Etherscan API key.
 
 Each entry includes:
 
-| Field | Description |
-|---|---|
-| `sourcifyName` | Human-readable chain name |
-| `supported` | Always `true` in output (deprecated chains are excluded entirely) |
-| `discoveredBy` | Which sources caused this chain to be included (e.g. `["quicknode", "drpc", "etherscan"]`) |
-| `rpc` | Ordered list: override RPCs → QuickNode (if alive) → dRPC (if alive) → public (chainid.network) |
-| `etherscanApi` | Etherscan API config, if the chain is on Etherscan's chainlist |
-| `fetchContractCreationTxUsing` | APIs used to look up contract creation transactions |
+| Field                          | Description                                                                                     |
+| ------------------------------ | ----------------------------------------------------------------------------------------------- |
+| `sourcifyName`                 | Human-readable chain name                                                                       |
+| `supported`                    | Always `true` in output (deprecated chains are excluded entirely)                               |
+| `discoveredBy`                 | Which sources caused this chain to be included (e.g. `["quicknode", "drpc", "etherscan"]`)      |
+| `rpc`                          | Ordered list: override RPCs → QuickNode (if alive) → dRPC (if alive) → public (chainid.network) |
+| `etherscanApi`                 | Etherscan API config, if the chain is on Etherscan's chainlist                                  |
+| `fetchContractCreationTxUsing` | APIs used to look up contract creation transactions                                             |
 
 Example output entry for Ethereum Mainnet:
 
@@ -219,24 +227,41 @@ Add an entry to `etherscan-api-keys.json` mapping the chain ID to the env var na
 }
 ```
 
+## Stability filtering (sync step)
+
+External APIs are flaky — dRPC sometimes drops chains, Routescan is inconsistent, trace probing returns different results across runs. Without filtering, every flake produces a noisy PR with spurious removals that revert on the next run.
+
+`scripts/sync.ts` sits between `generate.ts` and the PR step. It applies a **consecutive-run threshold** before including reductive changes:
+
+| Change type | Threshold |
+|---|---|
+| New chain, new RPC, new traceSupport, new fetchUsing key, new etherscanApi, new discoveredBy source | **Immediate** (1 run) |
+| Chain removed, RPC removed, traceSupport changed/removed, fetchUsing key removed or value changed, etherscanApi removed, discoveredBy source removed | **5 consecutive runs** |
+
+If a reductive change disappears between runs (API flake recovered), its counter resets and it is not included.
+
+**State** is persisted in `change-history.json` on an orphan branch `chain-sync-state`. The workflow fetches it at the start of each run and pushes the updated counters back at the end.
+
+**Output**: `sync.ts` overwrites `sourcify-chains-default.json` with the stabilized result (snapshot with unstable removals reverted to their baseline values) and writes `pr-description.txt` summarising what is immediately included, what is newly stabilised, and what is still pending.
+
 ## CI pipeline
 
 The generation workflow (`.github/workflows/generate.yml`) runs:
 
 - **On push to `main`** when `chain-overrides.json`, `additional-chains.json`, `deprecated-chains.json`, `etherscan-api-keys.json`, or `scripts/**` change
-- **Nightly** at 02:00 UTC (to pick up new chains from provider APIs)
+- **Twice daily** at 02:00 and 14:00 UTC (to pick up new chains from provider APIs and accumulate stability-filter counts)
 - **Manually** via `workflow_dispatch`
 
-If `sourcify-chains-default.json` or `tx-cache.json` changes, the bot opens a PR from a fixed branch `chore/regenerate-chains` targeting `main`. If a PR for that branch is already open, it force-pushes the update to it instead of opening a new one. The PR must be reviewed and merged manually.
+If `sourcify-chains-default.json` or `tx-cache.json` changes after stability filtering, the bot opens a PR from a fixed branch `chore/regenerate-chains` targeting `main`. If a PR for that branch is already open, it force-pushes the update to it instead of opening a new one. The PR body is generated from `pr-description.txt` and lists immediately included changes, newly stabilised removals, and still-pending changes. The PR must be reviewed and merged manually.
 
 Required secrets:
 
-| Secret | Purpose |
-|---|---|
+| Secret                      | Purpose                                                                            |
+| --------------------------- | ---------------------------------------------------------------------------------- |
 | `QUICKNODE_CONSOLE_API_KEY` | Fetches the list of chains QuickNode supports (Console API, separate from RPC key) |
-| `QUICKNODE_API_KEY` | RPC key used to probe chain liveness and trace support on QuickNode |
-| `QUICKNODE_SUBDOMAIN` | Subdomain for the QuickNode RPC endpoint |
-| `DRPC_API_KEY` | RPC key used to probe chain liveness and trace support on dRPC |
+| `QUICKNODE_API_KEY`         | RPC key used to probe chain liveness and trace support on QuickNode                |
+| `QUICKNODE_SUBDOMAIN`       | Subdomain for the QuickNode RPC endpoint                                           |
+| `DRPC_API_KEY`              | RPC key used to probe chain liveness and trace support on dRPC                     |
 
 ## Running locally
 
