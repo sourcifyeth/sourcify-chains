@@ -66,20 +66,36 @@ jobs:
             echo '{"lastRunAt":"","pendingChanges":{}}' > change-history.json
           fi
 
+      - name: Save raw snapshot
+        run: cp sourcify-chains-default.json /tmp/raw-snapshot.json
+
       - name: Run sync (apply stability filtering)
         run: npm run sync -- --baseline /tmp/baseline.json --history change-history.json
 
-      - name: Push updated history to state branch
+      - name: Push updated history and snapshot to state branch
         run: |
+          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           TMP=$(mktemp -d)
-          cp change-history.json "$TMP/"
+
+          # Fetch existing state branch content if it exists
+          if git fetch origin chain-sync-state 2>/dev/null; then
+            git --work-tree="$TMP" checkout FETCH_HEAD -- . 2>/dev/null || true
+          fi
+
+          mkdir -p "$TMP/snapshots"
+          cp change-history.json "$TMP/change-history.json"
+          cp /tmp/raw-snapshot.json "$TMP/snapshots/${TIMESTAMP}.json"
+
+          # Keep only the 10 most recent snapshots
+          ls "$TMP/snapshots/"*.json | sort | head -n -10 | xargs rm -f 2>/dev/null || true
+
           cd "$TMP"
           git init -q
           git checkout -b chain-sync-state
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add change-history.json
-          git commit -q -m "update change-history [$(date -u +%Y-%m-%dT%H:%M:%SZ)]"
+          git add change-history.json snapshots/
+          git commit -q -m "update state [${TIMESTAMP}]"
           git push "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" chain-sync-state --force
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
