@@ -4,7 +4,9 @@
   "description": "Canonical chain configuration for Sourcify — generation scripts and source files",
   "type": "module",
   "scripts": {
-    "generate": "tsx scripts/generate.ts"
+    "generate": "tsx scripts/generate.ts",
+    "sync": "tsx scripts/sync.ts",
+    "test": "tsx --test scripts/sync.test.ts"
   },
   "dependencies": {
     "dotenv": "^16.0.0",
