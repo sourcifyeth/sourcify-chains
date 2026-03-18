@@ -277,7 +277,10 @@
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true
+      "etherscanApi": true,
+      "routescanApi": {
+        "type": "mainnet"
+      }
     },
     "etherscanApi": {
       "supported": true,
@@ -873,6 +876,7 @@
     "sourcifyName": "TAC Mainnet",
     "supported": true,
     "discoveredBy": [
+      "drpc",
       "blockscout"
     ],
     "fetchContractCreationTxUsing": {
@@ -881,8 +885,11 @@
       }
     },
     "rpc": [
-      "https://rpc.tac.build",
-      "https://rpc.ankr.com/tac",
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=tac&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      },
       "https://ws.rpc.tac.build"
     ]
   },
@@ -1242,6 +1249,18 @@
     "rpc": [
       "https://rpc.matchain.io"
     ]
+  },
+  "714": {
+    "sourcifyName": "Chain 714",
+    "supported": true,
+    "discoveredBy": [
+      "blockscout"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://eden.blockscout.com/"
+      }
+    }
   },
   "747": {
     "sourcifyName": "Flow EVM Mainnet",
@@ -1878,14 +1897,10 @@
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
       "routescanApi": {
         "type": "mainnet"
-      }
-    },
-    "etherscanApi": {
-      "supported": true,
-      "apiKeyEnvName": "ETHERSCAN_API_KEY"
+      },
+      "etherscanApi": true
     },
     "rpc": [
       {
@@ -1893,7 +1908,11 @@
         "url": "https://lb.drpc.org/ogrpc?network=swell&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       }
-    ]
+    ],
+    "etherscanApi": {
+      "supported": true,
+      "apiKeyEnvName": "ETHERSCAN_API_KEY"
+    }
   },
   "1924": {
     "sourcifyName": "Swellchain Testnet",
@@ -1902,20 +1921,20 @@
       "drpc",
       "etherscan"
     ],
-    "fetchContractCreationTxUsing": {
-      "etherscanApi": true
-    },
-    "etherscanApi": {
-      "supported": true,
-      "apiKeyEnvName": "ETHERSCAN_API_KEY"
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=swell-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       }
-    ]
+    ],
+    "fetchContractCreationTxUsing": {
+      "etherscanApi": true
+    },
+    "etherscanApi": {
+      "supported": true,
+      "apiKeyEnvName": "ETHERSCAN_API_KEY"
+    }
   },
   "1946": {
     "sourcifyName": "Soneium Testnet Minato",
@@ -2011,7 +2030,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=kava&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -2019,8 +2039,14 @@
     "sourcifyName": "Chain 2288",
     "supported": true,
     "discoveredBy": [
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://mocachain.blockscout.com"
+      }
+    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -2165,15 +2191,36 @@
     "sourcifyName": "Morph",
     "supported": true,
     "discoveredBy": [
-      "quicknode"
+      "quicknode",
+      "drpc"
     ],
     "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=morph&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      },
       {
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.morph-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
+      }
+    ]
+  },
+  "2910": {
+    "sourcifyName": "Chain 2910",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=morph-hoodi&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -3189,9 +3236,13 @@
     "sourcifyName": "Mode",
     "supported": true,
     "discoveredBy": [
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.mode.network/"
+      },
       "routescanApi": {
         "type": "mainnet"
       }
@@ -3215,7 +3266,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=lens-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -3379,17 +3431,17 @@
     "sourcifyName": "Tempo Testnet (Moderato)",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "chain-overrides"
+      "chain-overrides",
+      "drpc"
     ],
     "rpc": [
-      "https://rpc.moderato.tempo.xyz",
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=tempo-moderato-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "trace_transaction"
-      }
+      },
+      "https://rpc.moderato.tempo.xyz"
     ]
   },
   "42793": {
@@ -3512,6 +3564,35 @@
     },
     "rpc": [
       "https://rpc.formicarium.memecore.net"
+    ]
+  },
+  "43522": {
+    "sourcifyName": "Chain 43522",
+    "supported": true,
+    "discoveredBy": [
+      "etherscan"
+    ],
+    "fetchContractCreationTxUsing": {
+      "etherscanApi": true
+    },
+    "etherscanApi": {
+      "supported": true,
+      "apiKeyEnvName": "ETHERSCAN_API_KEY"
+    }
+  },
+  "46630": {
+    "sourcifyName": "Chain 46630",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=robinhood-testnet&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      }
     ]
   },
   "48898": {
@@ -4055,7 +4136,10 @@
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true
+      "etherscanApi": true,
+      "routescanApi": {
+        "type": "mainnet"
+      }
     },
     "etherscanApi": {
       "supported": true,
@@ -4078,7 +4162,10 @@
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true
+      "etherscanApi": true,
+      "routescanApi": {
+        "type": "testnet"
+      }
     },
     "etherscanApi": {
       "supported": true,
@@ -4140,6 +4227,18 @@
     "discoveredBy": [
       "additional-chains"
     ]
+  },
+  "222888": {
+    "sourcifyName": "Chain 222888",
+    "supported": true,
+    "discoveredBy": [
+      "blockscout"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://testnet-scan.mocachain.org"
+      }
+    }
   },
   "314159": {
     "sourcifyName": "Filecoin - Calibration testnet",
@@ -4790,8 +4889,8 @@
     "supported": true,
     "discoveredBy": [
       "quicknode",
-      "drpc",
-      "etherscan"
+      "etherscan",
+      "drpc"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
