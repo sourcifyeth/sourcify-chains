@@ -325,8 +325,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=ethereum-classic&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -489,7 +488,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=gnosis&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       },
       {
         "type": "APIKeyRPC",
@@ -889,8 +888,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=tac&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://ws.rpc.tac.build"
+      }
     ]
   },
   "240": {
@@ -1073,8 +1071,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=filecoin&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1353,8 +1350,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn-baobab&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -1503,8 +1499,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=wemix-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1833,8 +1828,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=metall2&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1893,14 +1887,12 @@
     "sourcifyName": "Swellchain",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "etherscan"
+      "drpc"
     ],
     "fetchContractCreationTxUsing": {
       "routescanApi": {
         "type": "mainnet"
-      },
-      "etherscanApi": true
+      }
     },
     "rpc": [
       {
@@ -1908,18 +1900,13 @@
         "url": "https://lb.drpc.org/ogrpc?network=swell&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       }
-    ],
-    "etherscanApi": {
-      "supported": true,
-      "apiKeyEnvName": "ETHERSCAN_API_KEY"
-    }
+    ]
   },
   "1924": {
     "sourcifyName": "Swellchain Testnet",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "etherscan"
+      "drpc"
     ],
     "rpc": [
       {
@@ -1927,14 +1914,7 @@
         "url": "https://lb.drpc.org/ogrpc?network=swell-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       }
-    ],
-    "fetchContractCreationTxUsing": {
-      "etherscanApi": true
-    },
-    "etherscanApi": {
-      "supported": true,
-      "apiKeyEnvName": "ETHERSCAN_API_KEY"
-    }
+    ]
   },
   "1946": {
     "sourcifyName": "Soneium Testnet Minato",
@@ -1968,7 +1948,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=xlayer-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -2322,21 +2302,6 @@
       }
     ]
   },
-  "4217": {
-    "sourcifyName": "Chain 4217",
-    "supported": true,
-    "discoveredBy": [
-      "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=tempo-mainnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
-      }
-    ]
-  },
   "4326": {
     "sourcifyName": "MegaETH Mainnet",
     "supported": true,
@@ -2400,8 +2365,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=worldchain-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -2834,8 +2798,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=monad-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -3330,8 +3293,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=arbitrum-nova&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -3431,17 +3393,10 @@
     "sourcifyName": "Tempo Testnet (Moderato)",
     "supported": true,
     "discoveredBy": [
-      "drpc",
       "chain-overrides"
     ],
     "rpc": [
-      "https://rpc.moderato.tempo.xyz",
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=tempo-moderato-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
-      }
+      "https://rpc.moderato.tempo.xyz"
     ]
   },
   "42793": {
@@ -3547,23 +3502,6 @@
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
       }
-    ]
-  },
-  "43521": {
-    "sourcifyName": "Formicarium",
-    "supported": true,
-    "discoveredBy": [
-      "etherscan"
-    ],
-    "fetchContractCreationTxUsing": {
-      "etherscanApi": true
-    },
-    "etherscanApi": {
-      "supported": true,
-      "apiKeyEnvName": "ETHERSCAN_API_KEY"
-    },
-    "rpc": [
-      "https://rpc.formicarium.memecore.net"
     ]
   },
   "43522": {
@@ -4487,8 +4425,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=open-campus-codex-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -4542,8 +4479,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=katana-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -4673,8 +4609,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=arc-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -4750,8 +4685,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=celo-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -4889,7 +4823,6 @@
     "supported": true,
     "discoveredBy": [
       "quicknode",
-      "drpc",
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
@@ -4903,12 +4836,6 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY"
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=blast-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.blast-sepolia.quiknode.pro/{API_KEY}/",
