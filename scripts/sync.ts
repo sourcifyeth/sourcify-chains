@@ -388,6 +388,16 @@ export function buildStabilizedOutput(
     }
   }
 
+  // Normalize ordering for all chains: sort discoveredBy alphabetically, sort rpc by provider priority
+  for (const entry of Object.values(output)) {
+    if (entry.discoveredBy) {
+      entry.discoveredBy = [...entry.discoveredBy].sort();
+    }
+    if (entry.rpc) {
+      entry.rpc = sortRpcs(entry.rpc);
+    }
+  }
+
   // Sort by numeric chain ID
   const sorted: Snapshot = {};
   for (const key of Object.keys(output).sort((a, b) => parseInt(a) - parseInt(b))) {
@@ -487,6 +497,7 @@ async function main() {
   const snapshotPath = path.join(REPO_ROOT, "sourcify-chains-default.json");
   const outputHistoryPath = path.join(REPO_ROOT, "change-history.json");
   const outputDescPath = path.join(REPO_ROOT, "pr-description.txt");
+  const outputStatusPath = path.join(REPO_ROOT, "sync-status.json");
 
   // Load inputs
   const snapshot: Snapshot = JSON.parse(fs.readFileSync(snapshotPath, "utf8"));
@@ -527,6 +538,10 @@ async function main() {
   const prDesc = buildPrDescription(addDescriptions, stabilized, pendingSummary, updatedHistory.pendingChanges);
   fs.writeFileSync(outputDescPath, prDesc);
   console.log(`Wrote pr-description.txt`);
+
+  const hasReadyChanges = addDescriptions.length > 0 || stabilized.length > 0;
+  fs.writeFileSync(outputStatusPath, JSON.stringify({ hasReadyChanges }, null, 2) + "\n");
+  console.log(`Wrote sync-status.json (hasReadyChanges: ${hasReadyChanges})`);
 
   // Print pending summary for CI logs
   if (pendingSummary.length > 0) {

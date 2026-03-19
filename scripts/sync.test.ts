@@ -624,6 +624,36 @@ describe("buildStabilizedOutput", () => {
     const output = buildStabilizedOutput(baseline, snapshot, {});
     assert.deepEqual(Object.keys(output), ["1", "10", "100"]);
   });
+
+  it("discoveredBy is sorted alphabetically in output", () => {
+    const baseline: Snapshot = {};
+    const snapshot: Snapshot = {
+      "1": chain({ discoveredBy: ["quicknode", "drpc", "blockscout"] }),
+    };
+    const output = buildStabilizedOutput(baseline, snapshot, {});
+    assert.deepEqual(output["1"].discoveredBy, ["blockscout", "drpc", "quicknode"]);
+  });
+
+  it("rpc is sorted by provider priority in output", () => {
+    const baseline: Snapshot = {};
+    const snapshot: Snapshot = {
+      "1": chain({ rpc: [QN_RPC, DRPC_RPC] }), // quicknode before drpc — should be flipped
+    };
+    const output = buildStabilizedOutput(baseline, snapshot, {});
+    const providers = output["1"].rpc!.map((r) =>
+      typeof r === "string" ? "public" : r.apiKeyEnvName === "DRPC_API_KEY" ? "drpc" : "quicknode",
+    );
+    assert.deepEqual(providers, ["drpc", "quicknode"]);
+  });
+
+  it("ordering normalisation doesn't affect diffSnapshots result (same elements)", () => {
+    // Baseline has chain-overrides first, snapshot has drpc first — same set, different order
+    const baseline: Snapshot = { "1": chain({ discoveredBy: ["chain-overrides", "drpc"] }) };
+    const snapshot: Snapshot = { "1": chain({ discoveredBy: ["drpc", "chain-overrides"] }) };
+    const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot);
+    assert.equal(addDescriptions.length, 0);
+    assert.equal(reductiveChanges.length, 0);
+  });
 });
 
 // ---------------------------------------------------------------------------

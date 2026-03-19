@@ -76,13 +76,16 @@ jobs:
         run: |
           TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           TMP=$(mktemp -d)
+          mkdir -p "$TMP/snapshots"
 
-          # Fetch existing state branch content if it exists
+          # Copy existing state branch content without touching the main repo index
           if git fetch origin chain-sync-state 2>/dev/null; then
-            git --work-tree="$TMP" checkout FETCH_HEAD -- . 2>/dev/null || true
+            git show FETCH_HEAD:change-history.json > "$TMP/change-history.json" 2>/dev/null || true
+            for f in $(git ls-tree --name-only FETCH_HEAD:snapshots/ 2>/dev/null); do
+              git show "FETCH_HEAD:snapshots/$f" > "$TMP/snapshots/$f"
+            done
           fi
 
-          mkdir -p "$TMP/snapshots"
           cp change-history.json "$TMP/change-history.json"
           cp /tmp/raw-snapshot.json "$TMP/snapshots/${TIMESTAMP}.json"
 
@@ -100,13 +103,19 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Open PR if changed
+      - name: Open PR if ready changes exist
         run: |
+          # Only open a PR when sync produced approved changes (additive or stabilized)
+          HAS_READY=$(node -e "process.stdout.write(String(require('./sync-status.json').hasReadyChanges))")
+          if [ "$HAS_READY" != "true" ]; then
+            echo "No ready changes — skipping PR"
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add sourcify-chains-default.json tx-cache.json
           if git diff --staged --quiet; then
-            echo "No ready changes — skipping PR"
+            echo "No file changes — skipping PR"
             exit 0
           fi
           BRANCH="chore/regenerate-chains"
