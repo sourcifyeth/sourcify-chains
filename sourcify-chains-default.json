@@ -489,7 +489,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=gnosis&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       },
       {
         "type": "APIKeyRPC",
@@ -1250,7 +1250,7 @@
     ]
   },
   "714": {
-    "sourcifyName": "Chain 714",
+    "sourcifyName": "Eden",
     "supported": true,
     "discoveredBy": [
       "blockscout"
@@ -1259,7 +1259,10 @@
       "blockscoutApi": {
         "url": "https://eden.blockscout.com/"
       }
-    }
+    },
+    "rpc": [
+      "https://rpc.eden.gateway.fm"
+    ]
   },
   "747": {
     "sourcifyName": "Flow EVM Mainnet",
@@ -1502,7 +1505,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=wemix-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -2382,7 +2386,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=worldchain-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -3247,8 +3252,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=lens-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
