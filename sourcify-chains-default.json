@@ -272,11 +272,15 @@
     "sourcifyName": "BNB Smart Chain Mainnet",
     "supported": true,
     "discoveredBy": [
+      "chain-overrides",
       "drpc",
       "etherscan",
       "quicknode"
     ],
     "fetchContractCreationTxUsing": {
+      "nodeRealApi": {
+        "url": "https://bsc-mainnet.nodereal.io/v1/${API_KEY}"
+      },
       "etherscanApi": true,
       "routescanApi": {
         "type": "mainnet"
@@ -344,6 +348,20 @@
     "rpc": [
       "https://rpc.mordor.etccooperative.org",
       "https://geth-mordor.etc-network.info"
+    ]
+  },
+  "66": {
+    "sourcifyName": "OKXChain Mainnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=oktc&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
     ]
   },
   "81": {
@@ -1207,8 +1225,14 @@
     "sourcifyName": "Flow EVM Testnet",
     "supported": true,
     "discoveredBy": [
+      "chain-overrides",
       "quicknode"
     ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://testnet.evm.flow.com/"
+      }
+    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -1268,8 +1292,14 @@
     "sourcifyName": "Flow EVM Mainnet",
     "supported": true,
     "discoveredBy": [
+      "chain-overrides",
       "quicknode"
     ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://evm.flow.com/"
+      }
+    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -2289,6 +2319,21 @@
       "additional-chains"
     ]
   },
+  "4153": {
+    "sourcifyName": "RISE",
+    "supported": true,
+    "discoveredBy": [
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.risechain.com/"
+      }
+    },
+    "rpc": [
+      "https://rpc.risechain.com/"
+    ]
+  },
   "4202": {
     "sourcifyName": "Lisk Sepolia Testnet",
     "supported": true,
@@ -2310,9 +2355,10 @@
     ]
   },
   "4217": {
-    "sourcifyName": "Chain 4217",
+    "sourcifyName": "Tempo Mainnet",
     "supported": true,
     "discoveredBy": [
+      "chain-overrides",
       "drpc"
     ],
     "rpc": [
@@ -3112,6 +3158,21 @@
       "https://rpc-testnet.bitkubchain.io"
     ]
   },
+  "26217": {
+    "sourcifyName": "Integralayer",
+    "supported": true,
+    "discoveredBy": [
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://blockscout.integralayer.com"
+      }
+    },
+    "rpc": [
+      "https://evm.integralayer.com"
+    ]
+  },
   "31611": {
     "sourcifyName": "Mezo Testnet",
     "supported": true,
@@ -3412,7 +3473,7 @@
     ]
   },
   "42431": {
-    "sourcifyName": "Tempo Testnet (Moderato)",
+    "sourcifyName": "Tempo Testnet Moderato",
     "supported": true,
     "discoveredBy": [
       "chain-overrides",
@@ -4658,6 +4719,22 @@
       }
     }
   },
+  "5318007": {
+    "sourcifyName": "Reactive Network Lasna",
+    "supported": true,
+    "discoveredBy": [
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "etherscanApi": false,
+      "blockscoutApi": {
+        "url": "https://lasna-api.reactscan.net"
+      }
+    },
+    "rpc": [
+      "https://lasna-rpc.rnk.dev"
+    ]
+  },
   "6281971": {
     "sourcifyName": "Chain 6281971",
     "supported": true,
@@ -4809,6 +4886,21 @@
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "trace_transaction"
       }
+    ]
+  },
+  "11155931": {
+    "sourcifyName": "RISE Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.testnet.riselabs.xyz/"
+      }
+    },
+    "rpc": [
+      "https://testnet.riselabs.xyz"
     ]
   },
   "20180427": {
