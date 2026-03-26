@@ -235,12 +235,6 @@
       "https://rpc.testnet.tempo.xyz"
     ]
   },
-  "42431": {
-    "sourcifyName": "Tempo Testnet (Moderato)",
-    "rpc": [
-      "https://rpc.moderato.tempo.xyz"
-    ]
-  },
   "190415": {
     "sourcifyName": "HPP Mainnet",
     "rpc": [
@@ -252,5 +246,65 @@
     "rpc": [
       "https://sepolia.hpp.io"
     ]
+  },
+  "56": {
+    "fetchContractCreationTxUsing": {
+      "nodeRealApi": {
+        "url": "https://bsc-mainnet.nodereal.io/v1/${API_KEY}"
+      }
+    }
+  },
+  "545": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://testnet.evm.flow.com/"
+      }
+    }
+  },
+  "747": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://evm.flow.com/"
+      }
+    }
+  },
+  "4153": {
+    "sourcifyName": "RISE",
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.risechain.com/"
+      }
+    }
+  },
+  "11155931": {
+    "sourcifyName": "RISE Testnet",
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.testnet.riselabs.xyz/"
+      }
+    }
+  },
+  "5318007": {
+    "sourcifyName": "Reactive Network Lasna",
+    "fetchContractCreationTxUsing": {
+      "etherscanApi": false,
+      "blockscoutApi": {
+        "url": "https://lasna-api.reactscan.net"
+      }
+    }
+  },
+  "26217": {
+    "sourcifyName": "Integralayer",
+    "rpc": [
+      "https://evm.integralayer.com"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://blockscout.integralayer.com"
+      }
+    }
+  },
+  "4217": {
+    "sourcifyName": "Tempo Mainnet"
   }
 }
