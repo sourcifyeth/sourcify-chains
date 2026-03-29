@@ -1225,6 +1225,7 @@
     "sourcifyName": "Flow EVM Testnet",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "chain-overrides",
       "quicknode"
     ],
@@ -1292,6 +1293,7 @@
     "sourcifyName": "Flow EVM Mainnet",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "chain-overrides",
       "quicknode"
     ],
@@ -1935,7 +1937,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=swell&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -2359,13 +2362,21 @@
     "supported": true,
     "discoveredBy": [
       "chain-overrides",
-      "drpc"
+      "drpc",
+      "quicknode"
     ],
     "rpc": [
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=tempo-mainnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
+      },
+      {
+        "type": "APIKeyRPC",
+        "url": "https://{SUBDOMAIN}.tempo-mainnet.quiknode.pro/{API_KEY}/",
+        "apiKeyEnvName": "QUICKNODE_API_KEY",
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "trace_transaction"
       }
     ]
@@ -3476,7 +3487,6 @@
     "sourcifyName": "Tempo Testnet Moderato",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
       "drpc"
     ],
     "rpc": [
@@ -3485,8 +3495,7 @@
         "url": "https://lb.drpc.org/ogrpc?network=tempo-moderato-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "trace_transaction"
-      },
-      "https://rpc.moderato.tempo.xyz"
+      }
     ]
   },
   "42793": {
