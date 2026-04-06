@@ -3,19 +3,16 @@
     "sourcifyName": "Ethereum Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "chain-overrides",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout",
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
         "url": "https://eth.blockscout.com/"
-      },
-      "routescanApi": {
-        "type": "mainnet"
       }
     },
     "etherscanApi": {
@@ -70,18 +67,15 @@
     "sourcifyName": "OP Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
         "url": "https://explorer.optimism.io/"
-      },
-      "routescanApi": {
-        "type": "mainnet"
       }
     },
     "etherscanApi": {
@@ -108,15 +102,12 @@
     "sourcifyName": "Flare Mainnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
-      "quicknode"
+      "quicknode",
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://flare-explorer.flare.network/"
-      },
-      "routescanApi": {
-        "type": "mainnet"
       }
     },
     "rpc": [
@@ -129,20 +120,6 @@
       }
     ]
   },
-  "18": {
-    "sourcifyName": "ThunderCore Testnet",
-    "supported": true,
-    "discoveredBy": [
-      "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=thundercore-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
-      }
-    ]
-  },
   "19": {
     "sourcifyName": "Songbird Canary Network",
     "supported": true,
@@ -152,9 +129,6 @@
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://songbird-explorer.flare.network/"
-      },
-      "routescanApi": {
-        "type": "mainnet"
       }
     },
     "rpc": [
@@ -186,8 +160,8 @@
     "sourcifyName": "Rootstock Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -207,8 +181,8 @@
     "sourcifyName": "Rootstock Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -228,8 +202,8 @@
     "sourcifyName": "Telos Mainnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
-      "drpc"
+      "drpc",
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "telosApi": {
@@ -249,8 +223,8 @@
     "sourcifyName": "XDC Apothem Testnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
-      "etherscan"
+      "etherscan",
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "blocksScanApi": {
@@ -272,19 +246,16 @@
     "sourcifyName": "BNB Smart Chain Mainnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "nodeRealApi": {
         "url": "https://bsc-mainnet.nodereal.io/v1/${API_KEY}"
       },
-      "etherscanApi": true,
-      "routescanApi": {
-        "type": "mainnet"
-      }
+      "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -311,14 +282,20 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://rpc.syscoin.org",
+      "https://syscoin.public-rpc.com",
+      "https://57.rpc.thirdweb.com",
+      "https://syscoin-evm.publicnode.com"
     ]
   },
   "61": {
     "sourcifyName": "Ethereum Classic",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -329,8 +306,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=ethereum-classic&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -350,26 +326,12 @@
       "https://geth-mordor.etc-network.info"
     ]
   },
-  "66": {
-    "sourcifyName": "OKXChain Mainnet",
-    "supported": true,
-    "discoveredBy": [
-      "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=oktc&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
-      }
-    ]
-  },
   "81": {
     "sourcifyName": "Japan Open Chain Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "quicknode"
+      "quicknode",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -391,6 +353,9 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://rpc.meter.io"
     ]
   },
   "83": {
@@ -398,14 +363,17 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://rpctest.meter.io"
     ]
   },
   "88": {
     "sourcifyName": "Viction",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -425,8 +393,8 @@
     "sourcifyName": "Viction Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -447,21 +415,21 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://rpc.bitkubchain.io"
     ]
   },
   "97": {
     "sourcifyName": "BNB Smart Chain Testnet",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
-      "routescanApi": {
-        "type": "testnet"
-      }
+      "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -487,10 +455,10 @@
     "sourcifyName": "Gnosis",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
@@ -523,20 +491,10 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
-    ]
-  },
-  "108": {
-    "sourcifyName": "ThunderCore Mainnet",
-    "supported": true,
-    "discoveredBy": [
-      "drpc"
     ],
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=thundercore&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
-      }
+      "https://evmexplorer.velas.com/rpc",
+      "https://explorer.velas.com/rpc"
     ]
   },
   "109": {
@@ -560,11 +518,6 @@
     "discoveredBy": [
       "quicknode"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "testnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -579,8 +532,8 @@
     "sourcifyName": "Fuse Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -615,18 +568,15 @@
     "sourcifyName": "Unichain",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
         "url": "https://unichain.blockscout.com"
-      },
-      "routescanApi": {
-        "type": "mainnet"
       }
     },
     "etherscanApi": {
@@ -668,10 +618,10 @@
     "sourcifyName": "Polygon Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
@@ -726,9 +676,9 @@
     "sourcifyName": "Sonic Mainnet",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
@@ -787,8 +737,8 @@
     "sourcifyName": "HashKey Chain",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -808,8 +758,8 @@
     "sourcifyName": "X Layer Mainnet",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "quicknode"
+      "quicknode",
+      "drpc"
     ],
     "rpc": [
       {
@@ -873,6 +823,13 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://mainnet.b2-rpc.com",
+      "https://rpc.bsquared.network",
+      "https://b2-mainnet.alt.technology",
+      "https://b2-mainnet-public.s.chainbase.com",
+      "https://rpc.ankr.com/b2"
     ]
   },
   "232": {
@@ -894,8 +851,8 @@
     "sourcifyName": "TAC Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -928,8 +885,8 @@
     "sourcifyName": "Fantom Opera",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "quicknode"
+      "quicknode",
+      "drpc"
     ],
     "rpc": [
       {
@@ -955,10 +912,7 @@
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
-      "routescanApi": {
-        "type": "mainnet"
-      }
+      "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -994,11 +948,6 @@
     "discoveredBy": [
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "mainnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -1014,11 +963,6 @@
     "discoveredBy": [
       "quicknode"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "mainnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -1049,9 +993,9 @@
     "sourcifyName": "zkSync Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
+      "quicknode",
       "drpc",
-      "quicknode"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -1078,8 +1022,8 @@
     "sourcifyName": "Filecoin - Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -1090,8 +1034,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=filecoin&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1099,16 +1042,13 @@
     "sourcifyName": "zkSync Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
+      "quicknode",
       "drpc",
-      "quicknode"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://zksync.blockscout.com/"
-      },
-      "routescanApi": {
-        "type": "mainnet"
       }
     },
     "rpc": [
@@ -1149,12 +1089,12 @@
       "chain-overrides"
     ],
     "rpc": [
-      "https://pulsechain-rpc.publicnode.com",
-      "wss://pulsechain-rpc.publicnode.com",
       {
         "url": "https://rpc.pulsechain.com",
         "type": "BaseRPC"
       },
+      "https://pulsechain-rpc.publicnode.com",
+      "wss://pulsechain-rpc.publicnode.com",
       {
         "url": "https://rpc-pulsechain.g4mm4.io",
         "type": "BaseRPC"
@@ -1179,9 +1119,9 @@
     "sourcifyName": "World Chain",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
@@ -1225,9 +1165,9 @@
     "sourcifyName": "Flow EVM Testnet",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "blockscout",
-      "chain-overrides",
-      "quicknode"
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -1293,9 +1233,9 @@
     "sourcifyName": "Flow EVM Mainnet",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "blockscout",
-      "chain-overrides",
-      "quicknode"
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -1317,6 +1257,9 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://gwan-ssl.wandevs.org:56891/"
     ]
   },
   "988": {
@@ -1358,10 +1301,7 @@
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
-      "routescanApi": {
-        "type": "mainnet"
-      }
+      "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -1380,15 +1320,14 @@
     "sourcifyName": "Kaia Kairos Testnet",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "quicknode"
+      "quicknode",
+      "drpc"
     ],
     "rpc": [
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn-baobab&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -1421,6 +1360,9 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://evm.confluxrpc.com"
     ]
   },
   "1073": {
@@ -1469,32 +1411,27 @@
     "sourcifyName": "Metis Andromeda Mainnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
-      "drpc"
+      "drpc",
+      "chain-overrides"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "mainnet"
-      }
-    },
     "rpc": [
+      "https://andromeda.metis.io/?owner=1088",
+      "https://metis.drpc.org",
+      "wss://metis.drpc.org",
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=metis&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://andromeda.metis.io/?owner=1088",
-      "https://metis.drpc.org",
-      "wss://metis.drpc.org"
+      }
     ]
   },
   "1101": {
     "sourcifyName": "Polygon zkEVM",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "quicknode"
+      "quicknode",
+      "drpc"
     ],
     "rpc": [
       {
@@ -1537,8 +1474,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=wemix-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1577,20 +1513,19 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://rpc.luxeports.com",
+      "https://erpc.luxeports.com"
     ]
   },
   "1135": {
     "sourcifyName": "Lisk",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "quicknode"
+      "quicknode",
+      "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "mainnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -1680,18 +1615,15 @@
     "sourcifyName": "Unichain Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
         "url": "https://unichain-sepolia.blockscout.com"
-      },
-      "routescanApi": {
-        "type": "testnet"
       }
     },
     "etherscanApi": {
@@ -1703,7 +1635,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=unichain-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       },
       {
         "type": "APIKeyRPC",
@@ -1718,9 +1650,9 @@
     "sourcifyName": "Story Aeneid Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
+      "quicknode",
       "drpc",
-      "quicknode"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -1746,8 +1678,8 @@
     "sourcifyName": "Sei Testnet",
     "supported": true,
     "discoveredBy": [
-      "etherscan",
-      "quicknode"
+      "quicknode",
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
@@ -1769,9 +1701,9 @@
     "sourcifyName": "Sei Network",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
@@ -1866,7 +1798,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=metall2&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -1874,8 +1807,8 @@
     "sourcifyName": "Soneium",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -1927,11 +1860,6 @@
     "discoveredBy": [
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "mainnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -1951,7 +1879,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=swell-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -1959,8 +1888,8 @@
     "sourcifyName": "Soneium Testnet Minato",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -2057,8 +1986,8 @@
     "sourcifyName": "Chain 2288",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -2178,9 +2107,9 @@
     "sourcifyName": "Abstract",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
@@ -2209,8 +2138,8 @@
     "sourcifyName": "Morph",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "quicknode"
+      "quicknode",
+      "drpc"
     ],
     "rpc": [
       {
@@ -2247,6 +2176,9 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://rpc.goalpha.org"
     ]
   },
   "3338": {
@@ -2286,9 +2218,6 @@
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://nexus.testnet.blockscout.com/"
-      },
-      "routescanApi": {
-        "type": "testnet"
       }
     }
   },
@@ -2297,21 +2226,9 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
-    ]
-  },
-  "4002": {
-    "sourcifyName": "Fantom Testnet",
-    "supported": true,
-    "discoveredBy": [
-      "drpc"
     ],
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=fantom-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
-      }
+      "https://node1.ozonechain.io"
     ]
   },
   "4114": {
@@ -2319,6 +2236,9 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://rpc.mainnet.citrea.xyz"
     ]
   },
   "4153": {
@@ -2342,11 +2262,6 @@
     "discoveredBy": [
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "testnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -2360,9 +2275,9 @@
     "sourcifyName": "Tempo Mainnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
+      "quicknode",
       "drpc",
-      "quicknode"
+      "chain-overrides"
     ],
     "rpc": [
       {
@@ -2384,9 +2299,9 @@
     "sourcifyName": "MegaETH Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
       "drpc",
-      "etherscan"
+      "etherscan",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
@@ -2428,9 +2343,9 @@
     "sourcifyName": "World Chain Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
@@ -2443,8 +2358,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=worldchain-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -2474,22 +2388,21 @@
     "sourcifyName": "Mantle Mainnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
-      "routescanApi": {
-        "type": "mainnet"
-      }
+      "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
       "apiKeyEnvName": "ETHERSCAN_API_KEY_MANTLE"
     },
     "rpc": [
+      "https://rpc.mantle.xyz",
+      "https://mantle-rpc.publicnode.com",
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=mantle&dkey={API_KEY}",
@@ -2502,19 +2415,17 @@
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://rpc.mantle.xyz",
-      "https://mantle-rpc.publicnode.com"
+      }
     ]
   },
   "5003": {
     "sourcifyName": "Mantle Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
@@ -2524,6 +2435,7 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_MANTLE"
     },
     "rpc": [
+      "https://rpc.sepolia.mantle.xyz",
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=mantle-sepolia&dkey={API_KEY}",
@@ -2536,8 +2448,7 @@
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://rpc.sepolia.mantle.xyz"
+      }
     ]
   },
   "5115": {
@@ -2545,6 +2456,9 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://rpc.testnet.citrea.xyz"
     ]
   },
   "5611": {
@@ -2575,14 +2489,18 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://rpc.tanenbaum.io",
+      "https://syscoin-tanenbaum-evm.publicnode.com"
     ]
   },
   "6343": {
     "sourcifyName": "MegaETH Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "etherscan"
+      "etherscan",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
@@ -2616,8 +2534,7 @@
     "sourcifyName": "ZetaChain Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -2625,19 +2542,19 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=zeta-chain&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
-      }
+      "https://zetachain-evm.blockpi.network/v1/rpc/public",
+      "https://zetachain-mainnet.g.allthatnode.com/archive/evm",
+      "https://zeta-chain.drpc.org",
+      "https://zetachain-mainnet.public.blastapi.io",
+      "https://7000.rpc.thirdweb.com"
     ]
   },
   "7001": {
     "sourcifyName": "ZetaChain: Athens Testnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
-      "drpc"
+      "drpc",
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -2674,6 +2591,9 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://porcini.rootnet.app/archive"
     ]
   },
   "8021": {
@@ -2686,9 +2606,6 @@
       "blockscoutApi": {
         "url": "https://numine.blockscout.com/"
       },
-      "routescanApi": {
-        "type": "mainnet"
-      },
       "avalancheApi": true
     }
   },
@@ -2696,14 +2613,15 @@
     "sourcifyName": "Kaia Mainnet",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "quicknode"
+      "quicknode",
+      "drpc"
     ],
     "rpc": [
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -2748,19 +2666,16 @@
     "sourcifyName": "Base Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "chain-overrides",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout",
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
         "url": "https://base.blockscout.com/"
-      },
-      "routescanApi": {
-        "type": "mainnet"
       }
     },
     "etherscanApi": {
@@ -2768,6 +2683,9 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_BASE"
     },
     "rpc": [
+      "https://mainnet.base.org/",
+      "https://developer-access-mainnet.base.org/",
+      "https://base.gateway.tenderly.co",
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=base&dkey={API_KEY}",
@@ -2780,10 +2698,7 @@
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "trace_transaction"
-      },
-      "https://mainnet.base.org/",
-      "https://developer-access-mainnet.base.org/",
-      "https://base.gateway.tenderly.co"
+      }
     ]
   },
   "8822": {
@@ -2805,15 +2720,12 @@
     "sourcifyName": "Plasma Mainnet",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
-      "routescanApi": {
-        "type": "mainnet"
-      }
+      "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -2839,14 +2751,11 @@
     "sourcifyName": "Plasma Testnet",
     "supported": true,
     "discoveredBy": [
-      "etherscan",
-      "quicknode"
+      "quicknode",
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
-      "routescanApi": {
-        "type": "testnet"
-      }
+      "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -2888,8 +2797,8 @@
     "sourcifyName": "Gnosis Chiado Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -2909,9 +2818,9 @@
     "sourcifyName": "Abstract Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
@@ -2940,9 +2849,9 @@
     "sourcifyName": "Immutable zkEVM",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
+      "quicknode",
       "drpc",
-      "quicknode"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -2969,9 +2878,9 @@
     "sourcifyName": "Immutable zkEVM Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
+      "quicknode",
       "drpc",
-      "quicknode"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -3082,15 +2991,12 @@
     "sourcifyName": "Holesky",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://eth-holesky.blockscout.com/"
-      },
-      "routescanApi": {
-        "type": "testnet"
       }
     },
     "rpc": [
@@ -3107,6 +3013,9 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://rpc.mainnet.oasys.homeverse.games/"
     ]
   },
   "23294": {
@@ -3266,8 +3175,7 @@
         "url": "https://lb.drpc.org/ogrpc?network=apechain-curtis&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://rpc.curtis.apechain.com"
+      }
     ]
   },
   "33139": {
@@ -3297,15 +3205,12 @@
     "sourcifyName": "Mode",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://explorer.mode.network/"
-      },
-      "routescanApi": {
-        "type": "mainnet"
       }
     },
     "rpc": [
@@ -3327,7 +3232,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=lens-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -3335,18 +3241,15 @@
     "sourcifyName": "Arbitrum One",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
         "url": "https://arbitrum.blockscout.com/"
-      },
-      "routescanApi": {
-        "type": "mainnet"
       }
     },
     "etherscanApi": {
@@ -3373,10 +3276,10 @@
     "sourcifyName": "Arbitrum Nova",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "chain-overrides",
+      "quicknode",
       "drpc",
-      "quicknode"
+      "blockscout",
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -3384,6 +3287,9 @@
       }
     },
     "rpc": [
+      "https://nova.arbitrum.io/rpc",
+      "https://arbitrum-nova.gateway.tenderly.co",
+      "https://arbitrum-nova-rpc.publicnode.com",
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=arbitrum-nova&dkey={API_KEY}",
@@ -3395,20 +3301,17 @@
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://nova.arbitrum.io/rpc",
-      "https://arbitrum-nova.gateway.tenderly.co",
-      "https://arbitrum-nova-rpc.publicnode.com"
+      }
     ]
   },
   "42220": {
     "sourcifyName": "Celo Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
@@ -3472,18 +3375,18 @@
     "sourcifyName": "Tempo Testnet (Andantino)",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
-      "quicknode"
+      "quicknode",
+      "chain-overrides"
     ],
     "rpc": [
+      "https://rpc.testnet.tempo.xyz",
       {
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.tempo-testnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "trace_transaction"
-      },
-      "https://rpc.testnet.tempo.xyz"
+      }
     ]
   },
   "42431": {
@@ -3522,11 +3425,6 @@
     "discoveredBy": [
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "mainnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -3540,15 +3438,12 @@
     "sourcifyName": "Avalanche Fuji Testnet",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
-      "routescanApi": {
-        "type": "testnet"
-      },
       "avalancheApi": true
     },
     "etherscanApi": {
@@ -3575,15 +3470,12 @@
     "sourcifyName": "Avalanche C-Chain",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
-      "routescanApi": {
-        "type": "mainnet"
-      },
       "avalancheApi": true
     },
     "etherscanApi": {
@@ -3671,11 +3563,6 @@
     "discoveredBy": [
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "testnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -3706,11 +3593,6 @@
     "discoveredBy": [
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "mainnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -3747,9 +3629,9 @@
     "sourcifyName": "Linea",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
@@ -3779,6 +3661,10 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://sepolia.metisdevops.link",
+      "https://metis-sepolia-rpc.publicnode.com"
     ]
   },
   "60808": {
@@ -3832,10 +3718,10 @@
     "sourcifyName": "Polygon Amoy Testnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
@@ -3845,6 +3731,8 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_POLYGON"
     },
     "rpc": [
+      "https://rpc-amoy.polygon.technology",
+      "https://polygon-amoy-bor-rpc.publicnode.com",
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=polygon-amoy&dkey={API_KEY}",
@@ -3857,24 +3745,19 @@
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "trace_transaction"
-      },
-      "https://rpc-amoy.polygon.technology",
-      "https://polygon-amoy-bor-rpc.publicnode.com"
+      }
     ]
   },
   "80069": {
     "sourcifyName": "Berachain Bepolia",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
-      "routescanApi": {
-        "type": "testnet"
-      }
+      "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -3914,15 +3797,12 @@
     "sourcifyName": "Berachain",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
-      "routescanApi": {
-        "type": "mainnet"
-      }
+      "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -3948,15 +3828,12 @@
     "sourcifyName": "Blast",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
-      "routescanApi": {
-        "type": "mainnet"
-      }
+      "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -3982,19 +3859,16 @@
     "sourcifyName": "Base Sepolia Tesnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "chain-overrides",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout",
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
         "url": "https://base-sepolia.blockscout.com/"
-      },
-      "routescanApi": {
-        "type": "testnet"
       }
     },
     "etherscanApi": {
@@ -4002,6 +3876,8 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_BASE"
     },
     "rpc": [
+      "https://sepolia.base.org",
+      "https://base-sepolia-rpc.publicnode.com",
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=base-sepolia&dkey={API_KEY}",
@@ -4014,9 +3890,7 @@
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "trace_transaction"
-      },
-      "https://sepolia.base.org",
-      "https://base-sepolia-rpc.publicnode.com"
+      }
     ]
   },
   "97476": {
@@ -4175,10 +4049,7 @@
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
-      "routescanApi": {
-        "type": "mainnet"
-      }
+      "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -4201,10 +4072,7 @@
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
-      "routescanApi": {
-        "type": "testnet"
-      }
+      "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -4244,6 +4112,11 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://testnet-rpc.bitlayer.org",
+      "https://testnet-rpc.bitlayer-rpc.com",
+      "https://rpc.ankr.com/bitlayer_testnet"
     ]
   },
   "202601": {
@@ -4265,6 +4138,9 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://auroria.rpc.xertra.com"
     ]
   },
   "222888": {
@@ -4283,8 +4159,8 @@
     "sourcifyName": "Filecoin - Calibration testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -4319,18 +4195,15 @@
     "sourcifyName": "Arbitrum Sepolia",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
         "url": "https://arbitrum-sepolia.blockscout.com/"
-      },
-      "routescanApi": {
-        "type": "testnet"
       }
     },
     "etherscanApi": {
@@ -4358,17 +4231,20 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://testnet-rpc.goalpha.org"
     ]
   },
   "534351": {
     "sourcifyName": "Scroll Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "chain-overrides",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout",
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
@@ -4381,6 +4257,9 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_SCROLL"
     },
     "rpc": [
+      "https://sepolia-rpc.scroll.io",
+      "https://scroll-sepolia-rpc.publicnode.com",
+      "https://rpc.ankr.com/scroll_sepolia_testnet",
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=scroll-sepolia&dkey={API_KEY}",
@@ -4393,21 +4272,18 @@
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://sepolia-rpc.scroll.io",
-      "https://scroll-sepolia-rpc.publicnode.com",
-      "https://rpc.ankr.com/scroll_sepolia_testnet"
+      }
     ]
   },
   "534352": {
     "sourcifyName": "Scroll",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "chain-overrides",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout",
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
@@ -4420,6 +4296,9 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_SCROLL"
     },
     "rpc": [
+      "https://rpc.scroll.io",
+      "https://scroll.blockpi.network/v1/rpc/public",
+      "https://1rpc.io/scroll",
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=scroll&dkey={API_KEY}",
@@ -4432,10 +4311,7 @@
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://rpc.scroll.io",
-      "https://scroll.blockpi.network/v1/rpc/public",
-      "https://1rpc.io/scroll"
+      }
     ]
   },
   "543210": {
@@ -4448,8 +4324,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zero&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -4457,19 +4332,16 @@
     "sourcifyName": "Ethereum Hoodi Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "chain-overrides",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout",
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
         "url": "https://eth-hoodi.blockscout.com/"
-      },
-      "routescanApi": {
-        "type": "testnet"
       }
     },
     "etherscanApi": {
@@ -4477,6 +4349,7 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY"
     },
     "rpc": [
+      "https://rpc.hoodi.ethpandaops.io",
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hoodi&dkey={API_KEY}",
@@ -4489,8 +4362,7 @@
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "trace_transaction"
-      },
-      "https://rpc.hoodi.ethpandaops.io"
+      }
     ]
   },
   "612044": {
@@ -4516,20 +4388,6 @@
         "url": "https://www.crossscan.io/"
       }
     }
-  },
-  "656476": {
-    "sourcifyName": "EDU Chain Testnet",
-    "supported": true,
-    "discoveredBy": [
-      "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=open-campus-codex-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
-      }
-    ]
   },
   "660279": {
     "sourcifyName": "Xai Mainnet",
@@ -4592,11 +4450,6 @@
     "discoveredBy": [
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "testnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -4633,14 +4486,9 @@
     "sourcifyName": "Ink Sepolia",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "quicknode"
+      "quicknode",
+      "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "testnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -4725,9 +4573,6 @@
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://kaigan.blockscout.com/"
-      },
-      "routescanApi": {
-        "type": "testnet"
       }
     }
   },
@@ -4768,11 +4613,6 @@
     "discoveredBy": [
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "mainnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -4786,9 +4626,9 @@
     "sourcifyName": "Celo Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
       "drpc",
-      "etherscan"
+      "etherscan",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
@@ -4813,19 +4653,16 @@
     "sourcifyName": "Ethereum Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "chain-overrides",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout",
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
         "url": "https://eth-sepolia.blockscout.com/"
-      },
-      "routescanApi": {
-        "type": "testnet"
       }
     },
     "etherscanApi": {
@@ -4866,18 +4703,15 @@
     "sourcifyName": "OP Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
+      "quicknode",
       "drpc",
       "etherscan",
-      "quicknode"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
         "url": "https://optimism-sepolia.blockscout.com/"
-      },
-      "routescanApi": {
-        "type": "testnet"
       }
     },
     "etherscanApi": {
@@ -4935,6 +4769,11 @@
     "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://mainnet.corn-rpc.com",
+      "https://rpc.ankr.com/corn_maizenet",
+      "https://maizenet-rpc.usecorn.com"
     ]
   },
   "111557560": {
@@ -4957,15 +4796,12 @@
     "sourcifyName": "Blast Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
+      "quicknode",
       "drpc",
-      "etherscan",
-      "quicknode"
+      "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
-      "routescanApi": {
-        "type": "testnet"
-      }
+      "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -4975,8 +4811,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=blast-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -5007,8 +4842,8 @@
     "sourcifyName": "Neon EVM Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "drpc",
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -5079,11 +4914,6 @@
     "discoveredBy": [
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "testnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -5118,8 +4948,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=harmony-0&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
