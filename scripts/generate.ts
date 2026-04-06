@@ -28,7 +28,7 @@ import { fetchDrpcChains } from "./providers/drpc.js";
 import { fetchAvalancheChains } from "./otherAPIs/avalanche.js";
 import { fetchEtherscanChains } from "./block-explorers/etherscan.js";
 import { fetchBlockscoutChains } from "./block-explorers/blockscout.js";
-import { fetchRoutescanChains } from "./block-explorers/routescan.js";
+import { fetchRoutescanChains, type RoutescanChainData } from "./block-explorers/routescan.js";
 import { probeChain, withConcurrency } from "./probe.js";
 import type { TraceCacheValue, ProbeChainResult } from "./probe.js";
 import fs from "fs";
@@ -219,7 +219,10 @@ async function main() {
       fetchWithRetrySet("Avalanche", fetchAvalancheChains),
       fetchWithRetry("Etherscan", fetchEtherscanChains),
       fetchWithRetry("Blockscout", fetchBlockscoutChains),
-      fetchWithRetry("Routescan", fetchRoutescanChains),
+      fetchWithRetry("Routescan", fetchRoutescanChains).catch((err) => {
+        console.warn(`  Routescan unavailable, skipping: ${err.message}`);
+        return new Map<number, RoutescanChainData>();
+      }),
     ]);
 
   // Load source files
@@ -472,7 +475,16 @@ async function main() {
       );
       continue;
     }
-    output[chainIdStr] = { ...entry, supported: true, discoveredBy: ["additional-chains"] };
+    // Look up public RPCs from chainid.network for additional chains
+    const meta = chainList.get(parseInt(chainIdStr, 10));
+    const rpcs = meta?.rpc?.length ? filterPublicRpcs(meta.rpc) : [];
+
+    output[chainIdStr] = {
+      ...entry,
+      supported: true,
+      discoveredBy: ["additional-chains"],
+      ...(rpcs.length > 0 ? { rpc: rpcs } : {}),
+    };
   }
   if (additionalOverlapErrors.length > 0) {
     throw new Error(
