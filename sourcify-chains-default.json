@@ -63,6 +63,34 @@
       }
     ]
   },
+  "3": {
+    "sourcifyName": "Ethereum Ropsten Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "4": {
+    "sourcifyName": "Ethereum Rinkeby Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "5": {
+    "sourcifyName": "Ethereum Goerli Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "8": {
+    "sourcifyName": "Ubiq Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "10": {
     "sourcifyName": "OP Mainnet",
     "supported": true,
@@ -156,6 +184,13 @@
       }
     ]
   },
+  "28": {
+    "sourcifyName": "Boba Network Rinkeby Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "30": {
     "sourcifyName": "Rootstock Mainnet",
     "supported": true,
@@ -217,6 +252,41 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "trace_transaction"
       }
+    ]
+  },
+  "41": {
+    "sourcifyName": "Telos Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "43": {
+    "sourcifyName": "Darwinia Pangolin Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "44": {
+    "sourcifyName": "Crab Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "46": {
+    "sourcifyName": "Darwinia Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "50": {
+    "sourcifyName": "XDC Network",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "51": {
@@ -324,6 +394,20 @@
     "rpc": [
       "https://rpc.mordor.etccooperative.org",
       "https://geth-mordor.etc-network.info"
+    ]
+  },
+  "69": {
+    "sourcifyName": "Optimism Kovan Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "77": {
+    "sourcifyName": "POA Sokol",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "81": {
@@ -451,6 +535,13 @@
       }
     ]
   },
+  "99": {
+    "sourcifyName": "POA Network Core",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "100": {
     "sourcifyName": "Gnosis",
     "supported": true,
@@ -475,7 +566,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=gnosis&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -754,6 +845,13 @@
       }
     ]
   },
+  "180": {
+    "sourcifyName": "AME Chain Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "196": {
     "sourcifyName": "X Layer Mainnet",
     "supported": true,
@@ -813,9 +911,22 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=opbnb&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
+    ]
+  },
+  "212": {
+    "sourcifyName": "MAP Testnet Makalu",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "216": {
+    "sourcifyName": "Happychain Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "223": {
@@ -879,6 +990,13 @@
         "url": "https://lb.drpc.org/ogrpc?network=cronos-zkevm-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       }
+    ]
+  },
+  "246": {
+    "sourcifyName": "Energy Web Chain",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "250": {
@@ -1067,6 +1185,20 @@
       }
     ]
   },
+  "335": {
+    "sourcifyName": "DFK Chain Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "336": {
+    "sourcifyName": "Shiden (EVM) Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "338": {
     "sourcifyName": "Cronos Testnet",
     "supported": true,
@@ -1115,6 +1247,13 @@
       }
     ]
   },
+  "420": {
+    "sourcifyName": "Optimism Goerli",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "480": {
     "sourcifyName": "World Chain",
     "supported": true,
@@ -1161,6 +1300,13 @@
       "https://rpc.blackfort.network/mainnet/rpc"
     ]
   },
+  "534": {
+    "sourcifyName": "Candle",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "545": {
     "sourcifyName": "Flow EVM Testnet",
     "supported": true,
@@ -1182,6 +1328,27 @@
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
       }
+    ]
+  },
+  "570": {
+    "sourcifyName": "Rollux Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "592": {
+    "sourcifyName": "Astar (EVM)",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "648": {
+    "sourcifyName": "Endurance Smart Chain Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "690": {
@@ -1252,6 +1419,20 @@
       }
     ]
   },
+  "841": {
+    "sourcifyName": "Taraxa Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "842": {
+    "sourcifyName": "Taraxa Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "888": {
     "sourcifyName": "Wanchain Mainnet",
     "supported": true,
@@ -1260,6 +1441,27 @@
     ],
     "rpc": [
       "https://gwan-ssl.wandevs.org:56891/"
+    ]
+  },
+  "919": {
+    "sourcifyName": "Mode Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "957": {
+    "sourcifyName": "Lyra Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "970": {
+    "sourcifyName": "OORT Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "988": {
@@ -1459,8 +1661,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=wemix&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1491,6 +1692,13 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       }
+    ]
+  },
+  "1115": {
+    "sourcifyName": "Core Blockchain Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "1116": {
@@ -1540,6 +1748,13 @@
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
       }
+    ]
+  },
+  "1149": {
+    "sourcifyName": "Symplexia Smart Chain",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "1284": {
@@ -1609,6 +1824,13 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       }
+    ]
+  },
+  "1291": {
+    "sourcifyName": "Swisstronik Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "1301": {
@@ -1727,6 +1949,20 @@
       }
     ]
   },
+  "1339": {
+    "sourcifyName": "Elysium Mainnet Chain",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "1433": {
+    "sourcifyName": "Rikeza Network",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "1480": {
     "sourcifyName": "Vana",
     "supported": true,
@@ -1756,6 +1992,20 @@
     },
     "rpc": [
       "https://mainnet.storyrpc.io"
+    ]
+  },
+  "1516": {
+    "sourcifyName": "Story Odyssey",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "1597": {
+    "sourcifyName": "Reactive Network Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "1625": {
@@ -1935,6 +2185,20 @@
       }
     ]
   },
+  "2000": {
+    "sourcifyName": "DogeChain Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "2017": {
+    "sourcifyName": "Telcoin Network",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "2020": {
     "sourcifyName": "Ronin Mainnet",
     "supported": true,
@@ -1948,6 +2212,48 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       }
+    ]
+  },
+  "2021": {
+    "sourcifyName": "Edgeware EdgeEVM Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "2037": {
+    "sourcifyName": "Kiwi Subnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "2038": {
+    "sourcifyName": "Shrapnel Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "2044": {
+    "sourcifyName": "Shrapnel Subnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "2047": {
+    "sourcifyName": "Stratos Testnet (Mesos)",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "2048": {
+    "sourcifyName": "Stratos Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "2201": {
@@ -1966,6 +2272,13 @@
     },
     "rpc": [
       "https://rpc.testnet.stable.xyz"
+    ]
+  },
+  "2221": {
+    "sourcifyName": "Kava EVM Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "2222": {
@@ -2016,6 +2329,13 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       }
+    ]
+  },
+  "2358": {
+    "sourcifyName": "Kroma Sepolia",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "2366": {
@@ -2078,6 +2398,13 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "trace_transaction"
       }
+    ]
+  },
+  "2522": {
+    "sourcifyName": "Fraxtal Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "2523": {
@@ -2197,6 +2524,13 @@
       }
     ]
   },
+  "3737": {
+    "sourcifyName": "Crossball Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "3941": {
     "sourcifyName": "Chain 3941",
     "supported": true,
@@ -2254,6 +2588,20 @@
     },
     "rpc": [
       "https://rpc.risechain.com/"
+    ]
+  },
+  "4157": {
+    "sourcifyName": "CrossFi Chain Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "4200": {
+    "sourcifyName": "Merlin Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "4202": {
@@ -2320,6 +2668,13 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "trace_transaction"
       }
+    ]
+  },
+  "4337": {
+    "sourcifyName": "Beam",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "4352": {
@@ -2461,6 +2816,13 @@
       "https://rpc.testnet.citrea.xyz"
     ]
   },
+  "5330": {
+    "sourcifyName": "Superseed Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "5611": {
     "sourcifyName": "opBNB Testnet",
     "supported": true,
@@ -2493,6 +2855,34 @@
     "rpc": [
       "https://rpc.tanenbaum.io",
       "https://syscoin-tanenbaum-evm.publicnode.com"
+    ]
+  },
+  "5845": {
+    "sourcifyName": "Tangle",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "6119": {
+    "sourcifyName": "UPTN Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "6321": {
+    "sourcifyName": "Aura Euphoria Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "6322": {
+    "sourcifyName": "Aura Xstaxy Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "6343": {
@@ -2570,6 +2960,20 @@
       }
     ]
   },
+  "7171": {
+    "sourcifyName": "Bitrock Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "7200": {
+    "sourcifyName": "exSat Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "7560": {
     "sourcifyName": "Cyber Mainnet",
     "supported": true,
@@ -2586,6 +2990,13 @@
       }
     ]
   },
+  "7668": {
+    "sourcifyName": "The Root Network Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "7672": {
     "sourcifyName": "The Root Network Porcini (Testnet)",
     "supported": true,
@@ -2594,6 +3005,27 @@
     ],
     "rpc": [
       "https://porcini.rootnet.app/archive"
+    ]
+  },
+  "7700": {
+    "sourcifyName": "Canto Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "7701": {
+    "sourcifyName": "Canto Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "7771": {
+    "sourcifyName": "Bitrock Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "8021": {
@@ -2620,8 +3052,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -2716,6 +3147,20 @@
       "https://json-rpc.evm.iotaledger.net"
     ]
   },
+  "9000": {
+    "sourcifyName": "Evmos Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "9700": {
+    "sourcifyName": "OORT Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "9745": {
     "sourcifyName": "Plasma Mainnet",
     "supported": true,
@@ -2771,6 +3216,20 @@
       }
     ]
   },
+  "9977": {
+    "sourcifyName": "Mind Smart Chain Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "9996": {
+    "sourcifyName": "Mind Smart Chain Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "10143": {
     "sourcifyName": "Monad Testnet",
     "supported": true,
@@ -2814,6 +3273,41 @@
       }
     ]
   },
+  "10242": {
+    "sourcifyName": "Arthera Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "10243": {
+    "sourcifyName": "Arthera Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "10849": {
+    "sourcifyName": "Lamina1",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "10850": {
+    "sourcifyName": "Lamina1 Identity",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "11111": {
+    "sourcifyName": "WAGMI Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "11124": {
     "sourcifyName": "Abstract Sepolia Testnet",
     "supported": true,
@@ -2845,6 +3339,27 @@
       }
     ]
   },
+  "11235": {
+    "sourcifyName": "Haqq Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "12898": {
+    "sourcifyName": "PlayFair Testnet Subnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "13337": {
+    "sourcifyName": "BEAM Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "13371": {
     "sourcifyName": "Immutable zkEVM",
     "supported": true,
@@ -2872,6 +3387,13 @@
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
       }
+    ]
+  },
+  "13381": {
+    "sourcifyName": "Phoenix Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "13473": {
@@ -2957,6 +3479,20 @@
       }
     ]
   },
+  "16180": {
+    "sourcifyName": "PLYR PHI",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "16350": {
+    "sourcifyName": "Incentiv Devnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "16602": {
     "sourcifyName": "0G-Testnet-Galileo",
     "supported": true,
@@ -3008,6 +3544,13 @@
       }
     ]
   },
+  "17069": {
+    "sourcifyName": "Garnet Holesky",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "19011": {
     "sourcifyName": "HOME Verse Mainnet",
     "supported": true,
@@ -3016,6 +3559,13 @@
     ],
     "rpc": [
       "https://rpc.mainnet.oasys.homeverse.games/"
+    ]
+  },
+  "22776": {
+    "sourcifyName": "map-relay-chain Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "23294": {
@@ -3080,6 +3630,13 @@
       "https://rpc-testnet.bitkubchain.io"
     ]
   },
+  "26100": {
+    "sourcifyName": "Quantum Portal Network",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "26217": {
     "sourcifyName": "Integralayer",
     "supported": true,
@@ -3093,6 +3650,13 @@
     },
     "rpc": [
       "https://evm.integralayer.com"
+    ]
+  },
+  "28528": {
+    "sourcifyName": "Optimism Bedrock: Goerli Alpha Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "31611": {
@@ -3140,6 +3704,13 @@
       "https://api.zilliqa.com"
     ]
   },
+  "32770": {
+    "sourcifyName": "Zilliqa 2 EVM proto-mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "33101": {
     "sourcifyName": "Zilliqa 2 Testnet",
     "supported": true,
@@ -3153,6 +3724,13 @@
     },
     "rpc": [
       "https://api.testnet.zilliqa.com"
+    ]
+  },
+  "33103": {
+    "sourcifyName": "Zilliqa 2 EVM proto-testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "33111": {
@@ -3222,6 +3800,20 @@
       }
     ]
   },
+  "35441": {
+    "sourcifyName": "Q Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "35443": {
+    "sourcifyName": "Q Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "37111": {
     "sourcifyName": "Lens Testnet",
     "supported": true,
@@ -3232,9 +3824,15 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=lens-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
+    ]
+  },
+  "39797": {
+    "sourcifyName": "Energi Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "42161": {
@@ -3404,6 +4002,13 @@
       }
     ]
   },
+  "42766": {
+    "sourcifyName": "ZKFair Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "42793": {
     "sourcifyName": "Etherlink Mainnet",
     "supported": true,
@@ -3512,6 +4117,13 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY"
     }
   },
+  "44787": {
+    "sourcifyName": "Celo Alfajores Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "46630": {
     "sourcifyName": "Chain 46630",
     "supported": true,
@@ -3542,6 +4154,13 @@
       }
     ]
   },
+  "48899": {
+    "sourcifyName": "Zircuit Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "48900": {
     "sourcifyName": "Zircuit Mainnet",
     "supported": true,
@@ -3557,6 +4176,13 @@
       }
     ]
   },
+  "49797": {
+    "sourcifyName": "Energi Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "53302": {
     "sourcifyName": "Superseed Sepolia Testnet",
     "supported": true,
@@ -3570,6 +4196,20 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       }
+    ]
+  },
+  "53935": {
+    "sourcifyName": "DFK Chain Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "57000": {
+    "sourcifyName": "Rollux Testnet Tanenbaum",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "57054": {
@@ -3682,6 +4322,41 @@
       }
     ]
   },
+  "62320": {
+    "sourcifyName": "Celo Baklava Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "62621": {
+    "sourcifyName": "MultiVAC Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "62831": {
+    "sourcifyName": "PLYR TAU Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "71401": {
+    "sourcifyName": "Godwoken testnet v1.1",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "71402": {
+    "sourcifyName": "Godwoken mainnet v1.1",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "73114": {
     "sourcifyName": "ICB Testnet",
     "supported": true,
@@ -3712,6 +4387,41 @@
     "rpc": [
       "https://rpc1-mainnet.icbnetwork.info/",
       "https://rpc2-mainnet.icbnetwork.info/"
+    ]
+  },
+  "73799": {
+    "sourcifyName": "Energy Web Volta Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "78430": {
+    "sourcifyName": "Amplify Subnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "78431": {
+    "sourcifyName": "Bulletin Subnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "78432": {
+    "sourcifyName": "Conduit Subnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "80001": {
+    "sourcifyName": "Polygon Mumbai Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "80002": {
@@ -3855,6 +4565,13 @@
       }
     ]
   },
+  "84531": {
+    "sourcifyName": "Base Goerli Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "84532": {
     "sourcifyName": "Base Sepolia Tesnet",
     "supported": true,
@@ -3951,6 +4668,13 @@
       "https://rpc-mainnet.vechain.energy"
     ]
   },
+  "100010": {
+    "sourcifyName": "VeChain Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "101010": {
     "sourcifyName": "Global Trust Network",
     "supported": true,
@@ -4011,6 +4735,27 @@
       "https://rpc.cc3-devnet.creditcoin.network"
     ]
   },
+  "103090": {
+    "sourcifyName": "Crystaleum Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "105105": {
+    "sourcifyName": "Stratis Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "111000": {
+    "sourcifyName": "Siberium Test Network",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "127823": {
     "sourcifyName": "Etherlink Shadownet Testnet",
     "supported": true,
@@ -4062,6 +4807,20 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       }
+    ]
+  },
+  "167005": {
+    "sourcifyName": "Taiko Grimsvotn L2",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "167006": {
+    "sourcifyName": "Taiko Eldfell L3",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "167013": {
@@ -4119,6 +4878,20 @@
       "https://rpc.ankr.com/bitlayer_testnet"
     ]
   },
+  "200901": {
+    "sourcifyName": "Bitlayer Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "202401": {
+    "sourcifyName": "YMTECH-BESU Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "202601": {
     "sourcifyName": "Ronin Saigon Testnet",
     "supported": true,
@@ -4141,6 +4914,13 @@
     ],
     "rpc": [
       "https://auroria.rpc.xertra.com"
+    ]
+  },
+  "210425": {
+    "sourcifyName": "PlatON Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "222888": {
@@ -4191,6 +4971,34 @@
       "https://worldmobile-testnet.g.alchemy.com/public"
     ]
   },
+  "420420": {
+    "sourcifyName": "Kekchain Main Net (kekistan)",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "420666": {
+    "sourcifyName": "Kekchain Testnet (kektest)",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "421611": {
+    "sourcifyName": "Arbitrum Rinkeby Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "421613": {
+    "sourcifyName": "Arbitrum Goerli Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "421614": {
     "sourcifyName": "Arbitrum Sepolia",
     "supported": true,
@@ -4224,6 +5032,20 @@
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
       }
+    ]
+  },
+  "432201": {
+    "sourcifyName": "Dexalot Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "432204": {
+    "sourcifyName": "Dexalot Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "511111": {
@@ -4389,6 +5211,27 @@
       }
     }
   },
+  "641230": {
+    "sourcifyName": "Bear Network Chain Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "656476": {
+    "sourcifyName": "EDU Chain Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=open-campus-codex-sepolia&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
+    ]
+  },
   "660279": {
     "sourcifyName": "Xai Mainnet",
     "supported": true,
@@ -4418,6 +5261,20 @@
     },
     "rpc": [
       "https://rpc.pyropechain.com"
+    ]
+  },
+  "710420": {
+    "sourcifyName": "Tiltyard Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "723107": {
+    "sourcifyName": "TixChain Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "737373": {
@@ -4494,7 +5351,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=ink-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       },
       {
         "type": "APIKeyRPC",
@@ -4503,6 +5360,20 @@
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "trace_transaction"
       }
+    ]
+  },
+  "764984": {
+    "sourcifyName": "Lamina1 Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "767368": {
+    "sourcifyName": "Lamina1 Identity Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "808813": {
@@ -4520,6 +5391,20 @@
       }
     ]
   },
+  "839999": {
+    "sourcifyName": "exSat Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "1127469": {
+    "sourcifyName": "Tiltyard Subnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "1440000": {
     "sourcifyName": "XRPL EVM Sidechain",
     "supported": true,
@@ -4533,6 +5418,20 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       }
+    ]
+  },
+  "2019775": {
+    "sourcifyName": "Jovay Sepolia Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "2206132": {
+    "sourcifyName": "PlatON Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "3441006": {
@@ -4590,6 +5489,13 @@
     },
     "rpc": [
       "https://lasna-rpc.rnk.dev"
+    ]
+  },
+  "5734951": {
+    "sourcifyName": "Jovay Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "6281971": {
@@ -4749,6 +5655,13 @@
       "https://testnet.riselabs.xyz"
     ]
   },
+  "16969696": {
+    "sourcifyName": "Privix Chain Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "20180427": {
     "sourcifyName": "Stability Testnet",
     "supported": true,
@@ -4774,6 +5687,13 @@
       "https://mainnet.corn-rpc.com",
       "https://rpc.ankr.com/corn_maizenet",
       "https://maizenet-rpc.usecorn.com"
+    ]
+  },
+  "96969696": {
+    "sourcifyName": "Privix Chain Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   },
   "111557560": {
@@ -4822,6 +5742,20 @@
       }
     ]
   },
+  "192837465": {
+    "sourcifyName": "Gather Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "222000222": {
+    "sourcifyName": "Kanazawa Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "245022926": {
     "sourcifyName": "Neon EVM Devnet",
     "supported": true,
@@ -4858,6 +5792,27 @@
       }
     ]
   },
+  "311752642": {
+    "sourcifyName": "Oneledger Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "333000333": {
+    "sourcifyName": "MELD",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "356256156": {
+    "sourcifyName": "Gather Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "420120000": {
     "sourcifyName": "Chain 420120000",
     "supported": true,
@@ -4881,6 +5836,20 @@
         "url": "https://optimism-interop-alpha-1.blockscout.com/"
       }
     }
+  },
+  "486217935": {
+    "sourcifyName": "Gather Devnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "666666666": {
+    "sourcifyName": "DEGEN Chain",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
   },
   "686669576": {
     "sourcifyName": "Chain 686669576",
@@ -4964,6 +5933,34 @@
       }
     }
   },
+  "4216137055": {
+    "sourcifyName": "OneLedger Testnet Frankenstein",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "7078815900": {
+    "sourcifyName": "Ethereum Mekong Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "11297108099": {
+    "sourcifyName": "Palm Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
+  "11297108109": {
+    "sourcifyName": "Palm Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
+    ]
+  },
   "37714555429": {
     "sourcifyName": "Xai Testnet v2",
     "supported": true,
@@ -4978,6 +5975,13 @@
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
       }
+    ]
+  },
+  "383414847825": {
+    "sourcifyName": "Zeniq",
+    "supported": false,
+    "discoveredBy": [
+      "deprecated"
     ]
   }
 }

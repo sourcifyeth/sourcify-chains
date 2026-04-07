@@ -494,6 +494,16 @@ async function main() {
     );
   }
 
+  // Add deprecated chains as supported: false
+  for (const [chainIdStr, name] of Object.entries(deprecatedChains)) {
+    if (output[chainIdStr]) continue; // already in output (shouldn't happen, but be safe)
+    output[chainIdStr] = {
+      sourcifyName: name,
+      supported: false,
+      discoveredBy: ["deprecated"],
+    };
+  }
+
   // Sort output by numeric chain ID
   const sorted: Record<string, SourcifyChainExtension> = {};
   for (const key of Object.keys(output).sort((a, b) => parseInt(a) - parseInt(b))) {
