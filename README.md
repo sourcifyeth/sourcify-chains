@@ -1,6 +1,5 @@
 # sourcify-chains
 
-TODO: deprecated chains should be supported: false
 TODO: Use node v22
 TODO: Check why zetachain lost RPC support
 TODO: Handle cases when there's blockscout but no RPC.
@@ -159,7 +158,7 @@ Each entry includes:
 | Field                          | Description                                                                                     |
 | ------------------------------ | ----------------------------------------------------------------------------------------------- |
 | `sourcifyName`                 | Human-readable chain name                                                                       |
-| `supported`                    | Always `true` in output (deprecated chains are excluded entirely)                               |
+| `supported`                    | `true` for active chains; `false` for deprecated chains                                         |
 | `discoveredBy`                 | Which sources caused this chain to be included (e.g. `["quicknode", "drpc", "etherscan"]`)      |
 | `rpc`                          | Ordered list: override RPCs → QuickNode (if alive) → dRPC (if alive) → public (chainid.network) |
 | `etherscanApi`                 | Etherscan API config, if the chain is on Etherscan's chainlist                                  |
