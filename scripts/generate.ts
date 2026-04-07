@@ -219,10 +219,7 @@ async function main() {
       fetchWithRetrySet("Avalanche", fetchAvalancheChains),
       fetchWithRetry("Etherscan", fetchEtherscanChains),
       fetchWithRetry("Blockscout", fetchBlockscoutChains),
-      fetchWithRetry("Routescan", fetchRoutescanChains).catch((err) => {
-        console.warn(`  Routescan unavailable, skipping: ${err.message}`);
-        return new Map<number, RoutescanChainData>();
-      }),
+      fetchWithRetry("Routescan", fetchRoutescanChains),
     ]);
 
   // Load source files
@@ -434,8 +431,7 @@ async function main() {
       fetchUsing["blockscoutApi"] = { url: blockscout.url };
     }
     if (routescan && !fetchUsing["routescanApi"]) {
-      // routescan workspace is e.g. "mainnet", "testnet"
-      fetchUsing["routescanApi"] = { type: routescan.workspace };
+      fetchUsing["routescanApi"] = { type: routescan.type };
     }
     if (avalancheChains.has(chainId) && !fetchUsing["avalancheApi"]) {
       fetchUsing["avalancheApi"] = true;
