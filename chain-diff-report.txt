@@ -1,0 +1,1336 @@
+=== Chain Diff: sourcify-chains-original → sourcify-chains-default ===
+
+Summary: 134 added, 5 removed, 220 changed (out of 409 total)
+
+--- NEW CHAINS ---
+  + [31] Rootstock Testnet
+  + [63] Mordor Testnet
+  + [81] Japan Open Chain Mainnet
+  + [88] Viction
+  + [89] Viction Testnet
+  + [109] Shibarium
+  + [114] Flare Testnet Coston2
+  + [123] Fuse Sparknet
+  + [133] HashKey Chain Testnet
+  + [143] Monad
+  + [148] ShimmerEVM
+  + [169] Manta Pacific Mainnet
+  + [177] HashKey Chain
+  + [196] X Layer Mainnet
+  + [199] BitTorrent Chain Mainnet
+  + [204] opBNB Mainnet
+  + [232] Lens
+  + [239] TAC Mainnet
+  + [240] Cronos zkEVM Testnet
+  + [324] zkSync Mainnet
+  + [338] Cronos Testnet
+  + [388] Cronos zkEVM Mainnet
+  + [488] BlackFort Exchange Network
+  + [698] Matchain
+  + [714] Eden
+  + [988] Stable Mainnet
+  + [998] Hyperliquid EVM Testnet
+  + [1029] BitTorrent Chain Donau
+  + [1073] ShimmerEVM Testnet
+  + [1075] IOTA EVM Testnet
+  + [1076] Chain 1076
+  + [1111] WEMIX3.0 Mainnet
+  + [1112] WEMIX3.0 Testnet
+  + [1301] Unichain Sepolia Testnet
+  + [1315] Story Aeneid Testnet
+  + [1480] Vana
+  + [1514] Story
+  + [1625] Gravity Alpha Mainnet
+  + [1740] Metal L2 Testnet
+  + [1750] Metal L2
+  + [1923] Swellchain
+  + [1924] Swellchain Testnet
+  + [1946] Soneium Testnet Minato
+  + [1952] Chain 1952
+  + [1993] B3 Sepolia Testnet
+  + [2201] Stable Testnet
+  + [2288] Chain 2288
+  + [2345] GOAT Network
+  + [2366] KiteAI
+  + [2368] KiteAI Testnet
+  + [2391] TAC Saint Petersburg
+  + [2523] Fraxtal Hoodi Testnet
+  + [2741] Abstract
+  + [2818] Morph
+  + [2910] Chain 2910
+  + [3941] Chain 3941
+  + [3945] Chain 3945
+  + [4002] Fantom Testnet
+  + [4202] Lisk Sepolia Testnet
+  + [4326] MegaETH Mainnet
+  + [4352] MemeCore
+  + [4801] World Chain Sepolia Testnet
+  + [4888] BlackFort Exchange Network Testnet
+  + [5611] opBNB Testnet
+  + [6343] MegaETH Testnet
+  + [6398] Connext Sepolia
+  + [7560] Cyber Mainnet
+  + [8021] Chain 8021
+  + [8333] B3
+  + [8408] ZenChain Testnet
+  + [8822] IOTA EVM
+  + [9745] Plasma Mainnet
+  + [9746] Plasma Testnet
+  + [10143] Monad Testnet
+  + [11124] Abstract Sepolia Testnet
+  + [13371] Immutable zkEVM
+  + [13473] Immutable zkEVM Testnet
+  + [13505] Gravity Alpha Testnet Sepolia
+  + [14601] Sonic Testnet
+  + [14800] Vana Moksha Testnet
+  + [16602] 0G-Testnet-Galileo
+  + [16661] 0G Mainnet
+  + [25327] Everclear Mainnet
+  + [31611] Mezo Testnet
+  + [33139] ApeChain
+  + [37111] Lens Testnet
+  + [43111] Hemi
+  + [43522] Chain 43522
+  + [46630] Chain 46630
+  + [53302] Superseed Sepolia Testnet
+  + [57054] Sonic Blaze Testnet
+  + [57073] Ink
+  + [60808] BOB
+  + [73114] ICB Testnet
+  + [73115] ICB Network
+  + [80069] Berachain Bepolia
+  + [80084] Berachain bArtio
+  + [80094] Berachain
+  + [97476] Doma Testnet
+  + [97477] Doma
+  + [98866] Plume Mainnet
+  + [101010] Global Trust Network
+  + [102030] Creditcoin
+  + [102031] Creditcoin Testnet
+  + [102032] Creditcoin Devnet
+  + [127823] Etherlink Shadownet Testnet
+  + [167013] Taiko Hoodi
+  + [222888] Chain 222888
+  + [323432] World Mobile Chain Testnet
+  + [543210] ZERO Network
+  + [612044] Chain 612044
+  + [612055] Chain 612055
+  + [656476] EDU Chain Testnet
+  + [695569] Pyrope Testnet
+  + [737373] bokuto
+  + [743111] Hemi Sepolia
+  + [747474] katana
+  + [763373] Ink Sepolia
+  + [808813] BOB Sepolia
+  + [1440000] XRPL EVM Sidechain
+  + [3441006] Manta Pacific Sepolia Testnet
+  + [5278000] Chain 5278000
+  + [6281971] Chain 6281971
+  + [20180427] Stability Testnet
+  + [111557560] Cyber Testnet
+  + [168587773] Blast Sepolia Testnet
+  + [245022926] Neon EVM Devnet
+  + [245022934] Neon EVM Mainnet
+  + [420120000] Chain 420120000
+  + [420120001] Chain 420120001
+  + [686669576] Chain 686669576
+  + [728126428] Tron Mainnet
+  + [1666600000] Harmony Mainnet Shard 0
+  + [3735928814] Chain 3735928814
+
+--- REMOVED CHAINS ---
+  - [8150] Alpen Testnet
+  - [9001] Evmos Mainnet
+  - [47763] Neo X Mainnet
+  - [12227332] Neo X Testnet T4
+  - [1313161555] Aurora Testnet
+
+--- CHANGED CHAINS ---
+
+  [1] Ethereum Mainnet
+    fetchContractCreationTxUsing:
+      -avalancheApi: true
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=ethereum&dkey={API_KEY})
+      - APIKeyRPC(https://eth-mainnet.g.alchemy.com/v2/{API_KEY})
+
+  [10] OP Mainnet
+    sourcifyName: "Optimism Mainnet" → "OP Mainnet"
+    fetchContractCreationTxUsing:
+      ~blockscoutApi: {"url":"https://optimism.blockscout.com/"} → {"url":"https://explorer.optimism.io/"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=optimism&dkey={API_KEY})
+      - APIKeyRPC(https://opt-mainnet.g.alchemy.com/v2/{API_KEY})
+
+  [14] Flare Mainnet
+    fetchContractCreationTxUsing:
+      -blockscoutScrape: {"url":"https://flare-explorer.flare.network/"}
+      +blockscoutApi: {"url":"https://flare-explorer.flare.network/"}
+    rpc:
+      + APIKeyRPC(https://{SUBDOMAIN}.flare-mainnet.quiknode.pro/{API_KEY}/ext/bc/C/rpc/)
+
+  [19] Songbird Canary Network
+    fetchContractCreationTxUsing:
+      -blockscoutScrape: {"url":"https://songbird-explorer.flare.network/"}
+      +blockscoutApi: {"url":"https://songbird-explorer.flare.network/"}
+    rpc:
+      + https://songbird-api.flare.network/ext/C/rpc
+      + https://01-gravelines-006-01.rpc.tatum.io/ext/bc/C/rpc
+      + https://01-vinthill-006-02.rpc.tatum.io/ext/bc/C/rpc
+      + https://02-tokyo-006-03.rpc.tatum.io/ext/bc/C/rpc
+      + https://rpc.au.cc/songbird
+      + https://songbird.enosys.global/ext/C/rpc
+      + https://songbird.solidifi.app/ext/C/rpc
+
+  [25] Cronos Mainnet
+    sourcifyName: "Cronos Mainnet Beta" → "Cronos Mainnet"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=cronos&dkey={API_KEY})
+
+  [30] Rootstock Mainnet
+    sourcifyName: "Rootstock" → "Rootstock Mainnet"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=rootstock&dkey={API_KEY})
+
+  [40] Telos Mainnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=telos&dkey={API_KEY})
+
+  [41] Telos Testnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"telosApi":{"url":"https://api.testnet.teloscan.io/"}}
+
+  [44] Crab Mainnet
+    supported: true → false
+
+  [46] Darwinia Mainnet
+    supported: true → false
+
+  [50] XDC Network
+    fetchContractCreationTxUsing:
+      removed: {"blocksScanApi":{"url":"https://xdcscan.io/"}}
+
+  [51] XDC Apothem Testnet
+    fetchContractCreationTxUsing:
+      +etherscanApi: true
+    etherscanApi:
+      supported: (absent) → true
+      apiKeyEnvName: (absent) → "ETHERSCAN_API_KEY"
+    rpc:
+      + https://rpc.apothem.network
+      + https://erpc.apothem.network
+      + https://apothem.xdcrpc.com
+
+  [56] BNB Smart Chain Mainnet
+    sourcifyName: "Binance Smart Chain Mainnet" → "BNB Smart Chain Mainnet"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=bsc&dkey={API_KEY})
+      - https://bsc-rpc.publicnode.com
+
+  [57] Syscoin Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://explorer.syscoin.org/"}}
+    rpc:
+      + https://rpc.syscoin.org
+      + https://syscoin.public-rpc.com
+      + https://57.rpc.thirdweb.com
+      + https://syscoin-evm.publicnode.com
+
+  [61] Ethereum Classic
+    sourcifyName: "Ethereum Classic Mainnet" → "Ethereum Classic"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=ethereum-classic&dkey={API_KEY})
+
+  [82] Meter Mainnet
+    rpc:
+      + https://rpc.meter.io
+
+  [83] Meter Testnet
+    rpc:
+      + https://rpctest.meter.io
+
+  [96] Bitkub Chain
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://bkcscan.com/"}}
+    rpc:
+      + https://rpc.bitkubchain.io
+
+  [97] BNB Smart Chain Testnet
+    sourcifyName: "Binance Smart Chain Testnet" → "BNB Smart Chain Testnet"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=bsc-testnet&dkey={API_KEY})
+      - https://bsc-testnet-rpc.publicnode.com
+
+  [99] POA Network Core
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://blockscout.com/poa/core/"}}
+
+  [100] Gnosis
+    sourcifyName: "Gnosis Mainnet" → "Gnosis"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=gnosis&dkey={API_KEY})
+      - https://rpc.gnosischain.com
+
+  [106] Velas Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://evmexplorer.velas.com/"}}
+    rpc:
+      + https://evmexplorer.velas.com/rpc
+      + https://explorer.velas.com/rpc
+
+  [122] Fuse Mainnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=fuse&dkey={API_KEY})
+
+  [130] Unichain
+    fetchContractCreationTxUsing:
+      +etherscanApi: true
+    etherscanApi:
+      supported: (absent) → true
+      apiKeyEnvName: (absent) → "ETHERSCAN_API_KEY"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=unichain&dkey={API_KEY})
+      + APIKeyRPC(https://{SUBDOMAIN}.unichain-mainnet.quiknode.pro/{API_KEY}/)
+
+  [137] Polygon Mainnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=polygon&dkey={API_KEY})
+      - APIKeyRPC(https://polygon-mainnet.g.alchemy.com/v2/{API_KEY})
+
+  [146] Sonic Mainnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=sonic&dkey={API_KEY})
+      + APIKeyRPC(https://{SUBDOMAIN}.sonic-mainnet.quiknode.pro/{API_KEY}/)
+
+  [180] AME Chain Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://amescan.io/"}}
+
+  [212] MAP Testnet Makalu
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://testnet.maposcan.io/"}}
+
+  [223] B2 Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://mainnet-backend.bsquared.network"}}
+    rpc:
+      + https://mainnet.b2-rpc.com
+      + https://rpc.bsquared.network
+      + https://b2-mainnet.alt.technology
+      + https://b2-mainnet-public.s.chainbase.com
+      + https://rpc.ankr.com/b2
+
+  [246] Energy Web Chain
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://explorer.energyweb.org/"}}
+
+  [250] Fantom Opera
+    sourcifyName: "FTM Fantom Opera Mainnet" → "Fantom Opera"
+    supported: false → true
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=fantom&dkey={API_KEY})
+      + APIKeyRPC(https://{SUBDOMAIN}.fantom.quiknode.pro/{API_KEY}/)
+
+  [252] Fraxtal
+    fetchContractCreationTxUsing:
+      -routescanApi: {"type":"mainnet"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=fraxtal&dkey={API_KEY})
+
+  [255] Kroma
+    supported: false → true
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=kroma&dkey={API_KEY})
+
+  [288] Boba Network
+    sourcifyName: "Boba Mainnet" → "Boba Network"
+    fetchContractCreationTxUsing:
+      -blockscoutScrape: {"url":"https://blockexplorer.boba.network/"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=boba-eth&dkey={API_KEY})
+
+  [295] Hedera Mainnet
+    rpc:
+      + APIKeyRPC(https://{SUBDOMAIN}.hedera-mainnet.quiknode.pro/{API_KEY}/)
+
+  [296] Hedera Testnet
+    rpc:
+      + APIKeyRPC(https://{SUBDOMAIN}.hedera-testnet.quiknode.pro/{API_KEY}/)
+
+  [300] zkSync Sepolia Testnet
+    sourcifyName: "Optimism on GC" → "zkSync Sepolia Testnet"
+    supported: false → true
+    fetchContractCreationTxUsing:
+      added: {"blockscoutApi":{"url":"https://zksync-sepolia.blockscout.com/"}}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=zksync-sepolia&dkey={API_KEY})
+      + APIKeyRPC(https://{SUBDOMAIN}.zksync-sepolia.quiknode.pro/{API_KEY}/)
+
+  [314] Filecoin - Mainnet
+    fetchContractCreationTxUsing:
+      added: {"blockscoutApi":{"url":"https://filecoin.blockscout.com/"}}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=filecoin&dkey={API_KEY})
+
+  [335] DFK Chain Testnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"avalancheApi":true,"routescanApi":{"type":"testnet"}}
+
+  [336] Shiden (EVM) Mainnet
+    sourcifyName: "Shiden (EVM)" → "Shiden (EVM) Mainnet"
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://blockscout.com/shiden/"}}
+
+  [369] PulseChain Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://api.scan.pulsechain.com/"}}
+    rpc:
+      ~ {"url":"https://rpc.pulsechain.com","type":"BaseRPC"} (modified)
+      ~ {"url":"https://rpc-pulsechain.g4mm4.io","type":"BaseRPC"} (modified)
+
+  [480] World Chain
+    sourcifyName: "WorldChain" → "World Chain"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=worldchain&dkey={API_KEY})
+      + APIKeyRPC(https://{SUBDOMAIN}.worldchain-mainnet.quiknode.pro/{API_KEY}/)
+      - APIKeyRPC(https://worldchain-mainnet.g.alchemy.com/v2/{API_KEY})
+
+  [545] Flow EVM Testnet
+    rpc:
+      + APIKeyRPC(https://{SUBDOMAIN}.flow-testnet.quiknode.pro/{API_KEY}/)
+      - https://testnet.evm.nodes.onflow.org
+
+  [570] Rollux Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.rollux.com/"}}
+
+  [592] Astar (EVM)
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://blockscout.com/astar/"}}
+
+  [648] Endurance Smart Chain Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer-endurance.fusionist.io/"}}
+
+  [690] Redstone
+    fetchContractCreationTxUsing:
+      ~blockscoutApi: {"url":"https://explorer.redstone.xyz/api"} → {"url":"https://explorer.redstone.xyz/"}
+    rpc:
+      + https://rpc.redstonechain.com
+
+  [747] Flow EVM Mainnet
+    rpc:
+      + APIKeyRPC(https://{SUBDOMAIN}.flow-mainnet.quiknode.pro/{API_KEY}/)
+      - https://mainnet.evm.nodes.onflow.org
+
+  [841] Taraxa Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://tara.to/api"}}
+
+  [888] Wanchain Mainnet
+    rpc:
+      + https://gwan-ssl.wandevs.org:56891/
+
+  [919] Mode Testnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://sepolia.explorer.mode.network/"},"routescanApi":{"type":"testnet"}}
+
+  [957] Lyra Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.lyra.finance/"}}
+
+  [970] OORT Mainnet
+    supported: true → false
+
+  [999] Wanchain Testnet
+    fetchContractCreationTxUsing:
+      added: {"etherscanApi":true}
+    etherscanApi:
+      supported: (absent) → true
+      apiKeyEnvName: (absent) → "ETHERSCAN_API_KEY"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=hyperliquid&dkey={API_KEY})
+
+  [1001] Kaia Kairos Testnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=klaytn-baobab&dkey={API_KEY})
+      + APIKeyRPC(https://{SUBDOMAIN}.kaia-kairos.quiknode.pro/{API_KEY}/)
+
+  [1030] Conflux eSpace
+    rpc:
+      + https://evm.confluxrpc.com
+
+  [1088] Metis Andromeda Mainnet
+    fetchContractCreationTxUsing:
+      -blockscoutApi: {"url":"https://andromeda-explorer.metis.io"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=metis&dkey={API_KEY})
+      - APIKeyRPC(https://metis-mainnet.g.alchemy.com/v2/{API_KEY})
+
+  [1101] Polygon zkEVM
+    supported: false → true
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=polygon-zkevm&dkey={API_KEY})
+      + APIKeyRPC(https://{SUBDOMAIN}.zkevm-mainnet.quiknode.pro/{API_KEY}/)
+
+  [1114] Core Blockchain Testnet2
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=core-testnet&dkey={API_KEY})
+
+  [1115] Core Blockchain Testnet
+    supported: true → false
+
+  [1116] Core Blockchain Mainnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=core&dkey={API_KEY})
+
+  [1122] LuxePorts MainNet
+    rpc:
+      + https://rpc.luxeports.com
+      + https://erpc.luxeports.com
+
+  [1135] Lisk
+    sourcifyName: "Lisk Mainnet" → "Lisk"
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://blockscout.lisk.com"}}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=lisk&dkey={API_KEY})
+      + APIKeyRPC(https://{SUBDOMAIN}.lisk-mainnet.quiknode.pro/{API_KEY}/)
+
+  [1284] Moonbeam
+    rpc:
+      + https://rpc.api.moonbeam.network
+      + https://moonbeam.public.blastapi.io
+      + https://moonbeam-rpc.dwellir.com
+      + https://moonbeam.api.onfinality.io/public
+      + https://moonbeam.unitedbloc.com
+      + https://moonbeam-rpc.publicnode.com
+      + https://moonbeam.drpc.org
+
+  [1285] Moonriver
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=moonriver&dkey={API_KEY})
+
+  [1287] Moonbase Alpha
+    sourcifyName: "Moonbase" → "Moonbase Alpha"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=moonbase-alpha&dkey={API_KEY})
+
+  [1291] Swisstronik Testnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer-evm.testnet.swisstronik.com/"}}
+
+  [1328] Sei Testnet
+    rpc:
+      + APIKeyRPC(https://{SUBDOMAIN}.sei-atlantic.quiknode.pro/{API_KEY}/)
+
+  [1329] Sei Network
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=sei&dkey={API_KEY})
+      + APIKeyRPC(https://{SUBDOMAIN}.sei-pacific.quiknode.pro/{API_KEY}/)
+
+  [1339] Elysium Mainnet Chain
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://blockscout.elysiumchain.tech/"}}
+
+  [1433] Rikeza Network
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://rikscan.com/"}}
+
+  [1516] Story Odyssey
+    rpc:
+      - https://rpc.odyssey.storyrpc.io
+
+  [1597] Reactive Network Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"etherscanApi":false,"blockscoutApi":{"url":"https://mainnet-api.reactscan.net"}}
+
+  [1868] Soneium
+    fetchContractCreationTxUsing:
+      ~blockscoutApi: {"url":"https://soneium.blockscout.com/"} → {"url":"https://soneium.blockscout.com"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=soneium&dkey={API_KEY})
+      - APIKeyRPC(https://{SUBDOMAIN}.soneium-mainnet.quiknode.pro/{API_KEY})
+
+  [1890] Lightlink Phoenix Mainnet
+    rpc:
+      + https://replicator.phoenix.lightlink.io/rpc/v1
+
+  [1891] Lightlink Pegasus Testnet
+    rpc:
+      + https://replicator.pegasus.lightlink.io/rpc/v1
+
+  [2000] DogeChain Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://explorer.dogechain.dog/"}}
+
+  [2020] Ronin Mainnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=ronin&dkey={API_KEY})
+
+  [2021] Edgeware EdgeEVM Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://edgscan.live/"}}
+
+  [2037] Kiwi Subnet
+    fetchContractCreationTxUsing:
+      removed: {"avalancheApi":true}
+
+  [2047] Stratos Testnet (Mesos)
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://web3-explorer-mesos.thestratos.org/"}}
+
+  [2048] Stratos Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://web3-explorer.thestratos.org/"}}
+
+  [2221] Kava EVM Testnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://explorer.testnet.kava.io/"}}
+
+  [2222] Kava
+    sourcifyName: "Kava EVM" → "Kava"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=kava&dkey={API_KEY})
+
+  [2358] Kroma Sepolia
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://blockscout.sepolia.kroma.network/"}}
+
+  [2442] Polygon zkEVM Cardona Testnet
+    supported: false → true
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=polygon-zkevm-cardona&dkey={API_KEY})
+
+  [3111] Alpha Chain Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://scan.goalpha.org"}}
+    rpc:
+      + https://rpc.goalpha.org
+
+  [3338] peaq
+    sourcifyName: "peaq Mainnet" → "peaq"
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://scout.peaq.xyz/"}}
+    rpc:
+      + APIKeyRPC(https://{SUBDOMAIN}.peaq-mainnet.quiknode.pro/{API_KEY}/)
+
+  [3737] Crossball Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://scan.crossbell.io/"}}
+
+  [4000] Ozone Chain Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://ozonescan.io/"}}
+    rpc:
+      + https://node1.ozonechain.io
+
+  [4114] Citrea Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.mainnet.citrea.xyz"}}
+    rpc:
+      + https://rpc.mainnet.citrea.xyz
+
+  [4153] RISE
+    rpc:
+      + https://rpc.risechain.com/
+
+  [4157] CrossFi Chain Testnet
+    supported: true → false
+
+  [4200] Merlin Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://scan.merlinchain.io/api/"}}
+
+  [4217] Tempo Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.tempo.xyz/"}}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=tempo-mainnet&dkey={API_KEY})
+      + APIKeyRPC(https://{SUBDOMAIN}.tempo-mainnet.quiknode.pro/{API_KEY}/)
+      - https://tempo-mainnet.drpc.org
+
+  [5000] Mantle Mainnet
+    fetchContractCreationTxUsing:
+      -blockscoutScrape: {"url":"https://explorer.mantle.xyz/"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=mantle&dkey={API_KEY})
+
+  [5003] Mantle Sepolia Testnet
+    fetchContractCreationTxUsing:
+      -blockscoutScrape: {"url":"https://explorer.sepolia.mantle.xyz/"}
+      -routescanApi: {"type":"testnet"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=mantle-sepolia&dkey={API_KEY})
+
+  [5115] Citrea Testnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.testnet.citrea.xyz"}}
+    rpc:
+      + https://rpc.testnet.citrea.xyz
+
+  [5330] Superseed Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.superseed.xyz"}}
+
+  [5700] Syscoin Testnet Tanenbaum
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://explorer.tanenbaum.io/"}}
+    rpc:
+      + https://rpc.tanenbaum.io
+      + https://syscoin-tanenbaum-evm.publicnode.com
+
+  [5845] Tangle
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://explorer.tangle.tools"}}
+
+  [6322] Aura Xstaxy Mainnet
+    supported: true → false
+
+  [7000] ZetaChain Mainnet
+    sourcifyName: "ZetaChain: Mainnet" → "ZetaChain Mainnet"
+    fetchContractCreationTxUsing:
+      ~blockscoutApi: {"url":"https://zetascan.com/"} → {"url":"https://zetachain.blockscout.com/"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=zeta-chain&dkey={API_KEY})
+
+  [7001] ZetaChain: Athens Testnet
+    fetchContractCreationTxUsing:
+      -blockscoutScrape: {"url":"https://zetachain-athens-3.blockscout.com/"}
+      +blockscoutApi: {"url":"https://testnet.zetascan.com/"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=zeta-chain-testnet&dkey={API_KEY})
+
+  [7200] exSat Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://scan.exsat.network"}}
+
+  [7668] The Root Network Mainnet
+    supported: true → false
+
+  [7672] The Root Network Porcini (Testnet)
+    rpc:
+      + https://porcini.rootnet.app/archive
+
+  [7700] Canto Mainnet
+    supported: true → false
+
+  [7701] Canto Testnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://testnet.tuber.build/"}}
+
+  [8217] Kaia Mainnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=klaytn&dkey={API_KEY})
+      + APIKeyRPC(https://{SUBDOMAIN}.kaia-mainnet.quiknode.pro/{API_KEY}/)
+
+  [8453] Base Mainnet
+    fetchContractCreationTxUsing:
+      -routescanApi: {"type":"mainnet"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=base&dkey={API_KEY})
+
+  [9700] OORT Testnet
+    supported: true → false
+
+  [9977] Mind Smart Chain Testnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://testnet.mindscan.info/"}}
+
+  [9996] Mind Smart Chain Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://mainnet.mindscan.info/"}}
+
+  [10200] Gnosis Chiado Testnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=gnosis-chiado&dkey={API_KEY})
+
+  [10242] Arthera Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.arthera.net/"}}
+
+  [10243] Arthera Testnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer-test.arthera.net/"}}
+
+  [10849] Lamina1
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"avalancheApi":true,"routescanApi":{"type":"mainnet"}}
+
+  [10850] Lamina1 Identity
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"avalancheApi":true}
+
+  [11235] Haqq Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.haqq.network/"}}
+
+  [13381] Phoenix Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://phoenixplorer.com/"}}
+
+  [16180] PLYR PHI
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"avalancheApi":true}
+
+  [17000] Holesky
+    sourcifyName: "Ethereum Holesky Testnet" → "Holesky"
+    supported: false → true
+    fetchContractCreationTxUsing:
+      added: {"blockscoutApi":{"url":"https://eth-holesky.blockscout.com/"},"routescanApi":{"type":"testnet"}}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=holesky&dkey={API_KEY})
+
+  [19011] HOME Verse Mainnet
+    rpc:
+      + https://rpc.mainnet.oasys.homeverse.games/
+
+  [22776] map-relay-chain Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://maposcan.io/"}}
+
+  [23294] Oasis Sapphire Mainnet
+    rpc:
+      + https://sapphire.oasis.io
+
+  [23295] Oasis Sapphire Testnet
+    rpc:
+      + https://testnet.sapphire.oasis.io
+
+  [25925] Bitkub Chain Testnet
+    fetchContractCreationTxUsing:
+      -blockscoutScrape: {"url":"https://testnet.bkcscan.com/"}
+      +blockscoutApi: {"url":"https://testnet.kubscan.com/"}
+    rpc:
+      + https://rpc-testnet.bitkubchain.io
+
+  [28528] Optimism Bedrock: Goerli Alpha Testnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://blockscout.com/optimism/bedrock-alpha/"}}
+
+  [31612] Mezo
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.mezo.org/"}}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=mezo&dkey={API_KEY})
+
+  [32769] Zilliqa 2
+    sourcifyName: "Zilliqa EVM" → "Zilliqa 2"
+    fetchContractCreationTxUsing:
+      added: {"blockscoutApi":{"url":"https://zilliqa.blockscout.com/"}}
+    rpc:
+      + https://api.zilliqa.com
+
+  [33101] Zilliqa 2 Testnet
+    sourcifyName: "Zilliqa EVM Testnet" → "Zilliqa 2 Testnet"
+    fetchContractCreationTxUsing:
+      added: {"blockscoutApi":{"url":"https://testnet.zilliqa.blockscout.com/"}}
+    rpc:
+      + https://api.testnet.zilliqa.com
+
+  [33111] Curtis
+    fetchContractCreationTxUsing:
+      added: {"etherscanApi":true}
+    etherscanApi:
+      supported: (absent) → true
+      apiKeyEnvName: (absent) → "ETHERSCAN_API_KEY"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=apechain-curtis&dkey={API_KEY})
+
+  [34443] Mode
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=mode&dkey={API_KEY})
+
+  [35441] Q Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://explorer.q.org/"}}
+
+  [35443] Q Testnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://explorer.qtestnet.org/"}}
+
+  [39797] Energi Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://explorer.energi.network/"}}
+
+  [42161] Arbitrum One
+    sourcifyName: "Arbitrum One Mainnet" → "Arbitrum One"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=arbitrum&dkey={API_KEY})
+      - APIKeyRPC(https://arb-mainnet.g.alchemy.com/v2/{API_KEY})
+
+  [42170] Arbitrum Nova
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=arbitrum-nova&dkey={API_KEY})
+
+  [42220] Celo Mainnet
+    etherscanApi:
+      apiKeyEnvName: "ETHERSCAN_API_KEY_CELO" → "ETHERSCAN_API_KEY"
+    fetchContractCreationTxUsing:
+      -blockscoutScrape: {"url":"https://explorer.celo.org/mainnet/"}
+      +blockscoutApi: {"url":"https://celo.blockscout.com/"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=celo&dkey={API_KEY})
+      - https://forno.celo.org
+      - https://rpc.ankr.com/celo
+
+  [42261] Oasis Emerald Testnet
+    rpc:
+      + https://testnet.emerald.oasis.io/
+
+  [42262] Oasis Emerald Mainnet
+    rpc:
+      + https://emerald.oasis.io
+
+  [42429] Tempo Testnet (Andantino)
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://scout.tempo.xyz/"}}
+    rpc:
+      - APIKeyRPC(https://tempo-testnet.g.alchemy.com/v2/{API_KEY})
+
+  [42431] Tempo Testnet Moderato
+    sourcifyName: "Tempo Testnet (Moderato)" → "Tempo Testnet Moderato"
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explore.tempo.xyz/"}}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=tempo-moderato-testnet&dkey={API_KEY})
+      - https://rpc.moderato.tempo.xyz
+
+  [42766] ZKFair Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://scan.zkfair.io/"}}
+
+  [42793] Etherlink Mainnet
+    sourcifyName: "Etherlink" → "Etherlink Mainnet"
+    fetchContractCreationTxUsing:
+      ~blockscoutApi: {"url":"https://explorer.etherlink.com"} → {"url":"https://explorer.etherlink.com/"}
+    rpc:
+      + https://node.mainnet.etherlink.com
+
+  [43113] Avalanche Fuji Testnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=avalanche-fuji&dkey={API_KEY})
+      - https://api.avax-test.network/ext/bc/C/rpc
+      - https://avalanche-fuji-c-chain-rpc.publicnode.com
+
+  [43114] Avalanche C-Chain
+    sourcifyName: "Avalanche C-Chain Mainnet" → "Avalanche C-Chain"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=avalanche&dkey={API_KEY})
+      - https://api.avax.network/ext/bc/C/rpc
+      - https://avalanche-c-chain-rpc.publicnode.com
+
+  [48898] Zircuit Garfield Testnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=zircuit-garfield-testnet&dkey={API_KEY})
+
+  [48900] Zircuit Mainnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=zircuit-mainnet&dkey={API_KEY})
+
+  [49797] Energi Testnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://explorer.test.energi.network/"}}
+
+  [53935] DFK Chain Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"avalancheApi":true,"routescanApi":{"type":"mainnet"}}
+
+  [54211] Haqq Chain Testnet
+    sourcifyName: "Haqq Testnet" → "Haqq Chain Testnet"
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.testedge2.haqq.network/"}}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=haqq-testnet&dkey={API_KEY})
+
+  [57000] Rollux Testnet Tanenbaum
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://rollux.tanenbaum.io/"}}
+
+  [59141] Linea Sepolia
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=linea-sepolia&dkey={API_KEY})
+
+  [59144] Linea
+    sourcifyName: "Linea Mainnet" → "Linea"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=linea&dkey={API_KEY})
+      + APIKeyRPC(https://{SUBDOMAIN}.linea-mainnet.quiknode.pro/{API_KEY}/)
+
+  [59902] Metis Sepolia Testnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://sepolia-explorer.metisdevops.link"}}
+    rpc:
+      + https://sepolia.metisdevops.link
+      + https://metis-sepolia-rpc.publicnode.com
+
+  [62621] MultiVAC Mainnet
+    supported: true → false
+
+  [62831] PLYR TAU Testnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"avalancheApi":true}
+
+  [71401] Godwoken testnet v1.1
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://gw-testnet-explorer.nervosdao.community/"}}
+
+  [71402] Godwoken mainnet v1.1
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://gw-mainnet-explorer.nervosdao.community/"}}
+
+  [73799] Energy Web Volta Testnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://volta-explorer.energyweb.org/"}}
+
+  [78430] Amplify Subnet
+    fetchContractCreationTxUsing:
+      removed: {"avalancheApi":true}
+
+  [78431] Bulletin Subnet
+    fetchContractCreationTxUsing:
+      removed: {"avalancheApi":true}
+
+  [78432] Conduit Subnet
+    fetchContractCreationTxUsing:
+      removed: {"avalancheApi":true}
+
+  [80002] Polygon Amoy Testnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=polygon-amoy&dkey={API_KEY})
+
+  [81457] Blast
+    fetchContractCreationTxUsing:
+      +routescanApi: {"type":"mainnet"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=blast&dkey={API_KEY})
+      - APIKeyRPC(https://blast-mainnet.g.alchemy.com/v2/{API_KEY})
+
+  [84532] Base Sepolia Tesnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=base-sepolia&dkey={API_KEY})
+
+  [100009] VeChain Mainnet
+    rpc:
+      + https://rpc-mainnet.vechain.energy
+
+  [100010] VeChain Testnet
+    supported: true → false
+
+  [103090] Crystaleum Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://scan.crystaleum.org/"}}
+
+  [105105] Stratis Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.stratisevm.com/"}}
+
+  [111000] Siberium Test Network
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://http://explorer.test.siberium.net/"}}
+
+  [128123] Etherlink Ghostnet Testnet
+    sourcifyName: "Etherlink Testnet" → "Etherlink Ghostnet Testnet"
+    fetchContractCreationTxUsing:
+      ~blockscoutApi: {"url":"https://testnet.explorer.etherlink.com"} → {"url":"https://testnet.explorer.etherlink.com/"}
+    rpc:
+      + https://node.ghostnet.etherlink.com
+
+  [167000] Taiko Alethia
+    sourcifyName: "Taiko Aleshia" → "Taiko Alethia"
+    fetchContractCreationTxUsing:
+      -blockscoutApi: {"url":"https://blockscout.mainnet.taiko.xyz"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=taiko&dkey={API_KEY})
+
+  [181228] HPP Sepolia Testnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://sepolia-explorer.hpp.io"}}
+
+  [190415] HPP Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.hpp.io"}}
+
+  [200810] Bitlayer Testnet
+    rpc:
+      + https://testnet-rpc.bitlayer.org
+      + https://testnet-rpc.bitlayer-rpc.com
+      + https://rpc.ankr.com/bitlayer_testnet
+
+  [200901] Bitlayer Mainnet
+    supported: true → false
+
+  [202401] YMTECH-BESU Testnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"http://39.119.118.198/"}}
+
+  [202601] Ronin Saigon Testnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://saigon-explorer.roninchain.com"}}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=ronin-saigon&dkey={API_KEY})
+
+  [205205] Auroria Testnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://auroria.explorer.stratisevm.com/"}}
+    rpc:
+      + https://auroria.rpc.xertra.com
+
+  [210425] PlatON Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://scan.platon.network"}}
+
+  [314159] Filecoin - Calibration testnet
+    fetchContractCreationTxUsing:
+      added: {"blockscoutApi":{"url":"https://filecoin-testnet.blockscout.com"}}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=filecoin-calibration&dkey={API_KEY})
+
+  [420420] Kekchain Main Net (kekistan)
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://mainnet-explorer.kekchain.com/"}}
+
+  [420666] Kekchain Testnet (kektest)
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://testnet-explorer.kekchain.com/"}}
+
+  [421614] Arbitrum Sepolia
+    sourcifyName: "Arbitrum Sepolia Testnet" → "Arbitrum Sepolia"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=arbitrum-sepolia&dkey={API_KEY})
+      - https://sepolia-rollup.arbitrum.io/rpc
+      - https://arbitrum-sepolia.blockpi.network/v1/rpc/public
+
+  [432201] Dexalot Testnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"avalancheApi":true,"routescanApi":{"type":"testnet"}}
+
+  [432204] Dexalot Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"avalancheApi":true,"routescanApi":{"type":"mainnet"}}
+
+  [511111] Alpha Chain  Testnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://testnet-scan.goalpha.org"}}
+    rpc:
+      + https://testnet-rpc.goalpha.org
+
+  [534351] Scroll Sepolia Testnet
+    fetchContractCreationTxUsing:
+      +blockscoutApi: {"url":"https://scroll-sepolia.blockscout.com"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=scroll-sepolia&dkey={API_KEY})
+
+  [534352] Scroll
+    fetchContractCreationTxUsing:
+      +blockscoutApi: {"url":"https://scroll.blockscout.com"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=scroll&dkey={API_KEY})
+
+  [560048] Ethereum Hoodi Testnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=hoodi&dkey={API_KEY})
+
+  [641230] Bear Network Chain Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://brnkscan.bearnetwork.net/"}}
+
+  [660279] Xai Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.xai-chain.net/"}}
+    rpc:
+      + APIKeyRPC(https://{SUBDOMAIN}.xai-mainnet.quiknode.pro/{API_KEY}/)
+
+  [723107] TixChain Testnet
+    supported: true → false
+    rpc:
+      - https://subnets.avax.network/tixchain/testnet/rpc
+
+  [764984] Lamina1 Testnet
+    fetchContractCreationTxUsing:
+      removed: {"avalancheApi":true}
+
+  [767368] Lamina1 Identity Testnet
+    fetchContractCreationTxUsing:
+      removed: {"avalancheApi":true}
+
+  [2019775] Jovay Sepolia Testnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://sepolia-explorer.jovay.io"}}
+
+  [2206132] PlatON Testnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://devnet2scan.platon.network"}}
+
+  [5042002] Arc Network Testnet
+    sourcifyName: "ARC-testnet" → "Arc Network Testnet"
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://testnet.arcscan.app/"}}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=arc-testnet&dkey={API_KEY})
+      - APIKeyRPC(https://rpc.quicknode.testnet.arc.network/{API_KEY})
+
+  [5318007] Reactive Network Lasna
+    rpc:
+      + https://lasna-rpc.rnk.dev
+
+  [5734951] Jovay Mainnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.jovay.io"}}
+
+  [7777777] Zora
+    sourcifyName: "ZORA" → "Zora"
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.zora.co/"},"routescanApi":{"type":"mainnet"}}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=zora&dkey={API_KEY})
+
+  [11142220] Celo Sepolia Testnet
+    fetchContractCreationTxUsing:
+      +etherscanApi: true
+    etherscanApi:
+      supported: (absent) → true
+      apiKeyEnvName: (absent) → "ETHERSCAN_API_KEY"
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=celo-sepolia&dkey={API_KEY})
+
+  [11155111] Ethereum Sepolia Testnet
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=sepolia&dkey={API_KEY})
+      - APIKeyRPC(https://eth-sepolia.g.alchemy.com/v2/{API_KEY})
+
+  [11155420] OP Sepolia Testnet
+    fetchContractCreationTxUsing:
+      +routescanApi: {"type":"testnet"}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=optimism-sepolia&dkey={API_KEY})
+      - APIKeyRPC(https://opt-sepolia.g.alchemy.com/v2/{API_KEY})
+
+  [11155931] RISE Testnet
+    rpc:
+      + https://testnet.riselabs.xyz
+
+  [21000000] Corn Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://maizenet-explorer.usecorn.com"}}
+    rpc:
+      + https://mainnet.corn-rpc.com
+      + https://rpc.ankr.com/corn_maizenet
+      + https://maizenet-rpc.usecorn.com
+
+  [192837465] Gather Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://explorer.gather.network/"}}
+
+  [311752642] Oneledger Mainnet
+    supported: true → false
+    rpc:
+      - https://mainnet-rpc.oneledger.network
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://mainnet-explorer.oneledger.network/"}}
+
+  [356256156] Gather Testnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://testnet-explorer.gather.network/"}}
+
+  [486217935] Gather Devnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://devnet-explorer.gather.network/"}}
+
+  [666666666] DEGEN Chain
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.degen.tips/"}}
+
+  [999999999] Zora Sepolia Testnet
+    sourcifyName: "ZORA Sepolia Testnet" → "Zora Sepolia Testnet"
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://sepolia.explorer.zora.energy/"},"routescanApi":{"type":"testnet"}}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=zora-sepolia&dkey={API_KEY})
+
+  [1313161554] Aurora Mainnet
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://explorer.mainnet.aurora.dev/"}}
+    rpc:
+      + APIKeyRPC(https://lb.drpc.org/ogrpc?network=aurora&dkey={API_KEY})
+
+  [11297108099] Palm Testnet
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://explorer.palm-uat.xyz/"}}
+    rpc:
+      - APIKeyRPC(https://palm-testnet.infura.io/v3/{API_KEY})
+
+  [11297108109] Palm Mainnet
+    sourcifyName: "Palm" → "Palm Mainnet"
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://explorer.palm.io/"}}
+    rpc:
+      - APIKeyRPC(https://palm-mainnet.infura.io/v3/{API_KEY})
+
+  [37714555429] Xai Testnet v2
+    sourcifyName: "Xai Testnet" → "Xai Testnet v2"
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutApi":{"url":"https://testnet-explorer-v2.xai-chain.net/"}}
+    rpc:
+      + APIKeyRPC(https://{SUBDOMAIN}.xai-testnet.quiknode.pro/{API_KEY}/)
+
+  [383414847825] Zeniq
+    supported: true → false
+    fetchContractCreationTxUsing:
+      removed: {"blockscoutScrape":{"url":"https://zeniqscan.com/"}}
+
+--- CHANGE CATEGORIES ---
+  Name changed:                   34
+  supported flag changed:          70
+  RPC list changed:                130
+  fetchContractCreationTxUsing:     143
+  etherscanApi changed:             6
