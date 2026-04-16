@@ -1,0 +1,134 @@
+name: Generate sourcify-chains-default.json
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - chain-overrides.json
+      - additional-chains.json
+      - deprecated-chains.json
+      - etherscan-api-keys.json
+      - scripts/**
+  schedule:
+    - cron: "0 2,14 * * *" # twice a day: 02:00 and 14:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+  generate:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: main
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Save baseline
+        run: cp sourcify-chains-default.json /tmp/baseline.json
+
+      - name: Generate raw snapshot
+        run: npm run generate
+        env:
+          QUICKNODE_CONSOLE_API_KEY: ${{ secrets.QUICKNODE_CONSOLE_API_KEY }}
+          QUICKNODE_API_KEY: ${{ secrets.QUICKNODE_API_KEY }}
+          QUICKNODE_SUBDOMAIN: ${{ secrets.QUICKNODE_SUBDOMAIN }}
+          DRPC_API_KEY: ${{ secrets.DRPC_API_KEY }}
+
+      - name: Fetch change history from state branch
+        run: |
+          if git fetch origin chain-sync-state 2>/dev/null; then
+            git show FETCH_HEAD:change-history.json > change-history.json
+          else
+            echo '{"lastRunAt":"","pendingChanges":{}}' > change-history.json
+          fi
+
+      - name: Save raw snapshot
+        run: cp sourcify-chains-default.json /tmp/raw-snapshot.json
+
+      - name: Run sync (apply stability filtering)
+        run: npm run sync -- --baseline /tmp/baseline.json --history change-history.json
+
+      - name: Push updated history and snapshot to state branch
+        run: |
+          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          TMP=$(mktemp -d)
+          mkdir -p "$TMP/snapshots"
+
+          # Copy existing state branch content without touching the main repo index
+          if git fetch origin chain-sync-state 2>/dev/null; then
+            git show FETCH_HEAD:change-history.json > "$TMP/change-history.json" 2>/dev/null || true
+            for f in $(git ls-tree --name-only FETCH_HEAD:snapshots/ 2>/dev/null); do
+              git show "FETCH_HEAD:snapshots/$f" > "$TMP/snapshots/$f"
+            done
+          fi
+
+          cp change-history.json "$TMP/change-history.json"
+          cp /tmp/raw-snapshot.json "$TMP/snapshots/${TIMESTAMP}.json"
+
+          # Keep only the 10 most recent snapshots
+          ls "$TMP/snapshots/"*.json | sort | head -n -10 | xargs rm -f 2>/dev/null || true
+
+          cd "$TMP"
+          git init -q
+          git checkout -b chain-sync-state
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add change-history.json snapshots/
+          git commit -q -m "update state [${TIMESTAMP}]"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}" chain-sync-state --force
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Open PR if ready changes exist
+        run: |
+          # Only open a PR when sync produced approved changes (additive or stabilized)
+          HAS_READY=$(node -e "process.stdout.write(String(require('./sync-status.json').hasReadyChanges))")
+          if [ "$HAS_READY" != "true" ]; then
+            echo "No ready changes — skipping PR"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sourcify-chains-default.json tx-cache.json
+          if git diff --staged --quiet; then
+            echo "No file changes — skipping PR"
+            exit 0
+          fi
+          BRANCH="chore/regenerate-chains"
+          git checkout -b "$BRANCH"
+          git commit -m "chore: regenerate sourcify-chains-default.json"
+          git push origin "$BRANCH" --force
+          BODY=$(cat pr-description.txt 2>/dev/null || echo "Automated regeneration by CI. Review chain additions/removals before merging.")
+          # Open a PR if one isn't already open for this branch
+          gh pr list --head "$BRANCH" --base main --state open --json number --jq '.[0].number' | grep -q . \
+            || gh pr create \
+                --title "chore: regenerate sourcify-chains-default.json" \
+                --body "$BODY" \
+                --base main \
+                --head "$BRANCH"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

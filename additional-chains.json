@@ -1,0 +1,65 @@
+{
+  "57": {
+    "sourcifyName": "Syscoin Mainnet"
+  },
+  "82": {
+    "sourcifyName": "Meter Mainnet"
+  },
+  "83": {
+    "sourcifyName": "Meter Testnet"
+  },
+  "96": {
+    "sourcifyName": "Bitkub Chain"
+  },
+  "106": {
+    "sourcifyName": "Velas Mainnet"
+  },
+  "223": {
+    "sourcifyName": "B2 Mainnet"
+  },
+  "888": {
+    "sourcifyName": "Wanchain Mainnet"
+  },
+  "1030": {
+    "sourcifyName": "Conflux eSpace"
+  },
+  "1122": {
+    "sourcifyName": "LuxePorts MainNet"
+  },
+  "3111": {
+    "sourcifyName": "Alpha Chain Mainnet"
+  },
+  "4000": {
+    "sourcifyName": "Ozone Chain Mainnet"
+  },
+  "4114": {
+    "sourcifyName": "Citrea Mainnet"
+  },
+  "5115": {
+    "sourcifyName": "Citrea Testnet"
+  },
+  "5700": {
+    "sourcifyName": "Syscoin Testnet Tanenbaum"
+  },
+  "7672": {
+    "sourcifyName": "The Root Network Porcini (Testnet)"
+  },
+  "19011": {
+    "sourcifyName": "HOME Verse Mainnet"
+  },
+  "59902": {
+    "sourcifyName": "Metis Sepolia Testnet"
+  },
+  "200810": {
+    "sourcifyName": "Bitlayer Testnet"
+  },
+  "205205": {
+    "sourcifyName": "Auroria Testnet"
+  },
+  "511111": {
+    "sourcifyName": "Alpha Chain  Testnet"
+  },
+  "21000000": {
+    "sourcifyName": "Corn Mainnet"
+  }
+}
