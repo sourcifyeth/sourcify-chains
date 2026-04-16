@@ -1,0 +1,20 @@
+{
+  "name": "sourcify-chains",
+  "version": "1.0.0",
+  "description": "Canonical chain configuration for Sourcify — generation scripts and source files",
+  "type": "module",
+  "scripts": {
+    "generate": "tsx scripts/generate.ts",
+    "sync": "tsx scripts/sync.ts",
+    "test": "tsx --test scripts/sync.test.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "tsx": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/yamljs": "^0.2.34",
+    "typescript": "^5.7.0"
+  }
+}
