@@ -215,7 +215,7 @@
     }
   },
   "84532": {
-    "sourcifyName": "Base Sepolia Tesnet",
+    "sourcifyName": "Base Sepolia Testnet",
     "rpc": [
       "https://sepolia.base.org",
       "https://base-sepolia-rpc.publicnode.com"
