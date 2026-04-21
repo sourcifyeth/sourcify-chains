@@ -41,9 +41,9 @@ export async function fetchRoutescanChains(): Promise<
   Map<number, RoutescanChainData>
 > {
   const [vanityRes, mainnetRes, testnetRes] = await Promise.all([
-    fetch(VANITY_URLS_URL),
-    fetch(MAINNET_BLOCKCHAINS_URL),
-    fetch(TESTNET_BLOCKCHAINS_URL),
+    fetch(VANITY_URLS_URL, { signal: AbortSignal.timeout(15_000) }),
+    fetch(MAINNET_BLOCKCHAINS_URL, { signal: AbortSignal.timeout(15_000) }),
+    fetch(TESTNET_BLOCKCHAINS_URL, { signal: AbortSignal.timeout(15_000) }),
   ]);
 
   if (!vanityRes.ok) {

@@ -92,6 +92,20 @@ export interface ChangeHistory {
 // RPC helpers
 // ---------------------------------------------------------------------------
 
+/** JSON.stringify with keys sorted recursively so key-order differences don't
+ *  produce false positives when comparing fetchContractCreationTxUsing values. */
+function stableStringify(v: unknown): string {
+  if (v === null || typeof v !== "object" || Array.isArray(v)) return JSON.stringify(v);
+  return (
+    "{" +
+    Object.keys(v as object)
+      .sort()
+      .map((k) => JSON.stringify(k) + ":" + stableStringify((v as Record<string, unknown>)[k]))
+      .join(",") +
+    "}"
+  );
+}
+
 /** Identify the provider of an RPC entry. */
 function rpcProvider(rpc: RpcEntry): string {
   if (typeof rpc === "string") return "public";
@@ -213,7 +227,7 @@ export function diffSnapshots(
     for (const key of Object.keys(snapFetch)) {
       if (!(key in baseFetch)) {
         addDescriptions.push(`Added ${key} to fetchContractCreationTxUsing for chain ${chainId} (${chainName})`);
-      } else if (JSON.stringify(baseFetch[key]) !== JSON.stringify(snapFetch[key])) {
+      } else if (stableStringify(baseFetch[key]) !== stableStringify(snapFetch[key])) {
         // Key exists in both but value changed — reductive
         reductiveChanges.push({
           key: `change-fetchUsing-${chainId}-${key}`,
