@@ -1,0 +1,57 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: sourcify
+      POSTGRES_USER: sourcify
+      POSTGRES_PASSWORD: sourcify
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "sourcify"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  sourcify:
+    image: ghcr.io/argotorg/sourcify/server:latest
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      SOURCIFY_POSTGRES_HOST: postgres
+      SOURCIFY_POSTGRES_DB: sourcify
+      SOURCIFY_POSTGRES_USER: sourcify
+      SOURCIFY_POSTGRES_PASSWORD: sourcify
+      SOURCIFY_POSTGRES_PORT: "5432"
+      # Etherscan API keys — injected from environment / GitHub secrets
+      ETHERSCAN_API_KEY: ${ETHERSCAN_API_KEY:-}
+      ARBISCAN_API_KEY: ${ARBISCAN_API_KEY:-}
+      POLYGONSCAN_API_KEY: ${POLYGONSCAN_API_KEY:-}
+      BSCSCAN_API_KEY: ${BSCSCAN_API_KEY:-}
+      OPTIMISMSCAN_API_KEY: ${OPTIMISMSCAN_API_KEY:-}
+      BASESCAN_API_KEY: ${BASESCAN_API_KEY:-}
+      GNOSISSCAN_API_KEY: ${GNOSISSCAN_API_KEY:-}
+      CELOSCAN_API_KEY: ${CELOSCAN_API_KEY:-}
+      SNOWSCAN_API_KEY: ${SNOWSCAN_API_KEY:-}
+      MOONBEAMSCAN_API_KEY: ${MOONBEAMSCAN_API_KEY:-}
+      MOONRIVERSCAN_API_KEY: ${MOONRIVERSCAN_API_KEY:-}
+      CRONOSCAN_API_KEY: ${CRONOSCAN_API_KEY:-}
+      FTMSCAN_API_KEY: ${FTMSCAN_API_KEY:-}
+      BOBASCAN_API_KEY: ${BOBASCAN_API_KEY:-}
+      LINEASCAN_API_KEY: ${LINEASCAN_API_KEY:-}
+      ZETACHAINEXPLORER_API_KEY: ${ZETACHAINEXPLORER_API_KEY:-}
+      WEMIXSCAN_API_KEY: ${WEMIXSCAN_API_KEY:-}
+      SCROLLSCAN_API_KEY: ${SCROLLSCAN_API_KEY:-}
+      MANTLESCAN_API_KEY: ${MANTLESCAN_API_KEY:-}
+      BLASTSCAN_API_KEY: ${BLASTSCAN_API_KEY:-}
+      TAIKOSCAN_API_KEY: ${TAIKOSCAN_API_KEY:-}
+      WORLDCHAINSCAN_API_KEY: ${WORLDCHAINSCAN_API_KEY:-}
+      INKSCANSCAN_API_KEY: ${INKSCANSCAN_API_KEY:-}
+    ports:
+      - "5555:5555"
+    volumes:
+      # Mount repo's chains file as the local override so the server uses it
+      # instead of fetching from the remote URL.
+      - ../sourcify-chains-default.json:/home/app/services/server/dist/sourcify-chains.json:ro
