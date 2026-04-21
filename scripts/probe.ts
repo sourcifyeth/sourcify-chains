@@ -105,7 +105,7 @@ async function findRecentTxHash(
   const latestNum = await checkLiveness(url, log);
   if (latestNum === null) return null;
 
-  log(`    Latest block: #${latestNum}, scanning #${latestNum - SCAN_START_OFFSET}–#${latestNum - SCAN_END_OFFSET}`);
+  log(`    Latest block: #${latestNum}, scanning from #${latestNum - SCAN_START_OFFSET} down to #${latestNum - SCAN_END_OFFSET}`);
 
   // Skip the most recent blocks — their traces may not be indexed yet.
   // Scan from SCAN_START_OFFSET to SCAN_END_OFFSET blocks behind latest.
@@ -121,7 +121,7 @@ async function findRecentTxHash(
     }
   }
 
-  log(`    No transactions found in blocks #${latestNum - SCAN_START_OFFSET}–#${latestNum - SCAN_END_OFFSET}`);
+  log(`    No transactions found in blocks from #${latestNum - SCAN_START_OFFSET} down to #${latestNum - SCAN_END_OFFSET}`);
   return null;
 }
 
