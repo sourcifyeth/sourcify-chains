@@ -70,7 +70,12 @@
         "url": "https://rpc-pulsechain.g4mm4.io",
         "type": "BaseRPC"
       }
-    ]
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://api.scan.pulsechain.com/"
+      }
+    }
   },
   "51": {
     "sourcifyName": "XDC Apothem Testnet",
@@ -239,13 +244,23 @@
     "sourcifyName": "HPP Mainnet",
     "rpc": [
       "https://mainnet.hpp.io"
-    ]
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.hpp.io"
+      }
+    }
   },
   "181228": {
     "sourcifyName": "HPP Sepolia Testnet",
     "rpc": [
       "https://sepolia.hpp.io"
-    ]
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://sepolia-explorer.hpp.io"
+      }
+    }
   },
   "56": {
     "fetchContractCreationTxUsing": {
@@ -307,4 +322,109 @@
   "4217": {
     "sourcifyName": "Tempo Mainnet"
   },
+  "223": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://mainnet-backend.bsquared.network"
+      }
+    }
+  },
+  "1135": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://blockscout.lisk.com"
+      }
+    }
+  },
+  "3111": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://scan.goalpha.org"
+      }
+    }
+  },
+  "4114": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.mainnet.citrea.xyz"
+      }
+    }
+  },
+  "5115": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.testnet.citrea.xyz"
+      }
+    }
+  },
+  "54211": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.testedge2.haqq.network/"
+      }
+    }
+  },
+  "202601": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://saigon-explorer.roninchain.com"
+      }
+    }
+  },
+  "205205": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://auroria.explorer.xertra.com"
+      }
+    }
+  },
+  "511111": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://testnet-scan.goalpha.org"
+      }
+    }
+  },
+  "660279": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.xai-chain.net/"
+      }
+    }
+  },
+  "5042002": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://testnet.arcscan.app/"
+      }
+    }
+  },
+  "7777777": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.zora.energy"
+      }
+    }
+  },
+  "21000000": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://maizenet-explorer.usecorn.com"
+      }
+    }
+  },
+  "999999999": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://sepolia.explorer.zora.energy/"
+      }
+    }
+  },
+  "1313161554": {
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.mainnet.aurora.dev/"
+      }
+    }
+  }
 }
