@@ -42,7 +42,7 @@ Every QuickNode and dRPC chain is probed on each run. Probing:
 | `"none"` | Chain is alive but neither trace method is available |
 | `null` | Chain is dead on this provider |
 
-QuickNode and dRPC are probed independently — they may expose different trace methods for the same chain. Each probe has a 10 s total timeout (3 s per individual RPC call).
+QuickNode and dRPC are probed independently — they may expose different trace methods for the same chain. Each probe has a 45 s total timeout (accommodates retries across individual RPC calls).
 
 Routescan and third-party Blockscout instances do **not** qualify a chain for inclusion on their own — they only contribute `fetchContractCreationTxUsing` data. We also make use of the [chainid.network/chains.json](https://chainid.network/chains.json) (a.k.a "chainlist") file to get the public RPCs of the chains if no paid provider RPCs are available.
 
@@ -160,7 +160,7 @@ Each entry includes:
 | `sourcifyName`                 | Human-readable chain name                                                                       |
 | `supported`                    | `true` for active chains; `false` for deprecated chains                                         |
 | `discoveredBy`                 | Which sources caused this chain to be included (e.g. `["quicknode", "drpc", "etherscan"]`)      |
-| `rpc`                          | Ordered list: override RPCs → QuickNode (if alive) → dRPC (if alive) → public (chainid.network) |
+| `rpc`                          | Ordered list: override RPCs → dRPC (if alive) → QuickNode (if alive) → public (chainid.network) |
 | `etherscanApi`                 | Etherscan API config, if the chain is on Etherscan's chainlist                                  |
 | `fetchContractCreationTxUsing` | APIs used to look up contract creation transactions                                             |
 
