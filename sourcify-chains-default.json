@@ -653,7 +653,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=fuse&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -775,8 +775,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=monad-mainnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1094,7 +1093,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=boba-eth&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -1552,7 +1551,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn-baobab&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -3104,7 +3104,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -4682,7 +4683,7 @@
     ]
   },
   "84532": {
-    "sourcifyName": "Base Sepolia Tesnet",
+    "sourcifyName": "Base Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
       "blockscout",
@@ -5060,7 +5061,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=filecoin-calibration&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -5343,8 +5345,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=open-campus-codex-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -5797,6 +5798,18 @@
       "deprecated"
     ]
   },
+  "19251925": {
+    "sourcifyName": "Chain 19251925",
+    "supported": true,
+    "discoveredBy": [
+      "blockscout"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://scan.tipschain.online"
+      }
+    }
+  },
   "20180427": {
     "sourcifyName": "Stability Testnet",
     "supported": true,
@@ -5853,8 +5866,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=blast-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
