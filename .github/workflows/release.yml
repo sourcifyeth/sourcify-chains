@@ -1,0 +1,40 @@
+name: Release sourcify-chains-default.json to GCS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - sourcify-chains-default.json
+  workflow_dispatch:
+
+env:
+  GCP_PROJECT: sourcify-project
+  WORKLOAD_IDENTITY_PROVIDER: projects/1019539084286/locations/global/workloadIdentityPools/github/providers/sourcify
+  SERVICE_ACCOUNT: sourcify-chains-uploader@sourcify-project.iam.gserviceaccount.com
+  GCS_BUCKET: sourcifyeth-chains
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: "auth GCP"
+        uses: "google-github-actions/auth@v2"
+        with:
+          workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      - name: Upload to GCS
+        uses: google-github-actions/upload-cloud-storage@v2
+        with:
+          path: sourcify-chains-default.json
+          destination: ${{ env.GCS_BUCKET }}
+          parent: false
+          headers: |-
+            content-type: application/json
+            cache-control: public, max-age=300, must-revalidate
