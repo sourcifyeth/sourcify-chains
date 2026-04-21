@@ -412,6 +412,35 @@ async function main() {
       rpcs.push(...filterPublicRpcs(meta.rpc));
     }
 
+    // Chains with no RPCs can't be used for verification.
+    // If the sole discovery source is blockscout or etherscan (neither provides RPCs),
+    // warn and skip. Any other case with no RPCs is unexpected — throw.
+    if (rpcs.length === 0) {
+      const soleBlockscout =
+        blockscout?.hostedBy === "blockscout" && !qnQualifies && !drpcQualifies && !etherscan && !override;
+      const soleEtherscan =
+        !!etherscan && !(blockscout?.hostedBy === "blockscout") && !qnQualifies && !drpcQualifies && !override;
+      if (soleBlockscout) {
+        console.warn(`[skip] #${chainId} ${sourcifyName} — discovered by blockscout only, no RPCs available`);
+        continue;
+      }
+      if (soleEtherscan) {
+        console.warn(`[skip] #${chainId} ${sourcifyName} — discovered by etherscan only, no RPCs available`);
+        continue;
+      }
+      throw new Error(
+        `Chain #${chainId} ${sourcifyName} has no RPCs (discoveredBy: [${[
+          qnQualifies && "quicknode",
+          drpcQualifies && "drpc",
+          etherscan && "etherscan",
+          blockscout?.hostedBy === "blockscout" && "blockscout",
+          override && "chain-overrides",
+        ]
+          .filter(Boolean)
+          .join(", ")}])`
+      );
+    }
+
     // Build etherscanApi
     const etherscanApi = etherscan
       ? {
