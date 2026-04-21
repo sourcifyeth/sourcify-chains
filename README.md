@@ -243,6 +243,18 @@ If a reductive change disappears between runs (API flake recovered), its counter
 
 **Output**: `sync.ts` overwrites `sourcify-chains-default.json` with the stabilized result (snapshot with unstable removals reverted to their baseline values) and writes `pr-description.txt` summarising what is immediately included, what is newly stabilised, and what is still pending.
 
+## Distribution
+
+After each merge to `main` that changes `sourcify-chains-default.json`, the release workflow (`.github/workflows/release.yml`) uploads the file to Google Cloud Storage. The canonical fetch URL for Sourcify consumers is:
+
+```
+https://storage.googleapis.com/sourcifyeth-chains/sourcify-chains-default.json
+```
+
+The GitHub raw URL (`https://raw.githubusercontent.com/sourcifyeth/sourcify-chains/main/sourcify-chains-default.json`) remains available as a fallback but GCS is preferred for uptime.
+
+CORS is configured at the bucket level to allow `GET`/`HEAD` from any origin, so browser clients can fetch the file directly.
+
 ## CI pipeline
 
 The generation workflow (`.github/workflows/generate.yml`) runs:
