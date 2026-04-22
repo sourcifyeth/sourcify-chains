@@ -6,10 +6,15 @@
   "scripts": {
     "generate": "tsx scripts/generate.ts",
     "sync": "tsx scripts/sync.ts",
-    "test": "tsx --test scripts/sync.test.ts"
+    "test": "tsx --test scripts/sync.test.ts",
+    "test:integration": "tsx --test tests/chain-tests.test.ts tests/etherscan-instances.test.ts",
+    "test:integration:chain": "tsx --test tests/chain-tests.test.ts",
+    "test:integration:etherscan": "tsx --test tests/etherscan-instances.test.ts"
   },
   "dependencies": {
+    "commander": "^12.1.0",
     "dotenv": "^16.0.0",
+    "ethers": "^6.16.0",
     "tsx": "^4.19.2"
   },
   "devDependencies": {
