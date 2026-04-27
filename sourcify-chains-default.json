@@ -536,7 +536,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bsc-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       },
       {
         "type": "APIKeyRPC",
@@ -1058,7 +1058,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=fraxtal&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -1094,6 +1094,21 @@
         "url": "https://lb.drpc.org/ogrpc?network=boba-eth&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "trace_transaction"
+      }
+    ]
+  },
+  "291": {
+    "sourcifyName": "Orderly Mainnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=orderly&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -2180,7 +2195,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=soneium-minato&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -2320,7 +2335,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=kava&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -2454,8 +2470,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=fraxtal-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -2710,7 +2725,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=megaeth&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -3104,8 +3119,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -3889,7 +3903,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=lens-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -4201,7 +4216,7 @@
     ]
   },
   "46630": {
-    "sourcifyName": "Chain 46630",
+    "sourcifyName": "Robinhood Chain Testnet",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -4804,7 +4819,8 @@
     "sourcifyName": "Creditcoin",
     "supported": true,
     "discoveredBy": [
-      "blockscout"
+      "blockscout",
+      "drpc"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -4812,14 +4828,19 @@
       }
     },
     "rpc": [
-      "https://mainnet3.creditcoin.network"
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=creditcoin&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
     ]
   },
   "102031": {
     "sourcifyName": "Creditcoin Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout"
+      "blockscout",
+      "drpc"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -4827,7 +4848,11 @@
       }
     },
     "rpc": [
-      "https://rpc.cc3-testnet.creditcoin.network"
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=creditcoin-testnet&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
     ]
   },
   "102032": {
@@ -5580,8 +5605,14 @@
     "sourcifyName": "Arc Network Testnet",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "drpc"
     ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://testnet.arcscan.app/"
+      }
+    },
     "rpc": [
       {
         "type": "APIKeyRPC",
