@@ -487,11 +487,18 @@ function sortRpcs(rpcs: RpcEntry[]): RpcEntry[] {
 // PR description
 // ---------------------------------------------------------------------------
 
+export interface ReappearedChain {
+  chainId: number;
+  name: string;
+  seenIn: string[];
+}
+
 export function buildPrDescription(
   addDescriptions: string[],
   stabilized: string[],
   pendingSummary: string[],
   pendingChanges: Record<string, PendingChange>,
+  reappearedDeprecated: ReappearedChain[] = [],
 ): string {
   const lines: string[] = ["## Changes", ""];
 
@@ -518,6 +525,16 @@ export function buildPrDescription(
   if (pendingSummary.length > 0) {
     lines.push("### Pending (tracking, not yet included)");
     for (const summary of pendingSummary) lines.push(`- ${summary}`);
+    lines.push("");
+  }
+
+  if (reappearedDeprecated.length > 0) {
+    lines.push("### ⚠️ Deprecated chains reappeared in trusted sources");
+    lines.push("These chains are in `deprecated-chains.json` but are now returned by API sources.");
+    lines.push("Consider removing them from `deprecated-chains.json` if they are genuinely back.");
+    for (const { chainId, name, seenIn } of reappearedDeprecated) {
+      lines.push(`- #${chainId} ${name} — seen in: ${seenIn.join(", ")}`);
+    }
     lines.push("");
   }
 
@@ -595,6 +612,28 @@ async function main() {
   // Build stabilized output
   const stabilizedOutput = buildStabilizedOutput(baseline, snapshot, updatedHistory.pendingChanges);
 
+  // Auto-deprecate chains whose removal has stabilized
+  const deprecatedPath = path.join(REPO_ROOT, "deprecated-chains.json");
+  const deprecated: Record<string, string> = JSON.parse(fs.readFileSync(deprecatedPath, "utf8"));
+  let newlyDeprecated = 0;
+  for (const key of stabilized) {
+    const entry = updatedHistory.pendingChanges[key];
+    if (entry.type === "remove-chain") {
+      const chainId = entry.chainId.toString();
+      if (!(chainId in deprecated)) {
+        deprecated[chainId] = baseline[chainId]?.sourcifyName ?? `Chain ${chainId}`;
+        newlyDeprecated++;
+      }
+    }
+  }
+  if (newlyDeprecated > 0) {
+    const sortedDeprecated = Object.fromEntries(
+      Object.entries(deprecated).sort(([a], [b]) => Number(a) - Number(b)),
+    );
+    fs.writeFileSync(deprecatedPath, JSON.stringify(sortedDeprecated, null, 2) + "\n");
+    console.log(`Updated deprecated-chains.json (+${newlyDeprecated} chain(s))`);
+  }
+
   // Write outputs
   fs.writeFileSync(snapshotPath, JSON.stringify(stabilizedOutput, null, 2) + "\n");
   console.log(`Wrote stabilized sourcify-chains-default.json (${Object.keys(stabilizedOutput).length} chains)`);
@@ -602,7 +641,12 @@ async function main() {
   fs.writeFileSync(outputHistoryPath, JSON.stringify(updatedHistory, null, 2) + "\n");
   console.log(`Wrote change-history.json (${Object.keys(updatedHistory.pendingChanges).length} pending entries)`);
 
-  const prDesc = buildPrDescription(addDescriptions, stabilized, pendingSummary, updatedHistory.pendingChanges);
+  const reappearedPath = path.join(REPO_ROOT, "deprecated-reappeared.json");
+  const reappearedDeprecated: ReappearedChain[] = fs.existsSync(reappearedPath)
+    ? (JSON.parse(fs.readFileSync(reappearedPath, "utf8")) as ReappearedChain[])
+    : [];
+
+  const prDesc = buildPrDescription(addDescriptions, stabilized, pendingSummary, updatedHistory.pendingChanges, reappearedDeprecated);
   fs.writeFileSync(outputDescPath, prDesc);
   console.log(`Wrote pr-description.txt`);
 

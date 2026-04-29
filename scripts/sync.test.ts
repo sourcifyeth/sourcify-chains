@@ -8,6 +8,7 @@ import {
   type Snapshot,
   type ChangeHistory,
   type PendingChange,
+  type ReappearedChain,
 } from "./sync.js";
 
 // ---------------------------------------------------------------------------
@@ -780,5 +781,21 @@ describe("buildPrDescription", () => {
     assert.ok(desc.includes("stabilization"));
     assert.ok(desc.includes("Pending"));
     assert.ok(desc.includes("🤖"));
+  });
+
+  it("reappeared deprecated chains → warning section included", () => {
+    const reappeared: ReappearedChain[] = [
+      { chainId: 5, name: "Ethereum Goerli Testnet", seenIn: ["quicknode", "drpc"] },
+    ];
+    const desc = buildPrDescription([], [], [], {}, reappeared);
+    assert.ok(desc.includes("⚠️"));
+    assert.ok(desc.includes("#5 Ethereum Goerli Testnet"));
+    assert.ok(desc.includes("quicknode, drpc"));
+    assert.ok(desc.includes("deprecated-chains.json"));
+  });
+
+  it("no reappeared chains → no warning section", () => {
+    const desc = buildPrDescription([], [], [], {}, []);
+    assert.ok(!desc.includes("⚠️"));
   });
 });

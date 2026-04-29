@@ -253,6 +253,28 @@ async function main() {
 
   const deprecatedSet = new Set<number>(Object.keys(deprecatedChains).map(Number));
 
+  // Detect deprecated chains that have reappeared in trusted sources
+  const reappearedDeprecated: { chainId: number; name: string; seenIn: string[] }[] = [];
+  for (const [chainIdStr, name] of Object.entries(deprecatedChains)) {
+    const chainId = Number(chainIdStr);
+    const seenIn: string[] = [];
+    if (quicknodeChains?.has(chainId)) seenIn.push("quicknode");
+    if (drpcChains?.has(chainId)) seenIn.push("drpc");
+    if (etherscanChains?.has(chainId)) seenIn.push("etherscan");
+    if (blockscoutChains.get(chainId)?.hostedBy === "blockscout") seenIn.push("blockscout");
+    if (seenIn.length > 0) reappearedDeprecated.push({ chainId, name, seenIn });
+  }
+  const reappearedPath = path.join(REPO_ROOT, "deprecated-reappeared.json");
+  fs.writeFileSync(reappearedPath, JSON.stringify(reappearedDeprecated, null, 2) + "\n");
+  if (reappearedDeprecated.length > 0) {
+    console.warn(
+      `\nWarning: ${reappearedDeprecated.length} deprecated chain(s) reappeared in trusted sources:`,
+    );
+    for (const { chainId, name, seenIn } of reappearedDeprecated) {
+      console.warn(`  #${chainId} ${name} — seen in: ${seenIn.join(", ")}`);
+    }
+  }
+
   // Auto-supported = union of QuickNode + dRPC + Etherscan +
   // Blockscout chains hosted by Blockscout (hostedBy === "blockscout").
   // Routescan and third-party Blockscout instances do not qualify for inclusion
