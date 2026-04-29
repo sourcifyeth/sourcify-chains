@@ -24,6 +24,50 @@
  *   pr-description.txt            (PR body markdown)
  *
  * Run via: npm run sync
+ *
+ * ---------------------------------------------------------------------------
+ * Internal flow
+ * ---------------------------------------------------------------------------
+ *
+ * 1. diffSnapshots(baseline, snapshot)
+ *    Walks every chain ID that appears in either version. For each chain it
+ *    compares the following fields and classifies every observed difference:
+ *
+ *    Field                        Additive (immediate)     Reductive (needs threshold)
+ *    -------------------------    --------------------     ---------------------------
+ *    Chain presence               new chain added          chain removed
+ *    rpc[]                        RPC added                RPC removed
+ *    rpc[].traceSupport           traceSupport added       traceSupport changed/removed
+ *    fetchContractCreationTxUsing key added                key removed, value changed
+ *    etherscanApi                 etherscanApi added       etherscanApi removed
+ *    discoveredBy[]               source added             source removed
+ *
+ *    RPCs are compared by provider (drpc / quicknode / override / public) via
+ *    rpcMap(), which converts the rpc array into a Map<providerKey, RpcEntry>.
+ *    This lets the diff detect per-provider additions and removals without
+ *    caring about array position.
+ *
+ *    Returns:
+ *      addDescriptions   — human-readable strings for immediately included changes
+ *      reductiveChanges  — structured records, each with a stable string key
+ *                          (e.g. "remove-rpc-1-drpc", "change-traceSupport-137-quicknode")
+ *
+ * 2. updateHistory(history, reductiveChanges, now)
+ *    Merges the current run's reductive changes into the persisted history:
+ *      - Change seen this run and already in history → increment consecutiveRuns
+ *      - Change seen this run but not in history     → add with consecutiveRuns = 1
+ *      - Change in history but NOT seen this run     → remove (flake recovered)
+ *    A change is "stabilized" (ready to include) when consecutiveRuns >= THRESHOLD (5).
+ *    Returns the list of stabilized change keys.
+ *
+ * 3. buildStabilizedOutput(snapshot, baseline, stabilized, pendingChanges)
+ *    Starts from the raw snapshot (which reflects the latest generation run) and
+ *    reverts any reductive change that has NOT yet stabilized back to its baseline
+ *    value. In other words:
+ *      output = snapshot, except for unstable reductive changes which use baseline values
+ *    Stabilized changes are left as-is in the snapshot (they are intentionally included).
+ *    The result is written back to sourcify-chains-default.json and is what gets
+ *    committed in the chore/regenerate-chains PR.
  */
 
 import fs from "fs";
