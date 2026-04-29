@@ -9,6 +9,7 @@ import {
   type ChangeHistory,
   type PendingChange,
   type ReappearedChain,
+  type NewEtherscanChain,
 } from "./sync.js";
 
 // ---------------------------------------------------------------------------
@@ -797,5 +798,21 @@ describe("buildPrDescription", () => {
   it("no reappeared chains → no warning section", () => {
     const desc = buildPrDescription([], [], [], {}, []);
     assert.ok(!desc.includes("⚠️"));
+  });
+
+  it("new etherscan chains with fallback key → key section included", () => {
+    const newChains: NewEtherscanChain[] = [
+      { chainId: 999, name: "Some New Chain" },
+    ];
+    const desc = buildPrDescription([], [], [], {}, [], newChains);
+    assert.ok(desc.includes("🔑"));
+    assert.ok(desc.includes("#999 Some New Chain"));
+    assert.ok(desc.includes("ETHERSCAN_API_KEY"));
+    assert.ok(desc.includes("etherscan-api-keys.json"));
+  });
+
+  it("no new etherscan chains → no key section", () => {
+    const desc = buildPrDescription([], [], [], {}, [], []);
+    assert.ok(!desc.includes("🔑"));
   });
 });

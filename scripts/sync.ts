@@ -493,12 +493,18 @@ export interface ReappearedChain {
   seenIn: string[];
 }
 
+export interface NewEtherscanChain {
+  chainId: number;
+  name: string;
+}
+
 export function buildPrDescription(
   addDescriptions: string[],
   stabilized: string[],
   pendingSummary: string[],
   pendingChanges: Record<string, PendingChange>,
   reappearedDeprecated: ReappearedChain[] = [],
+  newEtherscanChains: NewEtherscanChain[] = [],
 ): string {
   const lines: string[] = ["## Changes", ""];
 
@@ -534,6 +540,18 @@ export function buildPrDescription(
     lines.push("Consider removing them from `deprecated-chains.json` if they are genuinely back.");
     for (const { chainId, name, seenIn } of reappearedDeprecated) {
       lines.push(`- #${chainId} ${name} — seen in: ${seenIn.join(", ")}`);
+    }
+    lines.push("");
+  }
+
+  if (newEtherscanChains.length > 0) {
+    lines.push("### 🔑 New Etherscan chains require a dedicated API key");
+    lines.push(
+      "These chains were added with the generic `ETHERSCAN_API_KEY` fallback." +
+        " Add a dedicated entry to `etherscan-api-keys.json` and the corresponding secret to GitHub Actions.",
+    );
+    for (const { chainId, name } of newEtherscanChains) {
+      lines.push(`- #${chainId} ${name}`);
     }
     lines.push("");
   }
@@ -646,7 +664,15 @@ async function main() {
     ? (JSON.parse(fs.readFileSync(reappearedPath, "utf8")) as ReappearedChain[])
     : [];
 
-  const prDesc = buildPrDescription(addDescriptions, stabilized, pendingSummary, updatedHistory.pendingChanges, reappearedDeprecated);
+  // Detect new chains that landed with the generic ETHERSCAN_API_KEY fallback
+  const newEtherscanChains: NewEtherscanChain[] = [];
+  for (const [chainId, chain] of Object.entries(stabilizedOutput)) {
+    if (!(chainId in baseline) && chain.etherscanApi?.apiKeyEnvName === "ETHERSCAN_API_KEY") {
+      newEtherscanChains.push({ chainId: Number(chainId), name: chain.sourcifyName });
+    }
+  }
+
+  const prDesc = buildPrDescription(addDescriptions, stabilized, pendingSummary, updatedHistory.pendingChanges, reappearedDeprecated, newEtherscanChains);
   fs.writeFileSync(outputDescPath, prDesc);
   console.log(`Wrote pr-description.txt`);
 
