@@ -150,7 +150,7 @@ function stableStringify(v: unknown): string {
   );
 }
 
-/** Identify the provider of an RPC entry. */
+/** Human-readable provider category for an RPC entry (used in descriptions). */
 function rpcProvider(rpc: RpcEntry): string {
   if (typeof rpc === "string") return "public";
   if (rpc.type === "FetchRequest") return "override";
@@ -159,17 +159,25 @@ function rpcProvider(rpc: RpcEntry): string {
   return `unknown:${rpc.apiKeyEnvName ?? rpc.url}`;
 }
 
+/** Unique URL key for an RPC entry — used as the map key so multiple RPCs of
+ *  the same provider category (e.g. two public string RPCs) are tracked
+ *  individually rather than collapsing to the same slot. */
+function rpcUrl(rpc: RpcEntry): string {
+  return typeof rpc === "string" ? rpc : rpc.url;
+}
+
 /** Return the traceSupport value for an RPC entry (undefined if not set). */
 function rpcTraceSupport(rpc: RpcEntry): string | undefined {
   if (typeof rpc === "string") return undefined;
   return rpc.traceSupport;
 }
 
-/** Build a map from provider key to RPC entry. */
+/** Build a map from URL → RPC entry for diffing. Keying by URL (not provider
+ *  category) ensures multiple RPCs of the same category are each tracked. */
 function rpcMap(rpcs: RpcEntry[] | undefined): Map<string, RpcEntry> {
   const m = new Map<string, RpcEntry>();
   for (const rpc of rpcs ?? []) {
-    m.set(rpcProvider(rpc), rpc);
+    m.set(rpcUrl(rpc), rpc);
   }
   return m;
 }
@@ -225,27 +233,28 @@ export function diffSnapshots(
     const baseRpcs = rpcMap(base!.rpc);
     const snapRpcs = rpcMap(snap!.rpc);
 
-    for (const [provider, snapRpc] of snapRpcs) {
-      if (!baseRpcs.has(provider)) {
-        addDescriptions.push(`Added ${provider} RPC for chain ${chainId} (${chainName})`);
+    for (const [url, snapRpc] of snapRpcs) {
+      const providerLabel = rpcProvider(snapRpc);
+      if (!baseRpcs.has(url)) {
+        addDescriptions.push(`Added ${providerLabel} RPC for chain ${chainId} (${chainName})`);
       } else {
         // Check traceSupport change
-        const baseTrace = rpcTraceSupport(baseRpcs.get(provider)!) ?? null;
+        const baseTrace = rpcTraceSupport(baseRpcs.get(url)!) ?? null;
         const snapTrace = rpcTraceSupport(snapRpc) ?? null;
         if (baseTrace !== snapTrace) {
           if (snapTrace && !baseTrace) {
             // traceSupport added — additive
             addDescriptions.push(
-              `Added traceSupport (${snapTrace}) on ${provider} RPC for chain ${chainId} (${chainName})`,
+              `Added traceSupport (${snapTrace}) on ${providerLabel} RPC for chain ${chainId} (${chainName})`,
             );
           } else {
             // traceSupport changed or removed — reductive
             reductiveChanges.push({
-              key: `change-traceSupport-${chainId}-${provider}`,
+              key: `change-traceSupport-${chainId}-${url}`,
               pending: {
                 type: "change-traceSupport",
                 chainId: chainNum,
-                provider,
+                provider: url,
                 from: baseTrace,
                 to: snapTrace,
               },
@@ -255,11 +264,11 @@ export function diffSnapshots(
       }
     }
 
-    for (const [provider] of baseRpcs) {
-      if (!snapRpcs.has(provider)) {
+    for (const [url] of baseRpcs) {
+      if (!snapRpcs.has(url)) {
         reductiveChanges.push({
-          key: `remove-rpc-${chainId}-${provider}`,
-          pending: { type: "remove-rpc", chainId: chainNum, provider },
+          key: `remove-rpc-${chainId}-${url}`,
+          pending: { type: "remove-rpc", chainId: chainNum, provider: url },
         });
       }
     }
@@ -399,7 +408,7 @@ export function buildStabilizedOutput(
       if (baseRpc !== undefined && output[chainId]) {
         // Remove any existing entry for this provider from output, then re-add baseline
         output[chainId].rpc = (output[chainId].rpc ?? []).filter(
-          (r) => rpcProvider(r) !== entry.provider,
+          (r) => rpcUrl(r) !== entry.provider,
         );
         output[chainId].rpc!.push(JSON.parse(JSON.stringify(baseRpc)));
         // Re-sort: override first, then drpc, then quicknode, then public
@@ -409,7 +418,7 @@ export function buildStabilizedOutput(
       // Restore traceSupport on the matching RPC entry
       if (output[chainId]?.rpc) {
         for (const rpc of output[chainId].rpc!) {
-          if (typeof rpc !== "string" && rpcProvider(rpc) === entry.provider) {
+          if (typeof rpc !== "string" && rpcUrl(rpc) === entry.provider) {
             if (entry.from) {
               (rpc as { traceSupport?: string }).traceSupport = entry.from;
             } else {
