@@ -548,7 +548,7 @@ export function buildPrDescription(
     lines.push("### 🔑 New Etherscan chains require a dedicated API key");
     lines.push(
       "These chains were added with the generic `ETHERSCAN_API_KEY` fallback." +
-        " Add a dedicated entry to `etherscan-api-keys.json` and the corresponding secret to GitHub Actions.",
+        " Add a dedicated entry to `etherscan-api-keys.json`, the corresponding secret to GitHub Actions, and the GCP service.",
     );
     for (const { chainId, name } of newEtherscanChains) {
       lines.push(`- #${chainId} ${name}`);
