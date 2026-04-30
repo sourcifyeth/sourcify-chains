@@ -65,6 +65,7 @@ export async function fetchQuickNodeChains(
     headers: {
       "x-api-key": consoleApiKey,
     },
+    signal: AbortSignal.timeout(15_000),
   });
 
   if (!response.ok) {
