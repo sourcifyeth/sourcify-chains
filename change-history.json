@@ -1,0 +1,165 @@
+{
+  "lastRunAt": "2026-05-04T05:35:05.231Z",
+  "pendingChanges": {
+    "remove-fetchUsing-534351-etherscanApi": {
+      "type": "remove-fetchUsing",
+      "chainId": 534351,
+      "key": "etherscanApi",
+      "consecutiveRuns": 12,
+      "firstSeenAt": "2026-04-28T16:09:04.966Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "remove-discoveredBy-534351-etherscan": {
+      "type": "remove-discoveredBy",
+      "chainId": 534351,
+      "key": "etherscan",
+      "consecutiveRuns": 12,
+      "firstSeenAt": "2026-04-28T16:09:04.966Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "remove-etherscanApi-534351": {
+      "type": "remove-etherscanApi",
+      "chainId": 534351,
+      "consecutiveRuns": 12,
+      "firstSeenAt": "2026-04-28T16:09:04.966Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "remove-fetchUsing-534352-etherscanApi": {
+      "type": "remove-fetchUsing",
+      "chainId": 534352,
+      "key": "etherscanApi",
+      "consecutiveRuns": 12,
+      "firstSeenAt": "2026-04-28T16:09:04.966Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "remove-discoveredBy-534352-etherscan": {
+      "type": "remove-discoveredBy",
+      "chainId": 534352,
+      "key": "etherscan",
+      "consecutiveRuns": 12,
+      "firstSeenAt": "2026-04-28T16:09:04.966Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "remove-etherscanApi-534352": {
+      "type": "remove-etherscanApi",
+      "chainId": 534352,
+      "consecutiveRuns": 12,
+      "firstSeenAt": "2026-04-28T16:09:04.966Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "remove-chain-19251925": {
+      "type": "remove-chain",
+      "chainId": 19251925,
+      "consecutiveRuns": 12,
+      "firstSeenAt": "2026-04-28T16:09:04.966Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "remove-chain-80084": {
+      "type": "remove-chain",
+      "chainId": 80084,
+      "consecutiveRuns": 9,
+      "firstSeenAt": "2026-04-30T05:31:41.620Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "change-traceSupport-4202-drpc": {
+      "type": "change-traceSupport",
+      "chainId": 4202,
+      "provider": "drpc",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 8,
+      "firstSeenAt": "2026-04-30T15:48:27.346Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "remove-rpc-7000-public": {
+      "type": "remove-rpc",
+      "chainId": 7000,
+      "provider": "public",
+      "consecutiveRuns": 8,
+      "firstSeenAt": "2026-04-30T15:48:27.346Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "change-traceSupport-80069-drpc": {
+      "type": "change-traceSupport",
+      "chainId": 80069,
+      "provider": "drpc",
+      "from": "trace_transaction",
+      "to": null,
+      "consecutiveRuns": 8,
+      "firstSeenAt": "2026-04-30T15:48:27.346Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "change-traceSupport-97-drpc": {
+      "type": "change-traceSupport",
+      "chainId": 97,
+      "provider": "drpc",
+      "from": "debug_traceTransaction",
+      "to": "trace_transaction",
+      "consecutiveRuns": 6,
+      "firstSeenAt": "2026-05-01T14:56:37.436Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "change-traceSupport-480-drpc": {
+      "type": "change-traceSupport",
+      "chainId": 480,
+      "provider": "drpc",
+      "from": "trace_transaction",
+      "to": null,
+      "consecutiveRuns": 6,
+      "firstSeenAt": "2026-05-01T14:56:37.436Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "remove-fetchUsing-88-blockscoutApi": {
+      "type": "remove-fetchUsing",
+      "chainId": 88,
+      "key": "blockscoutApi",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-05-02T04:59:48.956Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "remove-discoveredBy-88-blockscout": {
+      "type": "remove-discoveredBy",
+      "chainId": 88,
+      "key": "blockscout",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-05-02T04:59:48.956Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "remove-fetchUsing-89-blockscoutApi": {
+      "type": "remove-fetchUsing",
+      "chainId": 89,
+      "key": "blockscoutApi",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-05-02T04:59:48.956Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "remove-discoveredBy-89-blockscout": {
+      "type": "remove-discoveredBy",
+      "chainId": 89,
+      "key": "blockscout",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-05-02T04:59:48.956Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "change-traceSupport-57054-drpc": {
+      "type": "change-traceSupport",
+      "chainId": 57054,
+      "provider": "drpc",
+      "from": "trace_transaction",
+      "to": null,
+      "consecutiveRuns": 2,
+      "firstSeenAt": "2026-05-03T14:48:38.464Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    },
+    "change-traceSupport-100-drpc": {
+      "type": "change-traceSupport",
+      "chainId": 100,
+      "provider": "drpc",
+      "from": "trace_transaction",
+      "to": "debug_traceTransaction",
+      "consecutiveRuns": 1,
+      "firstSeenAt": "2026-05-04T05:35:05.231Z",
+      "lastSeenAt": "2026-05-04T05:35:05.231Z"
+    }
+  }
+}
