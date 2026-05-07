@@ -13,7 +13,9 @@ const AVALANCHE_CHAINS_URL = "https://glacier-api.avax.network/v1/chains";
  * Used to auto-set fetchContractCreationTxUsing.avalancheApi: true.
  */
 export async function fetchAvalancheChains(): Promise<Set<number>> {
-  const response = await fetch(AVALANCHE_CHAINS_URL);
+  const response = await fetch(AVALANCHE_CHAINS_URL, {
+    signal: AbortSignal.timeout(15_000),
+  });
 
   if (!response.ok) {
     throw new Error(

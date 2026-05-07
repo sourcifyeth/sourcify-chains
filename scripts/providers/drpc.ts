@@ -21,7 +21,9 @@ const DRPC_CHAINS_URL = "https://drpc.org/api/blockchains-list";
  * RPC URL: https://lb.drpc.org/ogrpc?network={shortName}&dkey={API_KEY}
  */
 export async function fetchDrpcChains(): Promise<Map<number, DrpcChainData>> {
-  const response = await fetch(DRPC_CHAINS_URL);
+  const response = await fetch(DRPC_CHAINS_URL, {
+    signal: AbortSignal.timeout(15_000),
+  });
 
   if (!response.ok) {
     throw new Error(

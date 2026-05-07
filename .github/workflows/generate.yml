@@ -123,12 +123,15 @@ jobs:
           git commit -m "chore: regenerate sourcify-chains-default.json"
           git push origin "$BRANCH" --force
           BODY=$(cat pr-description.txt 2>/dev/null || echo "Automated regeneration by CI. Review chain additions/removals before merging.")
-          # Open a PR if one isn't already open for this branch
-          gh pr list --head "$BRANCH" --base main --state open --json number --jq '.[0].number' | grep -q . \
-            || gh pr create \
+          EXISTING_PR=$(gh pr list --head "$BRANCH" --base main --state open --json number --jq '.[0].number')
+          if [ -n "$EXISTING_PR" ]; then
+            gh pr edit "$EXISTING_PR" --body "$BODY"
+          else
+            gh pr create \
                 --title "chore: regenerate sourcify-chains-default.json" \
                 --body "$BODY" \
                 --base main \
                 --head "$BRANCH"
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

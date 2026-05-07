@@ -24,6 +24,50 @@
  *   pr-description.txt            (PR body markdown)
  *
  * Run via: npm run sync
+ *
+ * ---------------------------------------------------------------------------
+ * Internal flow
+ * ---------------------------------------------------------------------------
+ *
+ * 1. diffSnapshots(baseline, snapshot)
+ *    Walks every chain ID that appears in either version. For each chain it
+ *    compares the following fields and classifies every observed difference:
+ *
+ *    Field                        Additive (immediate)     Reductive (needs threshold)
+ *    -------------------------    --------------------     ---------------------------
+ *    Chain presence               new chain added          chain removed
+ *    rpc[]                        RPC added                RPC removed
+ *    rpc[].traceSupport           traceSupport added       traceSupport changed/removed
+ *    fetchContractCreationTxUsing key added                key removed, value changed
+ *    etherscanApi                 etherscanApi added       etherscanApi removed
+ *    discoveredBy[]               source added             source removed
+ *
+ *    RPCs are compared by provider (drpc / quicknode / override / public) via
+ *    rpcMap(), which converts the rpc array into a Map<providerKey, RpcEntry>.
+ *    This lets the diff detect per-provider additions and removals without
+ *    caring about array position.
+ *
+ *    Returns:
+ *      addDescriptions   — human-readable strings for immediately included changes
+ *      reductiveChanges  — structured records, each with a stable string key
+ *                          (e.g. "remove-rpc-1-drpc", "change-traceSupport-137-quicknode")
+ *
+ * 2. updateHistory(history, reductiveChanges, now)
+ *    Merges the current run's reductive changes into the persisted history:
+ *      - Change seen this run and already in history → increment consecutiveRuns
+ *      - Change seen this run but not in history     → add with consecutiveRuns = 1
+ *      - Change in history but NOT seen this run     → remove (flake recovered)
+ *    A change is "stabilized" (ready to include) when consecutiveRuns >= THRESHOLD (5).
+ *    Returns the list of stabilized change keys.
+ *
+ * 3. buildStabilizedOutput(snapshot, baseline, stabilized, pendingChanges)
+ *    Starts from the raw snapshot (which reflects the latest generation run) and
+ *    reverts any reductive change that has NOT yet stabilized back to its baseline
+ *    value. In other words:
+ *      output = snapshot, except for unstable reductive changes which use baseline values
+ *    Stabilized changes are left as-is in the snapshot (they are intentionally included).
+ *    The result is written back to sourcify-chains-default.json and is what gets
+ *    committed in the chore/regenerate-chains PR.
  */
 
 import fs from "fs";
@@ -92,7 +136,21 @@ export interface ChangeHistory {
 // RPC helpers
 // ---------------------------------------------------------------------------
 
-/** Identify the provider of an RPC entry. */
+/** JSON.stringify with keys sorted recursively so key-order differences don't
+ *  produce false positives when comparing fetchContractCreationTxUsing values. */
+function stableStringify(v: unknown): string {
+  if (v === null || typeof v !== "object" || Array.isArray(v)) return JSON.stringify(v);
+  return (
+    "{" +
+    Object.keys(v as object)
+      .sort()
+      .map((k) => JSON.stringify(k) + ":" + stableStringify((v as Record<string, unknown>)[k]))
+      .join(",") +
+    "}"
+  );
+}
+
+/** Human-readable provider category for an RPC entry (used in descriptions). */
 function rpcProvider(rpc: RpcEntry): string {
   if (typeof rpc === "string") return "public";
   if (rpc.type === "FetchRequest") return "override";
@@ -101,17 +159,25 @@ function rpcProvider(rpc: RpcEntry): string {
   return `unknown:${rpc.apiKeyEnvName ?? rpc.url}`;
 }
 
+/** Unique URL key for an RPC entry — used as the map key so multiple RPCs of
+ *  the same provider category (e.g. two public string RPCs) are tracked
+ *  individually rather than collapsing to the same slot. */
+function rpcUrl(rpc: RpcEntry): string {
+  return typeof rpc === "string" ? rpc : rpc.url;
+}
+
 /** Return the traceSupport value for an RPC entry (undefined if not set). */
 function rpcTraceSupport(rpc: RpcEntry): string | undefined {
   if (typeof rpc === "string") return undefined;
   return rpc.traceSupport;
 }
 
-/** Build a map from provider key to RPC entry. */
+/** Build a map from URL → RPC entry for diffing. Keying by URL (not provider
+ *  category) ensures multiple RPCs of the same category are each tracked. */
 function rpcMap(rpcs: RpcEntry[] | undefined): Map<string, RpcEntry> {
   const m = new Map<string, RpcEntry>();
   for (const rpc of rpcs ?? []) {
-    m.set(rpcProvider(rpc), rpc);
+    m.set(rpcUrl(rpc), rpc);
   }
   return m;
 }
@@ -167,27 +233,28 @@ export function diffSnapshots(
     const baseRpcs = rpcMap(base!.rpc);
     const snapRpcs = rpcMap(snap!.rpc);
 
-    for (const [provider, snapRpc] of snapRpcs) {
-      if (!baseRpcs.has(provider)) {
-        addDescriptions.push(`Added ${provider} RPC for chain ${chainId} (${chainName})`);
+    for (const [url, snapRpc] of snapRpcs) {
+      const providerLabel = rpcProvider(snapRpc);
+      if (!baseRpcs.has(url)) {
+        addDescriptions.push(`Added ${providerLabel} RPC for chain ${chainId} (${chainName})`);
       } else {
         // Check traceSupport change
-        const baseTrace = rpcTraceSupport(baseRpcs.get(provider)!) ?? null;
+        const baseTrace = rpcTraceSupport(baseRpcs.get(url)!) ?? null;
         const snapTrace = rpcTraceSupport(snapRpc) ?? null;
         if (baseTrace !== snapTrace) {
           if (snapTrace && !baseTrace) {
             // traceSupport added — additive
             addDescriptions.push(
-              `Added traceSupport (${snapTrace}) on ${provider} RPC for chain ${chainId} (${chainName})`,
+              `Added traceSupport (${snapTrace}) on ${providerLabel} RPC for chain ${chainId} (${chainName})`,
             );
           } else {
             // traceSupport changed or removed — reductive
             reductiveChanges.push({
-              key: `change-traceSupport-${chainId}-${provider}`,
+              key: `change-traceSupport-${chainId}-${url}`,
               pending: {
                 type: "change-traceSupport",
                 chainId: chainNum,
-                provider,
+                provider: url,
                 from: baseTrace,
                 to: snapTrace,
               },
@@ -197,11 +264,11 @@ export function diffSnapshots(
       }
     }
 
-    for (const [provider] of baseRpcs) {
-      if (!snapRpcs.has(provider)) {
+    for (const [url] of baseRpcs) {
+      if (!snapRpcs.has(url)) {
         reductiveChanges.push({
-          key: `remove-rpc-${chainId}-${provider}`,
-          pending: { type: "remove-rpc", chainId: chainNum, provider },
+          key: `remove-rpc-${chainId}-${url}`,
+          pending: { type: "remove-rpc", chainId: chainNum, provider: url },
         });
       }
     }
@@ -213,7 +280,7 @@ export function diffSnapshots(
     for (const key of Object.keys(snapFetch)) {
       if (!(key in baseFetch)) {
         addDescriptions.push(`Added ${key} to fetchContractCreationTxUsing for chain ${chainId} (${chainName})`);
-      } else if (JSON.stringify(baseFetch[key]) !== JSON.stringify(snapFetch[key])) {
+      } else if (stableStringify(baseFetch[key]) !== stableStringify(snapFetch[key])) {
         // Key exists in both but value changed — reductive
         reductiveChanges.push({
           key: `change-fetchUsing-${chainId}-${key}`,
@@ -341,7 +408,7 @@ export function buildStabilizedOutput(
       if (baseRpc !== undefined && output[chainId]) {
         // Remove any existing entry for this provider from output, then re-add baseline
         output[chainId].rpc = (output[chainId].rpc ?? []).filter(
-          (r) => rpcProvider(r) !== entry.provider,
+          (r) => rpcUrl(r) !== entry.provider,
         );
         output[chainId].rpc!.push(JSON.parse(JSON.stringify(baseRpc)));
         // Re-sort: override first, then drpc, then quicknode, then public
@@ -351,7 +418,7 @@ export function buildStabilizedOutput(
       // Restore traceSupport on the matching RPC entry
       if (output[chainId]?.rpc) {
         for (const rpc of output[chainId].rpc!) {
-          if (typeof rpc !== "string" && rpcProvider(rpc) === entry.provider) {
+          if (typeof rpc !== "string" && rpcUrl(rpc) === entry.provider) {
             if (entry.from) {
               (rpc as { traceSupport?: string }).traceSupport = entry.from;
             } else {
@@ -420,11 +487,24 @@ function sortRpcs(rpcs: RpcEntry[]): RpcEntry[] {
 // PR description
 // ---------------------------------------------------------------------------
 
+export interface ReappearedChain {
+  chainId: number;
+  name: string;
+  seenIn: string[];
+}
+
+export interface NewEtherscanChain {
+  chainId: number;
+  name: string;
+}
+
 export function buildPrDescription(
   addDescriptions: string[],
   stabilized: string[],
   pendingSummary: string[],
   pendingChanges: Record<string, PendingChange>,
+  reappearedDeprecated: ReappearedChain[] = [],
+  newEtherscanChains: NewEtherscanChain[] = [],
 ): string {
   const lines: string[] = ["## Changes", ""];
 
@@ -451,6 +531,28 @@ export function buildPrDescription(
   if (pendingSummary.length > 0) {
     lines.push("### Pending (tracking, not yet included)");
     for (const summary of pendingSummary) lines.push(`- ${summary}`);
+    lines.push("");
+  }
+
+  if (reappearedDeprecated.length > 0) {
+    lines.push("### ⚠️ Deprecated chains reappeared in trusted sources");
+    lines.push("These chains are in `deprecated-chains.json` but are now returned by API sources.");
+    lines.push("Consider removing them from `deprecated-chains.json` if they are genuinely back.");
+    for (const { chainId, name, seenIn } of reappearedDeprecated) {
+      lines.push(`- #${chainId} ${name} — seen in: ${seenIn.join(", ")}`);
+    }
+    lines.push("");
+  }
+
+  if (newEtherscanChains.length > 0) {
+    lines.push("### 🔑 New Etherscan chains require a dedicated API key");
+    lines.push(
+      "These chains were added with the generic `ETHERSCAN_API_KEY` fallback." +
+        " Add a dedicated entry to `etherscan-api-keys.json`, the corresponding secret to GitHub Actions, and the GCP service.",
+    );
+    for (const { chainId, name } of newEtherscanChains) {
+      lines.push(`- #${chainId} ${name}`);
+    }
     lines.push("");
   }
 
@@ -528,6 +630,28 @@ async function main() {
   // Build stabilized output
   const stabilizedOutput = buildStabilizedOutput(baseline, snapshot, updatedHistory.pendingChanges);
 
+  // Auto-deprecate chains whose removal has stabilized
+  const deprecatedPath = path.join(REPO_ROOT, "deprecated-chains.json");
+  const deprecated: Record<string, string> = JSON.parse(fs.readFileSync(deprecatedPath, "utf8"));
+  let newlyDeprecated = 0;
+  for (const key of stabilized) {
+    const entry = updatedHistory.pendingChanges[key];
+    if (entry.type === "remove-chain") {
+      const chainId = entry.chainId.toString();
+      if (!(chainId in deprecated)) {
+        deprecated[chainId] = baseline[chainId]?.sourcifyName ?? `Chain ${chainId}`;
+        newlyDeprecated++;
+      }
+    }
+  }
+  if (newlyDeprecated > 0) {
+    const sortedDeprecated = Object.fromEntries(
+      Object.entries(deprecated).sort(([a], [b]) => Number(a) - Number(b)),
+    );
+    fs.writeFileSync(deprecatedPath, JSON.stringify(sortedDeprecated, null, 2) + "\n");
+    console.log(`Updated deprecated-chains.json (+${newlyDeprecated} chain(s))`);
+  }
+
   // Write outputs
   fs.writeFileSync(snapshotPath, JSON.stringify(stabilizedOutput, null, 2) + "\n");
   console.log(`Wrote stabilized sourcify-chains-default.json (${Object.keys(stabilizedOutput).length} chains)`);
@@ -535,7 +659,20 @@ async function main() {
   fs.writeFileSync(outputHistoryPath, JSON.stringify(updatedHistory, null, 2) + "\n");
   console.log(`Wrote change-history.json (${Object.keys(updatedHistory.pendingChanges).length} pending entries)`);
 
-  const prDesc = buildPrDescription(addDescriptions, stabilized, pendingSummary, updatedHistory.pendingChanges);
+  const reappearedPath = path.join(REPO_ROOT, "deprecated-reappeared.json");
+  const reappearedDeprecated: ReappearedChain[] = fs.existsSync(reappearedPath)
+    ? (JSON.parse(fs.readFileSync(reappearedPath, "utf8")) as ReappearedChain[])
+    : [];
+
+  // Detect new chains that landed with the generic ETHERSCAN_API_KEY fallback
+  const newEtherscanChains: NewEtherscanChain[] = [];
+  for (const [chainId, chain] of Object.entries(stabilizedOutput)) {
+    if (!(chainId in baseline) && chain.etherscanApi?.apiKeyEnvName === "ETHERSCAN_API_KEY") {
+      newEtherscanChains.push({ chainId: Number(chainId), name: chain.sourcifyName });
+    }
+  }
+
+  const prDesc = buildPrDescription(addDescriptions, stabilized, pendingSummary, updatedHistory.pendingChanges, reappearedDeprecated, newEtherscanChains);
   fs.writeFileSync(outputDescPath, prDesc);
   console.log(`Wrote pr-description.txt`);
 

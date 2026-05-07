@@ -8,6 +8,8 @@ import {
   type Snapshot,
   type ChangeHistory,
   type PendingChange,
+  type ReappearedChain,
+  type NewEtherscanChain,
 } from "./sync.js";
 
 // ---------------------------------------------------------------------------
@@ -20,6 +22,8 @@ const DRPC_RPC = {
   apiKeyEnvName: "DRPC_API_KEY",
 };
 
+const DRPC_URL = DRPC_RPC.url;
+
 const DRPC_RPC_WITH_TRACE = { ...DRPC_RPC, traceSupport: "trace_transaction" };
 
 const QN_RPC = {
@@ -28,6 +32,8 @@ const QN_RPC = {
   apiKeyEnvName: "QUICKNODE_API_KEY",
   subDomainEnvName: "QUICKNODE_SUBDOMAIN",
 };
+
+const QN_URL = QN_RPC.url;
 
 const QN_RPC_WITH_TRACE = { ...QN_RPC, traceSupport: "trace_transaction" };
 
@@ -109,9 +115,37 @@ describe("diffSnapshots", () => {
     const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot);
     assert.equal(addDescriptions.length, 0);
     assert.equal(reductiveChanges.length, 1);
-    assert.equal(reductiveChanges[0].key, "remove-rpc-1-drpc");
+    assert.equal(reductiveChanges[0].key, `remove-rpc-1-${DRPC_URL}`);
     assert.equal(reductiveChanges[0].pending.type, "remove-rpc");
-    assert.equal(reductiveChanges[0].pending.provider, "drpc");
+    assert.equal(reductiveChanges[0].pending.provider, DRPC_URL);
+  });
+
+  it("two public RPCs both tracked independently when one is removed", () => {
+    // The original keying bug: both public RPCs share the 'public' category key,
+    // so the second one overwrites the first in the map, leaving only one entry.
+    // Keying by URL fixes this — each public RPC is tracked by its own URL.
+    const PUBLIC_RPC_A = "https://rpc.ankr.com/eth";
+    const PUBLIC_RPC_B = "https://cloudflare-eth.com";
+    const baseline: Snapshot = { "1": chain({ rpc: [PUBLIC_RPC_A, PUBLIC_RPC_B] }) };
+    const snapshot: Snapshot = { "1": chain({ rpc: [PUBLIC_RPC_A] }) }; // B dropped
+    const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot);
+    assert.equal(addDescriptions.length, 0);
+    assert.equal(reductiveChanges.length, 1, "should track exactly the removed public RPC");
+    assert.equal(reductiveChanges[0].key, `remove-rpc-1-${PUBLIC_RPC_B}`);
+    assert.equal(reductiveChanges[0].pending.provider, PUBLIC_RPC_B);
+  });
+
+  it("two public RPCs: removing both generates two separate reductive changes", () => {
+    const PUBLIC_RPC_A = "https://rpc.ankr.com/eth";
+    const PUBLIC_RPC_B = "https://cloudflare-eth.com";
+    const baseline: Snapshot = { "1": chain({ rpc: [PUBLIC_RPC_A, PUBLIC_RPC_B] }) };
+    const snapshot: Snapshot = { "1": chain({ rpc: [] }) };
+    const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot);
+    assert.equal(addDescriptions.length, 0);
+    assert.equal(reductiveChanges.length, 2, "one entry per removed public RPC");
+    const keys = reductiveChanges.map((c) => c.key);
+    assert.ok(keys.includes(`remove-rpc-1-${PUBLIC_RPC_A}`));
+    assert.ok(keys.includes(`remove-rpc-1-${PUBLIC_RPC_B}`));
   });
 
   it("traceSupport added (null → value) → additive", () => {
@@ -128,7 +162,7 @@ describe("diffSnapshots", () => {
     const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot);
     assert.equal(addDescriptions.length, 0);
     assert.equal(reductiveChanges.length, 1);
-    assert.equal(reductiveChanges[0].key, "change-traceSupport-1-drpc");
+    assert.equal(reductiveChanges[0].key, `change-traceSupport-1-${DRPC_URL}`);
     assert.equal(reductiveChanges[0].pending.type, "change-traceSupport");
     assert.equal(reductiveChanges[0].pending.from, "trace_transaction");
     assert.equal(reductiveChanges[0].pending.to, null);
@@ -397,10 +431,10 @@ describe("buildStabilizedOutput", () => {
     const baseline: Snapshot = { "1": chain({ rpc: [DRPC_RPC, QN_RPC] }) };
     const snapshot: Snapshot = { "1": chain({ rpc: [QN_RPC] }) }; // drpc dropped
     const pending: Record<string, PendingChange> = {
-      "remove-rpc-1-drpc": {
+      [`remove-rpc-1-${DRPC_URL}`]: {
         type: "remove-rpc",
         chainId: 1,
-        provider: "drpc",
+        provider: DRPC_URL,
         consecutiveRuns: 2,
         firstSeenAt: NOW,
         lastSeenAt: NOW,
@@ -418,10 +452,10 @@ describe("buildStabilizedOutput", () => {
     const baseline: Snapshot = { "1": chain({ rpc: [DRPC_RPC, QN_RPC] }) };
     const snapshot: Snapshot = { "1": chain({ rpc: [QN_RPC] }) };
     const pending: Record<string, PendingChange> = {
-      "remove-rpc-1-drpc": {
+      [`remove-rpc-1-${DRPC_URL}`]: {
         type: "remove-rpc",
         chainId: 1,
-        provider: "drpc",
+        provider: DRPC_URL,
         consecutiveRuns: 5,
         firstSeenAt: NOW,
         lastSeenAt: NOW,
@@ -434,14 +468,35 @@ describe("buildStabilizedOutput", () => {
     assert.equal(hasdrpc, false, "drpc RPC should be absent");
   });
 
+  it("pending remove-rpc for one of two public RPCs → only that URL is restored", () => {
+    const PUBLIC_RPC_A = "https://rpc.ankr.com/eth";
+    const PUBLIC_RPC_B = "https://cloudflare-eth.com";
+    const baseline: Snapshot = { "1": chain({ rpc: [PUBLIC_RPC_A, PUBLIC_RPC_B] }) };
+    const snapshot: Snapshot = { "1": chain({ rpc: [PUBLIC_RPC_A] }) }; // B dropped
+    const pending: Record<string, PendingChange> = {
+      [`remove-rpc-1-${PUBLIC_RPC_B}`]: {
+        type: "remove-rpc",
+        chainId: 1,
+        provider: PUBLIC_RPC_B,
+        consecutiveRuns: 2,
+        firstSeenAt: NOW,
+        lastSeenAt: NOW,
+      },
+    };
+    const output = buildStabilizedOutput(baseline, snapshot, pending);
+    const urls = output["1"].rpc as string[];
+    assert.ok(urls.includes(PUBLIC_RPC_A), "A should still be present");
+    assert.ok(urls.includes(PUBLIC_RPC_B), "B should be restored");
+  });
+
   it("pending change-traceSupport (count < 5) → old value restored", () => {
     const baseline: Snapshot = { "1": chain({ rpc: [DRPC_RPC_WITH_TRACE] }) };
     const snapshot: Snapshot = { "1": chain({ rpc: [DRPC_RPC] }) }; // traceSupport dropped
     const pending: Record<string, PendingChange> = {
-      "change-traceSupport-1-drpc": {
+      [`change-traceSupport-1-${DRPC_URL}`]: {
         type: "change-traceSupport",
         chainId: 1,
-        provider: "drpc",
+        provider: DRPC_URL,
         from: "trace_transaction",
         to: null,
         consecutiveRuns: 3,
@@ -460,10 +515,10 @@ describe("buildStabilizedOutput", () => {
     const baseline: Snapshot = { "1": chain({ rpc: [DRPC_RPC_WITH_TRACE] }) };
     const snapshot: Snapshot = { "1": chain({ rpc: [DRPC_RPC] }) }; // traceSupport dropped
     const pending: Record<string, PendingChange> = {
-      "change-traceSupport-1-drpc": {
+      [`change-traceSupport-1-${DRPC_URL}`]: {
         type: "change-traceSupport",
         chainId: 1,
-        provider: "drpc",
+        provider: DRPC_URL,
         from: "trace_transaction",
         to: null,
         consecutiveRuns: 5,
@@ -708,10 +763,10 @@ describe("buildPrDescription", () => {
         firstSeenAt: NOW,
         lastSeenAt: NOW,
       },
-      "remove-rpc-2-drpc": {
+      [`remove-rpc-2-${DRPC_URL}`]: {
         type: "remove-rpc",
         chainId: 2,
-        provider: "drpc",
+        provider: DRPC_URL,
         consecutiveRuns: 3,
         firstSeenAt: NOW,
         lastSeenAt: NOW,
@@ -720,12 +775,44 @@ describe("buildPrDescription", () => {
     const desc = buildPrDescription(
       ["Added chain 100 (New)"],
       ["remove-chain-1"],
-      ["remove-rpc-2-drpc: 3/5 runs (since ...)"],
+      [`remove-rpc-2-${DRPC_URL}: 3/5 runs (since ...)`],
       pending,
     );
     assert.ok(desc.includes("Immediately included"));
     assert.ok(desc.includes("stabilization"));
     assert.ok(desc.includes("Pending"));
     assert.ok(desc.includes("🤖"));
+  });
+
+  it("reappeared deprecated chains → warning section included", () => {
+    const reappeared: ReappearedChain[] = [
+      { chainId: 5, name: "Ethereum Goerli Testnet", seenIn: ["quicknode", "drpc"] },
+    ];
+    const desc = buildPrDescription([], [], [], {}, reappeared);
+    assert.ok(desc.includes("⚠️"));
+    assert.ok(desc.includes("#5 Ethereum Goerli Testnet"));
+    assert.ok(desc.includes("quicknode, drpc"));
+    assert.ok(desc.includes("deprecated-chains.json"));
+  });
+
+  it("no reappeared chains → no warning section", () => {
+    const desc = buildPrDescription([], [], [], {}, []);
+    assert.ok(!desc.includes("⚠️"));
+  });
+
+  it("new etherscan chains with fallback key → key section included", () => {
+    const newChains: NewEtherscanChain[] = [
+      { chainId: 999, name: "Some New Chain" },
+    ];
+    const desc = buildPrDescription([], [], [], {}, [], newChains);
+    assert.ok(desc.includes("🔑"));
+    assert.ok(desc.includes("#999 Some New Chain"));
+    assert.ok(desc.includes("ETHERSCAN_API_KEY"));
+    assert.ok(desc.includes("etherscan-api-keys.json"));
+  });
+
+  it("no new etherscan chains → no key section", () => {
+    const desc = buildPrDescription([], [], [], {}, [], []);
+    assert.ok(!desc.includes("🔑"));
   });
 });

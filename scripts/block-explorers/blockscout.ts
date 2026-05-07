@@ -25,7 +25,9 @@ const BLOCKSCOUT_CHAINS_URL = "https://chains.blockscout.com/api/chains";
 export async function fetchBlockscoutChains(): Promise<
   Map<number, BlockscoutChainData>
 > {
-  const response = await fetch(BLOCKSCOUT_CHAINS_URL);
+  const response = await fetch(BLOCKSCOUT_CHAINS_URL, {
+    signal: AbortSignal.timeout(15_000),
+  });
 
   if (!response.ok) {
     throw new Error(
