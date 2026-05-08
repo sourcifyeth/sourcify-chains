@@ -401,7 +401,7 @@ async function main() {
       qnQualifies || drpcQualifies || !!etherscan || blockscout?.hostedBy === "blockscout" || !!override;
     if (!hasActiveSource) continue;
 
-    const sourcifyName = override?.sourcifyName ?? meta?.name ?? `Chain ${chainId}`;
+    const sourcifyName = override?.sourcifyName ?? meta?.name ?? blockscout?.name ?? `Chain ${chainId}`;
 
     // Build RPC list
     const rpcs: Array<string | RpcEntry> = [];
