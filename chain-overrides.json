@@ -323,6 +323,7 @@
     "sourcifyName": "Tempo Mainnet"
   },
   "223": {
+    "sourcifyName": "B2 Mainnet",
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://mainnet-backend.bsquared.network"
@@ -337,6 +338,7 @@
     }
   },
   "3111": {
+    "sourcifyName": "Alpha Chain Mainnet",
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://scan.goalpha.org"
@@ -344,6 +346,7 @@
     }
   },
   "4114": {
+    "sourcifyName": "Citrea Mainnet",
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://explorer.mainnet.citrea.xyz"
@@ -351,6 +354,7 @@
     }
   },
   "5115": {
+    "sourcifyName": "Citrea Testnet",
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://explorer.testnet.citrea.xyz"
@@ -372,6 +376,7 @@
     }
   },
   "205205": {
+    "sourcifyName": "Auroria Testnet",
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://auroria.explorer.xertra.com"
@@ -379,6 +384,7 @@
     }
   },
   "511111": {
+    "sourcifyName": "Alpha Chain Testnet",
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://testnet-scan.goalpha.org"
@@ -407,6 +413,7 @@
     }
   },
   "21000000": {
+    "sourcifyName": "Corn Mainnet",
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://maizenet-explorer.usecorn.com"
