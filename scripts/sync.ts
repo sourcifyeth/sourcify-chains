@@ -505,6 +505,7 @@ export function buildPrDescription(
   pendingChanges: Record<string, PendingChange>,
   reappearedDeprecated: ReappearedChain[] = [],
   newEtherscanChains: NewEtherscanChain[] = [],
+  chainNames: Map<number, string> = new Map(),
 ): string {
   const lines: string[] = ["## Changes", ""];
 
@@ -518,7 +519,8 @@ export function buildPrDescription(
     lines.push(`### Included after stabilization (${THRESHOLD} consecutive runs)`);
     for (const key of stabilized) {
       const entry = pendingChanges[key];
-      lines.push(`- ${key}: stable since ${entry.firstSeenAt}`);
+      const name = chainNames.get(entry.chainId) ?? `Chain ${entry.chainId}`;
+      lines.push(`- #${entry.chainId} ${name} — ${key}: stable since ${entry.firstSeenAt}`);
     }
     lines.push("");
   }
@@ -530,7 +532,13 @@ export function buildPrDescription(
 
   if (pendingSummary.length > 0) {
     lines.push("### Pending (tracking, not yet included)");
-    for (const summary of pendingSummary) lines.push(`- ${summary}`);
+    const stabilizedSet = new Set(stabilized);
+    for (const [key, entry] of Object.entries(pendingChanges)) {
+      if (!stabilizedSet.has(key)) {
+        const name = chainNames.get(entry.chainId) ?? `Chain ${entry.chainId}`;
+        lines.push(`- #${entry.chainId} ${name} — ${key}: ${entry.consecutiveRuns}/${THRESHOLD} runs (since ${entry.firstSeenAt})`);
+      }
+    }
     lines.push("");
   }
 
@@ -672,7 +680,13 @@ async function main() {
     }
   }
 
-  const prDesc = buildPrDescription(addDescriptions, stabilized, pendingSummary, updatedHistory.pendingChanges, reappearedDeprecated, newEtherscanChains);
+  const chainNames = new Map<number, string>();
+  for (const [id, chain] of Object.entries(baseline)) chainNames.set(Number(id), chain.sourcifyName);
+  for (const [id, chain] of Object.entries(snapshot)) {
+    if (!chainNames.has(Number(id))) chainNames.set(Number(id), chain.sourcifyName);
+  }
+
+  const prDesc = buildPrDescription(addDescriptions, stabilized, pendingSummary, updatedHistory.pendingChanges, reappearedDeprecated, newEtherscanChains, chainNames);
   fs.writeFileSync(outputDescPath, prDesc);
   console.log(`Wrote pr-description.txt`);
 
