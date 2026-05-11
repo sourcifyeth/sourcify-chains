@@ -72,18 +72,20 @@ Override or extend fields for any chain. A chain-overrides entry alone is suffic
           { "headerName": "CF-Access-Client-Secret", "headerEnvName": "CF_ACCESS_CLIENT_SECRET" }
         ]
       }
-    ]
+    ],
+    "hidden": true
   }
 }
 ```
 
 Allowed fields per entry:
 
-| Field                          | Description                                                               |
-| ------------------------------ | ------------------------------------------------------------------------- |
-| `sourcifyName`                 | Display name (overrides chainid.network name)                             |
-| `fetchContractCreationTxUsing` | Additional fetch methods (`avalancheApi`, `telosApi`, etc.)               |
-| `rpc`                          | RPCs defined here have higher priority than auto-discovered provider RPCs |
+| Field                          | Description                                                                                                                                                                            |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sourcifyName`                 | Display name (overrides chainid.network name)                                                                                                                                          |
+| `fetchContractCreationTxUsing` | Additional fetch methods (`avalancheApi`, `telosApi`, etc.)                                                                                                                            |
+| `rpc`                          | RPCs defined here have higher priority than auto-discovered provider RPCs                                                                                                              |
+| `hidden`                       | If `true`, the chain is omitted from `GET /chains` and from `GET /v2/contract/all-chains/:address` on the Sourcify server. Verification and explicit per-`chainId` lookups still work. |
 
 ### `additional-chains.json`
 
@@ -232,9 +234,9 @@ External APIs are flaky — dRPC sometimes drops chains, Routescan is inconsiste
 
 `scripts/sync.ts` sits between `generate.ts` and the PR step. It applies a **consecutive-run threshold** before including reductive changes:
 
-| Change type | Threshold |
-|---|---|
-| New chain, new RPC, new traceSupport, new fetchUsing key, new etherscanApi, new discoveredBy source | **Immediate** (1 run) |
+| Change type                                                                                                                                          | Threshold              |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| New chain, new RPC, new traceSupport, new fetchUsing key, new etherscanApi, new discoveredBy source                                                  | **Immediate** (1 run)  |
 | Chain removed, RPC removed, traceSupport changed/removed, fetchUsing key removed or value changed, etherscanApi removed, discoveredBy source removed | **5 consecutive runs** |
 
 If a reductive change disappears between runs (API flake recovered), its counter resets and it is not included.
