@@ -253,8 +253,8 @@
       "drpc"
     ],
     "fetchContractCreationTxUsing": {
-      "telosApi": {
-        "url": "https://api.teloscan.io/"
+      "blockscoutApi": {
+        "url": "https://teloscan.io/"
       }
     },
     "rpc": [

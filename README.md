@@ -83,7 +83,7 @@ Allowed fields per entry:
 | Field                          | Description                                                                                                                                                                            |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sourcifyName`                 | Display name (overrides chainid.network name)                                                                                                                                          |
-| `fetchContractCreationTxUsing` | Additional fetch methods (`avalancheApi`, `telosApi`, etc.)                                                                                                                            |
+| `fetchContractCreationTxUsing` | Additional fetch methods (`blockscoutApi`, `avalancheApi`, etc.)                                                                                                                       |
 | `rpc`                          | RPCs defined here have higher priority than auto-discovered provider RPCs                                                                                                              |
 | `hidden`                       | If `true`, the chain is omitted from `GET /chains` and from `GET /v2/contract/all-chains/:address` on the Sourcify server. Verification and explicit per-`chainId` lookups still work. |
 

@@ -88,8 +88,8 @@
   "40": {
     "sourcifyName": "Telos Mainnet",
     "fetchContractCreationTxUsing": {
-      "telosApi": {
-        "url": "https://api.teloscan.io/"
+      "blockscoutApi": {
+        "url": "https://teloscan.io/"
       }
     }
   },
