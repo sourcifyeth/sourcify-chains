@@ -290,3 +290,59 @@ npm run generate
 `QUICKNODE_CONSOLE_API_KEY` is required to fetch the chain list. The RPC keys (`QUICKNODE_API_KEY`, `QUICKNODE_SUBDOMAIN`, `DRPC_API_KEY`) are optional — without them, probing is skipped and no `traceSupport` is set on provider RPCs.
 
 The script probes all QuickNode and dRPC chains, writes `sourcify-chains-default.json`, and prints a summary.
+
+## Running the integration tests locally
+
+`tests/chain-tests.test.ts` and `tests/etherscan-instances.test.ts` exercise the chain configs against a real Sourcify server running in Docker. Requires Node 22+ and Docker.
+
+### 1. Provide secrets
+
+Copy the template and fill in your keys:
+
+```bash
+cp .secrets.dev .secrets
+```
+
+`DRPC_API_KEY` and `QUICKNODE_API_KEY` are required (the server crashes on startup without them). `ETHERSCAN_API_KEY` is recommended; it is the fallback for every chain's Etherscan-family explorer.
+
+### 2a. Run tests directly (faster)
+
+Start postgres + sourcify, then run the tests from your shell:
+
+```bash
+# Load secrets into your shell so docker compose can interpolate them
+set -a; source .secrets; set +a
+
+# Start the stack
+docker compose -f tests/docker-compose.yml up -d postgres
+bash tests/migrate.sh
+docker compose -f tests/docker-compose.yml up -d sourcify
+
+# Run all chains (slow: ~30 min) or scope to one
+npm run test:integration
+NEW_CHAIN_ID=1 npm run test:integration:chain   # smoke test against Ethereum mainnet
+
+# Clean up
+docker compose -f tests/docker-compose.yml down -v
+```
+
+### 2b. Run via [act](https://github.com/nektos/act) (matches CI)
+
+Runs the actual `integration-tests.yml` workflow locally in a containerized GitHub Actions runner. Slower but verifies the workflow itself.
+
+```bash
+act workflow_dispatch \
+  -W .github/workflows/integration-tests.yml \
+  -j integration \
+  --container-architecture linux/amd64 \
+  -P ubuntu-latest=catthehacker/ubuntu:act-latest \
+  --bind \
+  --secret-file .secrets \
+  --env SOURCIFY_BASE_URL=http://host.docker.internal:5555
+```
+
+Notes:
+
+- On macOS, enable **Settings → Advanced → "Allow the default Docker socket to be used"** in Docker Desktop so act can find `/var/run/docker.sock`.
+- The `--env SOURCIFY_BASE_URL=http://host.docker.internal:5555` is macOS-specific: Docker Desktop's VM doesn't share a network namespace with the act runner, so `localhost` from inside the runner can't reach the sourcify container. On Linux this flag isn't needed.
+- The act run does `npm ci` inside a Linux container against the bind-mounted `node_modules`, overwriting platform-specific binaries (e.g. `esbuild`). After an act run, `npm install` on the host to restore your `darwin-arm64`/`darwin-x64` binaries before invoking other npm scripts.
