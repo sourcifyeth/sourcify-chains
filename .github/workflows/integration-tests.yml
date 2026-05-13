@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: "0 2,14 * * *" # twice daily: 02:00 and 14:00 UTC
   workflow_dispatch: {}
+  # TODO: remove before merge — temporary trigger to validate the workflow
+  # runs on real GitHub Actions before merging to main.
+  pull_request: {}
 
 jobs:
   integration:
