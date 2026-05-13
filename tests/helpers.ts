@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-export const BASE_URL = "http://localhost:5555";
+export const BASE_URL = process.env.SOURCIFY_BASE_URL ?? "http://localhost:5555";
 export const POLL_INTERVAL = 3000;
 export const CONCURRENCY = 20;
 
