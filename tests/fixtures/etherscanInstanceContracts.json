@@ -654,5 +654,12 @@
       "type": "standard-json",
       "expectedStatus": "partial"
     }
+  ],
+  "737373": [
+    {
+      "address": "0xC8B5D93463c893401094cc70e66A206fb5987997",
+      "type": "standard-json",
+      "expectedStatus": "perfect"
+    }
   ]
 }
