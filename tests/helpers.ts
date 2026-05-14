@@ -17,6 +17,7 @@ export const MULTICALL3_DEPLOYMENTS_URL =
 
 export interface ChainEntry {
   supported: boolean;
+  discoveredBy?: string[];
   etherscanApi?: { supported?: boolean };
   [key: string]: unknown;
 }

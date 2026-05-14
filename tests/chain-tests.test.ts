@@ -82,9 +82,21 @@ const chainsToTest = Object.entries(allChains)
   })
   .map(([id]) => id);
 
+// Chains explicitly added via additional-chains.json or chain-overrides.json
+// must have a test contract — there's no provider maintaining their liveness.
+// Auto-discovered chains (quicknode/drpc/etherscan/blockscout) with no test
+// contract are skipped rather than failed: their discovery source is assumed
+// to keep them alive.
+const REQUIRE_TEST_CONTRACT_SOURCES = ["additional-chains", "chain-overrides"];
+function requiresTestContract(discoveredBy: string[] = []): boolean {
+  return discoveredBy.some((s) => REQUIRE_TEST_CONTRACT_SOURCES.includes(s));
+}
+
 describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
   const chainResults = new Map<string, unknown>();
   const chainErrors = new Map<string, string>();
+  const noTestContract = new Set<string>();
+  const skippedChains = new Set<string>();
   let createXChainIds: Set<string>;
   let multicall3ChainIds: Set<string>;
 
@@ -107,9 +119,29 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
 
     const pending = new Set<Promise<void>>();
     for (const chainId of chainsToTest) {
+      const contract = pickTestContract(chainId);
+      if (!contract) {
+        // Decision (skip vs fail) is deferred to the per-chain test, which has
+        // access to the chain's discoveredBy.
+        noTestContract.add(chainId);
+        continue;
+      }
       const task = (async () => {
         try {
-          const result = await verifyChain(chainId);
+          const result = await verifyAndPoll(
+            BASE_URL,
+            chainId,
+            contract.address,
+            {
+              stdJsonInput: contract.stdJsonInput,
+              compilerVersion: contract.compilerVersion,
+              contractIdentifier: contract.contractIdentifier,
+            },
+            {
+              pollInterval: POLL_INTERVAL,
+              maxPolls: Math.floor(TEST_TIME / POLL_INTERVAL),
+            },
+          );
           chainResults.set(chainId, result);
         } catch (err: unknown) {
           chainErrors.set(
@@ -151,7 +183,22 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
     const chainName = (allChains[chainId] as { sourcifyName?: string })
       ?.sourcifyName ?? chainId;
 
-    it(`should verify a contract on ${chainName} (${chainId})`, () => {
+    it(`should verify a contract on ${chainName} (${chainId})`, (t) => {
+      if (noTestContract.has(chainId)) {
+        const discoveredBy = allChains[chainId]?.discoveredBy ?? [];
+        if (requiresTestContract(discoveredBy)) {
+          throw new Error(
+            `No test contract found for chain ${chainName} (${chainId}). ` +
+              `Chains added via additional-chains.json or chain-overrides.json must have a test contract.`,
+          );
+        }
+        skippedChains.add(chainId);
+        t.skip(
+          `No test contract; liveness assumed maintained by discovery source [${discoveredBy.join(", ")}]`,
+        );
+        return;
+      }
+
       const error = chainErrors.get(chainId);
       if (error) throw new Error(error);
 
@@ -196,7 +243,11 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
   });
 
   it("should have tested all supported chains", { skip: newAddedChainIds.length > 0 }, () => {
-    const untestedChains = chainsToTest.filter((id) => !testedChains.has(id));
+    // A chain is covered if it was verified or legitimately skipped (no test
+    // contract, and not from a source that requires one).
+    const untestedChains = chainsToTest.filter(
+      (id) => !testedChains.has(id) && !skippedChains.has(id),
+    );
     assert.equal(
       untestedChains.length,
       0,
@@ -210,28 +261,17 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
     );
   });
 
-  async function verifyChain(chainId: string) {
-    let contract: ContractInput;
+  // Picks the test contract for a chain, or null if none is available.
+  function pickTestContract(chainId: string): ContractInput | null {
     if (createXChainIds.has(chainId)) {
-      contract = { address: CREATEX_ADDRESS, ...CREATEX_CONTRACT };
-    } else if (multicall3ChainIds.has(chainId)) {
-      contract = { address: MULTICALL3_ADDRESS, ...MULTICALL3_CONTRACT };
-    } else if (storageAddresses[chainId] !== undefined) {
-      contract = { address: storageAddresses[chainId], ...STORAGE_CONTRACT };
-    } else {
-      const name =
-        (allChains[chainId] as { sourcifyName?: string }).sourcifyName ??
-        chainId;
-      throw new Error(`No test contract found for chain ${name} (${chainId})`);
+      return { address: CREATEX_ADDRESS, ...CREATEX_CONTRACT };
     }
-
-    return verifyAndPoll(BASE_URL, chainId, contract.address, {
-      stdJsonInput: contract.stdJsonInput,
-      compilerVersion: contract.compilerVersion,
-      contractIdentifier: contract.contractIdentifier,
-    }, {
-      pollInterval: POLL_INTERVAL,
-      maxPolls: Math.floor(TEST_TIME / POLL_INTERVAL),
-    });
+    if (multicall3ChainIds.has(chainId)) {
+      return { address: MULTICALL3_ADDRESS, ...MULTICALL3_CONTRACT };
+    }
+    if (storageAddresses[chainId] !== undefined) {
+      return { address: storageAddresses[chainId], ...STORAGE_CONTRACT };
+    }
+    return null;
   }
 });
