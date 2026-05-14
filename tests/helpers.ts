@@ -45,7 +45,47 @@ export async function waitForServer(
   throw new Error(`Server at ${baseUrl} did not become healthy within ${timeoutMs}ms`);
 }
 
+const RATE_LIMIT_PATTERN = /etherscan_limit|rate limit reached|rate limit/i;
+const MAX_RATE_LIMIT_RETRIES = 5;
+const RATE_LIMIT_RETRY_BASE_MS = 2000;
+
+class RateLimitError extends Error {}
+
+// Both suites share one Etherscan API key — the chain suite hits Etherscan for
+// creation-tx lookups, the etherscan suite for source imports — so transient
+// rate-limit errors are expected under load. Retry with exponential backoff
+// (2s, 4s, 8s, 16s, 32s) on rate-limit errors only; other errors propagate.
+async function retryOnRateLimit<T>(fn: () => Promise<T>): Promise<T> {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      if (
+        !(err instanceof RateLimitError) ||
+        attempt >= MAX_RATE_LIMIT_RETRIES
+      ) {
+        throw err;
+      }
+      await new Promise((r) =>
+        setTimeout(r, RATE_LIMIT_RETRY_BASE_MS * 2 ** attempt),
+      );
+    }
+  }
+}
+
 export async function verifyAndPoll(
+  baseUrl: string,
+  chainId: string,
+  address: string,
+  body: Record<string, unknown>,
+  opts: { pollInterval?: number; maxPolls?: number } = {},
+): Promise<{ isJobCompleted: boolean; contract?: unknown; error?: unknown }> {
+  return retryOnRateLimit(() =>
+    verifyAndPollOnce(baseUrl, chainId, address, body, opts),
+  );
+}
+
+async function verifyAndPollOnce(
   baseUrl: string,
   chainId: string,
   address: string,
@@ -62,6 +102,9 @@ export async function verifyAndPoll(
 
   if (!verifyRes.ok && verifyRes.status !== 202) {
     const text = await verifyRes.text();
+    if (verifyRes.status === 429 || RATE_LIMIT_PATTERN.test(text)) {
+      throw new RateLimitError(`POST /v2/verify rate limited: ${text}`);
+    }
     throw new Error(`POST /v2/verify returned ${verifyRes.status}: ${text}`);
   }
 
@@ -78,10 +121,32 @@ export async function verifyAndPoll(
     polls++;
   } while (!jobBody.isJobCompleted && polls < maxPolls);
 
+  // The creation-tx lookup runs server-side in the worker, so an Etherscan
+  // rate limit there surfaces in the completed job's error, not the POST.
+  if (
+    jobBody.isJobCompleted &&
+    RATE_LIMIT_PATTERN.test(JSON.stringify(jobBody.error ?? ""))
+  ) {
+    throw new RateLimitError(
+      `Verification job rate limited: ${JSON.stringify(jobBody.error)}`,
+    );
+  }
+
   return jobBody;
 }
 
 export async function etherscanVerifyAndPoll(
+  baseUrl: string,
+  chainId: string,
+  address: string,
+  opts: { pollInterval?: number; maxPolls?: number } = {},
+): Promise<{ isJobCompleted: boolean; contract?: unknown; error?: unknown }> {
+  return retryOnRateLimit(() =>
+    etherscanVerifyAndPollOnce(baseUrl, chainId, address, opts),
+  );
+}
+
+async function etherscanVerifyAndPollOnce(
   baseUrl: string,
   chainId: string,
   address: string,
@@ -100,6 +165,11 @@ export async function etherscanVerifyAndPoll(
 
   if (!verifyRes.ok && verifyRes.status !== 202) {
     const text = await verifyRes.text();
+    if (verifyRes.status === 429 || RATE_LIMIT_PATTERN.test(text)) {
+      throw new RateLimitError(
+        `POST /v2/verify/etherscan rate limited: ${text}`,
+      );
+    }
     throw new Error(
       `POST /v2/verify/etherscan returned ${verifyRes.status}: ${text}`,
     );

@@ -28,10 +28,11 @@ if (process.env.NEW_CHAIN_ID) {
 }
 
 // Etherscan allows 5 req/s per API key. Each POST /v2/verify/etherscan makes
-// exactly one Etherscan call (getsourcecode) before returning; the polling
-// afterwards only hits the Sourcify server. Spacing verification starts
-// >= 250ms apart keeps the server's Etherscan usage at ~4 req/s.
-const ETHERSCAN_MIN_START_INTERVAL_MS = 250;
+// one Etherscan call (getsourcecode) before returning; polling afterwards only
+// hits the Sourcify server. 400ms spacing (~2.5 req/s) leaves headroom for the
+// chain suite, which shares the same key. retryOnRateLimit in helpers.ts
+// absorbs whatever still slips through.
+const ETHERSCAN_MIN_START_INTERVAL_MS = 400;
 let nextStartSlot = 0;
 async function rateLimitedStart(): Promise<void> {
   const now = Date.now();
