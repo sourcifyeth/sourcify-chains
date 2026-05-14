@@ -234,12 +234,6 @@
       "wss://metis.drpc.org"
     ]
   },
-  "42429": {
-    "sourcifyName": "Tempo Testnet (Andantino)",
-    "rpc": [
-      "https://rpc.testnet.tempo.xyz"
-    ]
-  },
   "190415": {
     "sourcifyName": "HPP Mainnet",
     "rpc": [
