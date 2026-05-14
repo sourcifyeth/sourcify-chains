@@ -109,7 +109,7 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
   const noTestContract = new Set<string>();
   const skippedChains = new Set<string>();
   let createXChainIds: Set<string>;
-  let multicall3ChainIds: Set<string>;
+  let multicall3Addresses: Map<string, string>;
   let safeFactoryChainIds: Set<string>;
 
   before(async () => {
@@ -122,7 +122,8 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
       chainId: string;
     }[];
     const multicall3Deployments = (await multicall3Res.json()) as {
-      chainId: string;
+      chainId: number | string;
+      address?: string;
     }[];
     // safe-deployments maps each chainId to one or more deployment "types"
     // (canonical/eip155/zksync); the type's address lives under `deployments`.
@@ -136,9 +137,16 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
     )?.[0];
 
     createXChainIds = new Set(createXDeployments.map((d) => d.chainId.toString()));
-    multicall3ChainIds = new Set(
-      multicall3Deployments.map((d) => d.chainId.toString()),
-    );
+    // Most chains use the canonical Multicall3 address, but some (zkSync-stack,
+    // Abstract, …) carry a chain-specific `address`. Non-EVM addresses (Tron's
+    // base58, Conflux Core's cfx:) can't be verified — skip those chains.
+    multicall3Addresses = new Map();
+    for (const d of multicall3Deployments) {
+      const address = d.address ?? MULTICALL3_ADDRESS;
+      if (/^0x[0-9a-fA-F]{40}$/.test(address)) {
+        multicall3Addresses.set(d.chainId.toString(), address);
+      }
+    }
     safeFactoryChainIds = new Set(
       safeTargetType
         ? Object.entries(safeDeployment.networkAddresses)
@@ -298,8 +306,9 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
     if (createXChainIds.has(chainId)) {
       return { address: CREATEX_ADDRESS, ...CREATEX_CONTRACT };
     }
-    if (multicall3ChainIds.has(chainId)) {
-      return { address: MULTICALL3_ADDRESS, ...MULTICALL3_CONTRACT };
+    const multicall3Address = multicall3Addresses.get(chainId);
+    if (multicall3Address) {
+      return { address: multicall3Address, ...MULTICALL3_CONTRACT };
     }
     if (safeFactoryChainIds.has(chainId)) {
       return { address: SAFE_FACTORY_ADDRESS, ...SAFE_FACTORY_CONTRACT };
