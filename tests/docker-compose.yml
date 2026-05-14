@@ -36,6 +36,7 @@ services:
       # chain-specific ETHERSCAN_API_KEY_<CHAIN> isn't set).
       DRPC_API_KEY: ${DRPC_API_KEY:-}
       QUICKNODE_API_KEY: ${QUICKNODE_API_KEY:-}
+      QUICKNODE_SUBDOMAIN: ${QUICKNODE_SUBDOMAIN:-}
       ETHERSCAN_API_KEY: ${ETHERSCAN_API_KEY:-}
     ports:
       - "5555:5555"

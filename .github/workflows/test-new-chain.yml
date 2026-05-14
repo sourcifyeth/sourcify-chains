@@ -67,6 +67,7 @@ jobs:
         env:
           DRPC_API_KEY: ${{ secrets.DRPC_API_KEY }}
           QUICKNODE_API_KEY: ${{ secrets.QUICKNODE_API_KEY }}
+          QUICKNODE_SUBDOMAIN: ${{ secrets.QUICKNODE_SUBDOMAIN }}
           ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
 
       - name: Wait for Sourcify server
