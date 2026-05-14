@@ -48,11 +48,16 @@ jobs:
             sleep 1
           done
 
-      # Preinstalled on GitHub-hosted `ubuntu-latest`, but the slim
-      # `catthehacker/ubuntu:act-latest` image used by `act` (for local CI runs)
-      # ships without it. Idempotent on real CI.
-      - name: Install PostgreSQL client
-        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+      # Preinstalled on GitHub-hosted `ubuntu-latest`; only installs in the
+      # slim `catthehacker/ubuntu:act-latest` image used by `act` for local
+      # CI runs. The presence check skips `apt-get update` on real CI
+      # (which would otherwise add ~2 min per run).
+      - name: Install PostgreSQL client (if missing)
+        run: |
+          if ! command -v psql >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y postgresql-client
+          fi
 
       - name: Apply schema
         run: bash tests/migrate.sh
@@ -66,10 +71,7 @@ jobs:
 
       - name: Wait for Sourcify server
         run: |
-          until curl -fsS "${SOURCIFY_BASE_URL:-http://localhost:5555}/health"; do
-            sleep 2
-          done
-        timeout-minutes: 2
+          timeout 30 bash -c 'until curl -fsS "${SOURCIFY_BASE_URL:-http://localhost:5555}/health"; do sleep 2; done'
 
       - name: Run chain tests for new chain(s)
         run: npm run test:integration:chain
