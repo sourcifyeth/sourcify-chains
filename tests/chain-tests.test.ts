@@ -12,6 +12,8 @@ import {
   MULTICALL3_ADDRESS,
   MULTICALL3_DEPLOYMENTS_URL,
   POLL_INTERVAL,
+  SAFE_FACTORY_ADDRESS,
+  SAFE_FACTORY_DEPLOYMENTS_URL,
   toMatchLevel,
   verifyAndPoll,
 } from "./helpers.js";
@@ -25,6 +27,9 @@ const createXInput = JSON.parse(
 ) as object;
 const multicallInput = JSON.parse(
   readFileSync(resolve(__dirname, "fixtures/multicall.input.json"), "utf8"),
+) as object;
+const safeFactoryInput = JSON.parse(
+  readFileSync(resolve(__dirname, "fixtures/safeFactory.input.json"), "utf8"),
 ) as object;
 const storageInput = JSON.parse(
   readFileSync(resolve(__dirname, "fixtures/storage.input.json"), "utf8"),
@@ -59,6 +64,12 @@ const MULTICALL3_CONTRACT: Omit<ContractInput, "address"> = {
   stdJsonInput: multicallInput,
   compilerVersion: "0.8.12+commit.f00d7308",
   contractIdentifier: "Multicall3.sol:Multicall3",
+};
+
+const SAFE_FACTORY_CONTRACT: Omit<ContractInput, "address"> = {
+  stdJsonInput: safeFactoryInput,
+  compilerVersion: "0.7.6+commit.7338295f",
+  contractIdentifier: "contracts/proxies/SafeProxyFactory.sol:SafeProxyFactory",
 };
 
 const STORAGE_CONTRACT: Omit<ContractInput, "address"> = {
@@ -99,11 +110,13 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
   const skippedChains = new Set<string>();
   let createXChainIds: Set<string>;
   let multicall3ChainIds: Set<string>;
+  let safeFactoryChainIds: Set<string>;
 
   before(async () => {
-    const [createXRes, multicall3Res] = await Promise.all([
+    const [createXRes, multicall3Res, safeFactoryRes] = await Promise.all([
       fetch(CREATEX_DEPLOYMENTS_URL),
       fetch(MULTICALL3_DEPLOYMENTS_URL),
+      fetch(SAFE_FACTORY_DEPLOYMENTS_URL),
     ]);
     const createXDeployments = (await createXRes.json()) as {
       chainId: string;
@@ -111,10 +124,29 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
     const multicall3Deployments = (await multicall3Res.json()) as {
       chainId: string;
     }[];
+    // safe-deployments maps each chainId to one or more deployment "types"
+    // (canonical/eip155/zksync); the type's address lives under `deployments`.
+    // Collect the chains whose type resolves to SAFE_FACTORY_ADDRESS.
+    const safeDeployment = (await safeFactoryRes.json()) as {
+      deployments: Record<string, { address: string }>;
+      networkAddresses: Record<string, string | string[]>;
+    };
+    const safeTargetType = Object.entries(safeDeployment.deployments).find(
+      ([, info]) => info.address === SAFE_FACTORY_ADDRESS,
+    )?.[0];
 
     createXChainIds = new Set(createXDeployments.map((d) => d.chainId.toString()));
     multicall3ChainIds = new Set(
       multicall3Deployments.map((d) => d.chainId.toString()),
+    );
+    safeFactoryChainIds = new Set(
+      safeTargetType
+        ? Object.entries(safeDeployment.networkAddresses)
+            .filter(([, types]) =>
+              (Array.isArray(types) ? types : [types]).includes(safeTargetType),
+            )
+            .map(([chainId]) => chainId)
+        : [],
     );
 
     const pending = new Set<Promise<void>>();
@@ -268,6 +300,9 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
     }
     if (multicall3ChainIds.has(chainId)) {
       return { address: MULTICALL3_ADDRESS, ...MULTICALL3_CONTRACT };
+    }
+    if (safeFactoryChainIds.has(chainId)) {
+      return { address: SAFE_FACTORY_ADDRESS, ...SAFE_FACTORY_CONTRACT };
     }
     if (storageAddresses[chainId] !== undefined) {
       return { address: storageAddresses[chainId], ...STORAGE_CONTRACT };

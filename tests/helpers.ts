@@ -10,10 +10,14 @@ export const CONCURRENCY = 20;
 
 export const CREATEX_ADDRESS = "0xba5Ed099633D3B313e4D5F7bdc1305d3c28ba5Ed";
 export const MULTICALL3_ADDRESS = "0xcA11bde05977b3631167028862bE2a173976CA11";
+// Safe v1.4.1 SafeProxyFactory — canonical address, deployed on many chains
+export const SAFE_FACTORY_ADDRESS = "0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67";
 export const CREATEX_DEPLOYMENTS_URL =
   "https://raw.githubusercontent.com/pcaversaccio/createx/refs/heads/main/deployments/deployments.json";
 export const MULTICALL3_DEPLOYMENTS_URL =
   "https://raw.githubusercontent.com/mds1/multicall3/refs/heads/main/deployments.json";
+export const SAFE_FACTORY_DEPLOYMENTS_URL =
+  "https://raw.githubusercontent.com/safe-global/safe-deployments/main/src/assets/v1.4.1/safe_proxy_factory.json";
 
 export interface ChainEntry {
   supported: boolean;
