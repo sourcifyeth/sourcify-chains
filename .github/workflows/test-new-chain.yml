@@ -79,6 +79,25 @@ jobs:
           NEW_CHAIN_ID: ${{ steps.extract-chains.outputs.new_chain_id }}
           TEST_TIME: "120000"
 
+      # Writes a results table to the job summary and (on PRs) a check run with
+      # per-test annotations. Pinned to a commit SHA, not a tag, since tags are
+      # mutable. SHA = v6.4.0.
+      - name: Publish test report
+        if: always()
+        uses: mikepenz/action-junit-report@bccf2e31636835cf0874589931c4116687171386 # v6.4.0
+        with:
+          report_paths: "junit-*.xml"
+          check_name: "New chain test results"
+          detailed_summary: true
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit-results
+          path: junit-*.xml
+          if-no-files-found: warn
+
       - name: Dump sourcify logs on failure
         if: failure()
         run: docker compose -f tests/docker-compose.yml logs sourcify
