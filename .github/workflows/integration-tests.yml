@@ -66,9 +66,13 @@ jobs:
       # sequentially after both finish to avoid interleaved output. JUnit
       # files are still produced separately (junit-chain.xml, junit-etherscan.xml)
       # so the report step works unchanged.
+      # `shell: bash {0}` (no -e) so the script doesn't abort at `wait` when a
+      # background test exits non-zero — we want to fall through to the cat/log
+      # blocks and emit a clear exit status at the end.
       - name: Run integration tests in parallel
+        shell: bash {0}
         env:
-          TEST_TIME: "120000"
+          TEST_TIME: "180000"
         run: |
           npm run test:integration:chain     > chain.log 2>&1 & CHAIN_PID=$!
           npm run test:integration:etherscan > eth.log   2>&1 & ETH_PID=$!
@@ -101,9 +105,20 @@ jobs:
           path: junit-*.xml
           if-no-files-found: warn
 
+      # Write the full server log to a file and upload it as an artifact.
+      # Earlier runs dumped to stdout and the step output got truncated, hiding
+      # the failure window entirely. Artifacts have no per-step size cap.
       - name: Dump sourcify logs on failure
         if: failure()
-        run: docker compose -f tests/docker-compose.yml logs sourcify
+        run: docker compose -f tests/docker-compose.yml logs --no-color sourcify > sourcify.log
+
+      - name: Upload sourcify logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sourcify-server-log
+          path: sourcify.log
+          if-no-files-found: warn
 
       - name: Tear down
         if: always()
