@@ -1,36 +1,40 @@
 name: Test New Chain
 
-# Runs on PRs that touch chain-overrides.json or additional-chains.json.
-# Extracts added/modified chainIds from the diff and runs only those chains.
+# Runs on PRs whose branch is named `add-chain-<chainId>` (single chain) or
+# `add-chain-<id1>-<id2>-<id3>` (multiple chains). The chainIds are parsed
+# straight from the branch name — no diff-grep heuristic.
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    paths:
-      - chain-overrides.json
-      - additional-chains.json
 
 jobs:
   test-new-chain:
+    if: startsWith(github.head_ref, 'add-chain-')
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Extract new chain IDs from PR diff
+      - name: Parse chain IDs from branch name
         id: extract-chains
         run: |
-          NEW_CHAIN_ID=$(
-            git diff "origin/${{ github.base_ref }}...HEAD" -- chain-overrides.json additional-chains.json \
-            | grep '^+' \
-            | grep -oE '"[0-9]+"' \
-            | tr -d '"' \
-            | sort -u \
-            | paste -sd ',' -
-          )
-          echo "NEW_CHAIN_ID=${NEW_CHAIN_ID}"
-          echo "new_chain_id=${NEW_CHAIN_ID}" >> "$GITHUB_OUTPUT"
+          SUFFIX="${GITHUB_HEAD_REF#add-chain-}"
+          if [ -z "$SUFFIX" ]; then
+            echo "Branch '$GITHUB_HEAD_REF' has no chainId after 'add-chain-' prefix"
+            exit 1
+          fi
+          # Split on '-' and validate each piece is purely numeric
+          NEW_CHAIN_ID=""
+          IFS='-' read -ra IDS <<< "$SUFFIX"
+          for id in "${IDS[@]}"; do
+            if ! [[ "$id" =~ ^[0-9]+$ ]]; then
+              echo "Invalid chainId '$id' in branch '$GITHUB_HEAD_REF' — each segment after 'add-chain-' must be a positive integer"
+              exit 1
+            fi
+            NEW_CHAIN_ID="${NEW_CHAIN_ID:+$NEW_CHAIN_ID,}$id"
+          done
+          echo "NEW_CHAIN_ID=$NEW_CHAIN_ID"
+          echo "new_chain_id=$NEW_CHAIN_ID" >> "$GITHUB_OUTPUT"
 
       - uses: actions/setup-node@v4
         with:

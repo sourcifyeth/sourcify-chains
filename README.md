@@ -214,6 +214,8 @@ If the chain needs only a name and no custom config, add it to `additional-chain
 
 If the chain also needs custom RPCs or other config, add it to `chain-overrides.json` instead — a chain-overrides entry alone is sufficient to include a chain.
 
+When opening the PR, name the branch `add-chain-<chainId>` (e.g. `add-chain-42429`) so the `Test New Chain` workflow runs the integration test for just that chain. For multiple chains in one PR, separate IDs with `-` (e.g. `add-chain-1111-2222-3333` → tests chains `1111,2222,3333`). PRs on branches without the prefix don't trigger this workflow.
+
 ### Deprecating a chain
 
 Add the chain ID and name to `deprecated-chains.json`. If the chain is also in `additional-chains.json`, remove it from there too.
