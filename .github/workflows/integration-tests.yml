@@ -57,22 +57,30 @@ jobs:
         run: |
           timeout 30 bash -c 'until curl -fsS "${SOURCIFY_BASE_URL:-http://localhost:5555}/health"; do sleep 2; done'
 
-      - name: Run chain verification tests
-        run: npm run test:integration:chain
+      # Run both suites concurrently to ~halve wall-time. Both share one
+      # Etherscan API key (5 req/s); the chain suite calls Etherscan for
+      # creation-tx lookups and the etherscan suite for source imports — so
+      # parallel execution will produce more 429s than sequential. That's
+      # absorbed by retryOnRateLimit in tests/helpers.ts (exponential backoff,
+      # 2/4/8/16/32s, 5 retries). Logs are captured to files and printed
+      # sequentially after both finish to avoid interleaved output. JUnit
+      # files are still produced separately (junit-chain.xml, junit-etherscan.xml)
+      # so the report step works unchanged.
+      - name: Run integration tests in parallel
         env:
           TEST_TIME: "120000"
-
-      # The chain suite hits the same Etherscan API key (creation-tx lookups)
-      # un-throttled; let its rate-limit window cool before the Etherscan suite.
-      - name: Cool down Etherscan rate limit
-        if: always()
-        run: sleep 15
-
-      # always() so the Etherscan suite still runs (and reports) even when the
-      # chain suite fails — gives a complete picture in one run.
-      - name: Run Etherscan instance tests
-        if: always()
-        run: npm run test:integration:etherscan
+        run: |
+          npm run test:integration:chain     > chain.log 2>&1 & CHAIN_PID=$!
+          npm run test:integration:etherscan > eth.log   2>&1 & ETH_PID=$!
+          wait $CHAIN_PID; CHAIN_EXIT=$?
+          wait $ETH_PID;   ETH_EXIT=$?
+          echo "::group::Chain verification tests (exit=$CHAIN_EXIT)"
+          cat chain.log
+          echo "::endgroup::"
+          echo "::group::Etherscan instance tests (exit=$ETH_EXIT)"
+          cat eth.log
+          echo "::endgroup::"
+          [ $CHAIN_EXIT -eq 0 ] && [ $ETH_EXIT -eq 0 ]
 
       # Writes a results table to the run's job summary page (works without a
       # PR, so it covers the cron trigger). Pinned to a commit SHA, not a tag,
