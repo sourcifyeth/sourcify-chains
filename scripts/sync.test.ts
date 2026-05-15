@@ -790,7 +790,7 @@ describe("buildPrDescription", () => {
     ];
     const desc = buildPrDescription([], [], [], {}, reappeared);
     assert.ok(desc.includes("⚠️"));
-    assert.ok(desc.includes("#5 Ethereum Goerli Testnet"));
+    assert.ok(desc.includes("[5] Ethereum Goerli Testnet"));
     assert.ok(desc.includes("quicknode, drpc"));
     assert.ok(desc.includes("deprecated-chains.json"));
   });
@@ -806,7 +806,7 @@ describe("buildPrDescription", () => {
     ];
     const desc = buildPrDescription([], [], [], {}, [], newChains);
     assert.ok(desc.includes("🔑"));
-    assert.ok(desc.includes("#999 Some New Chain"));
+    assert.ok(desc.includes("[999] Some New Chain"));
     assert.ok(desc.includes("ETHERSCAN_API_KEY"));
     assert.ok(desc.includes("etherscan-api-keys.json"));
   });

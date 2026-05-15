@@ -520,7 +520,7 @@ export function buildPrDescription(
     for (const key of stabilized) {
       const entry = pendingChanges[key];
       const name = chainNames.get(entry.chainId) ?? `Chain ${entry.chainId}`;
-      lines.push(`- #${entry.chainId} ${name} — ${key}: stable since ${entry.firstSeenAt}`);
+      lines.push(`- [${entry.chainId}] ${name} — ${key}: stable since ${entry.firstSeenAt}`);
     }
     lines.push("");
   }
@@ -536,7 +536,7 @@ export function buildPrDescription(
     for (const [key, entry] of Object.entries(pendingChanges)) {
       if (!stabilizedSet.has(key)) {
         const name = chainNames.get(entry.chainId) ?? `Chain ${entry.chainId}`;
-        lines.push(`- #${entry.chainId} ${name} — ${key}: ${entry.consecutiveRuns}/${THRESHOLD} runs (since ${entry.firstSeenAt})`);
+        lines.push(`- [${entry.chainId}] ${name} — ${key}: ${entry.consecutiveRuns}/${THRESHOLD} runs (since ${entry.firstSeenAt})`);
       }
     }
     lines.push("");
@@ -547,7 +547,7 @@ export function buildPrDescription(
     lines.push("These chains are in `deprecated-chains.json` but are now returned by API sources.");
     lines.push("Consider removing them from `deprecated-chains.json` if they are genuinely back.");
     for (const { chainId, name, seenIn } of reappearedDeprecated) {
-      lines.push(`- #${chainId} ${name} — seen in: ${seenIn.join(", ")}`);
+      lines.push(`- [${chainId}] ${name} — seen in: ${seenIn.join(", ")}`);
     }
     lines.push("");
   }
@@ -559,7 +559,7 @@ export function buildPrDescription(
         " Add a dedicated entry to `etherscan-api-keys.json`, the corresponding secret to GitHub Actions, and the GCP service.",
     );
     for (const { chainId, name } of newEtherscanChains) {
-      lines.push(`- #${chainId} ${name}`);
+      lines.push(`- [${chainId}] ${name}`);
     }
     lines.push("");
   }
