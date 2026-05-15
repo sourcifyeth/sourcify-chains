@@ -800,15 +800,6 @@ describe("buildPrDescription", () => {
     assert.ok(!desc.includes("⚠️"));
   });
 
-  it("drpc-only reappeared chains → suppressed from warning section", () => {
-    const reappeared: ReappearedChain[] = [
-      { chainId: 919, name: "Mode Testnet", seenIn: ["drpc"] },
-    ];
-    const desc = buildPrDescription([], [], [], {}, reappeared);
-    assert.ok(!desc.includes("⚠️"));
-    assert.ok(!desc.includes("919"));
-  });
-
   it("new etherscan chains with fallback key → key section included", () => {
     const newChains: NewEtherscanChain[] = [
       { chainId: 999, name: "Some New Chain" },

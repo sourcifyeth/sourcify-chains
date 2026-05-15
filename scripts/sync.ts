@@ -498,14 +498,11 @@ export function buildPrDescription(
     lines.push("");
   }
 
-  const actionableReappeared = reappearedDeprecated.filter(
-    ({ seenIn }) => !seenIn.every((s) => s === "drpc"),
-  );
-  if (actionableReappeared.length > 0) {
+  if (reappearedDeprecated.length > 0) {
     lines.push("### ⚠️ Deprecated chains reappeared in trusted sources");
     lines.push("These chains are in `deprecated-chains.json` but are now returned by API sources.");
     lines.push("Consider removing them from `deprecated-chains.json` if they are genuinely back.");
-    for (const { chainId, name, seenIn } of actionableReappeared) {
+    for (const { chainId, name, seenIn } of reappearedDeprecated) {
       lines.push(`- [${chainId}] ${name} — seen in: ${seenIn.join(", ")}`);
     }
     lines.push("");
