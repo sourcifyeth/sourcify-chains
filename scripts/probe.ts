@@ -72,9 +72,9 @@ async function rpcCall<T>(
  * errors or returns no result. Uses rpcCall's internal retry behaviour only
  * (2 retries, 500ms apart) — no extra delays.
  */
-async function checkLiveness(
+export async function checkLiveness(
   url: string,
-  log: (msg: string) => void,
+  log: (msg: string) => void = () => {},
 ): Promise<number | null> {
   let resp: JsonRpcResponse<BlockResult>;
   try {
