@@ -1,0 +1,125 @@
+name: Integration tests (chain + etherscan)
+
+on:
+  schedule:
+    - cron: "0 2,14 * * *" # twice daily: 02:00 and 14:00 UTC
+  workflow_dispatch: {}
+  # TODO: remove before merge — temporary trigger to validate the workflow
+  # runs on real GitHub Actions before merging to main.
+  pull_request: {}
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Start Postgres
+        run: docker compose -f tests/docker-compose.yml up -d postgres
+
+      - name: Wait for Postgres
+        run: |
+          until docker compose -f tests/docker-compose.yml exec -T postgres pg_isready -U sourcify; do
+            sleep 1
+          done
+
+      # Preinstalled on GitHub-hosted `ubuntu-latest`; only installs in the
+      # slim `catthehacker/ubuntu:act-latest` image used by `act` for local
+      # CI runs. The presence check skips `apt-get update` on real CI
+      # (which would otherwise add ~2 min per run).
+      - name: Install PostgreSQL client (if missing)
+        run: |
+          if ! command -v psql >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y postgresql-client
+          fi
+
+      - name: Apply schema
+        run: bash tests/migrate.sh
+
+      - name: Start Sourcify server
+        run: docker compose -f tests/docker-compose.yml up -d sourcify
+        env:
+          DRPC_API_KEY: ${{ secrets.DRPC_API_KEY }}
+          QUICKNODE_API_KEY: ${{ secrets.QUICKNODE_API_KEY }}
+          QUICKNODE_SUBDOMAIN: ${{ secrets.QUICKNODE_SUBDOMAIN }}
+          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+
+      - name: Wait for Sourcify server
+        run: |
+          timeout 30 bash -c 'until curl -fsS "${SOURCIFY_BASE_URL:-http://localhost:5555}/health"; do sleep 2; done'
+
+      # Run both suites concurrently to ~halve wall-time. Both share one
+      # Etherscan API key (5 req/s); the chain suite calls Etherscan for
+      # creation-tx lookups and the etherscan suite for source imports — so
+      # parallel execution will produce more 429s than sequential. That's
+      # absorbed by retryOnRateLimit in tests/helpers.ts (exponential backoff,
+      # 2/4/8/16/32s, 5 retries). Logs are captured to files and printed
+      # sequentially after both finish to avoid interleaved output. JUnit
+      # files are still produced separately (junit-chain.xml, junit-etherscan.xml)
+      # so the report step works unchanged.
+      # `shell: bash {0}` (no -e) so the script doesn't abort at `wait` when a
+      # background test exits non-zero — we want to fall through to the cat/log
+      # blocks and emit a clear exit status at the end.
+      - name: Run integration tests in parallel
+        shell: bash {0}
+        env:
+          TEST_TIME: "180000"
+        run: |
+          npm run test:integration:chain     > chain.log 2>&1 & CHAIN_PID=$!
+          npm run test:integration:etherscan > eth.log   2>&1 & ETH_PID=$!
+          wait $CHAIN_PID; CHAIN_EXIT=$?
+          wait $ETH_PID;   ETH_EXIT=$?
+          echo "::group::Chain verification tests (exit=$CHAIN_EXIT)"
+          cat chain.log
+          echo "::endgroup::"
+          echo "::group::Etherscan instance tests (exit=$ETH_EXIT)"
+          cat eth.log
+          echo "::endgroup::"
+          [ $CHAIN_EXIT -eq 0 ] && [ $ETH_EXIT -eq 0 ]
+
+      # Writes a results table to the run's job summary page (works without a
+      # PR, so it covers the cron trigger). Pinned to a commit SHA, not a tag,
+      # since tags are mutable. SHA = v6.4.0.
+      - name: Publish test report
+        if: always()
+        uses: mikepenz/action-junit-report@bccf2e31636835cf0874589931c4116687171386 # v6.4.0
+        with:
+          report_paths: "junit-*.xml"
+          check_name: "Integration test results"
+          detailed_summary: true
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit-results
+          path: junit-*.xml
+          if-no-files-found: warn
+
+      # Write the full server log to a file and upload it as an artifact.
+      # Earlier runs dumped to stdout and the step output got truncated, hiding
+      # the failure window entirely. Artifacts have no per-step size cap.
+      - name: Dump sourcify logs on failure
+        if: failure()
+        run: docker compose -f tests/docker-compose.yml logs --no-color sourcify > sourcify.log
+
+      - name: Upload sourcify logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sourcify-server-log
+          path: sourcify.log
+          if-no-files-found: warn
+
+      - name: Tear down
+        if: always()
+        run: docker compose -f tests/docker-compose.yml down -v

@@ -1,0 +1,46 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: sourcify
+      POSTGRES_USER: sourcify
+      POSTGRES_PASSWORD: sourcify
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "sourcify"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  sourcify:
+    image: ghcr.io/argotorg/sourcify/server:staging
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # NODE_ENV=ci is a dummy value: not "production" (so logs stay line-
+      # formatted, not JSON) and doesn't match any node-config deployment
+      # filename or local-override. The server lands on default.js which has
+      # no S3, matching what we want for chain-config verification.
+      NODE_ENV: ci
+      SOURCIFY_POSTGRES_HOST: postgres
+      SOURCIFY_POSTGRES_DB: sourcify
+      SOURCIFY_POSTGRES_USER: sourcify
+      SOURCIFY_POSTGRES_PASSWORD: sourcify
+      SOURCIFY_POSTGRES_PORT: "5432"
+      # API keys — injected from environment / GitHub secrets.
+      # DRPC + Quicknode are required: the server throws on startup if missing.
+      # ETHERSCAN_API_KEY is the single fallback used for every chain's
+      # Etherscan-family explorer (sourcify falls back to it if a
+      # chain-specific ETHERSCAN_API_KEY_<CHAIN> isn't set).
+      DRPC_API_KEY: ${DRPC_API_KEY:-}
+      QUICKNODE_API_KEY: ${QUICKNODE_API_KEY:-}
+      QUICKNODE_SUBDOMAIN: ${QUICKNODE_SUBDOMAIN:-}
+      ETHERSCAN_API_KEY: ${ETHERSCAN_API_KEY:-}
+    ports:
+      - "5555:5555"
+    volumes:
+      # Mount repo's chains file as the local override so the server uses it
+      # instead of fetching from the remote URL.
+      - ../sourcify-chains-default.json:/home/app/services/server/dist/sourcify-chains.json:ro
