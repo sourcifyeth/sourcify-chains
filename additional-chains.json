@@ -26,6 +26,12 @@
   "4000": {
     "sourcifyName": "Ozone Chain Mainnet"
   },
+  "4689": {
+    "sourcifyName": "IoTeX Network Mainnet"
+  },
+  "4690": {
+    "sourcifyName": "IoTeX Network Testnet"
+  },
   "5700": {
     "sourcifyName": "Syscoin Testnet Tanenbaum"
   },
