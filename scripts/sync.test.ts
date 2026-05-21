@@ -33,10 +33,6 @@ const QN_RPC = {
   subDomainEnvName: "QUICKNODE_SUBDOMAIN",
 };
 
-const QN_URL = QN_RPC.url;
-
-const QN_RPC_WITH_TRACE = { ...QN_RPC, traceSupport: "trace_transaction" };
-
 function chain(overrides: Partial<Snapshot[string]> = {}): Snapshot[string] {
   return {
     sourcifyName: "Test Chain",
@@ -574,7 +570,6 @@ describe("buildStabilizedOutput", () => {
 
   it("new chain added + pending removal on different chain → addition kept, removal reverted", () => {
     const baseline: Snapshot = { "1": chain() };
-    const snapshot: Snapshot = { "1": chain(), "200": chain({ sourcifyName: "New Chain" }) };
     const pending: Record<string, PendingChange> = {
       "remove-chain-1": {
         type: "remove-chain",

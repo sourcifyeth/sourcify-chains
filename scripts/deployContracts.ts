@@ -7,7 +7,6 @@ import {
   Wallet,
   type BytesLike,
   type JsonFragment,
-  type FetchRequest,
 } from "ethers";
 import { Command } from "commander";
 

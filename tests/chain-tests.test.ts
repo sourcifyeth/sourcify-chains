@@ -14,7 +14,6 @@ import {
   POLL_INTERVAL,
   SAFE_FACTORY_ADDRESS,
   SAFE_FACTORY_DEPLOYMENTS_URL,
-  toMatchLevel,
   verifyAndPoll,
 } from "./helpers.js";
 
