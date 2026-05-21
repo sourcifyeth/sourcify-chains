@@ -28,7 +28,7 @@ import { fetchDrpcChains } from "./providers/drpc.js";
 import { fetchAvalancheChains } from "./otherAPIs/avalanche.js";
 import { fetchEtherscanChains } from "./block-explorers/etherscan.js";
 import { fetchBlockscoutChains } from "./block-explorers/blockscout.js";
-import { fetchRoutescanChains, type RoutescanChainData } from "./block-explorers/routescan.js";
+import { fetchRoutescanChains } from "./block-explorers/routescan.js";
 import { probeChain, withConcurrency, checkLiveness } from "./probe.js";
 import type { TraceCacheValue, ProbeChainResult } from "./probe.js";
 import fs from "fs";
@@ -458,7 +458,12 @@ async function main() {
       qnQualifies || drpcQualifies || !!etherscan || blockscout?.hostedBy === "blockscout" || !!override;
     if (!hasActiveSource) continue;
 
-    const sourcifyName = override?.sourcifyName ?? meta?.name ?? blockscout?.name ?? `Chain ${chainId}`;
+    const sourcifyName =
+      override?.sourcifyName ??
+      etherscan?.chainName ??
+      blockscout?.name ??
+      meta?.name ??
+      `Chain ${chainId}`;
 
     const rpcSlots: RpcSlot[] = [];
 

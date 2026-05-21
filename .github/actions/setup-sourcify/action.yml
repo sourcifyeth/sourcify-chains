@@ -1,0 +1,75 @@
+name: Set up Sourcify server
+description: >-
+  Installs Node deps, starts Postgres, applies the schema, and brings up the
+  Sourcify server container — the shared prelude for the integration-tests and
+  test-new-chain workflows. Requires the repo to be checked out first.
+
+inputs:
+  drpc-api-key:
+    description: dRPC API key passed to the Sourcify server container
+    required: false
+    default: ""
+  quicknode-api-key:
+    description: QuickNode API key
+    required: false
+    default: ""
+  quicknode-subdomain:
+    description: QuickNode subdomain
+    required: false
+    default: ""
+  etherscan-api-key:
+    description: Etherscan API key
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: "22"
+
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
+
+    - name: Start Postgres
+      shell: bash
+      run: docker compose -f tests/docker-compose.yml up -d postgres
+
+    - name: Wait for Postgres
+      shell: bash
+      run: |
+        until docker compose -f tests/docker-compose.yml exec -T postgres pg_isready -U sourcify; do
+          sleep 1
+        done
+
+    # Preinstalled on GitHub-hosted `ubuntu-latest`; only installs in the
+    # slim `catthehacker/ubuntu:act-latest` image used by `act` for local
+    # CI runs. The presence check skips `apt-get update` on real CI
+    # (which would otherwise add ~2 min per run).
+    - name: Install PostgreSQL client (if missing)
+      shell: bash
+      run: |
+        if ! command -v psql >/dev/null 2>&1; then
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+        fi
+
+    - name: Apply schema
+      shell: bash
+      run: bash tests/migrate.sh
+
+    - name: Start Sourcify server
+      shell: bash
+      run: docker compose -f tests/docker-compose.yml up -d sourcify
+      env:
+        DRPC_API_KEY: ${{ inputs.drpc-api-key }}
+        QUICKNODE_API_KEY: ${{ inputs.quicknode-api-key }}
+        QUICKNODE_SUBDOMAIN: ${{ inputs.quicknode-subdomain }}
+        ETHERSCAN_API_KEY: ${{ inputs.etherscan-api-key }}
+
+    - name: Wait for Sourcify server
+      shell: bash
+      run: |
+        timeout 30 bash -c 'until curl -fsS "${SOURCIFY_BASE_URL:-http://localhost:5555}/health"; do sleep 2; done'
