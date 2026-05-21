@@ -29,7 +29,7 @@ import { fetchAvalancheChains } from "./otherAPIs/avalanche.js";
 import { fetchEtherscanChains } from "./block-explorers/etherscan.js";
 import { fetchBlockscoutChains } from "./block-explorers/blockscout.js";
 import { fetchRoutescanChains } from "./block-explorers/routescan.js";
-import { probeChain, withConcurrency } from "./probe.js";
+import { probeChain, withConcurrency, checkLiveness } from "./probe.js";
 import type { TraceCacheValue, ProbeChainResult } from "./probe.js";
 import fs from "fs";
 import path from "path";
@@ -39,6 +39,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..");
 
 const CHAINID_NETWORK_URL = "https://chainid.network/chains.json";
+const SOURCIFY_CONTRACTS_URL = "https://sourcify.dev/server/v2/contracts";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -155,6 +156,44 @@ function filterPublicRpcs(rpcs: string[]): string[] {
       !rpc.startsWith("wss://") && // prefer HTTP
       rpc.startsWith("https://")
   );
+}
+
+/**
+ * Returns a directly liveness-probeable HTTPS URL for an RPC entry, or null if
+ * it can't be probed without secrets — API-key/subdomain templates ({API_KEY},
+ * {SUBDOMAIN}) or auth headers. Unprobeable entries are kept as-is.
+ */
+function getProbeableUrl(rpc: string | RpcEntry): string | null {
+  if (typeof rpc === "string") return rpc.includes("{") ? null : rpc;
+  if (rpc.apiKeyEnvName || rpc.subDomainEnvName || (rpc.headers && rpc.headers.length > 0)) {
+    return null;
+  }
+  return rpc.url.includes("{") ? null : rpc.url;
+}
+
+/**
+ * Checks whether a chain has any verified contracts on sourcify.dev. Used to
+ * decide, for a chain left with no live RPC, between silent removal (no
+ * contracts) and deprecation as supported:false (has contracts). On error,
+ * returns true — deprecating is reversible, silent removal loses discoverability.
+ */
+async function chainHasVerifiedContracts(chainId: number): Promise<boolean> {
+  try {
+    const resp = await fetch(`${SOURCIFY_CONTRACTS_URL}/${chainId}?limit=1`, {
+      signal: AbortSignal.timeout(15_000),
+    });
+    if (!resp.ok) {
+      console.warn(`  sourcify.dev contracts check for #${chainId} returned ${resp.status} — assuming deprecate`);
+      return true;
+    }
+    const body = (await resp.json()) as { results?: unknown[] };
+    return Array.isArray(body.results) && body.results.length > 0;
+  } catch (e) {
+    console.warn(
+      `  sourcify.dev contracts check for #${chainId} failed (${e instanceof Error ? e.message : String(e)}) — assuming deprecate`
+    );
+    return true;
+  }
 }
 
 // QuickNode slugs that require an /ext/bc/C/rpc/ path suffix (Avalanche/Flare subnets)
@@ -378,7 +417,25 @@ async function main() {
 
   console.log(`\nBuilding output for ${autoChainIds.size} auto-discovered/override chains...`);
 
-  const output: Record<string, SourcifyChainExtension> = {};
+  // An ordered RPC slot: either kept as-is (API-key RPCs already probed during
+  // the QN/dRPC pass, or auth override RPCs) or pending a liveness probe.
+  type RpcSlot =
+    | { kind: "keep"; value: string | RpcEntry }
+    | { kind: "probe"; url: string; value: string | RpcEntry };
+
+  interface Candidate {
+    chainId: number;
+    sourcifyName: string;
+    discoveredBy: string[];
+    etherscanApi?: { supported: boolean; apiKeyEnvName: string };
+    fetchUsing: Record<string, unknown>;
+    rpcSlots: RpcSlot[]; // override + dRPC + QN, in priority order
+    publicCandidates: string[]; // chainid.network public RPCs, used only as fallback
+  }
+
+  // ---- Pass 1: build candidates (RPC list not yet finalized) ----
+  const candidates: Candidate[] = [];
+  const candidateIds = new Set<number>();
 
   for (const chainId of [...autoChainIds].sort((a, b) => a - b)) {
     const override = chainOverrides[chainId.toString()] as ChainOverride | undefined;
@@ -408,12 +465,15 @@ async function main() {
       meta?.name ??
       `Chain ${chainId}`;
 
-    // Build RPC list
-    const rpcs: Array<string | RpcEntry> = [];
+    const rpcSlots: RpcSlot[] = [];
 
-    // 1. Manual override RPCs (priority — e.g. ethpandaops)
+    // 1. Manual override RPCs (priority — e.g. ethpandaops). Simple ones (plain
+    //    URL, no auth) are liveness-probed; API-key/header ones are kept as-is.
     if (override?.rpc?.length) {
-      rpcs.push(...override.rpc);
+      for (const rpc of override.rpc) {
+        const url = getProbeableUrl(rpc);
+        rpcSlots.push(url ? { kind: "probe", url, value: rpc } : { kind: "keep", value: rpc });
+      }
     }
 
     // 2. dRPC — only if alive; set traceSupport if a method was detected
@@ -422,7 +482,7 @@ async function main() {
       if (drpcProbed === "trace_transaction" || drpcProbed === "debug_traceTransaction") {
         rpc.traceSupport = drpcProbed;
       }
-      rpcs.push(rpc);
+      rpcSlots.push({ kind: "keep", value: rpc });
     }
 
     // 3. QuickNode — only if alive; set traceSupport if a method was detected
@@ -431,44 +491,15 @@ async function main() {
       if (qnProbed === "trace_transaction" || qnProbed === "debug_traceTransaction") {
         rpc.traceSupport = qnProbed;
       }
-      rpcs.push(rpc);
+      rpcSlots.push({ kind: "keep", value: rpc });
     }
 
-    // 4. Public RPCs from chainid.network — only if no provider or override RPCs exist
-    if (rpcs.length === 0 && meta?.rpc?.length) {
-      rpcs.push(...filterPublicRpcs(meta.rpc));
-    }
+    // 4. Public RPCs from chainid.network — fallback, consulted only if nothing
+    //    above survives liveness probing. Skipped when a "keep" slot exists
+    //    (those never drop, so the fallback would never be reached).
+    const hasKeepSlot = rpcSlots.some((s) => s.kind === "keep");
+    const publicCandidates = !hasKeepSlot && meta?.rpc?.length ? filterPublicRpcs(meta.rpc) : [];
 
-    // Chains with no RPCs can't be used for verification.
-    // If the sole discovery source is blockscout or etherscan (neither provides RPCs),
-    // warn and skip. Any other case with no RPCs is unexpected — throw.
-    if (rpcs.length === 0) {
-      const soleBlockscout =
-        blockscout?.hostedBy === "blockscout" && !qnQualifies && !drpcQualifies && !etherscan && !override;
-      const soleEtherscan =
-        !!etherscan && !(blockscout?.hostedBy === "blockscout") && !qnQualifies && !drpcQualifies && !override;
-      if (soleBlockscout) {
-        console.warn(`[skip] #${chainId} ${sourcifyName} — discovered by blockscout only, no RPCs available`);
-        continue;
-      }
-      if (soleEtherscan) {
-        console.warn(`[skip] #${chainId} ${sourcifyName} — discovered by etherscan only, no RPCs available`);
-        continue;
-      }
-      throw new Error(
-        `Chain #${chainId} ${sourcifyName} has no RPCs (discoveredBy: [${[
-          qnQualifies && "quicknode",
-          drpcQualifies && "drpc",
-          etherscan && "etherscan",
-          blockscout?.hostedBy === "blockscout" && "blockscout",
-          override && "chain-overrides",
-        ]
-          .filter(Boolean)
-          .join(", ")}])`
-      );
-    }
-
-    // Build etherscanApi
     const etherscanApi = etherscan
       ? {
           supported: true,
@@ -476,7 +507,6 @@ async function main() {
         }
       : undefined;
 
-    // Build fetchContractCreationTxUsing
     const fetchUsing: Record<string, unknown> = {
       ...(override?.fetchContractCreationTxUsing ?? {}),
     };
@@ -493,7 +523,6 @@ async function main() {
       fetchUsing["avalancheApi"] = true;
     }
 
-    // Build discoveredBy — only include providers that actively qualify
     const discoveredBy: string[] = [];
     if (qnQualifies) discoveredBy.push("quicknode");
     if (drpcQualifies) discoveredBy.push("drpc");
@@ -501,48 +530,128 @@ async function main() {
     if (blockscout?.hostedBy === "blockscout") discoveredBy.push("blockscout");
     if (override) discoveredBy.push("chain-overrides");
 
-    const entry: SourcifyChainExtension = {
-      sourcifyName,
-      supported: true,
-      discoveredBy,
-      ...(Object.keys(fetchUsing).length > 0 ? { fetchContractCreationTxUsing: fetchUsing } : {}),
-      ...(etherscanApi ? { etherscanApi } : {}),
-      ...(rpcs.length > 0 ? { rpc: rpcs } : {}),
-    };
-
-    output[chainId.toString()] = entry;
+    candidates.push({ chainId, sourcifyName, discoveredBy, etherscanApi, fetchUsing, rpcSlots, publicCandidates });
+    candidateIds.add(chainId);
   }
 
-  // Add additional-chains.json entries (full definitions, not auto-discovered)
+  // additional-chains.json — not auto-discovered, only public RPCs from chainid.network
   const additionalOverlapErrors: string[] = [];
   for (const [chainIdStr, entry] of Object.entries(additionalChains)) {
-    if (deprecatedSet.has(parseInt(chainIdStr, 10))) {
+    const chainId = parseInt(chainIdStr, 10);
+    if (deprecatedSet.has(chainId)) {
       throw new Error(
         `Chain ${entry.sourcifyName} #${chainIdStr} appears in both additional-chains.json and deprecated-chains.json`
       );
     }
-    if (output[chainIdStr]) {
+    if (candidateIds.has(chainId)) {
+      const existing = candidates.find((c) => c.chainId === chainId)!;
       additionalOverlapErrors.push(
-        `  #${chainIdStr} ${entry.sourcifyName} (discoveredBy: [${output[chainIdStr].discoveredBy.join(", ")}])`
+        `  #${chainIdStr} ${entry.sourcifyName} (discoveredBy: [${existing.discoveredBy.join(", ")}])`
       );
       continue;
     }
-    // Look up public RPCs from chainid.network for additional chains
-    const meta = chainList.get(parseInt(chainIdStr, 10));
-    const rpcs = meta?.rpc?.length ? filterPublicRpcs(meta.rpc) : [];
-
-    output[chainIdStr] = {
-      ...entry,
-      supported: true,
+    const meta = chainList.get(chainId);
+    const publicCandidates = meta?.rpc?.length ? filterPublicRpcs(meta.rpc) : [];
+    candidates.push({
+      chainId,
+      sourcifyName: entry.sourcifyName,
       discoveredBy: ["additional-chains"],
-      ...(rpcs.length > 0 ? { rpc: rpcs } : {}),
-    };
+      fetchUsing: {},
+      rpcSlots: [],
+      publicCandidates,
+    });
+    candidateIds.add(chainId);
   }
   if (additionalOverlapErrors.length > 0) {
     throw new Error(
       `The following chains appear in both additional-chains.json and are auto-discovered. Remove them from additional-chains.json:\n${additionalOverlapErrors.join(
         "\n"
       )}`
+    );
+  }
+
+  // ---- Liveness-probe every simple-override and public RPC URL concurrently ----
+  const livenessUrls = new Set<string>();
+  for (const c of candidates) {
+    for (const slot of c.rpcSlots) {
+      if (slot.kind === "probe") livenessUrls.add(slot.url);
+    }
+    for (const url of c.publicCandidates) livenessUrls.add(url);
+  }
+
+  const livenessResults = new Map<string, boolean>();
+  if (livenessUrls.size > 0) {
+    console.log(`\nLiveness-probing ${livenessUrls.size} public/override RPC URLs (concurrency=20)...`);
+    const urlList = [...livenessUrls];
+    await withConcurrency(
+      urlList.map((url) => async () => {
+        const alive = (await checkLiveness(url)) !== null;
+        livenessResults.set(url, alive);
+        if (!alive) console.log(`  [dead] ${url}`);
+      }),
+      20
+    );
+    const aliveCount = [...livenessResults.values()].filter(Boolean).length;
+    console.log(`  Done: ${aliveCount}/${livenessUrls.size} alive.`);
+  }
+
+  // ---- Pass 2: finalize RPC lists; collect chains left with none ----
+  const output: Record<string, SourcifyChainExtension> = {};
+  const noRpcChains: Candidate[] = [];
+
+  for (const c of candidates) {
+    const rpcs: Array<string | RpcEntry> = [];
+    for (const slot of c.rpcSlots) {
+      if (slot.kind === "keep") rpcs.push(slot.value);
+      else if (livenessResults.get(slot.url)) rpcs.push(slot.value);
+    }
+    // Public RPC fallback — only when nothing above survived
+    if (rpcs.length === 0) {
+      for (const url of c.publicCandidates) {
+        if (livenessResults.get(url)) rpcs.push(url);
+      }
+    }
+
+    if (rpcs.length === 0) {
+      noRpcChains.push(c);
+      continue;
+    }
+
+    output[c.chainId.toString()] = {
+      sourcifyName: c.sourcifyName,
+      supported: true,
+      discoveredBy: c.discoveredBy,
+      ...(Object.keys(c.fetchUsing).length > 0 ? { fetchContractCreationTxUsing: c.fetchUsing } : {}),
+      ...(c.etherscanApi ? { etherscanApi: c.etherscanApi } : {}),
+      rpc: rpcs,
+    };
+  }
+
+  // ---- Deprecate-or-remove: chains left with no live RPC ----
+  // If sourcify.dev already has verified contracts for the chain, keep it as
+  // supported:false (deprecated) so those stay discoverable. Otherwise drop it
+  // entirely — sync.ts stabilizes the removal over consecutive runs.
+  if (noRpcChains.length > 0) {
+    console.log(
+      `\n${noRpcChains.length} chain(s) have no live RPC — checking sourcify.dev for verified contracts...`
+    );
+    await withConcurrency(
+      noRpcChains.map((c) => async () => {
+        const hasContracts = await chainHasVerifiedContracts(c.chainId);
+        if (hasContracts) {
+          console.log(
+            `  [deprecate] #${c.chainId} ${c.sourcifyName} — has verified contracts, keeping as supported:false`
+          );
+          output[c.chainId.toString()] = {
+            sourcifyName: c.sourcifyName,
+            supported: false,
+            discoveredBy: c.discoveredBy,
+          };
+        } else {
+          console.log(`  [remove] #${c.chainId} ${c.sourcifyName} — no verified contracts, dropping`);
+        }
+      }),
+      10
     );
   }
 

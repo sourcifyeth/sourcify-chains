@@ -956,8 +956,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bsquared&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1190,8 +1189,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=filecoin&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1502,9 +1500,22 @@
   },
   "919": {
     "sourcifyName": "Mode Testnet",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
-      "deprecated"
+      "drpc"
+    ],
+    "fetchContractCreationTxUsing": {
+      "routescanApi": {
+        "type": "testnet"
+      }
+    },
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=mode-testnet&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      }
     ]
   },
   "957": {
@@ -1587,8 +1598,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn-baobab&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -2319,10 +2329,18 @@
     ]
   },
   "2221": {
-    "sourcifyName": "Kava EVM Testnet",
-    "supported": false,
+    "sourcifyName": "Kava Testnet",
+    "supported": true,
     "discoveredBy": [
-      "deprecated"
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=kava-testnet&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      }
     ]
   },
   "2222": {
@@ -2645,9 +2663,17 @@
   },
   "4200": {
     "sourcifyName": "Merlin Mainnet",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
-      "deprecated"
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=merlin&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
+      }
     ]
   },
   "4202": {
@@ -2871,10 +2897,23 @@
     ]
   },
   "5330": {
-    "sourcifyName": "Superseed Mainnet",
-    "supported": false,
+    "sourcifyName": "Superseed",
+    "supported": true,
     "discoveredBy": [
-      "deprecated"
+      "drpc"
+    ],
+    "fetchContractCreationTxUsing": {
+      "routescanApi": {
+        "type": "mainnet"
+      }
+    },
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=superseed&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      }
     ]
   },
   "5611": {
@@ -3205,13 +3244,6 @@
       "deprecated"
     ]
   },
-  "9001": {
-    "sourcifyName": "Evmos Mainnet",
-    "supported": false,
-    "discoveredBy": [
-      "deprecated"
-    ]
-  },
   "9700": {
     "sourcifyName": "OORT Testnet",
     "supported": false,
@@ -3411,10 +3443,17 @@
     ]
   },
   "11235": {
-    "sourcifyName": "Haqq Mainnet",
-    "supported": false,
+    "sourcifyName": "Haqq Network",
+    "supported": true,
     "discoveredBy": [
-      "deprecated"
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=haqq&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
     ]
   },
   "12898": {
@@ -3891,6 +3930,35 @@
       "deprecated"
     ]
   },
+  "36888": {
+    "sourcifyName": "AB Core Mainnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=abcore&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      }
+    ]
+  },
+  "36900": {
+    "sourcifyName": "ADI Chain",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=adi&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
+    ]
+  },
   "37111": {
     "sourcifyName": "Lens Testnet",
     "supported": true,
@@ -3901,8 +3969,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=lens-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -4194,9 +4261,16 @@
   },
   "44787": {
     "sourcifyName": "Celo Alfajores Testnet",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
-      "deprecated"
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=celo-alfajores&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
     ]
   },
   "46630": {
@@ -5299,8 +5373,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zero&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -5420,7 +5493,6 @@
     "sourcifyName": "bokuto",
     "supported": true,
     "discoveredBy": [
-      "drpc",
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
@@ -5432,12 +5504,7 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY"
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=katana-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
-      }
+      "https://rpc-bokuto.katanarpc.com"
     ]
   },
   "743111": {
@@ -6040,13 +6107,6 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       }
-    ]
-  },
-  "1313161555": {
-    "sourcifyName": "Aurora Testnet",
-    "supported": false,
-    "discoveredBy": [
-      "deprecated"
     ]
   },
   "1666600000": {

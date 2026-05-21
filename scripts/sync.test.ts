@@ -246,6 +246,14 @@ describe("diffSnapshots", () => {
     assert.equal(reductiveChanges[0].pending.key, "quicknode");
   });
 
+  it("removing 'deprecated' from discoveredBy → immediate (additive), not reductive", () => {
+    const baseline: Snapshot = { "1": chain({ discoveredBy: ["deprecated", "drpc"] }) };
+    const snapshot: Snapshot = { "1": chain({ discoveredBy: ["drpc"] }) };
+    const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot);
+    assert.equal(reductiveChanges.length, 0);
+    assert.ok(addDescriptions.some((d) => d.includes("deprecated") && d.includes("discoveredBy")));
+  });
+
   it("fetchUsing value changed (key in both) → reductive change-fetchUsing", () => {
     const baseline: Snapshot = {
       "1": chain({ fetchContractCreationTxUsing: { etherscanApi: { type: "v1" } } }),

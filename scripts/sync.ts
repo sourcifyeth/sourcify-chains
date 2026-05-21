@@ -264,10 +264,15 @@ export function diffSnapshots(
     }
     for (const source of baseDiscovered) {
       if (!snapDiscovered.has(source)) {
-        reductiveChanges.push({
-          key: `remove-discoveredBy-${chainId}-${source}`,
-          pending: { type: "remove-discoveredBy", chainId: chainNum, key: source },
-        });
+        if (source === "deprecated") {
+          // Removing "deprecated" is deterministic (follows deprecated-chains.json) — apply immediately
+          addDescriptions.push(`Removed deprecated from discoveredBy for chain ${chainId} (${chainName})`);
+        } else {
+          reductiveChanges.push({
+            key: `remove-discoveredBy-${chainId}-${source}`,
+            pending: { type: "remove-discoveredBy", chainId: chainNum, key: source },
+          });
+        }
       }
     }
 
