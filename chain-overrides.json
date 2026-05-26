@@ -427,5 +427,21 @@
         "url": "https://explorer.mainnet.aurora.dev/"
       }
     }
+  },
+  "47763": {
+    "sourcifyName": "Neo X Mainnet",
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://xexplorer.neo.org/"
+      }
+    }
+  },
+  "12227332": {
+    "sourcifyName": "Neo X Testnet T4",
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://xt4scan.ngd.network"
+      }
+    }
   }
 }
