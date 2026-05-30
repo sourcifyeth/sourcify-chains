@@ -436,6 +436,17 @@
       }
     }
   },
+  "57057": {
+    "sourcifyName": "zkTanenbaum Testnet",
+    "rpc": [
+      "https://rpc-zk.tanenbaum.io/"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer-zk.tanenbaum.io/"
+      }
+    }
+  },
   "12227332": {
     "sourcifyName": "Neo X Testnet T4",
     "fetchContractCreationTxUsing": {
