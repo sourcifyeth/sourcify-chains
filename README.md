@@ -20,7 +20,7 @@ Canonical chain configuration for [Sourcify](https://sourcify.dev) — the open-
 A chain is **auto-included** if it appears in any of:
 
 - QuickNode console API — and is not dead (see probing below)
-- dRPC chains API (`https://drpc.org/api/blockchains-list`) — and is not dead (see probing below)
+- dRPC chains config (`https://raw.githubusercontent.com/drpcorg/public/main/chains.yaml`, `type: eth` entries) — and is not dead (see probing below)
 - Etherscan chainlist API
 - Blockscout's own hosted instances (where `hostedBy === "blockscout"`)
 
