@@ -19,6 +19,9 @@ export type TraceCacheValue = TraceMethod | "none" | null;
 export type ProbeChainResult = {
   trace: TraceCacheValue;
   txHash: string | null;
+  // Set only when eth_chainId returned a value that differs from the expected
+  // chain id (the RPC serves a different chain than we mapped it to).
+  reportedChainId?: number;
 };
 
 const SCAN_START_OFFSET = 50; // Start scanning this many blocks behind latest (avoid unindexed traces)
@@ -26,6 +29,9 @@ const SCAN_END_OFFSET = 550; // Stop scanning at this many blocks behind latest 
 
 const TRACE_PROBE_RETRIES = 4; // 5 attempts total per trace method
 const TRACE_PROBE_RETRY_DELAY = 3_000; // ms between trace probe retries
+
+const CHAINID_PROBE_RETRIES = 3; // 4 attempts total for eth_chainId
+const CHAINID_PROBE_RETRY_DELAY = 1_000; // ms between eth_chainId retries
 
 interface JsonRpcResponse<T = unknown> {
   jsonrpc: string;
@@ -67,14 +73,77 @@ async function rpcCall<T>(
 }
 
 /**
+ * Asks the RPC which chain it serves via eth_chainId, retrying transient
+ * failures up to CHAINID_PROBE_RETRIES times.
+ *
+ * Returns the reported chain id, or null if it could not be determined after
+ * all retries (network errors, RPC errors, missing/unparseable result, or a
+ * node that doesn't implement eth_chainId). A healthy RPC answers eth_chainId
+ * reliably and instantly, so callers treat a null here as a dead chain — see
+ * checkLiveness.
+ */
+async function fetchReportedChainId(
+  url: string,
+  log: (msg: string) => void,
+): Promise<number | null> {
+  for (let attempt = 0; attempt <= CHAINID_PROBE_RETRIES; attempt++) {
+    let resp: JsonRpcResponse<string>;
+    try {
+      resp = await rpcCall<string>(url, "eth_chainId", []);
+    } catch (e) {
+      if (attempt < CHAINID_PROBE_RETRIES) {
+        await new Promise((r) => setTimeout(r, CHAINID_PROBE_RETRY_DELAY));
+        continue;
+      }
+      log(`    eth_chainId: ✗ failed after ${attempt + 1} attempts (exception: ${e instanceof Error ? e.message : String(e)})`);
+      return null;
+    }
+
+    if (resp.error?.code === -32601) {
+      // Method not found — definitive, no point retrying.
+      log(`    eth_chainId: ✗ not supported (-32601: "${resp.error.message}")`);
+      return null;
+    }
+
+    if (typeof resp.result === "string") {
+      const parsed = parseInt(resp.result, 16);
+      if (!Number.isNaN(parsed)) return parsed;
+    }
+
+    // RPC error, missing or unparseable result — possibly transient; retry.
+    if (attempt < CHAINID_PROBE_RETRIES) {
+      await new Promise((r) => setTimeout(r, CHAINID_PROBE_RETRY_DELAY));
+      continue;
+    }
+    log(
+      `    eth_chainId: ✗ failed after ${attempt + 1} attempts (${
+        resp.error ? `error ${resp.error.code} ${resp.error.message ?? ""}` : `result: ${JSON.stringify(resp.result)}`
+      })`,
+    );
+    return null;
+  }
+  return null;
+}
+
+/**
  * Checks chain liveness by calling eth_getBlockByNumber("latest").
  * Returns the latest block number if the provider is alive, or null if it
  * errors or returns no result. Uses rpcCall's internal retry behaviour only
  * (2 retries, 500ms apart) — no extra delays.
+ *
+ * When expectedChainId is given, the RPC is additionally verified to actually
+ * serve that chain via eth_chainId. Providers occasionally repoint a network
+ * slug to a different chain id (e.g. a testnet gets renumbered), which would
+ * otherwise pass liveness and get attached to the wrong chain. The chain is
+ * considered alive only when eth_chainId confirms the expected id — both a
+ * mismatch and a persistent eth_chainId failure (after retries) are treated as
+ * dead.
  */
 export async function checkLiveness(
   url: string,
   log: (msg: string) => void = () => {},
+  expectedChainId?: number,
+  onMismatch?: (reportedChainId: number) => void,
 ): Promise<number | null> {
   let resp: JsonRpcResponse<BlockResult>;
   try {
@@ -91,6 +160,20 @@ export async function checkLiveness(
     log(`    eth_getBlockByNumber(latest): null result`);
     return null;
   }
+
+  if (expectedChainId !== undefined) {
+    const reported = await fetchReportedChainId(url, log);
+    if (reported === null) {
+      log(`    eth_chainId: dead — could not confirm chain id after retries`);
+      return null;
+    }
+    if (reported !== expectedChainId) {
+      log(`    eth_chainId: ✗ mismatch — RPC serves ${reported}, expected ${expectedChainId} (rejecting)`);
+      onMismatch?.(reported);
+      return null;
+    }
+  }
+
   return parseInt(resp.result.number, 16);
 }
 
@@ -101,8 +184,10 @@ export async function checkLiveness(
 async function findRecentTxHash(
   url: string,
   log: (msg: string) => void,
+  expectedChainId?: number,
+  onMismatch?: (reportedChainId: number) => void,
 ): Promise<string | null> {
-  const latestNum = await checkLiveness(url, log);
+  const latestNum = await checkLiveness(url, log, expectedChainId, onMismatch);
   if (latestNum === null) return null;
 
   log(`    Latest block: #${latestNum}, scanning from #${latestNum - SCAN_START_OFFSET} down to #${latestNum - SCAN_END_OFFSET}`);
@@ -148,24 +233,29 @@ export async function probeChain(
   url: string,
   log: (msg: string) => void = () => {},
   cachedTxHash?: string,
+  expectedChainId?: number,
 ): Promise<ProbeChainResult> {
   let txHash: string | null;
+  let reportedChainId: number | undefined;
+  const onMismatch = (reported: number) => {
+    reportedChainId = reported;
+  };
 
   if (cachedTxHash) {
     // Always verify the provider is alive even when we have a cached tx.
     // Without this check a dead provider would be probed for trace support
     // and return "none" instead of null.
-    const latestNum = await checkLiveness(url, log);
-    if (latestNum === null) return { trace: null, txHash: null };
+    const latestNum = await checkLiveness(url, log, expectedChainId, onMismatch);
+    if (latestNum === null) return { trace: null, txHash: null, reportedChainId };
     log(`    Using cached tx: ${cachedTxHash}`);
     txHash = cachedTxHash;
   } else {
     try {
-      txHash = await findRecentTxHash(url, log);
+      txHash = await findRecentTxHash(url, log, expectedChainId, onMismatch);
     } catch {
-      return { trace: null, txHash: null };
+      return { trace: null, txHash: null, reportedChainId };
     }
-    if (!txHash) return { trace: null, txHash: null };
+    if (!txHash) return { trace: null, txHash: null, reportedChainId };
   }
 
   for (const method of [
