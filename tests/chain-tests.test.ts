@@ -8,6 +8,7 @@ import {
   CONCURRENCY,
   CREATEX_ADDRESS,
   CREATEX_DEPLOYMENTS_URL,
+  getDeployedCode,
   loadChains,
   MULTICALL3_ADDRESS,
   MULTICALL3_DEPLOYMENTS_URL,
@@ -158,14 +159,14 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
 
     const pending = new Set<Promise<void>>();
     for (const chainId of chainsToTest) {
-      const contract = pickTestContract(chainId);
-      if (!contract) {
-        // Decision (skip vs fail) is deferred to the per-chain test, which has
-        // access to the chain's discoveredBy.
-        noTestContract.add(chainId);
-        continue;
-      }
       const task = (async () => {
+        const contract = await resolveTestContract(chainId);
+        if (!contract) {
+          // Decision (skip vs fail) is deferred to the per-chain test, which
+          // has access to the chain's discoveredBy.
+          noTestContract.add(chainId);
+          return;
+        }
         try {
           const result = await verifyAndPoll(
             BASE_URL,
@@ -305,6 +306,43 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
         .join(",\n")}`,
     );
   });
+
+  // Resolves the test contract for a chain. Prefers the registry lookup; if
+  // that misses but the chain requires a test contract (additional-chains /
+  // chain-overrides), probe its RPC for a deployed blueprint before giving up —
+  // the deployment registries don't list every chain a blueprint lives on.
+  async function resolveTestContract(
+    chainId: string,
+  ): Promise<ContractInput | null> {
+    const fromRegistry = pickTestContract(chainId);
+    if (fromRegistry) return fromRegistry;
+    if (!requiresTestContract(allChains[chainId]?.discoveredBy)) return null;
+    return probeBlueprintContracts(chainId);
+  }
+
+  // The blueprint contracts are all deployed at deterministic addresses, so
+  // bytecode present at the canonical address is byte-for-byte the canonical
+  // contract — its fixture will verify. Probed in the same priority order as
+  // pickTestContract.
+  const PROBE_CANDIDATES: ContractInput[] = [
+    { address: CREATEX_ADDRESS, ...CREATEX_CONTRACT },
+    { address: MULTICALL3_ADDRESS, ...MULTICALL3_CONTRACT },
+    { address: SAFE_FACTORY_ADDRESS, ...SAFE_FACTORY_CONTRACT },
+  ];
+
+  // Probes the chain's own RPC with eth_getCode at each blueprint's canonical
+  // address, returning the first one actually deployed (or null).
+  async function probeBlueprintContracts(
+    chainId: string,
+  ): Promise<ContractInput | null> {
+    const rpcEntries = allChains[chainId]?.rpc;
+    if (!Array.isArray(rpcEntries) || rpcEntries.length === 0) return null;
+    for (const candidate of PROBE_CANDIDATES) {
+      const code = await getDeployedCode(rpcEntries, candidate.address);
+      if (code && code !== "0x") return candidate;
+    }
+    return null;
+  }
 
   // Picks the test contract for a chain, or null if none is available.
   function pickTestContract(chainId: string): ContractInput | null {
