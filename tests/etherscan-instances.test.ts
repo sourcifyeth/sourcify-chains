@@ -146,10 +146,12 @@ describe("Double check that all supported chains are tested", () => {
   it("should have tested all supported chains", { skip: newAddedChainIds.length > 0 }, () => {
     const supportedEtherscanChains = Object.entries(allChains)
       .filter(([, chain]) => {
-        return (
-          chain.supported &&
-          (chain.etherscanApi as { supported?: boolean } | undefined)?.supported
-        );
+        const etherscanApi = chain.etherscanApi as
+          | { supported?: boolean; url?: string }
+          | undefined;
+        // Custom Etherscan-compatible explorers (those with a `url`) are
+        // excluded — only canonical Etherscan-registry chains must be tested.
+        return chain.supported && etherscanApi?.supported && !etherscanApi.url;
       })
       .map(([id]) => parseInt(id));
 

@@ -264,9 +264,15 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
     for (const chainId of chainsToTest) {
       if (!testedChains.has(chainId)) continue;
       const chain = allChains[chainId];
+      const etherscanApi = chain?.etherscanApi as
+        | { supported?: boolean; url?: string }
+        | undefined;
       if (
-        chain?.etherscanApi &&
-        (chain.etherscanApi as { supported?: boolean }).supported &&
+        etherscanApi?.supported &&
+        // Custom Etherscan-compatible explorers (those with a `url`) aren't
+        // required to have an import test — their APIs may diverge from
+        // Etherscan's. Only the canonical Etherscan-registry chains are checked.
+        !etherscanApi.url &&
         !Object.prototype.hasOwnProperty.call(testEtherscanContracts, chainId)
       ) {
         const name =
