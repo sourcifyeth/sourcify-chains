@@ -12,6 +12,7 @@ env:
   WORKLOAD_IDENTITY_PROVIDER: projects/1019539084286/locations/global/workloadIdentityPools/github/providers/sourcify
   SERVICE_ACCOUNT: sourcify-chains-uploader@sourcify-project.iam.gserviceaccount.com
   GCS_BUCKET: sourcifyeth-chains
+  CLOUD_RUN_REGION: europe-west1
 
 jobs:
   release:
@@ -38,3 +39,20 @@ jobs:
           headers: |-
             content-type: application/json
             cache-control: public, max-age=300, must-revalidate
+
+      # The server fetches the chains config only at boot, so running Cloud Run
+      # instances must be recycled to pick up the new file. Cloud Run has no
+      # "restart" API; forcing a new revision via a meaningful env var bump
+      # (the chains commit SHA) recycles all instances with zero downtime.
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Restart server Cloud Run services
+        run: |
+          for svc in sourcify-staging-server sourcify-production-server; do
+            echo "Forcing new revision for $svc"
+            gcloud run services update "$svc" \
+              --project "$GCP_PROJECT" \
+              --region "$CLOUD_RUN_REGION" \
+              --update-env-vars "CHAINS_RELEASE_SHA=${GITHUB_SHA}"
+          done

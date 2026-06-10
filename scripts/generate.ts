@@ -25,10 +25,14 @@ dotenv.config();
 import { fetchQuickNodeChains } from "./providers/quicknode.js";
 import type { QuickNodeChainData } from "./providers/quicknode.js";
 import { fetchDrpcChains } from "./providers/drpc.js";
+import type { DrpcChainData } from "./providers/drpc.js";
 import { fetchAvalancheChains } from "./otherAPIs/avalanche.js";
 import { fetchEtherscanChains } from "./block-explorers/etherscan.js";
+import type { EtherscanChainData } from "./block-explorers/etherscan.js";
 import { fetchBlockscoutChains } from "./block-explorers/blockscout.js";
+import type { BlockscoutChainData } from "./block-explorers/blockscout.js";
 import { fetchRoutescanChains } from "./block-explorers/routescan.js";
+import type { RoutescanChainData } from "./block-explorers/routescan.js";
 import { probeChain, withConcurrency, checkLiveness } from "./probe.js";
 import type { TraceCacheValue, ProbeChainResult } from "./probe.js";
 import fs from "fs";
@@ -60,6 +64,9 @@ interface SourcifyChainExtension {
   etherscanApi?: {
     supported: boolean;
     apiKeyEnvName: string;
+    // Custom base URL for Etherscan-compatible explorers not in the Etherscan
+    // registry (e.g. https://block-explorer-api.testnet.battlechain.com).
+    url?: string;
   };
   fetchContractCreationTxUsing?: Record<string, unknown>;
   rpc?: Array<string | RpcEntry>;
@@ -82,6 +89,7 @@ interface RpcEntry {
 // chain-overrides.json entry (small — only override/extension fields)
 interface ChainOverride {
   sourcifyName?: string;
+  etherscanApi?: { supported: boolean; apiKeyEnvName?: string; url?: string };
   fetchContractCreationTxUsing?: Record<string, unknown>;
   rpc?: Array<string | RpcEntry>;
 }
@@ -231,34 +239,71 @@ function buildDrpcRpc(shortName: string): RpcEntry {
 // ---------------------------------------------------------------------------
 
 async function main() {
+  // `--only <id1,id2,...>` (or `--only=<ids>`) restricts the run to the given
+  // chain IDs, which must be defined in chain-overrides.json / additional-chains.json.
+  // All external provider discovery (QuickNode, dRPC, Etherscan, Blockscout,
+  // Routescan, Avalanche) is skipped — only chainid.network is used for public
+  // RPCs/names — and the output contains ONLY those chains. Used by the
+  // test-new-chain CI workflow to build a throwaway config for a brand-new
+  // manual chain (which isn't in the committed file yet) without needing
+  // provider secrets or a full discovery pass.
+  const onlyArgIndex = process.argv.indexOf("--only");
+  const onlyArgValue =
+    process.argv.find((a) => a.startsWith("--only="))?.slice("--only=".length) ??
+    (onlyArgIndex !== -1 ? process.argv[onlyArgIndex + 1] : undefined);
+  const onlyIds = onlyArgValue
+    ? new Set(
+        onlyArgValue
+          .split(",")
+          .map((s) => parseInt(s.trim(), 10))
+          .filter((n) => !Number.isNaN(n)),
+      )
+    : null;
+  if (onlyArgValue !== undefined && (!onlyIds || onlyIds.size === 0)) {
+    throw new Error("--only was given but no valid chain IDs were parsed");
+  }
+  if (onlyIds) {
+    console.log(
+      `--only mode: building config for chain(s) ${[...onlyIds].join(", ")} only — skipping provider discovery`,
+    );
+  }
+
   const quicknodeApiKey = process.env.QUICKNODE_CONSOLE_API_KEY;
-  if (!quicknodeApiKey) {
+  if (!onlyIds && !quicknodeApiKey) {
     console.warn("Warning: QUICKNODE_CONSOLE_API_KEY not set — QuickNode data will be skipped");
   }
 
   const quicknodeRpcKey = process.env.QUICKNODE_API_KEY;
   const quicknodeSubdomain = process.env.QUICKNODE_SUBDOMAIN;
   const drpcApiKey = process.env.DRPC_API_KEY;
-  const canProbeQuickNode = !!(quicknodeRpcKey && quicknodeSubdomain);
-  const canProbeDrpc = !!drpcApiKey;
-  if (!canProbeQuickNode && !canProbeDrpc) {
+  const canProbeQuickNode = !onlyIds && !!(quicknodeRpcKey && quicknodeSubdomain);
+  const canProbeDrpc = !onlyIds && !!drpcApiKey;
+  if (!onlyIds && !canProbeQuickNode && !canProbeDrpc) {
     console.warn(
       "Warning: QUICKNODE_API_KEY+QUICKNODE_SUBDOMAIN and DRPC_API_KEY not set — trace support probing will be skipped"
     );
   }
 
-  console.log("Fetching chain list and provider/explorer data in parallel...");
+  // In --only mode every provider/explorer fetch is skipped; only chainid.network
+  // is consulted. All other sources resolve to empty so the candidate-building
+  // logic below falls back to the manual config in chain-overrides.json /
+  // additional-chains.json.
+  console.log(
+    onlyIds
+      ? "Fetching chainid.network only (--only mode)..."
+      : "Fetching chain list and provider/explorer data in parallel...",
+  );
   const [chainList, quicknodeChains, drpcChains, avalancheChains, etherscanChains, blockscoutChains, routescanChains] =
     await Promise.all([
       fetchWithRetry("chainid.network", fetchChainList),
-      quicknodeApiKey
-        ? fetchWithRetry("QuickNode", () => fetchQuickNodeChains(quicknodeApiKey))
-        : Promise.resolve<Map<number, QuickNodeChainData> | null>(null),
-      fetchWithRetry("dRPC", fetchDrpcChains),
-      fetchWithRetrySet("Avalanche", fetchAvalancheChains),
-      fetchWithRetry("Etherscan", fetchEtherscanChains),
-      fetchWithRetry("Blockscout", fetchBlockscoutChains),
-      fetchWithRetry("Routescan", fetchRoutescanChains),
+      onlyIds || !quicknodeApiKey
+        ? Promise.resolve<Map<number, QuickNodeChainData> | null>(null)
+        : fetchWithRetry("QuickNode", () => fetchQuickNodeChains(quicknodeApiKey)),
+      onlyIds ? Promise.resolve(new Map<number, DrpcChainData>()) : fetchWithRetry("dRPC", fetchDrpcChains),
+      onlyIds ? Promise.resolve(new Set<number>()) : fetchWithRetrySet("Avalanche", fetchAvalancheChains),
+      onlyIds ? Promise.resolve(new Map<number, EtherscanChainData>()) : fetchWithRetry("Etherscan", fetchEtherscanChains),
+      onlyIds ? Promise.resolve(new Map<number, BlockscoutChainData>()) : fetchWithRetry("Blockscout", fetchBlockscoutChains),
+      onlyIds ? Promise.resolve(new Map<number, RoutescanChainData>()) : fetchWithRetry("Routescan", fetchRoutescanChains),
     ]);
 
   // Load source files
@@ -292,25 +337,29 @@ async function main() {
 
   const deprecatedSet = new Set<number>(Object.keys(deprecatedChains).map(Number));
 
-  // Detect deprecated chains that have reappeared in trusted sources
-  const reappearedDeprecated: { chainId: number; name: string; seenIn: string[] }[] = [];
-  for (const [chainIdStr, name] of Object.entries(deprecatedChains)) {
-    const chainId = Number(chainIdStr);
-    const seenIn: string[] = [];
-    if (quicknodeChains?.has(chainId)) seenIn.push("quicknode");
-    if (drpcChains?.has(chainId)) seenIn.push("drpc");
-    if (etherscanChains?.has(chainId)) seenIn.push("etherscan");
-    if (blockscoutChains.get(chainId)?.hostedBy === "blockscout") seenIn.push("blockscout");
-    if (seenIn.length > 0) reappearedDeprecated.push({ chainId, name, seenIn });
-  }
-  const reappearedPath = path.join(REPO_ROOT, "deprecated-reappeared.json");
-  fs.writeFileSync(reappearedPath, JSON.stringify(reappearedDeprecated, null, 2) + "\n");
-  if (reappearedDeprecated.length > 0) {
-    console.warn(
-      `\nWarning: ${reappearedDeprecated.length} deprecated chain(s) reappeared in trusted sources:`,
-    );
-    for (const { chainId, name, seenIn } of reappearedDeprecated) {
-      console.warn(`  #${chainId} ${name} — seen in: ${seenIn.join(", ")}`);
+  // Detect deprecated chains that have reappeared in trusted sources.
+  // Skipped in --only mode: providers aren't fetched (nothing to compare), and
+  // we don't want to clobber deprecated-reappeared.json.
+  if (!onlyIds) {
+    const reappearedDeprecated: { chainId: number; name: string; seenIn: string[] }[] = [];
+    for (const [chainIdStr, name] of Object.entries(deprecatedChains)) {
+      const chainId = Number(chainIdStr);
+      const seenIn: string[] = [];
+      if (quicknodeChains?.has(chainId)) seenIn.push("quicknode");
+      if (drpcChains?.has(chainId)) seenIn.push("drpc");
+      if (etherscanChains?.has(chainId)) seenIn.push("etherscan");
+      if (blockscoutChains.get(chainId)?.hostedBy === "blockscout") seenIn.push("blockscout");
+      if (seenIn.length > 0) reappearedDeprecated.push({ chainId, name, seenIn });
+    }
+    const reappearedPath = path.join(REPO_ROOT, "deprecated-reappeared.json");
+    fs.writeFileSync(reappearedPath, JSON.stringify(reappearedDeprecated, null, 2) + "\n");
+    if (reappearedDeprecated.length > 0) {
+      console.warn(
+        `\nWarning: ${reappearedDeprecated.length} deprecated chain(s) reappeared in trusted sources:`,
+      );
+      for (const { chainId, name, seenIn } of reappearedDeprecated) {
+        console.warn(`  #${chainId} ${name} — seen in: ${seenIn.join(", ")}`);
+      }
     }
   }
 
@@ -339,6 +388,24 @@ async function main() {
     const chainId = parseInt(chainIdStr, 10);
     if (!deprecatedSet.has(chainId)) {
       autoChainIds.add(chainId);
+    }
+  }
+
+  // --only: restrict to the requested chain IDs. They must be defined in
+  // chain-overrides.json or additional-chains.json (the only manual sources).
+  if (onlyIds) {
+    const manuallyDefined = new Set<number>([
+      ...Object.keys(chainOverrides).map(Number),
+      ...Object.keys(additionalChains).map(Number),
+    ]);
+    const missing = [...onlyIds].filter((id) => !manuallyDefined.has(id));
+    if (missing.length > 0) {
+      throw new Error(
+        `--only chain(s) ${missing.join(", ")} are not defined in chain-overrides.json or additional-chains.json`,
+      );
+    }
+    for (const id of [...autoChainIds]) {
+      if (!onlyIds.has(id)) autoChainIds.delete(id);
     }
   }
 
@@ -427,7 +494,7 @@ async function main() {
     chainId: number;
     sourcifyName: string;
     discoveredBy: string[];
-    etherscanApi?: { supported: boolean; apiKeyEnvName: string };
+    etherscanApi?: { supported: boolean; apiKeyEnvName: string; url?: string };
     fetchUsing: Record<string, unknown>;
     rpcSlots: RpcSlot[]; // override + dRPC + QN, in priority order
     publicCandidates: string[]; // chainid.network public RPCs, used only as fallback
@@ -500,10 +567,23 @@ async function main() {
     const hasKeepSlot = rpcSlots.some((s) => s.kind === "keep");
     const publicCandidates = !hasKeepSlot && meta?.rpc?.length ? filterPublicRpcs(meta.rpc) : [];
 
+    // Etherscan support comes from the Etherscan registry, or from a
+    // chain-overrides opt-in (`etherscanApi.supported`) for Etherscan-compatible
+    // explorers not in the registry — those carry a custom `url`.
     const etherscanApi = etherscan
       ? {
           supported: true,
           apiKeyEnvName: etherscanApiKeys[chainId.toString()] ?? "ETHERSCAN_API_KEY",
+          ...(override?.etherscanApi?.url ? { url: override.etherscanApi.url } : {}),
+        }
+      : override?.etherscanApi?.supported
+      ? {
+          supported: true,
+          apiKeyEnvName:
+            override.etherscanApi.apiKeyEnvName ??
+            etherscanApiKeys[chainId.toString()] ??
+            "ETHERSCAN_API_KEY",
+          ...(override.etherscanApi.url ? { url: override.etherscanApi.url } : {}),
         }
       : undefined;
 
@@ -538,6 +618,7 @@ async function main() {
   const additionalOverlapErrors: string[] = [];
   for (const [chainIdStr, entry] of Object.entries(additionalChains)) {
     const chainId = parseInt(chainIdStr, 10);
+    if (onlyIds && !onlyIds.has(chainId)) continue;
     if (deprecatedSet.has(chainId)) {
       throw new Error(
         `Chain ${entry.sourcifyName} #${chainIdStr} appears in both additional-chains.json and deprecated-chains.json`
@@ -655,14 +736,17 @@ async function main() {
     );
   }
 
-  // Add deprecated chains as supported: false
-  for (const [chainIdStr, name] of Object.entries(deprecatedChains)) {
-    if (output[chainIdStr]) continue; // already in output (shouldn't happen, but be safe)
-    output[chainIdStr] = {
-      sourcifyName: name,
-      supported: false,
-      discoveredBy: ["deprecated"],
-    };
+  // Add deprecated chains as supported: false (skipped in --only mode, which
+  // emits only the requested chains)
+  if (!onlyIds) {
+    for (const [chainIdStr, name] of Object.entries(deprecatedChains)) {
+      if (output[chainIdStr]) continue; // already in output (shouldn't happen, but be safe)
+      output[chainIdStr] = {
+        sourcifyName: name,
+        supported: false,
+        discoveredBy: ["deprecated"],
+      };
+    }
   }
 
   // Sort output by numeric chain ID
@@ -673,6 +757,12 @@ async function main() {
 
   const outputPath = path.join(REPO_ROOT, "sourcify-chains-default.json");
   fs.writeFileSync(outputPath, JSON.stringify(sorted, null, 2) + "\n");
+  if (onlyIds) {
+    console.warn(
+      "\n⚠️  --only mode: sourcify-chains-default.json now contains ONLY the requested chain(s). " +
+        "This is a throwaway build for testing — do NOT commit it.",
+    );
+  }
 
   const total = Object.keys(sorted).length;
   const withRpc = Object.values(sorted).filter((e) => e.rpc && e.rpc.length > 0).length;
