@@ -418,6 +418,15 @@ async function main() {
   const qnResults = new Map<number, TraceCacheValue>();
   const drpcResults = new Map<number, TraceCacheValue>();
 
+  // RPCs whose eth_chainId disagrees with the chain id we mapped them to
+  // (e.g. a provider repointed a network slug to a renumbered chain).
+  const chainIdMismatches: {
+    chainId: number;
+    name: string;
+    reportedChainId: number;
+    source: string;
+  }[] = [];
+
   interface ProbePair {
     chainId: number;
     probeUrl: string;
@@ -463,7 +472,7 @@ async function main() {
           t.unref(); // don't keep the process alive if everything else is done
         });
         const probeResult: ProbeChainResult | null = await Promise.race([
-          probeChain(probeUrl, (msg) => lines.push(msg), txCache[chainId.toString()]),
+          probeChain(probeUrl, (msg) => lines.push(msg), txCache[chainId.toString()], chainId),
           timeoutPromise,
         ]);
         // Print header + all buffered lines atomically (prevents interleaved output)
@@ -473,6 +482,9 @@ async function main() {
         for (const line of lines) console.log(line);
         results.set(chainId, traceValue);
         if (probeResult?.txHash) txCache[chainId.toString()] = probeResult.txHash;
+        if (probeResult?.reportedChainId !== undefined) {
+          chainIdMismatches.push({ chainId, name, reportedChainId: probeResult.reportedChainId, source: provider });
+        }
       });
 
     await withConcurrency(
@@ -659,12 +671,22 @@ async function main() {
   }
 
   // ---- Liveness-probe every simple-override and public RPC URL concurrently ----
+  // Track which chain each URL belongs to so checkLiveness can verify the RPC
+  // actually serves it (eth_chainId). URLs are chain-specific in practice; if
+  // one were shared, the last candidate's id wins (harmless — same check).
   const livenessUrls = new Set<string>();
+  const urlChainId = new Map<string, number>();
   for (const c of candidates) {
     for (const slot of c.rpcSlots) {
-      if (slot.kind === "probe") livenessUrls.add(slot.url);
+      if (slot.kind === "probe") {
+        livenessUrls.add(slot.url);
+        urlChainId.set(slot.url, c.chainId);
+      }
     }
-    for (const url of c.publicCandidates) livenessUrls.add(url);
+    for (const url of c.publicCandidates) {
+      livenessUrls.add(url);
+      urlChainId.set(url, c.chainId);
+    }
   }
 
   const livenessResults = new Map<string, boolean>();
@@ -673,7 +695,14 @@ async function main() {
     const urlList = [...livenessUrls];
     await withConcurrency(
       urlList.map((url) => async () => {
-        const alive = (await checkLiveness(url)) !== null;
+        const chainId = urlChainId.get(url);
+        const alive =
+          (await checkLiveness(url, () => {}, chainId, (reported) => {
+            if (chainId !== undefined) {
+              const name = chainList.get(chainId)?.name ?? `Chain ${chainId}`;
+              chainIdMismatches.push({ chainId, name, reportedChainId: reported, source: "public/override" });
+            }
+          })) !== null;
         livenessResults.set(url, alive);
         if (!alive) console.log(`  [dead] ${url}`);
       }),
@@ -760,6 +789,20 @@ async function main() {
   const sorted: Record<string, SourcifyChainExtension> = {};
   for (const key of Object.keys(output).sort((a, b) => parseInt(a) - parseInt(b))) {
     sorted[key] = output[key];
+  }
+
+  // Record RPCs that served a different chain id than expected. Skipped in
+  // --only mode (providers aren't probed, so we'd clobber the file).
+  if (!onlyIds) {
+    chainIdMismatches.sort((a, b) => a.chainId - b.chainId);
+    const mismatchPath = path.join(REPO_ROOT, "chainid-mismatches.json");
+    fs.writeFileSync(mismatchPath, JSON.stringify(chainIdMismatches, null, 2) + "\n");
+    if (chainIdMismatches.length > 0) {
+      console.warn(`\nWarning: ${chainIdMismatches.length} RPC(s) reported a chain id different from the one expected:`);
+      for (const { chainId, name, reportedChainId, source } of chainIdMismatches) {
+        console.warn(`  #${chainId} ${name} — ${source} RPC serves ${reportedChainId} (excluded)`);
+      }
+    }
   }
 
   const outputPath = path.join(REPO_ROOT, "sourcify-chains-default.json");

@@ -29,10 +29,11 @@ A chain is **auto-included** if it appears in any of:
 Every QuickNode and dRPC chain is probed on each run. Probing:
 
 1. Calls `eth_getBlockByNumber("latest")` on the provider URL to get the current block number. If the provider returns an error (e.g. "Unknown network"), the chain is **dead** on that provider.
-2. Looks up a cached transaction hash from `tx-cache.json` (keyed by chain ID). If one exists, it is used directly and the block scan is skipped. Otherwise, scans blocks `[latest-50 .. latest-550]` (a 500-block window) looking for a transaction. Skipping the most recent 50 blocks avoids transactions whose traces may not yet be indexed. If no transaction is found in that window, the chain is treated as **inactive** (dead).
-3. If a transaction is found, calls `trace_transaction` then `debug_traceTransaction` on it to detect which trace method the provider supports for that chain.
+2. Verifies `eth_chainId` matches the chain id the URL is mapped to (retried a few times). If the RPC reports a **different** chain id — a provider repointed a network slug to a renumbered chain — or if `eth_chainId` can't be confirmed after retries, the chain is **dead** on that provider. Confirmed mismatches are written to `chainid-mismatches.json` and surfaced in the regenerate PR description.
+3. Looks up a cached transaction hash from `tx-cache.json` (keyed by chain ID). If one exists, it is used directly and the block scan is skipped. Otherwise, scans blocks `[latest-50 .. latest-550]` (a 500-block window) looking for a transaction. Skipping the most recent 50 blocks avoids transactions whose traces may not yet be indexed. If no transaction is found in that window, the chain is treated as **inactive** (dead).
+4. If a transaction is found, calls `trace_transaction` then `debug_traceTransaction` on it to detect which trace method the provider supports for that chain.
 
-**Dead** chains (step 1–2 failed) are excluded from the provider's RPC list and do not count as a discovery source. A chain with no remaining active sources is removed from the output entirely.
+**Dead** chains (step 1–3 failed) are excluded from the provider's RPC list and do not count as a discovery source. A chain with no remaining active sources is removed from the output entirely.
 
 **Trace support** result per provider:
 | Value | Meaning |

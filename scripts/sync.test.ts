@@ -10,6 +10,7 @@ import {
   type PendingChange,
   type ReappearedChain,
   type NewEtherscanChain,
+  type ChainIdMismatch,
 } from "./sync.js";
 
 // ---------------------------------------------------------------------------
@@ -801,6 +802,16 @@ describe("buildPrDescription", () => {
   it("no reappeared chains → no warning section", () => {
     const desc = buildPrDescription([], [], [], {}, []);
     assert.ok(!desc.includes("⚠️"));
+  });
+
+  it("chainId mismatches → warning section included", () => {
+    const mismatches: ChainIdMismatch[] = [
+      { chainId: 42429, name: "Tempo Testnet (Andantino)", reportedChainId: 42431, source: "quicknode" },
+    ];
+    const desc = buildPrDescription([], [], [], {}, [], [], new Map(), mismatches);
+    assert.ok(desc.includes("different chainId"));
+    assert.ok(desc.includes("[42429] Tempo Testnet (Andantino)"));
+    assert.ok(desc.includes("quicknode RPC serves 42431"));
   });
 
   it("new etherscan chains with fallback key → key section included", () => {

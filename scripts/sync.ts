@@ -454,6 +454,13 @@ export interface ReappearedChain {
   seenIn: string[];
 }
 
+export interface ChainIdMismatch {
+  chainId: number;
+  name: string;
+  reportedChainId: number;
+  source: string;
+}
+
 export interface NewEtherscanChain {
   chainId: number;
   name: string;
@@ -467,6 +474,7 @@ export function buildPrDescription(
   reappearedDeprecated: ReappearedChain[] = [],
   newEtherscanChains: NewEtherscanChain[] = [],
   chainNames: Map<number, string> = new Map(),
+  chainIdMismatches: ChainIdMismatch[] = [],
 ): string {
   const lines: string[] = ["## Changes", ""];
 
@@ -509,6 +517,16 @@ export function buildPrDescription(
     lines.push("Consider removing them from `deprecated-chains.json` if they are genuinely back.");
     for (const { chainId, name, seenIn } of reappearedDeprecated) {
       lines.push(`- [${chainId}] ${name} — seen in: ${seenIn.join(", ")}`);
+    }
+    lines.push("");
+  }
+
+  if (chainIdMismatches.length > 0) {
+    lines.push("### ⚠️ RPC serves a different chainId than expected");
+    lines.push("These RPCs passed liveness but `eth_chainId` returned a different chain id, so they were excluded.");
+    lines.push("A provider likely repointed a network slug (e.g. the chain was renumbered) — verify and update config.");
+    for (const { chainId, name, reportedChainId, source } of chainIdMismatches) {
+      lines.push(`- [${chainId}] ${name} — ${source} RPC serves ${reportedChainId}`);
     }
     lines.push("");
   }
@@ -633,6 +651,11 @@ async function main() {
     ? (JSON.parse(fs.readFileSync(reappearedPath, "utf8")) as ReappearedChain[])
     : [];
 
+  const mismatchPath = path.join(REPO_ROOT, "chainid-mismatches.json");
+  const chainIdMismatches: ChainIdMismatch[] = fs.existsSync(mismatchPath)
+    ? (JSON.parse(fs.readFileSync(mismatchPath, "utf8")) as ChainIdMismatch[])
+    : [];
+
   // Detect new chains that landed with the generic ETHERSCAN_API_KEY fallback
   const newEtherscanChains: NewEtherscanChain[] = [];
   for (const [chainId, chain] of Object.entries(stabilizedOutput)) {
@@ -647,7 +670,7 @@ async function main() {
     if (!chainNames.has(Number(id))) chainNames.set(Number(id), chain.sourcifyName);
   }
 
-  const prDesc = buildPrDescription(addDescriptions, stabilized, pendingSummary, updatedHistory.pendingChanges, reappearedDeprecated, newEtherscanChains, chainNames);
+  const prDesc = buildPrDescription(addDescriptions, stabilized, pendingSummary, updatedHistory.pendingChanges, reappearedDeprecated, newEtherscanChains, chainNames, chainIdMismatches);
   fs.writeFileSync(outputDescPath, prDesc);
   console.log(`Wrote pr-description.txt`);
 
