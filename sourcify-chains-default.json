@@ -137,6 +137,7 @@
     "supported": true,
     "discoveredBy": [
       "chain-overrides",
+      "drpc",
       "quicknode"
     ],
     "fetchContractCreationTxUsing": {
@@ -148,6 +149,11 @@
       }
     },
     "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=flare&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      },
       {
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.flare-mainnet.quiknode.pro/{API_KEY}/ext/bc/C/rpc/",
@@ -449,9 +455,12 @@
   },
   "83": {
     "sourcifyName": "Meter Testnet",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://rpctest.meter.io"
     ]
   },
   "88": {
@@ -603,6 +612,7 @@
     "sourcifyName": "Flare Network Coston2",
     "supported": true,
     "discoveredBy": [
+      "drpc",
       "quicknode"
     ],
     "fetchContractCreationTxUsing": {
@@ -611,6 +621,11 @@
       }
     },
     "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=flare-testnet&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      },
       {
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.flare-coston2.quiknode.pro/{API_KEY}/ext/bc/C/rpc/",
@@ -889,7 +904,8 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY"
     },
     "rpc": [
-      "https://rpc.bt.io"
+      "https://rpc.bt.io",
+      "https://bittorrent.drpc.org"
     ]
   },
   "204": {
@@ -1495,11 +1511,39 @@
       }
     ]
   },
+  "945": {
+    "sourcifyName": "Subtensor EVM Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=bittensor-testnet&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
+    ]
+  },
   "957": {
     "sourcifyName": "Lyra Mainnet",
     "supported": false,
     "discoveredBy": [
       "deprecated"
+    ]
+  },
+  "964": {
+    "sourcifyName": "Subtensor EVM",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=bittensor&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
     ]
   },
   "970": {
@@ -1821,9 +1865,9 @@
     "rpc": [
       "https://rpc.api.moonbeam.network",
       "https://moonbeam.api.onfinality.io/public",
-      "https://moonbeam.unitedbloc.com",
       "https://moonbeam-rpc.publicnode.com",
-      "https://moonbeam.drpc.org"
+      "https://moonbeam.drpc.org",
+      "https://moonbeam.unitedbloc.com"
     ]
   },
   "1285": {
@@ -2217,7 +2261,7 @@
     ]
   },
   "1952": {
-    "sourcifyName": "Chain 1952",
+    "sourcifyName": "X Layer Testnet",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -2397,7 +2441,8 @@
     "sourcifyName": "KiteAI Mainnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout"
+      "blockscout",
+      "drpc"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -2405,6 +2450,12 @@
       }
     },
     "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=kite&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      },
       "https://rpc.gokite.ai"
     ]
   },
@@ -2598,6 +2649,26 @@
       }
     ]
   },
+  "3637": {
+    "sourcifyName": "Botanix Mainnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "fetchContractCreationTxUsing": {
+      "routescanApi": {
+        "type": "mainnet"
+      }
+    },
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=botanix&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
+      }
+    ]
+  },
   "3737": {
     "sourcifyName": "Crossball Mainnet",
     "supported": false,
@@ -2614,6 +2685,13 @@
   },
   "3945": {
     "sourcifyName": "Nexus Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "blockscout"
+    ]
+  },
+  "3946": {
+    "sourcifyName": "Nexus Mainnet",
     "supported": false,
     "discoveredBy": [
       "blockscout"
@@ -3014,6 +3092,21 @@
       "deprecated"
     ]
   },
+  "6122": {
+    "sourcifyName": "Tea Mainnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=tea&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
+      }
+    ]
+  },
   "6321": {
     "sourcifyName": "Aura Euphoria Testnet",
     "supported": false,
@@ -3218,7 +3311,8 @@
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.b3-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -3695,11 +3789,11 @@
       "drpc"
     ],
     "fetchContractCreationTxUsing": {
-      "blockscoutApi": {
-        "url": "https://eth-holesky.blockscout.com/"
-      },
       "routescanApi": {
         "type": "testnet"
+      },
+      "blockscoutApi": {
+        "url": "https://eth-holesky.blockscout.com/"
       }
     },
     "rpc": [
@@ -4331,11 +4425,6 @@
       "blockscout",
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "blockscoutApi": {
-        "url": "https://explorer.testnet.chain.robinhood.com/"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -4343,13 +4432,27 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       }
-    ]
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.testnet.chain.robinhood.com/"
+      }
+    }
   },
   "47763": {
     "sourcifyName": "Neo X Mainnet",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
-      "deprecated"
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://xexplorer.neo.org/"
+      }
+    },
+    "rpc": [
+      "https://mainnet-1.rpc.banelabs.org",
+      "https://mainnet-2.rpc.banelabs.org"
     ]
   },
   "48898": {
@@ -5482,7 +5585,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=open-campus-codex-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -5780,6 +5884,20 @@
       }
     ]
   },
+  "7080969": {
+    "sourcifyName": "Humanity Protocol testnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=humanity-testnet&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
+    ]
+  },
   "7777777": {
     "sourcifyName": "Zora",
     "supported": true,
@@ -5936,9 +6054,17 @@
   },
   "12227332": {
     "sourcifyName": "Neo X Testnet T4",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
-      "deprecated"
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://xt4scan.ngd.network"
+      }
+    },
+    "rpc": [
+      "https://testnet.rpc.banelabs.org/"
     ]
   },
   "16969696": {
@@ -5978,9 +6104,9 @@
       }
     },
     "rpc": [
+      "https://maizenet-rpc.usecorn.com",
       "https://mainnet.corn-rpc.com",
-      "https://rpc.ankr.com/corn_maizenet",
-      "https://maizenet-rpc.usecorn.com"
+      "https://rpc.ankr.com/corn_maizenet"
     ]
   },
   "96969696": {
