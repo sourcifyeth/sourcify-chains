@@ -63,7 +63,9 @@ interface SourcifyChainExtension {
   discoveredBy: string[];
   etherscanApi?: {
     supported: boolean;
-    apiKeyEnvName: string;
+    // Optional for custom Etherscan-compatible explorers that don't require an
+    // API key (e.g. BattleChain); registry chains always carry the shared key.
+    apiKeyEnvName?: string;
     // Custom base URL for Etherscan-compatible explorers not in the Etherscan
     // registry (e.g. https://block-explorer-api.testnet.battlechain.com).
     url?: string;
@@ -494,7 +496,7 @@ async function main() {
     chainId: number;
     sourcifyName: string;
     discoveredBy: string[];
-    etherscanApi?: { supported: boolean; apiKeyEnvName: string; url?: string };
+    etherscanApi?: { supported: boolean; apiKeyEnvName?: string; url?: string };
     fetchUsing: Record<string, unknown>;
     rpcSlots: RpcSlot[]; // override + dRPC + QN, in priority order
     publicCandidates: string[]; // chainid.network public RPCs, used only as fallback
@@ -570,22 +572,27 @@ async function main() {
     // Etherscan support comes from the Etherscan registry, or from a
     // chain-overrides opt-in (`etherscanApi.supported`) for Etherscan-compatible
     // explorers not in the registry — those carry a custom `url`.
-    const etherscanApi = etherscan
-      ? {
-          supported: true,
-          apiKeyEnvName: etherscanApiKeys[chainId.toString()] ?? "ETHERSCAN_API_KEY",
-          ...(override?.etherscanApi?.url ? { url: override.etherscanApi.url } : {}),
-        }
-      : override?.etherscanApi?.supported
-      ? {
-          supported: true,
-          apiKeyEnvName:
-            override.etherscanApi.apiKeyEnvName ??
-            etherscanApiKeys[chainId.toString()] ??
-            "ETHERSCAN_API_KEY",
-          ...(override.etherscanApi.url ? { url: override.etherscanApi.url } : {}),
-        }
-      : undefined;
+    // Registry chains always use the shared Etherscan API key. Custom explorers
+    // take an optional `apiKeyEnvName` from the override; if absent, the support
+    // is generated without an API key (many, e.g. BattleChain, don't need one).
+    let etherscanApi:
+      | { supported: boolean; apiKeyEnvName?: string; url?: string }
+      | undefined;
+    if (etherscan) {
+      etherscanApi = {
+        supported: true,
+        apiKeyEnvName: etherscanApiKeys[chainId.toString()] ?? "ETHERSCAN_API_KEY",
+        ...(override?.etherscanApi?.url ? { url: override.etherscanApi.url } : {}),
+      };
+    } else if (override?.etherscanApi?.supported) {
+      etherscanApi = {
+        supported: true,
+        ...(override.etherscanApi.apiKeyEnvName
+          ? { apiKeyEnvName: override.etherscanApi.apiKeyEnvName }
+          : {}),
+        ...(override.etherscanApi.url ? { url: override.etherscanApi.url } : {}),
+      };
+    }
 
     const fetchUsing: Record<string, unknown> = {
       ...(override?.fetchContractCreationTxUsing ?? {}),

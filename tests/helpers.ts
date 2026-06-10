@@ -33,6 +33,77 @@ export function loadChains(): Record<string, ChainEntry> {
   return raw;
 }
 
+// RPC entries in sourcify-chains-default.json come in a few shapes: a plain URL
+// string, or one of the tagged objects below. We only need the fetchable URL +
+// any auth headers to issue a JSON-RPC call.
+type RpcEntry =
+  | string
+  | { type: "BaseRPC"; url: string }
+  | {
+      type: "FetchRequest";
+      url: string;
+      headers?: { headerName: string; headerEnvName: string }[];
+    }
+  | { type: "APIKeyRPC"; url: string; apiKeyEnvName: string };
+
+// Resolve an RPC entry to a fetchable URL + headers, pulling secrets from the
+// environment. Returns null when a required secret (API key / header value)
+// isn't set, so the caller can skip that RPC rather than send a bad request.
+export function resolveRpcUrl(
+  entry: RpcEntry,
+): { url: string; headers: Record<string, string> } | null {
+  if (typeof entry === "string") return { url: entry, headers: {} };
+  if (entry.type === "BaseRPC") return { url: entry.url, headers: {} };
+  if (entry.type === "APIKeyRPC") {
+    const key = process.env[entry.apiKeyEnvName];
+    if (!key) return null;
+    return { url: entry.url.replace("{API_KEY}", key), headers: {} };
+  }
+  if (entry.type === "FetchRequest") {
+    const headers: Record<string, string> = {};
+    for (const h of entry.headers ?? []) {
+      const value = process.env[h.headerEnvName];
+      if (!value) return null;
+      headers[h.headerName] = value;
+    }
+    return { url: entry.url, headers };
+  }
+  return null;
+}
+
+// Returns the deployed bytecode at `address` (e.g. "0x" when nothing is
+// deployed), trying each RPC in order and returning the first valid response.
+// Returns null if no RPC could be reached.
+export async function getDeployedCode(
+  rpcEntries: RpcEntry[],
+  address: string,
+  timeoutMs = 10_000,
+): Promise<string | null> {
+  for (const entry of rpcEntries) {
+    const resolved = resolveRpcUrl(entry);
+    if (!resolved) continue;
+    try {
+      const res = await fetch(resolved.url, {
+        method: "POST",
+        headers: { ...resolved.headers, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          jsonrpc: "2.0",
+          id: 1,
+          method: "eth_getCode",
+          params: [address, "latest"],
+        }),
+        signal: AbortSignal.timeout(timeoutMs),
+      });
+      if (!res.ok) continue;
+      const json = (await res.json()) as { result?: unknown };
+      if (typeof json.result === "string") return json.result;
+    } catch {
+      // RPC unreachable / timed out / bad JSON — try the next one.
+    }
+  }
+  return null;
+}
+
 export async function waitForServer(
   baseUrl: string,
   timeoutMs = 60_000,
