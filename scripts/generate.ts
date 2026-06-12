@@ -43,7 +43,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..");
 
 const CHAINID_NETWORK_URL = "https://chainid.network/chains.json";
-const SOURCIFY_CONTRACTS_URL = "https://sourcify.dev/server/v2/contracts";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -179,31 +178,6 @@ function getProbeableUrl(rpc: string | RpcEntry): string | null {
     return null;
   }
   return rpc.url.includes("{") ? null : rpc.url;
-}
-
-/**
- * Checks whether a chain has any verified contracts on sourcify.dev. Used to
- * decide, for a chain left with no live RPC, between silent removal (no
- * contracts) and deprecation as supported:false (has contracts). On error,
- * returns true — deprecating is reversible, silent removal loses discoverability.
- */
-async function chainHasVerifiedContracts(chainId: number): Promise<boolean> {
-  try {
-    const resp = await fetch(`${SOURCIFY_CONTRACTS_URL}/${chainId}?limit=1`, {
-      signal: AbortSignal.timeout(15_000),
-    });
-    if (!resp.ok) {
-      console.warn(`  sourcify.dev contracts check for #${chainId} returned ${resp.status} — assuming deprecate`);
-      return true;
-    }
-    const body = (await resp.json()) as { results?: unknown[] };
-    return Array.isArray(body.results) && body.results.length > 0;
-  } catch (e) {
-    console.warn(
-      `  sourcify.dev contracts check for #${chainId} failed (${e instanceof Error ? e.message : String(e)}) — assuming deprecate`
-    );
-    return true;
-  }
 }
 
 // QuickNode slugs that require an /ext/bc/C/rpc/ path suffix (Avalanche/Flare subnets)
@@ -744,32 +718,22 @@ async function main() {
     };
   }
 
-  // ---- Deprecate-or-remove: chains left with no live RPC ----
-  // If sourcify.dev already has verified contracts for the chain, keep it as
-  // supported:false (deprecated) so those stay discoverable. Otherwise drop it
-  // entirely — sync.ts stabilizes the removal over consecutive runs.
+  // ---- Deprecate: chains left with no live RPC ----
+  // Keep them as supported:false (deprecated) so they stay discoverable rather
+  // than disappearing from the output. We deliberately don't drop chains that
+  // lack verified contracts: that check relied on sourcify.dev, which returns
+  // an error for chains it doesn't know — making dead chains flap in and out of
+  // the output on each run.
   if (noRpcChains.length > 0) {
-    console.log(
-      `\n${noRpcChains.length} chain(s) have no live RPC — checking sourcify.dev for verified contracts...`
-    );
-    await withConcurrency(
-      noRpcChains.map((c) => async () => {
-        const hasContracts = await chainHasVerifiedContracts(c.chainId);
-        if (hasContracts) {
-          console.log(
-            `  [deprecate] #${c.chainId} ${c.sourcifyName} — has verified contracts, keeping as supported:false`
-          );
-          output[c.chainId.toString()] = {
-            sourcifyName: c.sourcifyName,
-            supported: false,
-            discoveredBy: c.discoveredBy,
-          };
-        } else {
-          console.log(`  [remove] #${c.chainId} ${c.sourcifyName} — no verified contracts, dropping`);
-        }
-      }),
-      10
-    );
+    console.log(`\n${noRpcChains.length} chain(s) have no live RPC — keeping as supported:false`);
+    for (const c of noRpcChains) {
+      console.log(`  [deprecate] #${c.chainId} ${c.sourcifyName}`);
+      output[c.chainId.toString()] = {
+        sourcifyName: c.sourcifyName,
+        supported: false,
+        discoveredBy: c.discoveredBy,
+      };
+    }
   }
 
   // Add deprecated chains as supported: false (skipped in --only mode, which
