@@ -62,13 +62,15 @@
     "rpc": [
       {
         "url": "https://rpc.pulsechain.com",
-        "type": "BaseRPC"
+        "type": "BaseRPC",
+        "traceSupport": "trace_transaction"
       },
       "https://pulsechain-rpc.publicnode.com",
       "wss://pulsechain-rpc.publicnode.com",
       {
         "url": "https://rpc-pulsechain.g4mm4.io",
-        "type": "BaseRPC"
+        "type": "BaseRPC",
+        "traceSupport": "trace_transaction"
       }
     ],
     "fetchContractCreationTxUsing": {
