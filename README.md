@@ -126,6 +126,17 @@ Chains whose dRPC endpoint is too unreliable to probe or use. These chains are e
 }
 ```
 
+### `avalanche-ignore.json`
+
+Chain IDs the Avalanche Glacier API lists for an unrelated chain — usually an ephemeral AvaCloud test subnet whose chain ID collides with a different chain in our registry (e.g. Glacier serves `4114` as the test subnet `WT0615TP`, but `4114` is Citrea Mainnet here). These chains are excluded from the Glacier match, so `fetchContractCreationTxUsing.avalancheApi: true` is not set on the wrong chain:
+
+```json
+{
+  "2201": "Stable Testnet",
+  "4114": "Citrea Mainnet"
+}
+```
+
 ### `tx-cache.json`
 
 A cache of known transaction hashes, keyed by chain ID. When a cached hash is available for a chain, the probe skips the 500-block scan entirely and uses it directly. This prevents false "chain inactive" results for low-activity chains where no transaction happens to appear in the scan window.
