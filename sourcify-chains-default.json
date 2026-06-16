@@ -343,7 +343,8 @@
     },
     "rpc": [
       "https://rpc.apothem.network",
-      "https://erpc.apothem.network"
+      "https://erpc.apothem.network",
+      "https://apothem.xdcrpc.com"
     ]
   },
   "56": {
@@ -1133,7 +1134,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=boba-eth&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -1305,11 +1306,13 @@
       "https://pulsechain-rpc.publicnode.com",
       {
         "url": "https://rpc.pulsechain.com",
-        "type": "BaseRPC"
+        "type": "BaseRPC",
+        "traceSupport": "trace_transaction"
       },
       {
         "url": "https://rpc-pulsechain.g4mm4.io",
-        "type": "BaseRPC"
+        "type": "BaseRPC",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -1718,15 +1721,7 @@
     "supported": false,
     "discoveredBy": [
       "blockscout"
-    ],
-    "rpc": [
-      "https://json-rpc.evm.testnet.iotaledger.net"
-    ],
-    "fetchContractCreationTxUsing": {
-      "blockscoutApi": {
-        "url": "https://explorer.evm.testnet.iotaledger.net/"
-      }
-    }
+    ]
   },
   "1076": {
     "sourcifyName": "IOTA EVM Testnet",
@@ -2738,7 +2733,7 @@
   },
   "4002": {
     "sourcifyName": "Fantom Testnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "drpc"
     ],
@@ -5622,8 +5617,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hemi-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -5835,7 +5829,7 @@
   },
   "7080969": {
     "sourcifyName": "Humanity Protocol testnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "drpc"
     ],
