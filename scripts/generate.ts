@@ -311,6 +311,14 @@ async function main() {
     ? (JSON.parse(fs.readFileSync(txCachePath, "utf8")) as Record<string, string>)
     : {};
 
+  // Previously generated output, read before we overwrite it. Used to carry
+  // forward chains that have dropped out of every discovery source (so they
+  // never get hard-removed — see the deprecate pass below).
+  const previousOutputPath = path.join(REPO_ROOT, "sourcify-chains-default.json");
+  const previousOutput: Record<string, SourcifyChainExtension> = fs.existsSync(previousOutputPath)
+    ? (JSON.parse(fs.readFileSync(previousOutputPath, "utf8")) as Record<string, SourcifyChainExtension>)
+    : {};
+
   const deprecatedSet = new Set<number>(Object.keys(deprecatedChains).map(Number));
 
   // Detect deprecated chains that have reappeared in trusted sources.
@@ -733,6 +741,31 @@ async function main() {
         supported: false,
         discoveredBy: c.discoveredBy,
       };
+    }
+  }
+
+  // ---- Deprecate: chains that dropped out of every discovery source ----
+  // The no-live-RPC pass above only covers chains still discovered by some
+  // provider. A chain whose sole source stops listing it (e.g. dRPC dropping a
+  // sunset testnet) would otherwise be absent from the output entirely and get
+  // hard-removed by sync.ts. Carry it forward from the previous output as
+  // supported:false instead, so deprecation — not removal — is the terminal
+  // state for every chain. Skipped in --only mode, which emits only the
+  // requested chains.
+  if (!onlyIds) {
+    const vanished = Object.entries(previousOutput).filter(
+      ([chainIdStr]) => !output[chainIdStr] && !deprecatedSet.has(Number(chainIdStr)),
+    );
+    if (vanished.length > 0) {
+      console.log(`\n${vanished.length} chain(s) no longer discovered by any source — keeping as supported:false`);
+      for (const [chainIdStr, prev] of vanished) {
+        console.log(`  [deprecate] #${chainIdStr} ${prev.sourcifyName}`);
+        output[chainIdStr] = {
+          sourcifyName: prev.sourcifyName,
+          supported: false,
+          discoveredBy: prev.discoveredBy ?? [],
+        };
+      }
     }
   }
 

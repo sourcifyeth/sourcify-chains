@@ -33,7 +33,7 @@ Every QuickNode and dRPC chain is probed on each run. Probing:
 3. Looks up a cached transaction hash from `tx-cache.json` (keyed by chain ID). If one exists, it is used directly and the block scan is skipped. Otherwise, scans blocks `[latest-50 .. latest-550]` (a 500-block window) looking for a transaction. Skipping the most recent 50 blocks avoids transactions whose traces may not yet be indexed. If no transaction is found in that window, the chain is treated as **inactive** (dead).
 4. If a transaction is found, calls `trace_transaction` then `debug_traceTransaction` on it to detect which trace method the provider supports for that chain.
 
-**Dead** chains (step 1–3 failed) are excluded from the provider's RPC list and do not count as a discovery source. A chain left with no live RPC is kept in the output as `supported: false` (deprecated) so it stays discoverable, rather than being removed entirely.
+**Dead** chains (step 1–3 failed) are excluded from the provider's RPC list and do not count as a discovery source. A chain left with no live RPC is kept in the output as `supported: false` (deprecated) so it stays discoverable, rather than being removed entirely. The same applies to a chain that drops out of every discovery source (e.g. a provider stops listing a sunset network): it is carried forward from the previous output as `supported: false` rather than hard-removed. Deprecation — not removal — is the terminal state for a chain that has been generated at least once.
 
 **Trace support** result per provider:
 | Value | Meaning |
