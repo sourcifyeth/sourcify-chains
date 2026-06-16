@@ -306,6 +306,14 @@ async function main() {
   >;
   const drpcIgnoreSet = new Set<number>(Object.keys(drpcIgnore).map(Number));
 
+  // Chain IDs the Avalanche Glacier API lists for an unrelated (usually
+  // ephemeral AvaCloud test) subnet that collides with a different chain in our
+  // registry. Excluded so we don't set avalancheApi: true on the wrong chain.
+  const avalancheIgnore = JSON.parse(
+    fs.readFileSync(path.join(REPO_ROOT, "avalanche-ignore.json"), "utf8")
+  ) as Record<string, string>;
+  const avalancheIgnoreSet = new Set<number>(Object.keys(avalancheIgnore).map(Number));
+
   const txCachePath = path.join(REPO_ROOT, "tx-cache.json");
   const txCache: Record<string, string> = fs.existsSync(txCachePath)
     ? (JSON.parse(fs.readFileSync(txCachePath, "utf8")) as Record<string, string>)
@@ -600,7 +608,7 @@ async function main() {
     if (routescan && !fetchUsing["routescanApi"]) {
       fetchUsing["routescanApi"] = { type: routescan.type };
     }
-    if (avalancheChains.has(chainId) && !fetchUsing["avalancheApi"]) {
+    if (avalancheChains.has(chainId) && !avalancheIgnoreSet.has(chainId) && !fetchUsing["avalancheApi"]) {
       fetchUsing["avalancheApi"] = true;
     }
 
