@@ -3199,10 +3199,7 @@
         "url": "https://lb.drpc.org/ogrpc?network=zeta-chain&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://zetachain-evm.blockpi.network/v1/rpc/public",
-      "https://zetachain-mainnet.g.allthatnode.com/archive/evm",
-      "https://7000.rpc.thirdweb.com"
+      }
     ]
   },
   "7001": {
@@ -5300,6 +5297,13 @@
       "https://worldmobile-testnet.g.alchemy.com/public"
     ]
   },
+  "325000": {
+    "sourcifyName": "Camp Network Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "blockscout"
+    ]
+  },
   "420420": {
     "sourcifyName": "Kekchain Main Net (kekistan)",
     "supported": false,
@@ -5617,7 +5621,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hemi-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -5829,7 +5834,7 @@
   },
   "7080969": {
     "sourcifyName": "Humanity Protocol testnet",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
       "drpc"
     ],
