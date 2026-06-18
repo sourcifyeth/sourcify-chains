@@ -272,6 +272,16 @@
       }
     }
   },
+  "626": {
+    "sourcifyName": "BattleChain Mainnet",
+    "etherscanApi": {
+      "supported": true,
+      "url": "https://block-explorer-api.battlechain.com"
+    },
+    "fetchContractCreationTxUsing": {
+      "etherscanApi": true
+    }
+  },
   "627": {
     "sourcifyName": "BattleChain Testnet",
     "etherscanApi": {
