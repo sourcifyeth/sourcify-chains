@@ -342,9 +342,9 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY"
     },
     "rpc": [
-      "https://rpc.apothem.network",
       "https://erpc.apothem.network",
-      "https://apothem.xdcrpc.com"
+      "https://apothem.xdcrpc.com",
+      "https://rpc.apothem.network"
     ]
   },
   "56": {
@@ -1426,6 +1426,23 @@
       "blockscout"
     ]
   },
+  "626": {
+    "sourcifyName": "BattleChain Mainnet",
+    "supported": true,
+    "discoveredBy": [
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "etherscanApi": true
+    },
+    "etherscanApi": {
+      "supported": true,
+      "url": "https://block-explorer-api.battlechain.com"
+    },
+    "rpc": [
+      "https://mainnet.battlechain.com"
+    ]
+  },
   "627": {
     "sourcifyName": "BattleChain Testnet",
     "supported": true,
@@ -2388,8 +2405,7 @@
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
-      "avalancheApi": true
+      "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
@@ -2736,14 +2752,6 @@
     "supported": false,
     "discoveredBy": [
       "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=fantom-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
-      }
     ]
   },
   "4114": {
@@ -3197,8 +3205,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zeta-chain&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -4526,18 +4533,18 @@
   },
   "57057": {
     "sourcifyName": "zkTanenbaum Testnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "chain-overrides"
+    ],
+    "rpc": [
+      "https://rpc-zk.tanenbaum.io/"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://explorer-zk.tanenbaum.io/"
       }
-    },
-    "rpc": [
-      "https://rpc-zk.tanenbaum.io/"
-    ]
+    }
   },
   "57073": {
     "sourcifyName": "Ink",
@@ -4545,11 +4552,6 @@
     "discoveredBy": [
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "mainnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -4557,7 +4559,12 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "trace_transaction"
       }
-    ]
+    ],
+    "fetchContractCreationTxUsing": {
+      "routescanApi": {
+        "type": "mainnet"
+      }
+    }
   },
   "59141": {
     "sourcifyName": "Linea Sepolia Testnet",
@@ -5656,11 +5663,6 @@
       "drpc",
       "quicknode"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "testnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -5675,7 +5677,12 @@
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "trace_transaction"
       }
-    ]
+    ],
+    "fetchContractCreationTxUsing": {
+      "routescanApi": {
+        "type": "testnet"
+      }
+    }
   },
   "764984": {
     "sourcifyName": "Lamina1 Testnet",
@@ -5788,19 +5795,19 @@
   },
   "5318007": {
     "sourcifyName": "Reactive Network Lasna",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "chain-overrides"
+    ],
+    "rpc": [
+      "https://lasna-rpc.rnk.dev"
     ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": false,
       "blockscoutApi": {
         "url": "https://lasna-api.reactscan.net"
       }
-    },
-    "rpc": [
-      "https://lasna-rpc.rnk.dev"
-    ]
+    }
   },
   "5734951": {
     "sourcifyName": "Jovay Mainnet",
