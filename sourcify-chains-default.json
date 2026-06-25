@@ -342,6 +342,7 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY"
     },
     "rpc": [
+      "https://rpc.apothem.network",
       "https://erpc.apothem.network",
       "https://apothem.xdcrpc.com"
     ]
@@ -557,7 +558,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bsc-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -657,7 +659,7 @@
     ]
   },
   "114": {
-    "sourcifyName": "Flare Network Coston2",
+    "sourcifyName": "Flare Testnet Coston2",
     "supported": true,
     "discoveredBy": [
       "drpc",
@@ -872,7 +874,7 @@
     ]
   },
   "169": {
-    "sourcifyName": "Manta Pacific",
+    "sourcifyName": "Manta Pacific Mainnet",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -1070,7 +1072,7 @@
     ]
   },
   "250": {
-    "sourcifyName": "Fantom Chain Mainnet",
+    "sourcifyName": "Fantom Opera",
     "supported": true,
     "discoveredBy": [
       "drpc",
@@ -1136,7 +1138,7 @@
     ]
   },
   "291": {
-    "sourcifyName": "Orderly",
+    "sourcifyName": "Orderly Mainnet",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -1557,7 +1559,7 @@
     ]
   },
   "919": {
-    "sourcifyName": "Mode Sepolia Testnet",
+    "sourcifyName": "Mode Testnet",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -1791,7 +1793,7 @@
     ]
   },
   "1111": {
-    "sourcifyName": "Moonchain",
+    "sourcifyName": "WEMIX3.0 Mainnet",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -1800,7 +1802,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=wemix&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -1819,7 +1822,7 @@
     ]
   },
   "1114": {
-    "sourcifyName": "Oasys HOME Verse Mainnet",
+    "sourcifyName": "Core Blockchain Testnet2",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -1863,7 +1866,7 @@
     ]
   },
   "1135": {
-    "sourcifyName": "Lisk ",
+    "sourcifyName": "Lisk",
     "supported": true,
     "discoveredBy": [
       "chain-overrides",
@@ -2012,6 +2015,7 @@
     "supported": true,
     "discoveredBy": [
       "blockscout",
+      "drpc",
       "quicknode"
     ],
     "fetchContractCreationTxUsing": {
@@ -2020,6 +2024,11 @@
       }
     },
     "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=story-aeneid-testnet&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      },
       {
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.story-aeneid.quiknode.pro/{API_KEY}/",
@@ -2142,7 +2151,7 @@
     ]
   },
   "1625": {
-    "sourcifyName": "Gravity",
+    "sourcifyName": "Gravity Alpha Mainnet",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -2253,7 +2262,7 @@
     ]
   },
   "1923": {
-    "sourcifyName": "Swell Chain",
+    "sourcifyName": "Swellchain",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -2268,7 +2277,7 @@
     ]
   },
   "1924": {
-    "sourcifyName": "Swell Testnet",
+    "sourcifyName": "Swellchain Testnet",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -2333,7 +2342,7 @@
     ]
   },
   "2020": {
-    "sourcifyName": "Alastria",
+    "sourcifyName": "Ronin Mainnet",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -2888,7 +2897,7 @@
     ]
   },
   "4460": {
-    "sourcifyName": "Orderly Testnet",
+    "sourcifyName": "Orderly Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -3216,8 +3225,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zeta-chain-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -3323,7 +3331,7 @@
     ]
   },
   "8333": {
-    "sourcifyName": "B3 Mainnet",
+    "sourcifyName": "B3",
     "supported": true,
     "discoveredBy": [
       "quicknode"
@@ -3606,7 +3614,7 @@
     ]
   },
   "11235": {
-    "sourcifyName": "HAQQ",
+    "sourcifyName": "Haqq Network",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -4473,7 +4481,7 @@
     ]
   },
   "53302": {
-    "sourcifyName": "Superseed Sepolia",
+    "sourcifyName": "Superseed Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -4495,7 +4503,7 @@
     ]
   },
   "54211": {
-    "sourcifyName": "HAQQ Testnet",
+    "sourcifyName": "Haqq Chain Testnet",
     "supported": true,
     "discoveredBy": [
       "chain-overrides",
@@ -4932,7 +4940,7 @@
     ]
   },
   "97477": {
-    "sourcifyName": "Doma Mainnet",
+    "sourcifyName": "Doma",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -5014,7 +5022,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=creditcoin&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -5457,7 +5466,7 @@
     ]
   },
   "543210": {
-    "sourcifyName": "ZERϴ Network",
+    "sourcifyName": "ZERO Network",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -5614,7 +5623,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hemi-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -5708,7 +5718,7 @@
     ]
   },
   "1440000": {
-    "sourcifyName": "XRPL EVM Mainnet",
+    "sourcifyName": "XRPL EVM Sidechain",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -5730,7 +5740,7 @@
     ]
   },
   "3441006": {
-    "sourcifyName": "Manta Sepolia",
+    "sourcifyName": "Manta Pacific Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -5761,8 +5771,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=arc-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -6011,18 +6020,18 @@
   },
   "20180427": {
     "sourcifyName": "Stability Testnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "blockscout"
+    ],
+    "rpc": [
+      "https://free.testnet.stabilityprotocol.com"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://explorer.testnet.stabilityprotocol.com/"
       }
-    },
-    "rpc": [
-      "https://free.testnet.stabilityprotocol.com"
-    ]
+    }
   },
   "21000000": {
     "sourcifyName": "Corn Mainnet",
@@ -6223,7 +6232,7 @@
     ]
   },
   "1666600000": {
-    "sourcifyName": "Harmony",
+    "sourcifyName": "Harmony Mainnet Shard 0",
     "supported": true,
     "discoveredBy": [
       "drpc"
