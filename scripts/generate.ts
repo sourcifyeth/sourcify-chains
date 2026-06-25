@@ -529,10 +529,11 @@ async function main() {
       qnQualifies || drpcQualifies || !!etherscan || blockscout?.hostedBy === "blockscout" || !!override;
     if (!hasActiveSource) continue;
 
+    const blockscoutName = blockscout?.hostedBy === "blockscout" ? blockscout.name : undefined;
     const sourcifyName =
       override?.sourcifyName ??
       etherscan?.chainName ??
-      blockscout?.name ??
+      blockscoutName ??
       meta?.name ??
       `Chain ${chainId}`;
 
