@@ -559,7 +559,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bsc-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       },
       {
         "type": "APIKeyRPC",
@@ -1575,7 +1575,7 @@
   },
   "945": {
     "sourcifyName": "Subtensor EVM Testnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "drpc"
     ],
@@ -2011,7 +2011,7 @@
     ]
   },
   "1315": {
-    "sourcifyName": "Story Aeneid",
+    "sourcifyName": "DATA Network Aeneid",
     "supported": true,
     "discoveredBy": [
       "blockscout",
@@ -2020,7 +2020,7 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://aeneid.storyscan.io/"
+        "url": "https://aeneid.datanetscan.io/"
       }
     },
     "rpc": [
@@ -2122,14 +2122,14 @@
     ]
   },
   "1514": {
-    "sourcifyName": "Story",
+    "sourcifyName": "DATA Network",
     "supported": true,
     "discoveredBy": [
       "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://www.storyscan.io/"
+        "url": "https://www.datanetscan.io/"
       }
     },
     "rpc": [
@@ -2229,6 +2229,21 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "trace_transaction"
       }
+    ]
+  },
+  "1874": {
+    "sourcifyName": "Whitechain Sepolia Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.testnet.whitechain.io/"
+      }
+    },
+    "rpc": [
+      "https://rpc.testnet.whitechain.io"
     ]
   },
   "1890": {
@@ -4800,7 +4815,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=berachain-bepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       },
       {
         "type": "APIKeyRPC",
@@ -5886,7 +5902,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=celo-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
