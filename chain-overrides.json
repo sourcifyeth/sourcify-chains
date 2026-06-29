@@ -476,5 +476,16 @@
         "url": "https://xt4scan.ngd.network"
       }
     }
+  },
+  "1874": {
+    "sourcifyName": "Whitechain Sepolia Testnet",
+    "rpc": [
+      "https://rpc.testnet.whitechain.io"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.testnet.whitechain.io/"
+      }
+    }
   }
 }
