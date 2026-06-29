@@ -37,13 +37,6 @@ runs:
       shell: bash
       run: docker compose -f tests/docker-compose.yml up -d postgres
 
-    - name: Wait for Postgres
-      shell: bash
-      run: |
-        until docker compose -f tests/docker-compose.yml exec -T postgres pg_isready -U sourcify; do
-          sleep 1
-        done
-
     # Preinstalled on GitHub-hosted `ubuntu-latest`; only installs in the
     # slim `catthehacker/ubuntu:act-latest` image used by `act` for local
     # CI runs. The presence check skips `apt-get update` on real CI
@@ -51,10 +44,23 @@ runs:
     - name: Install PostgreSQL client (if missing)
       shell: bash
       run: |
-        if ! command -v psql >/dev/null 2>&1; then
+        if ! command -v pg_isready >/dev/null 2>&1; then
           sudo apt-get update
           sudo apt-get install -y postgresql-client
         fi
+
+    # Probe the *host* TCP path (localhost:5432) that migrate.sh uses, not the
+    # container's Unix socket. The postgres image's first-time init starts a
+    # temporary socket-only server that answers `pg_isready` over the socket
+    # before the real TCP listener is up; gating on the socket lets migrate.sh
+    # connect during that window and hit "server closed the connection
+    # unexpectedly".
+    - name: Wait for Postgres
+      shell: bash
+      run: |
+        until pg_isready -h localhost -p 5432 -U sourcify; do
+          sleep 1
+        done
 
     - name: Apply schema
       shell: bash
