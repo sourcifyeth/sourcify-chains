@@ -98,6 +98,32 @@ describe("diffSnapshots", () => {
     assert.equal(reductiveChanges[0].pending.type, "remove-chain");
   });
 
+  it("supported true → false → reductive deprecate-chain", () => {
+    const baseline: Snapshot = { "1": chain({ supported: true }) };
+    const snapshot: Snapshot = { "1": chain({ supported: false }) };
+    const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot);
+    assert.equal(addDescriptions.length, 0);
+    assert.equal(reductiveChanges.length, 1);
+    assert.equal(reductiveChanges[0].key, "deprecate-chain-1");
+    assert.equal(reductiveChanges[0].pending.type, "deprecate-chain");
+  });
+
+  it("supported false → true (recovery) → additive, not reductive", () => {
+    const baseline: Snapshot = { "1": chain({ supported: false }) };
+    const snapshot: Snapshot = { "1": chain({ supported: true }) };
+    const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot);
+    assert.equal(reductiveChanges.length, 0);
+    assert.ok(addDescriptions.some((d) => d.includes("Re-enabled")));
+  });
+
+  it("supported true → false via deprecated-chains.json → immediate (additive)", () => {
+    const baseline: Snapshot = { "1": chain({ supported: true, discoveredBy: ["deprecated"] }) };
+    const snapshot: Snapshot = { "1": chain({ supported: false, discoveredBy: ["deprecated"] }) };
+    const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot);
+    assert.equal(reductiveChanges.length, 0, "manual deprecation is deterministic — apply immediately");
+    assert.ok(addDescriptions.some((d) => d.includes("Deprecated")));
+  });
+
   it("new drpc RPC added → additive", () => {
     const baseline: Snapshot = { "1": chain({ rpc: [QN_RPC] }) };
     const snapshot: Snapshot = { "1": chain({ rpc: [QN_RPC, DRPC_RPC] }) };
@@ -430,6 +456,38 @@ describe("buildStabilizedOutput", () => {
     };
     const output = buildStabilizedOutput(baseline, snapshot, pending);
     assert.equal("1" in output, false);
+  });
+
+  it("pending deprecate-chain (count < 5) → supported kept true", () => {
+    const baseline: Snapshot = { "1": chain({ supported: true, rpc: [DRPC_RPC] }) };
+    const snapshot: Snapshot = { "1": chain({ supported: false, rpc: [DRPC_RPC] }) };
+    const pending: Record<string, PendingChange> = {
+      "deprecate-chain-1": {
+        type: "deprecate-chain",
+        chainId: 1,
+        consecutiveRuns: 1,
+        firstSeenAt: NOW,
+        lastSeenAt: NOW,
+      },
+    };
+    const output = buildStabilizedOutput(baseline, snapshot, pending);
+    assert.equal(output["1"].supported, true, "supported should stay true until deprecation stabilizes");
+  });
+
+  it("stabilized deprecate-chain (count >= 5) → supported stays false", () => {
+    const baseline: Snapshot = { "1": chain({ supported: true, rpc: [DRPC_RPC] }) };
+    const snapshot: Snapshot = { "1": chain({ supported: false, rpc: [DRPC_RPC] }) };
+    const pending: Record<string, PendingChange> = {
+      "deprecate-chain-1": {
+        type: "deprecate-chain",
+        chainId: 1,
+        consecutiveRuns: 5,
+        firstSeenAt: NOW,
+        lastSeenAt: NOW,
+      },
+    };
+    const output = buildStabilizedOutput(baseline, snapshot, pending);
+    assert.equal(output["1"].supported, false);
   });
 
   it("pending remove-rpc (count < 5) → RPC restored from baseline", () => {
