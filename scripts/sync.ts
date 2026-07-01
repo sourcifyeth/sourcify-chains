@@ -68,7 +68,8 @@ export type ChangeType =
   | "remove-fetchUsing"
   | "change-fetchUsing"
   | "remove-etherscanApi"
-  | "remove-discoveredBy";
+  | "remove-discoveredBy"
+  | "deprecate-chain";
 
 export interface PendingChange {
   type: ChangeType;
@@ -186,6 +187,25 @@ export function diffSnapshots(
     }
 
     // Both exist — diff fields
+
+    // supported flag. Flipping true→false (deprecation) is reductive — a single
+    // flaky liveness probe shouldn't be enough to mark a chain unsupported, so
+    // it must hold for THRESHOLD consecutive runs. Two exceptions are applied
+    // immediately: recovery (false→true), and a deterministic manual deprecation
+    // via deprecated-chains.json (snapshot carries discoveredBy: ["deprecated"]).
+    if (base!.supported && !snap!.supported) {
+      if ((snap!.discoveredBy ?? []).includes("deprecated")) {
+        addDescriptions.push(`Deprecated chain ${chainId} (${chainName})`);
+      } else {
+        reductiveChanges.push({
+          key: `deprecate-chain-${chainId}`,
+          pending: { type: "deprecate-chain", chainId: chainNum },
+        });
+      }
+    } else if (!base!.supported && snap!.supported) {
+      addDescriptions.push(`Re-enabled chain ${chainId} (${chainName})`);
+    }
+
     const baseRpcs = rpcMap(base!.rpc);
     const snapRpcs = rpcMap(snap!.rpc);
 
@@ -362,6 +382,11 @@ export function buildStabilizedOutput(
       // Restore the chain from baseline
       if (baseline[chainId]) {
         output[chainId] = JSON.parse(JSON.stringify(baseline[chainId]));
+      }
+    } else if (entry.type === "deprecate-chain") {
+      // Keep the chain supported until the deprecation stabilizes
+      if (output[chainId]) {
+        output[chainId].supported = true;
       }
     } else if (entry.type === "remove-rpc" && entry.provider) {
       // Restore the specific RPC entry from baseline

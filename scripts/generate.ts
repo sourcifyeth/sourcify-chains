@@ -667,6 +667,7 @@ async function main() {
   // one were shared, the last candidate's id wins (harmless — same check).
   const livenessUrls = new Set<string>();
   const urlChainId = new Map<string, number>();
+  const candidateName = new Map(candidates.map((c) => [c.chainId, c.sourcifyName]));
   for (const c of candidates) {
     for (const slot of c.rpcSlots) {
       if (slot.kind === "probe") {
@@ -695,7 +696,13 @@ async function main() {
             }
           })) !== null;
         livenessResults.set(url, alive);
-        if (!alive) console.log(`  [dead] ${url}`);
+        if (!alive) {
+          const name =
+            (chainId !== undefined ? candidateName.get(chainId) : undefined) ??
+            (chainId !== undefined ? chainList.get(chainId)?.name : undefined) ??
+            "unknown";
+          console.log(`  [dead] #${chainId ?? "?"} ${name} — ${url}`);
+        }
       }),
       20
     );
