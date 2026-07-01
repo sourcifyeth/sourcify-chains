@@ -52,30 +52,35 @@ interface ContractInput {
   stdJsonInput: object;
   compilerVersion: string;
   contractIdentifier: string;
+  label: string;
 }
 
 const CREATEX_CONTRACT: Omit<ContractInput, "address"> = {
   stdJsonInput: createXInput,
   compilerVersion: "0.8.23+commit.f704f362",
   contractIdentifier: "src/CreateX.sol:CreateX",
+  label: "CreateX",
 };
 
 const MULTICALL3_CONTRACT: Omit<ContractInput, "address"> = {
   stdJsonInput: multicallInput,
   compilerVersion: "0.8.12+commit.f00d7308",
   contractIdentifier: "Multicall3.sol:Multicall3",
+  label: "Multicall3",
 };
 
 const SAFE_FACTORY_CONTRACT: Omit<ContractInput, "address"> = {
   stdJsonInput: safeFactoryInput,
   compilerVersion: "0.7.6+commit.7338295f",
   contractIdentifier: "contracts/proxies/SafeProxyFactory.sol:SafeProxyFactory",
+  label: "Safe factory",
 };
 
 const STORAGE_CONTRACT: Omit<ContractInput, "address"> = {
   stdJsonInput: storageInput,
   compilerVersion: "0.8.7+commit.e28d00a7",
   contractIdentifier: "contracts/1_Storage.sol:Storage",
+  label: "Storage",
 };
 
 let newAddedChainIds: string[] = [];
@@ -106,6 +111,7 @@ function requiresTestContract(discoveredBy: string[] = []): boolean {
 describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
   const chainResults = new Map<string, unknown>();
   const chainErrors = new Map<string, string>();
+  const testContracts = new Map<string, ContractInput>();
   const noTestContract = new Set<string>();
   const skippedChains = new Set<string>();
   let createXChainIds: Set<string>;
@@ -167,6 +173,7 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
           noTestContract.add(chainId);
           return;
         }
+        testContracts.set(chainId, contract);
         try {
           const result = await verifyAndPoll(
             BASE_URL,
@@ -257,6 +264,13 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
 
       anyTestsPass = true;
       testedChains.add(chainId);
+
+      const used = testContracts.get(chainId);
+      if (used) {
+        console.log(
+          `  ✓ ${chainName} (${chainId}) verified via ${used.label} contract at ${used.address}`,
+        );
+      }
     });
   }
 
