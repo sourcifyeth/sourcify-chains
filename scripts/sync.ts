@@ -68,8 +68,7 @@ export type ChangeType =
   | "remove-fetchUsing"
   | "change-fetchUsing"
   | "remove-etherscanApi"
-  | "remove-discoveredBy"
-  | "deprecate-chain";
+  | "remove-discoveredBy";
 
 export interface PendingChange {
   type: ChangeType;
@@ -188,20 +187,17 @@ export function diffSnapshots(
 
     // Both exist — diff fields
 
-    // supported flag. Flipping true→false (deprecation) is reductive — a single
-    // flaky liveness probe shouldn't be enough to mark a chain unsupported, so
-    // it must hold for THRESHOLD consecutive runs. Two exceptions are applied
-    // immediately: recovery (false→true), and a deterministic manual deprecation
-    // via deprecated-chains.json (snapshot carries discoveredBy: ["deprecated"]).
-    if (base!.supported && !snap!.supported) {
-      if ((snap!.discoveredBy ?? []).includes("deprecated")) {
-        addDescriptions.push(`Deprecated chain ${chainId} (${chainName})`);
-      } else {
-        reductiveChanges.push({
-          key: `deprecate-chain-${chainId}`,
-          pending: { type: "deprecate-chain", chainId: chainNum },
-        });
-      }
+    // supported flag. It is not tracked as its own change: `supported` is
+    // derived from whether the stabilized output keeps any RPC (see
+    // buildStabilizedOutput). Automated deprecation on RPC loss therefore rides
+    // on the already-gated `remove-rpc` changes — by the time a chain reaches
+    // zero RPCs, every one has been dead for THRESHOLD consecutive runs, so a
+    // single flaky probe can never deprecate a healthy chain. The lines below
+    // are cosmetic PR-description hints only. Manual deprecation via
+    // deprecated-chains.json (snapshot carries discoveredBy: ["deprecated"]) and
+    // recovery (false→true) are both immediate.
+    if (base!.supported && !snap!.supported && (snap!.discoveredBy ?? []).includes("deprecated")) {
+      addDescriptions.push(`Deprecated chain ${chainId} (${chainName})`);
     } else if (!base!.supported && snap!.supported) {
       addDescriptions.push(`Re-enabled chain ${chainId} (${chainName})`);
     }
@@ -383,11 +379,6 @@ export function buildStabilizedOutput(
       if (baseline[chainId]) {
         output[chainId] = JSON.parse(JSON.stringify(baseline[chainId]));
       }
-    } else if (entry.type === "deprecate-chain") {
-      // Keep the chain supported until the deprecation stabilizes
-      if (output[chainId]) {
-        output[chainId].supported = true;
-      }
     } else if (entry.type === "remove-rpc" && entry.provider) {
       // Restore the specific RPC entry from baseline
       const baseRpc = rpcMap(baseline[chainId]?.rpc).get(entry.provider);
@@ -448,6 +439,17 @@ export function buildStabilizedOutput(
     }
     if (entry.rpc) {
       entry.rpc = sortRpcs(entry.rpc);
+    }
+
+    // Derive `supported` from RPC presence. A chain with no usable RPC can't be
+    // verified, so it must be supported:false — and because RPC removals are
+    // themselves gated (remove-rpc, THRESHOLD runs), an empty list here is
+    // already stabilized evidence, never a single flaky probe. During the
+    // stabilization window the removed RPCs are reverted above, so the chain
+    // keeps at least one RPC and stays supported:true. Manual deprecation via
+    // deprecated-chains.json is authoritative and left untouched.
+    if (!(entry.discoveredBy ?? []).includes("deprecated")) {
+      entry.supported = (entry.rpc?.length ?? 0) > 0;
     }
   }
 
