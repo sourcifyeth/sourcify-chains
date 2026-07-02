@@ -1,0 +1,169 @@
+{
+  "lastRunAt": "2026-07-02T05:59:17.303Z",
+  "pendingChanges": {
+    "change-traceSupport-239-https://lb.drpc.org/ogrpc?network=tac&dkey={API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 239,
+      "provider": "https://lb.drpc.org/ogrpc?network=tac&dkey={API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 6,
+      "firstSeenAt": "2026-06-30T16:24:18.741Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "change-traceSupport-42220-https://lb.drpc.org/ogrpc?network=celo&dkey={API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 42220,
+      "provider": "https://lb.drpc.org/ogrpc?network=celo&dkey={API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": "trace_transaction",
+      "consecutiveRuns": 6,
+      "firstSeenAt": "2026-06-30T16:24:18.741Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-rpc-1101-https://{SUBDOMAIN}.zkevm-mainnet.quiknode.pro/{API_KEY}/": {
+      "type": "remove-rpc",
+      "chainId": 1101,
+      "provider": "https://{SUBDOMAIN}.zkevm-mainnet.quiknode.pro/{API_KEY}/",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-07-01T06:26:18.774Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-discoveredBy-1101-quicknode": {
+      "type": "remove-discoveredBy",
+      "chainId": 1101,
+      "key": "quicknode",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-07-01T06:26:18.774Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-rpc-13371-https://{SUBDOMAIN}.imx-mainnet.quiknode.pro/{API_KEY}/": {
+      "type": "remove-rpc",
+      "chainId": 13371,
+      "provider": "https://{SUBDOMAIN}.imx-mainnet.quiknode.pro/{API_KEY}/",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-07-01T06:26:18.774Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-discoveredBy-13371-quicknode": {
+      "type": "remove-discoveredBy",
+      "chainId": 13371,
+      "key": "quicknode",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-07-01T06:26:18.774Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-rpc-13473-https://{SUBDOMAIN}.imx-testnet.quiknode.pro/{API_KEY}/": {
+      "type": "remove-rpc",
+      "chainId": 13473,
+      "provider": "https://{SUBDOMAIN}.imx-testnet.quiknode.pro/{API_KEY}/",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-07-01T06:26:18.774Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-discoveredBy-13473-quicknode": {
+      "type": "remove-discoveredBy",
+      "chainId": 13473,
+      "key": "quicknode",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-07-01T06:26:18.774Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-rpc-660279-https://{SUBDOMAIN}.xai-mainnet.quiknode.pro/{API_KEY}/": {
+      "type": "remove-rpc",
+      "chainId": 660279,
+      "provider": "https://{SUBDOMAIN}.xai-mainnet.quiknode.pro/{API_KEY}/",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-07-01T06:26:18.774Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-discoveredBy-660279-quicknode": {
+      "type": "remove-discoveredBy",
+      "chainId": 660279,
+      "key": "quicknode",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-07-01T06:26:18.774Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-rpc-21000000-https://maizenet-rpc.usecorn.com": {
+      "type": "remove-rpc",
+      "chainId": 21000000,
+      "provider": "https://maizenet-rpc.usecorn.com",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-07-01T06:26:18.774Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-fetchUsing-21000000-blockscoutApi": {
+      "type": "remove-fetchUsing",
+      "chainId": 21000000,
+      "key": "blockscoutApi",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-07-01T06:26:18.774Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-fetchUsing-21000000-routescanApi": {
+      "type": "remove-fetchUsing",
+      "chainId": 21000000,
+      "key": "routescanApi",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-07-01T06:26:18.774Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-rpc-37714555429-https://{SUBDOMAIN}.xai-testnet.quiknode.pro/{API_KEY}/": {
+      "type": "remove-rpc",
+      "chainId": 37714555429,
+      "provider": "https://{SUBDOMAIN}.xai-testnet.quiknode.pro/{API_KEY}/",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-07-01T06:26:18.774Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "deprecate-chain-21000000": {
+      "type": "deprecate-chain",
+      "chainId": 21000000,
+      "consecutiveRuns": 4,
+      "firstSeenAt": "2026-07-01T07:01:06.307Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "deprecate-chain-37714555429": {
+      "type": "deprecate-chain",
+      "chainId": 37714555429,
+      "consecutiveRuns": 4,
+      "firstSeenAt": "2026-07-01T07:01:06.307Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-rpc-57-https://57.rpc.thirdweb.com": {
+      "type": "remove-rpc",
+      "chainId": 57,
+      "provider": "https://57.rpc.thirdweb.com",
+      "consecutiveRuns": 2,
+      "firstSeenAt": "2026-07-01T16:26:27.641Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-rpc-33111-https://rpc.curtis.apechain.com": {
+      "type": "remove-rpc",
+      "chainId": 33111,
+      "provider": "https://rpc.curtis.apechain.com",
+      "consecutiveRuns": 2,
+      "firstSeenAt": "2026-07-01T16:26:27.641Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "change-traceSupport-1111-https://lb.drpc.org/ogrpc?network=wemix&dkey={API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 1111,
+      "provider": "https://lb.drpc.org/ogrpc?network=wemix&dkey={API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 1,
+      "firstSeenAt": "2026-07-02T05:59:17.303Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    },
+    "remove-rpc-534352-https://1rpc.io/scroll": {
+      "type": "remove-rpc",
+      "chainId": 534352,
+      "provider": "https://1rpc.io/scroll",
+      "consecutiveRuns": 1,
+      "firstSeenAt": "2026-07-02T05:59:17.303Z",
+      "lastSeenAt": "2026-07-02T05:59:17.303Z"
+    }
+  }
+}
