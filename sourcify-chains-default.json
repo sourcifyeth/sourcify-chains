@@ -390,8 +390,8 @@
     ],
     "rpc": [
       "https://rpc.syscoin.org",
-      "https://57.rpc.thirdweb.com",
-      "https://syscoin-evm.publicnode.com"
+      "https://syscoin-evm.publicnode.com",
+      "https://57.rpc.thirdweb.com"
     ]
   },
   "61": {
@@ -1045,8 +1045,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=tac&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1773,21 +1772,13 @@
     "sourcifyName": "Polygon zkEVM",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "quicknode"
+      "drpc"
     ],
     "rpc": [
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=polygon-zkevm&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
-      },
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.zkevm-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "trace_transaction"
       }
     ]
@@ -2929,6 +2920,27 @@
       }
     ]
   },
+  "4663": {
+    "sourcifyName": "Robinhood Chain",
+    "supported": true,
+    "discoveredBy": [
+      "blockscout",
+      "drpc"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://robinhoodchain.blockscout.com/"
+      }
+    },
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=robinhood&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      }
+    ]
+  },
   "4689": {
     "sourcifyName": "IoTeX Network Mainnet",
     "supported": true,
@@ -3664,8 +3676,7 @@
     "supported": true,
     "discoveredBy": [
       "blockscout",
-      "drpc",
-      "quicknode"
+      "drpc"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -3677,13 +3688,6 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=immutable-zkevm&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
-      },
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.imx-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
       }
     ]
@@ -3700,8 +3704,7 @@
     "supported": true,
     "discoveredBy": [
       "blockscout",
-      "drpc",
-      "quicknode"
+      "drpc"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -3713,13 +3716,6 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=immutable-zkevm-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
-      },
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.imx-testnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
       }
     ]
@@ -4246,7 +4242,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=celo&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       },
       {
         "type": "APIKeyRPC",
@@ -5579,8 +5575,7 @@
     "sourcifyName": "Xai Mainnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
-      "quicknode"
+      "chain-overrides"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -5588,13 +5583,6 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.xai-mainnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
-      },
       "https://xai-chain.net/rpc"
     ]
   },
@@ -6059,18 +6047,7 @@
     "supported": true,
     "discoveredBy": [
       "chain-overrides"
-    ],
-    "rpc": [
-      "https://maizenet-rpc.usecorn.com"
-    ],
-    "fetchContractCreationTxUsing": {
-      "blockscoutApi": {
-        "url": "https://maizenet-explorer.usecorn.com"
-      },
-      "routescanApi": {
-        "type": "mainnet"
-      }
-    }
+    ]
   },
   "96969696": {
     "sourcifyName": "Privix Chain Testnet",
@@ -6307,15 +6284,6 @@
     "supported": true,
     "discoveredBy": [
       "quicknode"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.xai-testnet.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
-      }
     ]
   },
   "383414847825": {
