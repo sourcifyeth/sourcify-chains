@@ -329,6 +329,7 @@
     "supported": true,
     "discoveredBy": [
       "chain-overrides",
+      "drpc",
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
@@ -342,6 +343,12 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY"
     },
     "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=xdc-testnet&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      },
       "https://rpc.apothem.network",
       "https://erpc.apothem.network",
       "https://apothem.xdcrpc.com"
@@ -390,8 +397,8 @@
     ],
     "rpc": [
       "https://rpc.syscoin.org",
-      "https://syscoin-evm.publicnode.com",
-      "https://57.rpc.thirdweb.com"
+      "https://57.rpc.thirdweb.com",
+      "https://syscoin-evm.publicnode.com"
     ]
   },
   "61": {
@@ -1430,16 +1437,16 @@
     "discoveredBy": [
       "chain-overrides"
     ],
+    "rpc": [
+      "https://mainnet.battlechain.com"
+    ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
       "url": "https://block-explorer-api.battlechain.com"
-    },
-    "rpc": [
-      "https://mainnet.battlechain.com"
-    ]
+    }
   },
   "627": {
     "sourcifyName": "BattleChain Testnet",
@@ -4039,8 +4046,7 @@
         "url": "https://lb.drpc.org/ogrpc?network=apechain-curtis&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://rpc.curtis.apechain.com"
+      }
     ]
   },
   "33139": {
@@ -6044,7 +6050,7 @@
   },
   "21000000": {
     "sourcifyName": "Corn Mainnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "chain-overrides"
     ]
@@ -6281,7 +6287,7 @@
   },
   "37714555429": {
     "sourcifyName": "Xai Testnet v2",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "quicknode"
     ]
