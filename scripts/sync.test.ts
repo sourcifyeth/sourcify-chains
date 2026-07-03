@@ -98,14 +98,18 @@ describe("diffSnapshots", () => {
     assert.equal(reductiveChanges[0].pending.type, "remove-chain");
   });
 
-  it("supported true → false → reductive deprecate-chain", () => {
-    const baseline: Snapshot = { "1": chain({ supported: true }) };
+  it("supported true → false is not tracked on its own (derived from RPC presence)", () => {
+    // The RPC removal is the tracked reductive change; `supported` is derived
+    // from the resulting RPC list in buildStabilizedOutput, so the flip itself
+    // produces no separate change entry.
+    const baseline: Snapshot = { "1": chain({ supported: true, rpc: [DRPC_RPC] }) };
     const snapshot: Snapshot = { "1": chain({ supported: false }) };
-    const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot);
-    assert.equal(addDescriptions.length, 0);
-    assert.equal(reductiveChanges.length, 1);
-    assert.equal(reductiveChanges[0].key, "deprecate-chain-1");
-    assert.equal(reductiveChanges[0].pending.type, "deprecate-chain");
+    const { reductiveChanges } = diffSnapshots(baseline, snapshot);
+    assert.deepEqual(
+      reductiveChanges.map((c) => c.pending.type).sort(),
+      ["remove-rpc"],
+      "only the RPC removal is tracked; the supported flip is derived, not a change",
+    );
   });
 
   it("supported false → true (recovery) → additive, not reductive", () => {
@@ -458,36 +462,48 @@ describe("buildStabilizedOutput", () => {
     assert.equal("1" in output, false);
   });
 
-  it("pending deprecate-chain (count < 5) → supported kept true", () => {
+  it("last RPC removal pending (count < 5) → RPC reverted, so supported stays true", () => {
+    // generate emits the dead chain as supported:false with no RPC; while the
+    // removal is unstable the RPC is reverted, so the chain must stay supported.
     const baseline: Snapshot = { "1": chain({ supported: true, rpc: [DRPC_RPC] }) };
-    const snapshot: Snapshot = { "1": chain({ supported: false, rpc: [DRPC_RPC] }) };
-    const pending: Record<string, PendingChange> = {
-      "deprecate-chain-1": {
-        type: "deprecate-chain",
-        chainId: 1,
-        consecutiveRuns: 1,
-        firstSeenAt: NOW,
-        lastSeenAt: NOW,
-      },
-    };
+    const snapshot: Snapshot = { "1": chain({ supported: false }) };
+    const pending = historyWithEntry(
+      `remove-rpc-1-${DRPC_URL}`,
+      { type: "remove-rpc", chainId: 1, provider: DRPC_URL },
+      1,
+    ).pendingChanges;
     const output = buildStabilizedOutput(baseline, snapshot, pending);
-    assert.equal(output["1"].supported, true, "supported should stay true until deprecation stabilizes");
+    assert.equal(output["1"].rpc?.length, 1, "RPC reverted from baseline");
+    assert.equal(output["1"].supported, true, "supported stays true while an RPC is still served");
   });
 
-  it("stabilized deprecate-chain (count >= 5) → supported stays false", () => {
+  it("last RPC removal stabilized (count >= 5) → empty RPC list → supported:false immediately", () => {
+    // Regression for the split-counter bug: once the RPC removal stabilizes the
+    // chain has zero RPCs, so it must flip to supported:false in the same run —
+    // never left supported:true with an empty RPC list.
     const baseline: Snapshot = { "1": chain({ supported: true, rpc: [DRPC_RPC] }) };
-    const snapshot: Snapshot = { "1": chain({ supported: false, rpc: [DRPC_RPC] }) };
-    const pending: Record<string, PendingChange> = {
-      "deprecate-chain-1": {
-        type: "deprecate-chain",
-        chainId: 1,
-        consecutiveRuns: 5,
-        firstSeenAt: NOW,
-        lastSeenAt: NOW,
-      },
-    };
+    const snapshot: Snapshot = { "1": chain({ supported: false }) };
+    const pending = historyWithEntry(
+      `remove-rpc-1-${DRPC_URL}`,
+      { type: "remove-rpc", chainId: 1, provider: DRPC_URL },
+      5,
+    ).pendingChanges;
     const output = buildStabilizedOutput(baseline, snapshot, pending);
-    assert.equal(output["1"].supported, false);
+    assert.equal(output["1"].rpc?.length ?? 0, 0, "RPC removal applied");
+    assert.equal(output["1"].supported, false, "no RPC left → not supported");
+  });
+
+  it("manual deprecation (discoveredBy deprecated) stays supported:false even while an RPC lingers", () => {
+    const baseline: Snapshot = { "1": chain({ supported: true, rpc: [DRPC_RPC], discoveredBy: ["drpc"] }) };
+    const snapshot: Snapshot = { "1": chain({ supported: false, discoveredBy: ["deprecated"] }) };
+    const pending = historyWithEntry(
+      `remove-rpc-1-${DRPC_URL}`,
+      { type: "remove-rpc", chainId: 1, provider: DRPC_URL },
+      1,
+    ).pendingChanges;
+    const output = buildStabilizedOutput(baseline, snapshot, pending);
+    assert.equal(output["1"].rpc?.length, 1, "RPC reverted while removal is unstable");
+    assert.equal(output["1"].supported, false, "manual deprecation is authoritative, not overridden by RPC presence");
   });
 
   it("pending remove-rpc (count < 5) → RPC restored from baseline", () => {
