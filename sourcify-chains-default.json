@@ -348,10 +348,7 @@
         "url": "https://lb.drpc.org/ogrpc?network=xdc-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://rpc.apothem.network",
-      "https://erpc.apothem.network",
-      "https://apothem.xdcrpc.com"
+      }
     ]
   },
   "56": {
@@ -566,7 +563,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bsc-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -891,7 +888,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=manta-pacific&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -1437,16 +1434,16 @@
     "discoveredBy": [
       "chain-overrides"
     ],
-    "rpc": [
-      "https://mainnet.battlechain.com"
-    ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
       "url": "https://block-explorer-api.battlechain.com"
-    }
+    },
+    "rpc": [
+      "https://mainnet.battlechain.com"
+    ]
   },
   "627": {
     "sourcifyName": "BattleChain Testnet",
@@ -2635,7 +2632,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=morph&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -3385,17 +3383,9 @@
   },
   "8408": {
     "sourcifyName": "Zenchain Testnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "blockscout"
-    ],
-    "fetchContractCreationTxUsing": {
-      "blockscoutApi": {
-        "url": "https://zentrace.io"
-      }
-    },
-    "rpc": [
-      "https://zenchain-testnet.api.onfinality.io/public"
     ]
   },
   "8453": {
@@ -5252,7 +5242,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=ronin-saigon&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -5902,7 +5893,8 @@
         "url": "https://lb.drpc.org/ogrpc?network=celo-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "trace_transaction"
-      }
+      },
+      "https://forno.celo-sepolia.celo-testnet.org"
     ]
   },
   "11155111": {
@@ -6039,14 +6031,14 @@
     "discoveredBy": [
       "blockscout"
     ],
+    "rpc": [
+      "https://free.testnet.stabilityprotocol.com"
+    ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://explorer.testnet.stabilityprotocol.com/"
       }
-    },
-    "rpc": [
-      "https://free.testnet.stabilityprotocol.com"
-    ]
+    }
   },
   "21000000": {
     "sourcifyName": "Corn Mainnet",
