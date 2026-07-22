@@ -414,7 +414,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=ethereum-classic&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -806,7 +807,7 @@
         "url": "https://{SUBDOMAIN}.matic.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -3845,12 +3846,9 @@
   },
   "19011": {
     "sourcifyName": "HOME Verse Mainnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "additional-chains"
-    ],
-    "rpc": [
-      "https://rpc.mainnet.oasys.homeverse.games/"
     ]
   },
   "22776": {
