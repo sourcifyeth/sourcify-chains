@@ -772,7 +772,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hashkey-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -4035,7 +4035,8 @@
         "url": "https://lb.drpc.org/ogrpc?network=apechain-curtis&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      }
+      },
+      "https://rpc.curtis.apechain.com"
     ]
   },
   "33139": {
@@ -4244,7 +4245,7 @@
         "url": "https://{SUBDOMAIN}.celo-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -4519,11 +4520,6 @@
       "chain-overrides",
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "blockscoutApi": {
-        "url": "https://explorer.testedge2.haqq.network/"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -4531,7 +4527,12 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       }
-    ]
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.testedge2.haqq.network/"
+      }
+    }
   },
   "57000": {
     "sourcifyName": "Rollux Testnet Tanenbaum",
