@@ -489,31 +489,14 @@
     }
   },
   "641230": {
-    "sourcifyName": "Bear Network Chain Mainnet",
-    "rpc": [
-      "https://brnkc-mainnet.bearnetwork.net",
-      "https://brnkc-mainnet1.bearnetwork.net"
-    ],
-    "fetchContractCreationTxUsing": {
-      "bnql": {
-        "url": "https://brnkscan.bearnetwork.net/bnql",
-        "api": "call_contract",
-        "payload": {
-          "version": "bnql.canonical",
-          "action": "load_block",
-          "snapshot": {
-            "ref": {
-              "kind": "latest"
-            }
-          },
-          "args": {},
-          "limit": {
-            "max_cpu_ops": 50000,
-            "max_bytes": 16777216,
-            "max_traversals": 10000
-          }
-        }
+  "sourcifyName": "Bear Network Chain Mainnet",
+  "rpc": [
+    "https://brnkc-mainnet.bearnetwork.net"
+  ],
+  "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://brnkscan.bearnetwork.net/"
       }
-    }
+   }
   }
 }
