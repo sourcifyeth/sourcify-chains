@@ -1,4 +1,4 @@
-import { describe, it, before, after } from "node:test";
+import { describe, it, before } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
@@ -212,16 +212,6 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
 
   let anyTestsPass = false;
 
-  after(() => {
-    if (!anyTestsPass && newAddedChainIds.length) {
-      throw new Error(
-        "There needs to be at least one passing test. Did you forget to add a test for your new chain with the id(s) " +
-          newAddedChainIds.join(",") +
-          "?",
-      );
-    }
-  });
-
   const testedChains = new Set<string>();
 
   for (const chainId of chainsToTest) {
@@ -273,6 +263,23 @@ describe("Test Supported Chains", { timeout: TEST_TIME }, () => {
       }
     });
   }
+
+  // Registered after the per-chain tests above so `anyTestsPass` is settled by
+  // the time it runs. This has to be a real test, not an `after()` hook: a
+  // throwing suite-level hook is reported but leaves the failure count at 0, and
+  // Node >=22.22 exits 0 in that case, so CI would go green on a failed run.
+  it(
+    "should have run at least one test for the new chain(s)",
+    { skip: newAddedChainIds.length === 0 },
+    () => {
+      assert.ok(
+        anyTestsPass,
+        "There needs to be at least one passing test. Did you forget to add a test for your new chain with the id(s) " +
+          newAddedChainIds.join(",") +
+          "?",
+      );
+    },
+  );
 
   it("should have included Etherscan contracts for all testedChains having etherscanAPI", () => {
     const missingEtherscanTests: string[] = [];
