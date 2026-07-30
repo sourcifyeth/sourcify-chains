@@ -489,14 +489,19 @@
     }
   },
   "641230": {
-  "sourcifyName": "Bear Network Chain Mainnet",
-  "rpc": [
-    "https://brnkc-mainnet.bearnetwork.net"
-  ],
-  "fetchContractCreationTxUsing": {
+    "sourcifyName": "Bear Network Chain Mainnet",
+    "rpc": [
+      "https://brnkc-mainnet.bearnetwork.net",
+      "https://brnkc-mainnet1.bearnetwork.net",
+      "https://bnes-mainnet.bearnetwork.net",
+      "https://bnes-mainnet1.bearnetwork.net",
+      "https://rpc-ci.bearnetwork.net",
+      "https://rpc-ci1.bearnetwork.net"
+    ],
+    "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://brnkscan.bearnetwork.net/"
       }
-   }
+    }
   }
 }
