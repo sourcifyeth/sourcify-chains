@@ -22,16 +22,16 @@ jobs:
       id-token: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: "auth GCP"
-        uses: "google-github-actions/auth@v2"
+        uses: "google-github-actions/auth@c200f3691d83b41bf9bbd8638997a462592937ed" # v2.1.13
         with:
           workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ env.SERVICE_ACCOUNT }}
 
       - name: Upload to GCS
-        uses: google-github-actions/upload-cloud-storage@v2
+        uses: google-github-actions/upload-cloud-storage@c0f6160ff80057923ff50e5e567695cea181ec23 # v2.2.4
         with:
           path: sourcify-chains-default.json
           destination: ${{ env.GCS_BUCKET }}
@@ -45,7 +45,7 @@ jobs:
       # "restart" API; forcing a new revision via a meaningful env var bump
       # (the chains commit SHA) recycles all instances with zero downtime.
       - name: Set up gcloud
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@e427ad8a34f8676edf47cf7d7925499adf3eb74f # v2.2.1
 
       - name: Restart server Cloud Run services
         run: |
