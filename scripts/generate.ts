@@ -535,6 +535,7 @@ async function main() {
       etherscan?.chainName ??
       blockscoutName ??
       meta?.name ??
+      drpc?.name ??
       `Chain ${chainId}`;
 
     const rpcSlots: RpcSlot[] = [];
