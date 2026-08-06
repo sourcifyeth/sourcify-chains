@@ -530,9 +530,6 @@ async function main() {
     if (!hasActiveSource) continue;
 
     const blockscoutName = blockscout?.hostedBy === "blockscout" ? blockscout.name : undefined;
-    // dRPC's name comes last (before the placeholder): its labels are less
-    // curated than the explorers' or chainid.network's, but for chains only
-    // dRPC knows about it beats "Chain 61900".
     const sourcifyName =
       override?.sourcifyName ??
       etherscan?.chainName ??
