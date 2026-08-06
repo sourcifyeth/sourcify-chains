@@ -5546,10 +5546,17 @@
   },
   "641230": {
     "sourcifyName": "Bear Network Chain Mainnet",
-    "supported": false,
-    "discoveredBy": [
-      "deprecated"
-    ]
+    "supported": true,
+    "rpc": [
+      "https://brnkc-mainnet.bearnetwork.net",
+      "https://bnes-mainnet.bearnetwork.net",
+      "https://rpc-ci.bearnetwork.net"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://brnkscan.bearnetwork.net/"
+      }
+    }
   },
   "656476": {
     "sourcifyName": "EDU Chain Testnet",
