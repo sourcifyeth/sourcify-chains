@@ -749,6 +749,19 @@ async function main() {
   // an error for chains it doesn't know — making dead chains flap in and out of
   // the output on each run.
   if (noRpcChains.length > 0) {
+    // --only mode builds the config for a chain being added in a PR. Deprecating
+    // it here would be silent: it lands as supported:false, the chain test skips
+    // unsupported chains, and the run fails much later with a message about a
+    // missing test contract. Fail now, while the [dead] URLs are still on screen.
+    if (onlyIds) {
+      throw new Error(
+        `--only chain(s) ${noRpcChains
+          .map((c) => `${c.sourcifyName} (#${c.chainId})`)
+          .join(", ")} have no live RPC: every RPC URL failed the liveness ` +
+          `probe (see the [dead] lines above). Fix or replace the chain's RPC ` +
+          `URLs in chain-overrides.json / additional-chains.json.`,
+      );
+    }
     console.log(`\n${noRpcChains.length} chain(s) have no live RPC — keeping as supported:false`);
     for (const c of noRpcChains) {
       console.log(`  [deprecate] #${c.chainId} ${c.sourcifyName}`);
