@@ -500,5 +500,16 @@
         "url": "https://brnkscan.bearnetwork.net/"
       }
     }
+  },
+  "401": {
+    "sourcifyName": "Ozone Chain Testnet",
+    "rpc": [
+      "https://node2.testnet.ozonechain.io"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://testnet.ozonescan.io/"
+      }
+    }
   }
 }
