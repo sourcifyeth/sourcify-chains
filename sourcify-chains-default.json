@@ -1447,8 +1447,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=astar&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1458,16 +1457,16 @@
     "discoveredBy": [
       "chain-overrides"
     ],
+    "rpc": [
+      "https://mainnet.battlechain.com"
+    ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
       "url": "https://block-explorer-api.battlechain.com"
-    },
-    "rpc": [
-      "https://mainnet.battlechain.com"
-    ]
+    }
   },
   "627": {
     "sourcifyName": "BattleChain Testnet",
@@ -1475,16 +1474,16 @@
     "discoveredBy": [
       "chain-overrides"
     ],
+    "rpc": [
+      "https://testnet.battlechain.com"
+    ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
       "url": "https://block-explorer-api.testnet.battlechain.com"
-    },
-    "rpc": [
-      "https://testnet.battlechain.com"
-    ]
+    }
   },
   "648": {
     "sourcifyName": "Endurance Smart Chain Mainnet",
@@ -1933,11 +1932,11 @@
       "apiKeyEnvName": "ETHERSCAN_API_KEY_MOONBEAM"
     },
     "rpc": [
-      "https://rpc.api.moonbeam.network",
       "https://moonbeam.api.onfinality.io/public",
       "https://moonbeam.unitedbloc.com",
       "https://moonbeam-rpc.publicnode.com",
-      "https://moonbeam.drpc.org"
+      "https://moonbeam.drpc.org",
+      "https://rpc.api.moonbeam.network"
     ]
   },
   "1285": {
@@ -2722,7 +2721,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=edge&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -4548,7 +4548,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=superseed-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -4828,7 +4828,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=polygon-amoy&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -5486,8 +5486,8 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       },
-      "https://sepolia-rpc.scroll.io",
-      "https://scroll-sepolia-rpc.publicnode.com"
+      "https://scroll-sepolia-rpc.publicnode.com",
+      "https://sepolia-rpc.scroll.io"
     ]
   },
   "534352": {
@@ -5643,6 +5643,21 @@
       "https://xai-chain.net/rpc"
     ]
   },
+  "688689": {
+    "sourcifyName": "Pharos Atlantic Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=pharos-atlantic-testnet&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      }
+    ]
+  },
   "710420": {
     "sourcifyName": "Tiltyard Mainnet",
     "supported": false,
@@ -5764,8 +5779,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=bob-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
