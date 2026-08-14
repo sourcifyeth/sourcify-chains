@@ -498,5 +498,11 @@
         "url": "https://testnet.ozonescan.io/"
       }
     }
+  },
+  "5042": {
+    "sourcifyName": "Arc",
+    "rpc": [
+      "https://rpc.arc-scan.org"
+    ]
   }
 }
