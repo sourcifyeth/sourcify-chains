@@ -498,5 +498,16 @@
         "url": "https://testnet.ozonescan.io/"
       }
     }
+  },
+  "2443": {
+    "sourcifyName": "Haus Chain Testnet",
+    "rpc": [
+      "https://rpc-testnet.hausserver.xyz"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer-testnet.hausserver.xyz/"
+      }
+    }
   }
 }
