@@ -1457,16 +1457,16 @@
     "discoveredBy": [
       "chain-overrides"
     ],
-    "rpc": [
-      "https://mainnet.battlechain.com"
-    ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
       "url": "https://block-explorer-api.battlechain.com"
-    }
+    },
+    "rpc": [
+      "https://mainnet.battlechain.com"
+    ]
   },
   "627": {
     "sourcifyName": "BattleChain Testnet",
@@ -1474,16 +1474,16 @@
     "discoveredBy": [
       "chain-overrides"
     ],
-    "rpc": [
-      "https://testnet.battlechain.com"
-    ],
     "fetchContractCreationTxUsing": {
       "etherscanApi": true
     },
     "etherscanApi": {
       "supported": true,
       "url": "https://block-explorer-api.testnet.battlechain.com"
-    }
+    },
+    "rpc": [
+      "https://testnet.battlechain.com"
+    ]
   },
   "648": {
     "sourcifyName": "Endurance Smart Chain Mainnet",
@@ -1584,6 +1584,13 @@
       "https://gwan-ssl.wandevs.org:56891/"
     ]
   },
+  "901": {
+    "sourcifyName": "Derive Testnet",
+    "supported": false,
+    "discoveredBy": [
+      "blockscout"
+    ]
+  },
   "919": {
     "sourcifyName": "Mode Testnet",
     "supported": true,
@@ -1594,7 +1601,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=mode-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -1934,9 +1942,7 @@
     "rpc": [
       "https://moonbeam.api.onfinality.io/public",
       "https://moonbeam.unitedbloc.com",
-      "https://moonbeam-rpc.publicnode.com",
-      "https://moonbeam.drpc.org",
-      "https://rpc.api.moonbeam.network"
+      "https://moonbeam.drpc.org"
     ]
   },
   "1285": {
@@ -2180,8 +2186,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=gravity-alpha&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -2210,8 +2215,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=metall2-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -2582,6 +2586,21 @@
       }
     ]
   },
+  "2443": {
+    "sourcifyName": "Haus Chain Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer-testnet.hausserver.xyz/"
+      }
+    },
+    "rpc": [
+      "https://rpc-testnet.hausserver.xyz"
+    ]
+  },
   "2522": {
     "sourcifyName": "Fraxtal Testnet",
     "supported": false,
@@ -2655,7 +2674,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=morph&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       },
       {
         "type": "APIKeyRPC",
@@ -2943,8 +2962,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=orderly-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -3754,8 +3772,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=gravity-alpha-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -4060,8 +4077,7 @@
         "url": "https://lb.drpc.org/ogrpc?network=apechain-curtis&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://rpc.curtis.apechain.com"
+      }
     ]
   },
   "33139": {
@@ -4710,6 +4726,13 @@
   },
   "61900": {
     "sourcifyName": "Mova Mainnet",
+    "supported": false,
+    "discoveredBy": [
+      "drpc"
+    ]
+  },
+  "61901": {
+    "sourcifyName": "Mova Mainnet V2",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -4717,7 +4740,7 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=mova&dkey={API_KEY}",
+        "url": "https://lb.drpc.org/ogrpc?network=mova-mainnet-v2&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       }
@@ -5486,8 +5509,7 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       },
-      "https://scroll-sepolia-rpc.publicnode.com",
-      "https://sepolia-rpc.scroll.io"
+      "https://scroll-sepolia-rpc.publicnode.com"
     ]
   },
   "534352": {
@@ -5524,16 +5546,9 @@
   },
   "543210": {
     "sourcifyName": "ZERO Network",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=zero&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
-      }
     ]
   },
   "560048": {
@@ -5623,8 +5638,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=open-campus-codex-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -5852,7 +5866,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=arc-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -6275,8 +6289,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zora-sepolia&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -6311,8 +6324,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=harmony-0&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
