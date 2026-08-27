@@ -79,14 +79,6 @@
       }
     }
   },
-  "51": {
-    "sourcifyName": "XDC Apothem Testnet",
-    "fetchContractCreationTxUsing": {
-      "blocksScanApi": {
-        "url": "https://apothem.xdcscan.io/"
-      }
-    }
-  },
   "40": {
     "sourcifyName": "Telos Mainnet",
     "fetchContractCreationTxUsing": {
