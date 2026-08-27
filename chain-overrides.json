@@ -509,5 +509,15 @@
         "url": "https://explorer-testnet.hausserver.xyz/"
       }
     }
+  },
+  "1030": {
+    "sourcifyName": "Conflux eSpace",
+    "rpc": [
+      {
+        "type": "BaseRPC",
+        "url": "https://evm.confluxrpc.com",
+        "traceSupport": "trace_transaction"
+      }
+    ]
   }
 }
