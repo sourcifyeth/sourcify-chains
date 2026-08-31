@@ -762,7 +762,7 @@
     ]
   },
   "133": {
-    "sourcifyName": "HashKey Chain Testnet",
+    "sourcifyName": "HSKChain Testnet",
     "supported": true,
     "discoveredBy": [
       "drpc"
@@ -1072,21 +1072,13 @@
     "sourcifyName": "Fantom Opera",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "quicknode"
+      "drpc"
     ],
     "rpc": [
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=fantom&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
-      },
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.fantom.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "trace_transaction"
       }
     ]
@@ -1453,19 +1445,9 @@
   },
   "626": {
     "sourcifyName": "BattleChain Mainnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "chain-overrides"
-    ],
-    "fetchContractCreationTxUsing": {
-      "etherscanApi": true
-    },
-    "etherscanApi": {
-      "supported": true,
-      "url": "https://block-explorer-api.battlechain.com"
-    },
-    "rpc": [
-      "https://mainnet.battlechain.com"
     ]
   },
   "627": {
@@ -1928,37 +1910,17 @@
   },
   "1284": {
     "sourcifyName": "Moonbeam Mainnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "etherscan"
-    ],
-    "fetchContractCreationTxUsing": {
-      "etherscanApi": true
-    },
-    "etherscanApi": {
-      "supported": true,
-      "apiKeyEnvName": "ETHERSCAN_API_KEY_MOONBEAM"
-    },
-    "rpc": [
-      "https://moonbeam.api.onfinality.io/public",
-      "https://moonbeam.unitedbloc.com",
-      "https://moonbeam.drpc.org"
     ]
   },
   "1285": {
-    "sourcifyName": "Moonriver Mainnet",
+    "sourcifyName": "Moonriver",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "etherscan"
+      "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "etherscanApi": true
-    },
-    "etherscanApi": {
-      "supported": true,
-      "apiKeyEnvName": "ETHERSCAN_API_KEY_MOONRIVER"
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -1969,19 +1931,11 @@
     ]
   },
   "1287": {
-    "sourcifyName": "Moonbase Alpha Testnet",
+    "sourcifyName": "Moonbase Alpha",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "etherscan"
+      "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "etherscanApi": true
-    },
-    "etherscanApi": {
-      "supported": true,
-      "apiKeyEnvName": "ETHERSCAN_API_KEY_MOONBEAM"
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -5284,13 +5238,9 @@
   },
   "200810": {
     "sourcifyName": "Bitlayer Testnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "additional-chains"
-    ],
-    "rpc": [
-      "https://testnet-rpc.bitlayer-rpc.com",
-      "https://rpc.ankr.com/bitlayer_testnet"
     ]
   },
   "200901": {
@@ -5546,9 +5496,16 @@
   },
   "543210": {
     "sourcifyName": "ZERO Network",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
       "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.org/ogrpc?network=zero&dkey={API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
     ]
   },
   "560048": {
@@ -5910,17 +5867,9 @@
   },
   "6281971": {
     "sourcifyName": "DogeOS Testnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.org/ogrpc?network=dogeos-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
-      }
     ]
   },
   "7080969": {
@@ -6324,7 +6273,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=harmony-0&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
