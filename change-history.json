@@ -1,0 +1,75 @@
+{
+  "lastRunAt": "2026-09-05T16:33:01.160Z",
+  "pendingChanges": {
+    "remove-fetchUsing-51-blocksScanApi": {
+      "type": "remove-fetchUsing",
+      "chainId": 51,
+      "key": "blocksScanApi",
+      "consecutiveRuns": 11,
+      "firstSeenAt": "2026-09-01T06:54:58.001Z",
+      "lastSeenAt": "2026-09-05T16:33:01.160Z"
+    },
+    "remove-discoveredBy-51-chain-overrides": {
+      "type": "remove-discoveredBy",
+      "chainId": 51,
+      "key": "chain-overrides",
+      "consecutiveRuns": 11,
+      "firstSeenAt": "2026-09-01T06:54:58.001Z",
+      "lastSeenAt": "2026-09-05T16:33:01.160Z"
+    },
+    "change-traceSupport-133-https://lb.drpc.org/ogrpc?network=hashkey-testnet&dkey={API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 133,
+      "provider": "https://lb.drpc.org/ogrpc?network=hashkey-testnet&dkey={API_KEY}",
+      "from": "trace_transaction",
+      "to": "debug_traceTransaction",
+      "consecutiveRuns": 11,
+      "firstSeenAt": "2026-09-01T06:54:58.001Z",
+      "lastSeenAt": "2026-09-05T16:33:01.160Z"
+    },
+    "remove-rpc-1315-https://{SUBDOMAIN}.story-aeneid.quiknode.pro/{API_KEY}/": {
+      "type": "remove-rpc",
+      "chainId": 1315,
+      "provider": "https://{SUBDOMAIN}.story-aeneid.quiknode.pro/{API_KEY}/",
+      "consecutiveRuns": 7,
+      "firstSeenAt": "2026-09-02T17:37:06.111Z",
+      "lastSeenAt": "2026-09-05T16:33:01.160Z"
+    },
+    "remove-discoveredBy-1315-quicknode": {
+      "type": "remove-discoveredBy",
+      "chainId": 1315,
+      "key": "quicknode",
+      "consecutiveRuns": 7,
+      "firstSeenAt": "2026-09-02T17:37:06.111Z",
+      "lastSeenAt": "2026-09-05T16:33:01.160Z"
+    },
+    "change-traceSupport-48898-https://lb.drpc.org/ogrpc?network=zircuit-garfield-testnet&dkey={API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 48898,
+      "provider": "https://lb.drpc.org/ogrpc?network=zircuit-garfield-testnet&dkey={API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 4,
+      "firstSeenAt": "2026-09-04T07:03:55.096Z",
+      "lastSeenAt": "2026-09-05T16:33:01.160Z"
+    },
+    "remove-rpc-61803-https://eticamainnet.eticascan.org": {
+      "type": "remove-rpc",
+      "chainId": 61803,
+      "provider": "https://eticamainnet.eticascan.org",
+      "consecutiveRuns": 2,
+      "firstSeenAt": "2026-09-05T06:42:02.679Z",
+      "lastSeenAt": "2026-09-05T16:33:01.160Z"
+    },
+    "change-traceSupport-1111-https://lb.drpc.org/ogrpc?network=wemix&dkey={API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 1111,
+      "provider": "https://lb.drpc.org/ogrpc?network=wemix&dkey={API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 1,
+      "firstSeenAt": "2026-09-05T16:33:01.160Z",
+      "lastSeenAt": "2026-09-05T16:33:01.160Z"
+    }
+  }
+}
