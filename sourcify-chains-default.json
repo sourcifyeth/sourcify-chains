@@ -320,7 +320,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=xdc&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -328,14 +329,10 @@
     "sourcifyName": "XDC Apothem Testnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
       "drpc",
       "etherscan"
     ],
     "fetchContractCreationTxUsing": {
-      "blocksScanApi": {
-        "url": "https://apothem.xdcscan.io/"
-      },
       "etherscanApi": true
     },
     "etherscanApi": {
@@ -772,7 +769,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hashkey-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -829,7 +826,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=monad-mainnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -1992,8 +1990,7 @@
     "supported": true,
     "discoveredBy": [
       "blockscout",
-      "drpc",
-      "quicknode"
+      "drpc"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -2005,13 +2002,6 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=story-aeneid-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      {
-        "type": "APIKeyRPC",
-        "url": "https://{SUBDOMAIN}.story-aeneid.quiknode.pro/{API_KEY}/",
-        "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -2649,7 +2639,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=morph-hoodi&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -4674,8 +4665,8 @@
       "additional-chains"
     ],
     "rpc": [
-      "https://eticamainnet.eticascan.org",
-      "https://eticamainnet.eticaprotocol.org"
+      "https://eticamainnet.eticaprotocol.org",
+      "https://eticamainnet.eticascan.org"
     ]
   },
   "61900": {
@@ -4994,12 +4985,33 @@
       }
     ]
   },
+  "97741": {
+    "sourcifyName": "Pepe Unchained",
+    "supported": true,
+    "discoveredBy": [
+      "blockscout"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://pepuscan.com/"
+      }
+    },
+    "rpc": [
+      "https://rpc-pepu-v2-mainnet-0.t.conduit.xyz"
+    ]
+  },
   "98866": {
     "sourcifyName": "Plume Mainnet",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "drpc"
     ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.plume.org"
+      }
+    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -5013,8 +5025,14 @@
     "sourcifyName": "Plume Testnet",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "drpc"
     ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://testnet-explorer.plume.org"
+      }
+    },
     "rpc": [
       {
         "type": "APIKeyRPC",
