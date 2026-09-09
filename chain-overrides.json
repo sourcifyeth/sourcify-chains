@@ -330,6 +330,18 @@
   "4217": {
     "sourcifyName": "Tempo Mainnet"
   },
+  "4663": {
+    "sourcifyName": "Robinhood Chain",
+    "rpc": [
+      "https://rpc.mainnet.chain.robinhood.com",
+      "https://robinhood-rpc.publicnode.com",
+      {
+        "url": "https://rpc.ordofi.network",
+        "type": "BaseRPC",
+        "traceSupport": "debug_traceTransaction"
+      }
+    ]
+  },
   "223": {
     "sourcifyName": "B2 Mainnet",
     "fetchContractCreationTxUsing": {
