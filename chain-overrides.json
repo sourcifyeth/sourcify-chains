@@ -333,13 +333,15 @@
   "4663": {
     "sourcifyName": "Robinhood Chain",
     "rpc": [
-      "https://rpc.mainnet.chain.robinhood.com",
-      "https://robinhood-rpc.publicnode.com",
       {
-        "url": "https://rpc.ordofi.network",
-        "type": "BaseRPC",
+        "type": "APIKeyRPC",
+        "url": "https://{SUBDOMAIN}.robinhood-mainnet.quiknode.pro/{API_KEY}/",
+        "apiKeyEnvName": "QUICKNODE_API_KEY",
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
-      }
+      },
+      "https://rpc.mainnet.chain.robinhood.com",
+      "https://robinhood-rpc.publicnode.com"
     ]
   },
   "223": {
