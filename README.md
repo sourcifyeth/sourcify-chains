@@ -19,7 +19,7 @@ Canonical chain configuration for [Sourcify](https://sourcify.dev) — the open-
 
 A chain is **auto-included** if it appears in any of:
 
-- QuickNode console API — and is not dead (see probing below)
+- QuickNode console API — and is not dead (see probing below). The API reports `chain_id: null` for every non-EVM network but also for some EVM networks (e.g. Robinhood, Monad, Ink, Soneium). Each null-chain-id network is asked for its chain id via `eth_chainId` on its QuickNode endpoint; networks that answer with a chain id are included, the rest are skipped as non-EVM. This needs `QUICKNODE_API_KEY` + `QUICKNODE_SUBDOMAIN`; without them null-chain-id networks are skipped.
 - dRPC chains config (`https://raw.githubusercontent.com/drpcorg/public/main/chains.yaml`, `type: eth` entries) — and is not dead (see probing below)
 - Etherscan chainlist API
 - Blockscout's own hosted instances (where `hostedBy === "blockscout"`)
@@ -30,10 +30,11 @@ Every QuickNode and dRPC chain is probed on each run. Probing:
 
 1. Calls `eth_getBlockByNumber("latest")` on the provider URL to get the current block number. If the provider returns an error (e.g. "Unknown network"), the chain is **dead** on that provider.
 2. Verifies `eth_chainId` matches the chain id the URL is mapped to (retried a few times). If the RPC reports a **different** chain id — a provider repointed a network slug to a renumbered chain — or if `eth_chainId` can't be confirmed after retries, the chain is **dead** on that provider. Confirmed mismatches are written to `chainid-mismatches.json` and surfaced in the regenerate PR description.
-3. Looks up a cached transaction hash from `tx-cache.json` (keyed by chain ID). If one exists, it is used directly and the block scan is skipped. Otherwise, scans blocks `[latest-50 .. latest-550]` (a 500-block window) looking for a transaction. Skipping the most recent 50 blocks avoids transactions whose traces may not yet be indexed. If no transaction is found in that window, the chain is treated as **inactive** (dead).
-4. If a transaction is found, calls `trace_transaction` then `debug_traceTransaction` on it to detect which trace method the provider supports for that chain.
+3. Calls `eth_getCode` (zero address, `latest`). Sourcify needs `eth_getCode` to fetch a contract's bytecode during verification, so an RPC that does not serve it is **dead** even if it answers blocks and `eth_chainId` (e.g. QuickNode's Hyperliquid endpoints return an empty HTTP 404 for it).
+4. Looks up a cached transaction hash from `tx-cache.json` (keyed by chain ID). If one exists, it is used directly and the block scan is skipped. Otherwise, scans blocks `[latest-50 .. latest-550]` (a 500-block window) looking for a transaction. Skipping the most recent 50 blocks avoids transactions whose traces may not yet be indexed. If no transaction is found in that window, the chain is treated as **inactive** (dead).
+5. If a transaction is found, calls `trace_transaction` then `debug_traceTransaction` on it to detect which trace method the provider supports for that chain.
 
-**Dead** chains (step 1–3 failed) are excluded from the provider's RPC list and do not count as a discovery source. A chain left with no live RPC is kept in the output as `supported: false` (deprecated) so it stays discoverable, rather than being removed entirely. The same applies to a chain that drops out of every discovery source (e.g. a provider stops listing a sunset network): it is carried forward from the previous output as `supported: false` rather than hard-removed. Deprecation — not removal — is the terminal state for a chain that has been generated at least once.
+**Dead** chains (step 1–4 failed) are excluded from the provider's RPC list and do not count as a discovery source. A chain left with no live RPC is kept in the output as `supported: false` (deprecated) so it stays discoverable, rather than being removed entirely. The same applies to a chain that drops out of every discovery source (e.g. a provider stops listing a sunset network): it is carried forward from the previous output as `supported: false` rather than hard-removed. Deprecation — not removal — is the terminal state for a chain that has been generated at least once.
 
 **Trace support** result per provider:
 | Value | Meaning |

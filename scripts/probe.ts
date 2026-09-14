@@ -30,8 +30,13 @@ const SCAN_END_OFFSET = 550; // Stop scanning at this many blocks behind latest 
 const TRACE_PROBE_RETRIES = 4; // 5 attempts total per trace method
 const TRACE_PROBE_RETRY_DELAY = 3_000; // ms between trace probe retries
 
-const CHAINID_PROBE_RETRIES = 3; // 4 attempts total for eth_chainId
-const CHAINID_PROBE_RETRY_DELAY = 1_000; // ms between eth_chainId retries
+const SIMPLE_PROBE_RETRIES = 3; // 4 attempts total for eth_chainId / eth_getCode
+const SIMPLE_PROBE_RETRY_DELAY = 1_000; // ms between eth_chainId / eth_getCode retries
+
+// Any address works for the eth_getCode liveness check — we only care whether
+// the RPC serves the method, not what the code is. The zero address answers
+// "0x" on every chain.
+const GETCODE_PROBE_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 interface JsonRpcResponse<T = unknown> {
   jsonrpc: string;
@@ -73,56 +78,101 @@ async function rpcCall<T>(
 }
 
 /**
- * Asks the RPC which chain it serves via eth_chainId, retrying transient
- * failures up to CHAINID_PROBE_RETRIES times.
+ * Calls a simple, side-effect-free RPC method that a healthy node answers
+ * reliably and instantly (eth_chainId, eth_getCode), retrying transient
+ * failures up to SIMPLE_PROBE_RETRIES times.
  *
- * Returns the reported chain id, or null if it could not be determined after
- * all retries (network errors, RPC errors, missing/unparseable result, or a
- * node that doesn't implement eth_chainId). A healthy RPC answers eth_chainId
- * reliably and instantly, so callers treat a null here as a dead chain — see
- * checkLiveness.
+ * Returns the result, or null when no usable result came back after all
+ * retries: network errors, non-JSON responses (e.g. an HTTP 404 with an empty
+ * body), RPC errors, a missing result, or a node that doesn't implement the
+ * method (-32601, which is definitive and not retried). Callers treat a null
+ * as a dead RPC — see checkLiveness.
  */
-async function fetchReportedChainId(
+async function callSimpleWithRetries<T>(
   url: string,
+  method: string,
+  params: unknown[],
   log: (msg: string) => void,
-): Promise<number | null> {
-  for (let attempt = 0; attempt <= CHAINID_PROBE_RETRIES; attempt++) {
-    let resp: JsonRpcResponse<string>;
+): Promise<T | null> {
+  for (let attempt = 0; attempt <= SIMPLE_PROBE_RETRIES; attempt++) {
+    let resp: JsonRpcResponse<T>;
     try {
-      resp = await rpcCall<string>(url, "eth_chainId", []);
+      resp = await rpcCall<T>(url, method, params);
     } catch (e) {
-      if (attempt < CHAINID_PROBE_RETRIES) {
-        await new Promise((r) => setTimeout(r, CHAINID_PROBE_RETRY_DELAY));
+      if (attempt < SIMPLE_PROBE_RETRIES) {
+        await new Promise((r) => setTimeout(r, SIMPLE_PROBE_RETRY_DELAY));
         continue;
       }
-      log(`    eth_chainId: ✗ failed after ${attempt + 1} attempts (exception: ${e instanceof Error ? e.message : String(e)})`);
+      log(`    ${method}: ✗ failed after ${attempt + 1} attempts (exception: ${e instanceof Error ? e.message : String(e)})`);
       return null;
     }
 
     if (resp.error?.code === -32601) {
       // Method not found — definitive, no point retrying.
-      log(`    eth_chainId: ✗ not supported (-32601: "${resp.error.message}")`);
+      log(`    ${method}: ✗ not supported (-32601: "${resp.error.message}")`);
       return null;
     }
 
-    if (typeof resp.result === "string") {
-      const parsed = parseInt(resp.result, 16);
-      if (!Number.isNaN(parsed)) return parsed;
+    if (resp.result !== undefined && resp.result !== null) {
+      return resp.result;
     }
 
-    // RPC error, missing or unparseable result — possibly transient; retry.
-    if (attempt < CHAINID_PROBE_RETRIES) {
-      await new Promise((r) => setTimeout(r, CHAINID_PROBE_RETRY_DELAY));
+    // RPC error or missing result — possibly transient; retry.
+    if (attempt < SIMPLE_PROBE_RETRIES) {
+      await new Promise((r) => setTimeout(r, SIMPLE_PROBE_RETRY_DELAY));
       continue;
     }
     log(
-      `    eth_chainId: ✗ failed after ${attempt + 1} attempts (${
+      `    ${method}: ✗ failed after ${attempt + 1} attempts (${
         resp.error ? `error ${resp.error.code} ${resp.error.message ?? ""}` : `result: ${JSON.stringify(resp.result)}`
       })`,
     );
     return null;
   }
   return null;
+}
+
+/**
+ * Asks the RPC which chain it serves via eth_chainId.
+ *
+ * Returns the reported chain id, or null if it could not be determined after
+ * all retries (see callSimpleWithRetries) or the result is not a hex chain id.
+ * Non-EVM endpoints reject eth_chainId (or, like XRP, answer with something
+ * that isn't a hex string), so a null here also means "not an EVM chain".
+ */
+export async function fetchReportedChainId(
+  url: string,
+  log: (msg: string) => void = () => {},
+): Promise<number | null> {
+  const result = await callSimpleWithRetries<unknown>(url, "eth_chainId", [], log);
+  if (typeof result !== "string") {
+    if (result !== null) log(`    eth_chainId: ✗ unexpected result: ${JSON.stringify(result).slice(0, 80)}`);
+    return null;
+  }
+  const parsed = parseInt(result, 16);
+  if (Number.isNaN(parsed)) {
+    log(`    eth_chainId: ✗ unparseable result: ${result.slice(0, 80)}`);
+    return null;
+  }
+  return parsed;
+}
+
+/**
+ * Checks that the RPC serves eth_getCode, which Sourcify needs to fetch the
+ * onchain bytecode during verification. Some endpoints (e.g. QuickNode's
+ * Hyperliquid networks) answer eth_chainId and block queries but return an
+ * HTTP 404 with an empty body for eth_getCode — those are unusable.
+ *
+ * Returns true when eth_getCode answers with a hex string ("0x" for an empty
+ * account is fine), false otherwise.
+ */
+async function supportsGetCode(url: string, log: (msg: string) => void): Promise<boolean> {
+  const result = await callSimpleWithRetries<unknown>(url, "eth_getCode", [GETCODE_PROBE_ADDRESS, "latest"], log);
+  if (typeof result !== "string" || !result.startsWith("0x")) {
+    if (result !== null) log(`    eth_getCode: ✗ unexpected result: ${JSON.stringify(result).slice(0, 80)}`);
+    return false;
+  }
+  return true;
 }
 
 /**
@@ -138,6 +188,10 @@ async function fetchReportedChainId(
  * considered alive only when eth_chainId confirms the expected id — both a
  * mismatch and a persistent eth_chainId failure (after retries) are treated as
  * dead.
+ *
+ * Finally the RPC must serve eth_getCode — Sourcify can't verify a contract
+ * without fetching its bytecode. An RPC that answers blocks and eth_chainId
+ * but not eth_getCode (e.g. QuickNode's Hyperliquid networks) is dead.
  */
 export async function checkLiveness(
   url: string,
@@ -172,6 +226,11 @@ export async function checkLiveness(
       onMismatch?.(reported);
       return null;
     }
+  }
+
+  if (!(await supportsGetCode(url, log))) {
+    log(`    eth_getCode: dead — RPC does not serve eth_getCode, unusable for verification`);
+    return null;
   }
 
   return parseInt(resp.result.number, 16);
@@ -214,7 +273,9 @@ async function findRecentTxHash(
  * Probes a provider RPC URL for chain liveness and trace method support.
  *
  * Step 1 — liveness: always calls eth_getBlockByNumber("latest") to confirm
- *   the provider is alive and serving this chain. If it errors → null (dead).
+ *   the provider is alive and serving this chain, then eth_chainId (when an
+ *   expected id is given) and eth_getCode — see checkLiveness. If any of
+ *   these fail → null (dead).
  *
  * Step 2 — tx hash: if cachedTxHash is provided it is used directly (skipping
  *   the 500-block scan). Otherwise findRecentTxHash scans blocks [latest-50 ..

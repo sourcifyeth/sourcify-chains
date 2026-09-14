@@ -22,7 +22,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import { fetchQuickNodeChains } from "./providers/quicknode.js";
+import { fetchQuickNodeChains, buildQuickNodeRpcUrl } from "./providers/quicknode.js";
 import type { QuickNodeChainData } from "./providers/quicknode.js";
 import { fetchDrpcChains } from "./providers/drpc.js";
 import type { DrpcChainData } from "./providers/drpc.js";
@@ -33,7 +33,7 @@ import { fetchBlockscoutChains } from "./block-explorers/blockscout.js";
 import type { BlockscoutChainData } from "./block-explorers/blockscout.js";
 import { fetchRoutescanChains } from "./block-explorers/routescan.js";
 import type { RoutescanChainData } from "./block-explorers/routescan.js";
-import { probeChain, withConcurrency, checkLiveness } from "./probe.js";
+import { probeChain, withConcurrency, checkLiveness, fetchReportedChainId } from "./probe.js";
 import type { TraceCacheValue, ProbeChainResult } from "./probe.js";
 import fs from "fs";
 import path from "path";
@@ -180,23 +180,10 @@ function getProbeableUrl(rpc: string | RpcEntry): string | null {
   return rpc.url.includes("{") ? null : rpc.url;
 }
 
-// QuickNode slugs that require an /ext/bc/C/rpc/ path suffix (Avalanche/Flare subnets)
-const QUICKNODE_SUBNET_SLUGS = new Set(["avalanche-mainnet", "avalanche-testnet", "flare-mainnet", "flare-coston2"]);
-
 function buildQuickNodeRpc(qn: QuickNodeChainData): RpcEntry {
-  let url: string;
-  if (qn.networkSlug === "mainnet") {
-    // Ethereum mainnet: slug is not embedded in the subdomain
-    url = `https://{SUBDOMAIN}.quiknode.pro/{API_KEY}/`;
-  } else if (QUICKNODE_SUBNET_SLUGS.has(qn.networkSlug)) {
-    // Avalanche/Flare: require /ext/bc/C/rpc/ path suffix
-    url = `https://{SUBDOMAIN}.${qn.networkSlug}.quiknode.pro/{API_KEY}/ext/bc/C/rpc/`;
-  } else {
-    url = `https://{SUBDOMAIN}.${qn.networkSlug}.quiknode.pro/{API_KEY}/`;
-  }
   return {
     type: "APIKeyRPC",
-    url,
+    url: buildQuickNodeRpcUrl(qn.networkSlug),
     apiKeyEnvName: "QUICKNODE_API_KEY",
     subDomainEnvName: "QUICKNODE_SUBDOMAIN",
   };
@@ -260,6 +247,23 @@ async function main() {
     );
   }
 
+  // QuickNode's chain list reports `chain_id: null` for some EVM networks
+  // (Robinhood, Monad, Ink, ...) as well as for every non-EVM one. With RPC
+  // credentials we ask each such network for its chain id via eth_chainId;
+  // without them those networks can't be told apart from non-EVM ones and
+  // are skipped.
+  const resolveQuickNodeChainId = canProbeQuickNode
+    ? (networkSlug: string) =>
+        fetchReportedChainId(
+          buildQuickNodeRpcUrl(networkSlug).replace("{API_KEY}", quicknodeRpcKey!).replace("{SUBDOMAIN}", quicknodeSubdomain!),
+        )
+    : undefined;
+  if (!onlyIds && quicknodeApiKey && !canProbeQuickNode) {
+    console.warn(
+      "Warning: QUICKNODE_API_KEY+QUICKNODE_SUBDOMAIN not set — QuickNode networks with a null chain_id will be skipped"
+    );
+  }
+
   // In --only mode every provider/explorer fetch is skipped; only chainid.network
   // is consulted. All other sources resolve to empty so the candidate-building
   // logic below falls back to the manual config in chain-overrides.json /
@@ -274,7 +278,7 @@ async function main() {
       fetchWithRetry("chainid.network", fetchChainList),
       onlyIds || !quicknodeApiKey
         ? Promise.resolve<Map<number, QuickNodeChainData> | null>(null)
-        : fetchWithRetry("QuickNode", () => fetchQuickNodeChains(quicknodeApiKey)),
+        : fetchWithRetry("QuickNode", () => fetchQuickNodeChains(quicknodeApiKey, resolveQuickNodeChainId, console.log)),
       onlyIds ? Promise.resolve(new Map<number, DrpcChainData>()) : fetchWithRetry("dRPC", fetchDrpcChains),
       onlyIds ? Promise.resolve(new Set<number>()) : fetchWithRetrySet("Avalanche", fetchAvalancheChains),
       onlyIds ? Promise.resolve(new Map<number, EtherscanChainData>()) : fetchWithRetry("Etherscan", fetchEtherscanChains),
