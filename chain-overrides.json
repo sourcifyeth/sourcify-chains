@@ -501,5 +501,16 @@
         "url": "https://explorer-testnet.hausserver.xyz/"
       }
     }
+  },
+  "9280": {
+    "sourcifyName": "Rabbit Chain Testnet",
+    "rpc": [
+      "https://rpc-testnet.rabbitchain.org"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer-testnet.rabbitchain.org/"
+      }
+    }
   }
 }
