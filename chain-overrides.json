@@ -501,5 +501,11 @@
         "url": "https://explorer-testnet.hausserver.xyz/"
       }
     }
+  },
+  "5042": {
+    "sourcifyName": "Arc",
+    "rpc": [
+      "https://rpc.arc-scan.org"
+    ]
   }
 }
