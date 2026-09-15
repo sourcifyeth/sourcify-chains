@@ -406,12 +406,17 @@ export function buildStabilizedOutput(
       }
     } else if (entry.type === "remove-fetchUsing" && entry.key) {
       // Restore the fetchUsing key from baseline
-      const baseVal = baseline[chainId]?.fetchContractCreationTxUsing?.[entry.key];
+      const baseFetch = baseline[chainId]?.fetchContractCreationTxUsing;
+      const baseVal = baseFetch?.[entry.key];
       if (baseVal !== undefined && output[chainId]) {
-        if (!output[chainId].fetchContractCreationTxUsing) {
-          output[chainId].fetchContractCreationTxUsing = {};
-        }
-        output[chainId].fetchContractCreationTxUsing![entry.key] = JSON.parse(JSON.stringify(baseVal));
+        const restored: Record<string, unknown> = {
+          ...(output[chainId].fetchContractCreationTxUsing ?? {}),
+          [entry.key]: JSON.parse(JSON.stringify(baseVal)),
+        };
+        // The restored key would otherwise land last. Rebuild the object in the
+        // baseline's key order (the generator's order), so a one-run outage of
+        // a single explorer does not reorder the keys and undo itself next run.
+        output[chainId].fetchContractCreationTxUsing = orderKeysLike(restored, baseFetch!);
       }
     } else if (entry.type === "remove-etherscanApi") {
       // Restore etherscanApi from baseline
@@ -453,12 +458,51 @@ export function buildStabilizedOutput(
     }
   }
 
-  // Sort by numeric chain ID
+  // Sort by numeric chain ID, and put each entry's keys in the same order the
+  // generator writes them. The restores above add a missing key to an object
+  // that already has `rpc`, so JavaScript appends it after `rpc`. Without this
+  // step the key lands in the wrong place, and the next run that needs no
+  // restore moves it back — a diff that changes nothing but the key order.
   const sorted: Snapshot = {};
   for (const key of Object.keys(output).sort((a, b) => parseInt(a) - parseInt(b))) {
-    sorted[key] = output[key];
+    sorted[key] = orderChainKeys(output[key]);
   }
   return sorted;
+}
+
+/** Key order of a chain entry, as `generate.ts` emits it. */
+const CHAIN_KEY_ORDER: Array<keyof ChainEntry> = [
+  "sourcifyName",
+  "supported",
+  "discoveredBy",
+  "fetchContractCreationTxUsing",
+  "etherscanApi",
+  "rpc",
+];
+
+/** Return a copy of `entry` with its keys in CHAIN_KEY_ORDER; unknown keys keep their place at the end. */
+function orderChainKeys(entry: ChainEntry): ChainEntry {
+  const source = entry as unknown as Record<string, unknown>;
+  const ordered: Record<string, unknown> = {};
+  for (const key of CHAIN_KEY_ORDER) {
+    if (key in source) ordered[key] = source[key];
+  }
+  for (const [key, value] of Object.entries(source)) {
+    if (!(key in ordered)) ordered[key] = value;
+  }
+  return ordered as unknown as ChainEntry;
+}
+
+/** Return a copy of `obj` whose keys follow the order of `reference`; keys absent from `reference` keep their place at the end. */
+function orderKeysLike(obj: Record<string, unknown>, reference: Record<string, unknown>): Record<string, unknown> {
+  const ordered: Record<string, unknown> = {};
+  for (const key of Object.keys(reference)) {
+    if (key in obj) ordered[key] = obj[key];
+  }
+  for (const [key, value] of Object.entries(obj)) {
+    if (!(key in ordered)) ordered[key] = value;
+  }
+  return ordered;
 }
 
 /** Sort RPC entries: override first, then drpc, then quicknode, then public. */

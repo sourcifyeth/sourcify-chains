@@ -651,6 +651,70 @@ describe("buildStabilizedOutput", () => {
     assert.deepEqual(output["1"].etherscanApi, ethApi);
   });
 
+  it("restored fetchUsing and etherscanApi keys keep the generator's key order (before rpc)", () => {
+    // generate.ts emits: sourcifyName, supported, discoveredBy,
+    // fetchContractCreationTxUsing, etherscanApi, rpc. A restore adds the
+    // missing key to an object that already has rpc, which would append it
+    // after rpc and produce order-only diffs on the next run.
+    const ethApi = { supported: true, apiKeyEnvName: "ETHERSCAN_API_KEY" };
+    const baseline: Snapshot = {
+      "1": chain({ fetchContractCreationTxUsing: { etherscanApi: true }, etherscanApi: ethApi, rpc: [DRPC_RPC] }),
+    };
+    const snapshot: Snapshot = { "1": chain({ rpc: [DRPC_RPC] }) }; // both dropped
+    const pending: Record<string, PendingChange> = {
+      "remove-fetchUsing-1-etherscanApi": {
+        type: "remove-fetchUsing",
+        chainId: 1,
+        key: "etherscanApi",
+        consecutiveRuns: 1,
+        firstSeenAt: NOW,
+        lastSeenAt: NOW,
+      },
+      "remove-etherscanApi-1": {
+        type: "remove-etherscanApi",
+        chainId: 1,
+        consecutiveRuns: 1,
+        firstSeenAt: NOW,
+        lastSeenAt: NOW,
+      },
+    };
+    const output = buildStabilizedOutput(baseline, snapshot, pending);
+    assert.deepEqual(Object.keys(output["1"]), [
+      "sourcifyName",
+      "supported",
+      "discoveredBy",
+      "fetchContractCreationTxUsing",
+      "etherscanApi",
+      "rpc",
+    ]);
+  });
+
+  it("restored fetchUsing key keeps the baseline's key order inside fetchContractCreationTxUsing", () => {
+    // generate.ts emits etherscanApi before blockscoutApi. If only Etherscan is
+    // down for one run, the restore must not move etherscanApi after blockscoutApi.
+    const baseline: Snapshot = {
+      "1": chain({
+        fetchContractCreationTxUsing: { etherscanApi: true, blockscoutApi: { url: "https://scan.example/" } },
+      }),
+    };
+    const snapshot: Snapshot = {
+      "1": chain({ fetchContractCreationTxUsing: { blockscoutApi: { url: "https://scan.example/" } } }),
+    };
+    const pending: Record<string, PendingChange> = {
+      "remove-fetchUsing-1-etherscanApi": {
+        type: "remove-fetchUsing",
+        chainId: 1,
+        key: "etherscanApi",
+        consecutiveRuns: 1,
+        firstSeenAt: NOW,
+        lastSeenAt: NOW,
+      },
+    };
+    const output = buildStabilizedOutput(baseline, snapshot, pending);
+    assert.deepEqual(Object.keys(output["1"].fetchContractCreationTxUsing ?? {}), ["etherscanApi", "blockscoutApi"]);
+    assert.deepEqual(output["1"].fetchContractCreationTxUsing, baseline["1"].fetchContractCreationTxUsing);
+  });
+
   it("new chain added + pending removal on different chain → addition kept, removal reverted", () => {
     const baseline: Snapshot = { "1": chain() };
     const pending: Record<string, PendingChange> = {
