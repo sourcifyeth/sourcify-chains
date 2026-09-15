@@ -19,7 +19,7 @@ Canonical chain configuration for [Sourcify](https://sourcify.dev) — the open-
 
 A chain is **auto-included** if it appears in any of:
 
-- QuickNode console API — and is not dead (see probing below). The API reports `chain_id: null` for every non-EVM network but also for some EVM networks (e.g. Robinhood, Monad, Ink, Soneium). Each null-chain-id network is asked for its chain id via `eth_chainId` on its QuickNode endpoint; networks that answer with a chain id are included, the rest are skipped as non-EVM. This needs `QUICKNODE_API_KEY` + `QUICKNODE_SUBDOMAIN`; without them null-chain-id networks are skipped.
+- QuickNode console API — and is not dead (see probing below). The API reports `chain_id: null` for every non-EVM network but also for some EVM networks (e.g. Robinhood, Monad, Ink, Soneium). Each null-chain-id network is asked for its chain id via `eth_chainId` on its QuickNode endpoint; networks that answer with a chain id are included, the rest are skipped (non-EVM, or not usable). This needs `QUICKNODE_API_KEY` + `QUICKNODE_SUBDOMAIN`; without them null-chain-id networks are skipped.
 - dRPC chains config (`https://raw.githubusercontent.com/drpcorg/public/main/chains.yaml`, `type: eth` entries) — and is not dead (see probing below)
 - Etherscan chainlist API
 - Blockscout's own hosted instances (where `hostedBy === "blockscout"`)

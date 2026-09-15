@@ -253,9 +253,10 @@ async function main() {
   // without them those networks can't be told apart from non-EVM ones and
   // are skipped.
   const resolveQuickNodeChainId = canProbeQuickNode
-    ? (networkSlug: string) =>
+    ? (networkSlug: string, log: (msg: string) => void) =>
         fetchReportedChainId(
           buildQuickNodeRpcUrl(networkSlug).replace("{API_KEY}", quicknodeRpcKey!).replace("{SUBDOMAIN}", quicknodeSubdomain!),
+          log,
         )
     : undefined;
   if (!onlyIds && quicknodeApiKey && !canProbeQuickNode) {
