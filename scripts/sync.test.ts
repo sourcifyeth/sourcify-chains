@@ -689,6 +689,32 @@ describe("buildStabilizedOutput", () => {
     ]);
   });
 
+  it("restored fetchUsing key keeps the baseline's key order inside fetchContractCreationTxUsing", () => {
+    // generate.ts emits etherscanApi before blockscoutApi. If only Etherscan is
+    // down for one run, the restore must not move etherscanApi after blockscoutApi.
+    const baseline: Snapshot = {
+      "1": chain({
+        fetchContractCreationTxUsing: { etherscanApi: true, blockscoutApi: { url: "https://scan.example/" } },
+      }),
+    };
+    const snapshot: Snapshot = {
+      "1": chain({ fetchContractCreationTxUsing: { blockscoutApi: { url: "https://scan.example/" } } }),
+    };
+    const pending: Record<string, PendingChange> = {
+      "remove-fetchUsing-1-etherscanApi": {
+        type: "remove-fetchUsing",
+        chainId: 1,
+        key: "etherscanApi",
+        consecutiveRuns: 1,
+        firstSeenAt: NOW,
+        lastSeenAt: NOW,
+      },
+    };
+    const output = buildStabilizedOutput(baseline, snapshot, pending);
+    assert.deepEqual(Object.keys(output["1"].fetchContractCreationTxUsing ?? {}), ["etherscanApi", "blockscoutApi"]);
+    assert.deepEqual(output["1"].fetchContractCreationTxUsing, baseline["1"].fetchContractCreationTxUsing);
+  });
+
   it("new chain added + pending removal on different chain → addition kept, removal reverted", () => {
     const baseline: Snapshot = { "1": chain() };
     const pending: Record<string, PendingChange> = {

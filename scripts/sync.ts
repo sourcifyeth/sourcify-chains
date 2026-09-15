@@ -406,12 +406,17 @@ export function buildStabilizedOutput(
       }
     } else if (entry.type === "remove-fetchUsing" && entry.key) {
       // Restore the fetchUsing key from baseline
-      const baseVal = baseline[chainId]?.fetchContractCreationTxUsing?.[entry.key];
+      const baseFetch = baseline[chainId]?.fetchContractCreationTxUsing;
+      const baseVal = baseFetch?.[entry.key];
       if (baseVal !== undefined && output[chainId]) {
-        if (!output[chainId].fetchContractCreationTxUsing) {
-          output[chainId].fetchContractCreationTxUsing = {};
-        }
-        output[chainId].fetchContractCreationTxUsing![entry.key] = JSON.parse(JSON.stringify(baseVal));
+        const restored: Record<string, unknown> = {
+          ...(output[chainId].fetchContractCreationTxUsing ?? {}),
+          [entry.key]: JSON.parse(JSON.stringify(baseVal)),
+        };
+        // The restored key would otherwise land last. Rebuild the object in the
+        // baseline's key order (the generator's order), so a one-run outage of
+        // a single explorer does not reorder the keys and undo itself next run.
+        output[chainId].fetchContractCreationTxUsing = orderKeysLike(restored, baseFetch!);
       }
     } else if (entry.type === "remove-etherscanApi") {
       // Restore etherscanApi from baseline
@@ -486,6 +491,18 @@ function orderChainKeys(entry: ChainEntry): ChainEntry {
     if (!(key in ordered)) ordered[key] = value;
   }
   return ordered as unknown as ChainEntry;
+}
+
+/** Return a copy of `obj` whose keys follow the order of `reference`; keys absent from `reference` keep their place at the end. */
+function orderKeysLike(obj: Record<string, unknown>, reference: Record<string, unknown>): Record<string, unknown> {
+  const ordered: Record<string, unknown> = {};
+  for (const key of Object.keys(reference)) {
+    if (key in obj) ordered[key] = obj[key];
+  }
+  for (const [key, value] of Object.entries(obj)) {
+    if (!(key in ordered)) ordered[key] = value;
+  }
+  return ordered;
 }
 
 /** Sort RPC entries: override first, then drpc, then quicknode, then public. */
