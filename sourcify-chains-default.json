@@ -1270,6 +1270,22 @@
       }
     ]
   },
+  "360": {
+    "sourcifyName": "Shape",
+    "supported": true,
+    "discoveredBy": [
+      "blockscout"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://shapescan.xyz/"
+      }
+    },
+    "rpc": [
+      "https://mainnet.shape.network",
+      "https://shape-mainnet.g.alchemy.com/public"
+    ]
+  },
   "369": {
     "sourcifyName": "PulseChain Mainnet",
     "supported": true,
@@ -1335,12 +1351,16 @@
     "sourcifyName": "World Mainnet",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "drpc",
       "etherscan",
       "quicknode"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true
+      "etherscanApi": true,
+      "blockscoutApi": {
+        "url": "https://worldchain-mainnet.explorer.alchemy.com"
+      }
     },
     "etherscanApi": {
       "supported": true,
@@ -1360,6 +1380,13 @@
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "trace_transaction"
       }
+    ]
+  },
+  "484": {
+    "sourcifyName": "Camp Network",
+    "supported": false,
+    "discoveredBy": [
+      "blockscout"
     ]
   },
   "488": {
@@ -1870,9 +1897,10 @@
     ]
   },
   "1135": {
-    "sourcifyName": "Lisk",
+    "sourcifyName": "Lisk ",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "chain-overrides",
       "drpc",
       "quicknode"
@@ -2172,6 +2200,21 @@
       }
     ]
   },
+  "1729": {
+    "sourcifyName": "Reya",
+    "supported": true,
+    "discoveredBy": [
+      "blockscout"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.reya.network/"
+      }
+    },
+    "rpc": [
+      "https://rpc.reya.network"
+    ]
+  },
   "1740": {
     "sourcifyName": "Metal L2 Testnet",
     "supported": true,
@@ -2214,6 +2257,21 @@
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       }
+    ]
+  },
+  "1829": {
+    "sourcifyName": "Playnance Playblock",
+    "supported": true,
+    "discoveredBy": [
+      "blockscout"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.playblock.io/"
+      }
+    },
+    "rpc": [
+      "https://rpc.playblock.io"
     ]
   },
   "1868": {
@@ -2702,7 +2760,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=morph-hoodi&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       },
       {
         "type": "APIKeyRPC",
@@ -2880,8 +2939,14 @@
     "sourcifyName": "Lisk Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "drpc"
     ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://sepolia-blockscout.lisk.com/"
+      }
+    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -3046,12 +3111,16 @@
     "sourcifyName": "World Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "drpc",
       "etherscan",
       "quicknode"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true
+      "etherscanApi": true,
+      "blockscoutApi": {
+        "url": "https://worldchain-sepolia.explorer.alchemy.com/"
+      }
     },
     "etherscanApi": {
       "supported": true,
@@ -3159,12 +3228,24 @@
     ]
   },
   "5042": {
-    "sourcifyName": "Arc",
+    "sourcifyName": "Arc Mainnet",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "drpc",
+      "etherscan",
       "quicknode"
     ],
+    "fetchContractCreationTxUsing": {
+      "etherscanApi": true,
+      "blockscoutApi": {
+        "url": "https://explorer.arc.io/"
+      }
+    },
+    "etherscanApi": {
+      "supported": true,
+      "apiKeyEnvName": "ETHERSCAN_API_KEY"
+    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -3351,6 +3432,7 @@
     "sourcifyName": "ZetaChain: Athens Testnet",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "chain-overrides",
       "drpc"
     ],
@@ -3701,6 +3783,21 @@
     "supported": false,
     "discoveredBy": [
       "deprecated"
+    ]
+  },
+  "11011": {
+    "sourcifyName": "Shape Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "blockscout"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://sepolia.shapescan.xyz"
+      }
+    },
+    "rpc": [
+      "https://sepolia.shape.network"
     ]
   },
   "11111": {
@@ -4709,9 +4806,15 @@
     "sourcifyName": "Ink",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "drpc",
       "quicknode"
     ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.inkonchain.com/"
+      }
+    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -4859,6 +4962,22 @@
     "supported": false,
     "discoveredBy": [
       "deprecated"
+    ]
+  },
+  "69420": {
+    "sourcifyName": "Alchemy Sepolia",
+    "supported": true,
+    "discoveredBy": [
+      "blockscout"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://alchemy-sepolia.explorer.alchemy.com/"
+      }
+    },
+    "rpc": [
+      "https://rpc1.cheesescan.com",
+      "https://rpc2.cheesescan.com"
     ]
   },
   "71401": {
@@ -5102,8 +5221,14 @@
     "sourcifyName": "Doma Testnet",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "drpc"
     ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer-testnet.doma.xyz/"
+      }
+    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -5114,11 +5239,17 @@
     ]
   },
   "97477": {
-    "sourcifyName": "Doma",
+    "sourcifyName": "Doma Mainnet",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "drpc"
     ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.doma.xyz/"
+      }
+    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -5814,6 +5945,36 @@
       "https://xai-chain.net/rpc"
     ]
   },
+  "685685": {
+    "sourcifyName": "Gensyn Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "blockscout"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://gensyn-testnet.explorer.alchemy.com/"
+      }
+    },
+    "rpc": [
+      "https://gensyn-testnet.g.alchemy.com/public"
+    ]
+  },
+  "685689": {
+    "sourcifyName": "Gensyn",
+    "supported": true,
+    "discoveredBy": [
+      "blockscout"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://gensyn-mainnet.explorer.alchemy.com/"
+      }
+    },
+    "rpc": [
+      "https://gensyn-mainnet.g.alchemy.com/public"
+    ]
+  },
   "688689": {
     "sourcifyName": "Pharos Atlantic Testnet",
     "supported": true,
@@ -5923,9 +6084,15 @@
     "sourcifyName": "Ink Sepolia",
     "supported": true,
     "discoveredBy": [
+      "blockscout",
       "drpc",
       "quicknode"
     ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer-sepolia.inkonchain.com"
+      }
+    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -6338,6 +6505,13 @@
     "supported": false,
     "discoveredBy": [
       "chain-overrides"
+    ]
+  },
+  "89346162": {
+    "sourcifyName": "Reya Cronos",
+    "supported": false,
+    "discoveredBy": [
+      "blockscout"
     ]
   },
   "96969696": {
