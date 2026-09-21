@@ -143,9 +143,6 @@
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://flare-explorer.flare.network/"
-      },
-      "routescanApi": {
-        "type": "mainnet"
       }
     },
     "rpc": [
@@ -179,9 +176,6 @@
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://songbird-explorer.flare.network/"
-      },
-      "routescanApi": {
-        "type": "mainnet"
       }
     },
     "rpc": [
@@ -584,7 +578,7 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://gnosis.blockscout.com/"
+        "url": "https://gnosisscan.io/"
       }
     },
     "etherscanApi": {
@@ -629,14 +623,8 @@
     "sourcifyName": "Shibarium",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "blockscoutApi": {
-        "url": "https://shibariumscan.io/"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -653,11 +641,6 @@
       "drpc",
       "quicknode"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "testnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -813,7 +796,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=monad-mainnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -886,7 +870,7 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://hashkey.blockscout.com/"
+        "url": "https://hsk.blockscout.com/"
       }
     },
     "rpc": [
@@ -2141,8 +2125,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=story&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -2183,6 +2166,18 @@
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
       }
+    ]
+  },
+  "1643": {
+    "sourcifyName": "XGR Mainnet",
+    "supported": true,
+    "discoveredBy": [
+      "additional-chains"
+    ],
+    "rpc": [
+      "https://rpc.xgr.network",
+      "https://rpc1.xgr.network",
+      "https://rpc2.xgr.network"
     ]
   },
   "1672": {
@@ -2557,7 +2552,7 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://mocachain.blockscout.com"
+        "url": "https://scan.mocachain.org/"
       }
     },
     "rpc": [
@@ -3417,7 +3412,7 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://zetachain.blockscout.com/"
+        "url": "https://zetascan.com/"
       }
     },
     "rpc": [
@@ -5617,9 +5612,24 @@
   },
   "222888": {
     "sourcifyName": "Moca Chain Testnet",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
-      "blockscout"
+      "blockscout",
+      "quicknode"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://testnet-scan.mocachain.org"
+      }
+    },
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://{SUBDOMAIN}.moca-testnet.quiknode.pro/{API_KEY}/",
+        "apiKeyEnvName": "QUICKNODE_API_KEY",
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
+        "traceSupport": "debug_traceTransaction"
+      }
     ]
   },
   "313313": {
@@ -5804,7 +5814,7 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://scroll.blockscout.com"
+        "url": "https://scrollscan.com"
       }
     },
     "rpc": [
@@ -6422,7 +6432,7 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://optimism-sepolia.blockscout.com/"
+        "url": "https://testnet-explorer.optimism.io/"
       },
       "routescanApi": {
         "type": "testnet"
