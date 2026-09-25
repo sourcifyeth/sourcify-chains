@@ -1,11 +1,5 @@
 # sourcify-chains
 
-TODO: Use node v22
-TODO: Check why zetachain lost RPC support
-TODO: Handle cases when there's blockscout but no RPC.
-TODO: Add probing for Etherscan creation tx fetching, some instances don't support free tier
-TODO: Add https://docs.nodereal.io/reference/nr_getcontractcreationtransaction probing
-
 Canonical chain configuration for [Sourcify](https://sourcify.dev) — the open-source smart contract verification service. The Sourcify server fetches [`sourcify-chains-default.json`](./sourcify-chains-default.json) from this repository at startup.
 
 ## How it works
