@@ -522,5 +522,12 @@
         "url": "https://explorer-testnet.rabbitchain.org/"
       }
     }
+  },
+  "482120": {
+    "sourcifyName": "Bitcoin Swap",
+    "rpc": ["https://rpc.btcw.tech"],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": { "url": "https://explorer.btcw.tech/" }
+    }
   }
 }
