@@ -4,30 +4,10 @@
     "rpc": [
       {
         "type": "FetchRequest",
-        "url": "https://rpc.mainnet.ethpandaops.io",
+        "url": "https://mainnet.rpc.ethnodeops.xyz",
+        "traceSupport": "trace_transaction",
         "headers": [
-          {
-            "headerName": "CF-Access-Client-Id",
-            "headerEnvName": "CF_ACCESS_CLIENT_ID"
-          },
-          {
-            "headerName": "CF-Access-Client-Secret",
-            "headerEnvName": "CF_ACCESS_CLIENT_SECRET"
-          }
-        ]
-      },
-      {
-        "type": "FetchRequest",
-        "url": "https://archive.mainnet.ethpandaops.io",
-        "headers": [
-          {
-            "headerName": "CF-Access-Client-Id",
-            "headerEnvName": "CF_ACCESS_CLIENT_ID"
-          },
-          {
-            "headerName": "CF-Access-Client-Secret",
-            "headerEnvName": "CF_ACCESS_CLIENT_SECRET"
-          }
+          { "headerName": "X-API-Key", "headerEnvName": "ETHNODEOPS_API_KEY" }
         ]
       }
     ]
@@ -37,16 +17,10 @@
     "rpc": [
       {
         "type": "FetchRequest",
-        "url": "https://rpc.sepolia.ethpandaops.io",
+        "url": "https://sepolia.rpc.ethnodeops.xyz",
+        "traceSupport": "trace_transaction",
         "headers": [
-          {
-            "headerName": "CF-Access-Client-Id",
-            "headerEnvName": "CF_ACCESS_CLIENT_ID"
-          },
-          {
-            "headerName": "CF-Access-Client-Secret",
-            "headerEnvName": "CF_ACCESS_CLIENT_SECRET"
-          }
+          { "headerName": "X-API-Key", "headerEnvName": "ETHNODEOPS_API_KEY" }
         ]
       }
     ]
@@ -54,7 +28,14 @@
   "560048": {
     "sourcifyName": "Ethereum Hoodi Testnet",
     "rpc": [
-      "https://rpc.hoodi.ethpandaops.io"
+      {
+        "type": "FetchRequest",
+        "url": "https://hoodi.rpc.ethnodeops.xyz",
+        "traceSupport": "trace_transaction",
+        "headers": [
+          { "headerName": "X-API-Key", "headerEnvName": "ETHNODEOPS_API_KEY" }
+        ]
+      }
     ]
   },
   "369": {
@@ -173,16 +154,11 @@
   },
   "5000": {
     "sourcifyName": "Mantle Mainnet",
-    "rpc": [
-      "https://rpc.mantle.xyz",
-      "https://mantle-rpc.publicnode.com"
-    ]
+    "rpc": ["https://rpc.mantle.xyz", "https://mantle-rpc.publicnode.com"]
   },
   "5003": {
     "sourcifyName": "Mantle Sepolia Testnet",
-    "rpc": [
-      "https://rpc.sepolia.mantle.xyz"
-    ]
+    "rpc": ["https://rpc.sepolia.mantle.xyz"]
   },
   "534352": {
     "sourcifyName": "Scroll",
@@ -230,9 +206,7 @@
   },
   "190415": {
     "sourcifyName": "HPP Mainnet",
-    "rpc": [
-      "https://mainnet.hpp.io"
-    ],
+    "rpc": ["https://mainnet.hpp.io"],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://explorer.hpp.io"
@@ -241,9 +215,7 @@
   },
   "181228": {
     "sourcifyName": "HPP Sepolia Testnet",
-    "rpc": [
-      "https://sepolia.hpp.io"
-    ],
+    "rpc": ["https://sepolia.hpp.io"],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://sepolia-explorer.hpp.io"
@@ -318,9 +290,7 @@
   },
   "26217": {
     "sourcifyName": "Integralayer",
-    "rpc": [
-      "https://evm.integralayer.com"
-    ],
+    "rpc": ["https://evm.integralayer.com"],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://blockscout.integralayer.com"
@@ -452,9 +422,7 @@
   },
   "57057": {
     "sourcifyName": "zkTanenbaum Testnet",
-    "rpc": [
-      "https://rpc-zk.tanenbaum.io/"
-    ],
+    "rpc": ["https://rpc-zk.tanenbaum.io/"],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://explorer-zk.tanenbaum.io/"
@@ -471,20 +439,16 @@
   },
   "1874": {
     "sourcifyName": "Whitechain Sepolia Testnet",
-    "rpc": [
-      "https://rpc.testnet.whitechain.io"
-    ],
+    "rpc": ["https://rpc.testnet.whitechain.io"],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://explorer.testnet.whitechain.io/"
       }
     }
   },
-    "401": {
-   "sourcifyName": "Ozone Chain Testnet",
-   "rpc": [
-     "https://node2.testnet.ozonechain.io"
-   ],
+  "401": {
+    "sourcifyName": "Ozone Chain Testnet",
+    "rpc": ["https://node2.testnet.ozonechain.io"],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://testnet.ozonescan.io/"
@@ -493,9 +457,7 @@
   },
   "2443": {
     "sourcifyName": "Haus Chain Testnet",
-    "rpc": [
-      "https://rpc-testnet.hausserver.xyz"
-    ],
+    "rpc": ["https://rpc-testnet.hausserver.xyz"],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://explorer-testnet.hausserver.xyz/"
@@ -514,9 +476,7 @@
   },
   "9280": {
     "sourcifyName": "Rabbit Chain Testnet",
-    "rpc": [
-      "https://rpc-testnet.rabbitchain.org"
-    ],
+    "rpc": ["https://rpc-testnet.rabbitchain.org"],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://explorer-testnet.rabbitchain.org/"
