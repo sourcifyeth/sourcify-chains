@@ -17,6 +17,12 @@ permissions:
   contents: write
   pull-requests: write
 
+# Runs read and force-push the chain-sync-state branch. Overlapping runs would
+# overwrite each other's state, so they queue.
+concurrency:
+  group: generate-chains
+  cancel-in-progress: false
+
 jobs:
   test:
     uses: ./.github/workflows/tests.yml
