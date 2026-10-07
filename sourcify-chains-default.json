@@ -25,29 +25,12 @@
     "rpc": [
       {
         "type": "FetchRequest",
-        "url": "https://rpc.mainnet.ethpandaops.io",
+        "url": "https://mainnet.rpc.ethnodeops.xyz",
+        "traceSupport": "trace_transaction",
         "headers": [
           {
-            "headerName": "CF-Access-Client-Id",
-            "headerEnvName": "CF_ACCESS_CLIENT_ID"
-          },
-          {
-            "headerName": "CF-Access-Client-Secret",
-            "headerEnvName": "CF_ACCESS_CLIENT_SECRET"
-          }
-        ]
-      },
-      {
-        "type": "FetchRequest",
-        "url": "https://archive.mainnet.ethpandaops.io",
-        "headers": [
-          {
-            "headerName": "CF-Access-Client-Id",
-            "headerEnvName": "CF_ACCESS_CLIENT_ID"
-          },
-          {
-            "headerName": "CF-Access-Client-Secret",
-            "headerEnvName": "CF_ACCESS_CLIENT_SECRET"
+            "headerName": "X-API-Key",
+            "headerEnvName": "ETHNODEOPS_API_KEY"
           }
         ]
       },
@@ -330,8 +313,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=xdc-testnet&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1318,17 +1300,9 @@
   },
   "401": {
     "sourcifyName": "Ozone Chain Testnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "chain-overrides"
-    ],
-    "fetchContractCreationTxUsing": {
-      "blockscoutApi": {
-        "url": "https://testnet.ozonescan.io/"
-      }
-    },
-    "rpc": [
-      "https://node2.testnet.ozonechain.io"
     ]
   },
   "420": {
@@ -2806,8 +2780,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=peaq&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -3424,9 +3397,17 @@
   },
   "6498": {
     "sourcifyName": "Mizuhiki",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
       "blockscout"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://mizuhiki.blockscout.com"
+      }
+    },
+    "rpc": [
+      "https://rpc.mizuhiki.io"
     ]
   },
   "7000": {
@@ -3560,8 +3541,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=klaytn&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -4809,7 +4789,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=superseed-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -5837,6 +5817,21 @@
       "deprecated"
     ]
   },
+  "482120": {
+    "sourcifyName": "Bitcoin Swap",
+    "supported": true,
+    "discoveredBy": [
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.btcw.tech/"
+      }
+    },
+    "rpc": [
+      "https://rpc.btcw.tech"
+    ]
+  },
   "511111": {
     "sourcifyName": "Alpha Chain Testnet",
     "supported": true,
@@ -5852,6 +5847,13 @@
       "https://testnet-rpc.goalpha.org"
     ]
   },
+  "529375": {
+    "sourcifyName": "LayerK",
+    "supported": false,
+    "discoveredBy": [
+      "blockscout"
+    ]
+  },
   "534351": {
     "sourcifyName": "Scroll Sepolia Testnet",
     "supported": true,
@@ -5865,8 +5867,7 @@
         "url": "https://lb.drpc.org/ogrpc?network=scroll-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://scroll-sepolia-rpc.publicnode.com"
+      }
     ]
   },
   "534352": {
@@ -5933,6 +5934,17 @@
     },
     "rpc": [
       {
+        "type": "FetchRequest",
+        "url": "https://hoodi.rpc.ethnodeops.xyz",
+        "traceSupport": "trace_transaction",
+        "headers": [
+          {
+            "headerName": "X-API-Key",
+            "headerEnvName": "ETHNODEOPS_API_KEY"
+          }
+        ]
+      },
+      {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=hoodi&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
@@ -5944,8 +5956,7 @@
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "trace_transaction"
-      },
-      "https://rpc.hoodi.ethpandaops.io"
+      }
     ]
   },
   "612044": {
@@ -6452,15 +6463,12 @@
     "rpc": [
       {
         "type": "FetchRequest",
-        "url": "https://rpc.sepolia.ethpandaops.io",
+        "url": "https://sepolia.rpc.ethnodeops.xyz",
+        "traceSupport": "trace_transaction",
         "headers": [
           {
-            "headerName": "CF-Access-Client-Id",
-            "headerEnvName": "CF_ACCESS_CLIENT_ID"
-          },
-          {
-            "headerName": "CF-Access-Client-Secret",
-            "headerEnvName": "CF_ACCESS_CLIENT_SECRET"
+            "headerName": "X-API-Key",
+            "headerEnvName": "ETHNODEOPS_API_KEY"
           }
         ]
       },
@@ -6738,8 +6746,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=zora-sepolia&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://sepolia.rpc.zora.energy"
+      }
     ]
   },
   "1313161554": {
@@ -6760,9 +6767,7 @@
         "url": "https://lb.drpc.org/ogrpc?network=aurora&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://mainnet.aurora.dev",
-      "https://aurora.drpc.org"
+      }
     ]
   },
   "1666600000": {
@@ -6775,7 +6780,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=harmony-0&dkey={API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
