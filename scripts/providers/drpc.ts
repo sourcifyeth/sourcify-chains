@@ -69,7 +69,7 @@ export function buildDrpcChainName(label: string | undefined, networkId: string 
  *
  * Each chain exposes a `short-names` array; the first entry is the canonical
  * network slug used in the RPC URL:
- *   https://lb.drpc.org/ogrpc?network={shortName}&dkey={API_KEY}
+ *   https://lb.drpc.live/{shortName}/{API_KEY}
  *
  * Only `type: eth` protocols are kept. When the same chain id appears more than
  * once (the file has at least one such collision), the first occurrence wins so

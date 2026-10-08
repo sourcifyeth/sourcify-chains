@@ -189,7 +189,7 @@ Example output entry for Ethereum Mainnet:
   "etherscanApi": { "supported": true, "apiKeyEnvName": "ETHERSCAN_API_KEY_MAINNET" },
   "rpc": [
     { "type": "FetchRequest", "url": "https://rpc.mainnet.ethpandaops.io", "headers": [...] },
-    { "type": "APIKeyRPC", "url": "https://lb.drpc.org/ogrpc?network=ethereum&dkey={API_KEY}", "apiKeyEnvName": "DRPC_API_KEY", "traceSupport": "trace_transaction" },
+    { "type": "APIKeyRPC", "url": "https://lb.drpc.live/ethereum/{API_KEY}", "apiKeyEnvName": "DRPC_API_KEY", "traceSupport": "trace_transaction" },
     { "type": "APIKeyRPC", "url": "https://{SUBDOMAIN}.quiknode.pro/{API_KEY}/", "apiKeyEnvName": "QUICKNODE_API_KEY", "subDomainEnvName": "QUICKNODE_SUBDOMAIN", "traceSupport": "trace_transaction" }
   ]
 }
