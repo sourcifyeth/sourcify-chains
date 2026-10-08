@@ -13,8 +13,15 @@
  * If a reductive change disappears between runs (API flake recovered), its
  * counter resets and it is NOT included.
  *
+ * One exception: an RPC that was removed from chain-overrides.json by hand is
+ * removed immediately. That is a deliberate edit, not an API flake. To detect
+ * it, the history records the override RPC URLs seen in chain-overrides.json
+ * on the last run. A URL that is gone from the file is kept in
+ * `removedOverrideRpcs` until the committed baseline no longer contains it.
+ *
  * Reads:
  *   sourcify-chains-default.json  (raw snapshot in CWD, written by generate.ts)
+ *   chain-overrides.json          (current manual overrides in the repo root)
  *   --baseline <file>             (committed version before generate ran)
  *   --history  <file>             (change-history.json from chain-sync-state branch)
  *
@@ -83,10 +90,20 @@ export interface PendingChange {
   to?: string | null;   // for change-traceSupport: snapshot traceSupport
 }
 
+/** Chain ID → RPC URLs. */
+export type RpcUrlsByChain = Record<string, string[]>;
+
 export interface ChangeHistory {
   lastRunAt: string;
   pendingChanges: Record<string, PendingChange>;
+  /** Override RPC URLs listed in chain-overrides.json on the last run. */
+  overrideRpcs?: RpcUrlsByChain;
+  /** URLs removed from chain-overrides.json by hand that the baseline still has. */
+  removedOverrideRpcs?: RpcUrlsByChain;
 }
+
+/** The subset of a chain-overrides.json entry that sync cares about. */
+export type ChainOverrides = Record<string, { rpc?: RpcEntry[] }>;
 
 // ---------------------------------------------------------------------------
 // RPC helpers
@@ -139,6 +156,56 @@ function rpcMap(rpcs: RpcEntry[] | undefined): Map<string, RpcEntry> {
 }
 
 // ---------------------------------------------------------------------------
+// Override RPC tracking
+// ---------------------------------------------------------------------------
+
+/** Override RPC URLs per chain, as listed in chain-overrides.json. */
+export function overrideRpcUrls(overrides: ChainOverrides): RpcUrlsByChain {
+  const urls: RpcUrlsByChain = {};
+  for (const [chainId, override] of Object.entries(overrides)) {
+    if (override.rpc?.length) urls[chainId] = override.rpc.map(rpcUrl);
+  }
+  return urls;
+}
+
+/**
+ * Update the override tracking state for this run.
+ *
+ * A URL that was listed in chain-overrides.json on the last run but is not
+ * listed now was removed by hand. It is recorded in `removedOverrideRpcs` and
+ * stays there until the baseline no longer contains it (the removal was
+ * merged) or the URL is listed again. A URL that is still in this run's
+ * snapshot is not recorded either: another source (e.g. chainid.network)
+ * provides it now, so it is a regular RPC and a later probe failure must keep
+ * the threshold. On the first run there is no previous state, so nothing is
+ * recorded and every removal keeps the threshold.
+ */
+export function trackOverrideRpcs(
+  history: Pick<ChangeHistory, "overrideRpcs" | "removedOverrideRpcs">,
+  overrides: ChainOverrides,
+  baseline: Snapshot,
+  snapshot: Snapshot,
+): { overrideRpcs: RpcUrlsByChain; removedOverrideRpcs: RpcUrlsByChain } {
+  const current = overrideRpcUrls(overrides);
+  const previous = history.overrideRpcs ?? current;
+  const removed: RpcUrlsByChain = {};
+
+  const chainIds = new Set([...Object.keys(previous), ...Object.keys(history.removedOverrideRpcs ?? {})]);
+  for (const chainId of chainIds) {
+    const currentUrls = new Set(current[chainId] ?? []);
+    const baselineUrls = new Set((baseline[chainId]?.rpc ?? []).map(rpcUrl));
+    const snapshotUrls = new Set((snapshot[chainId]?.rpc ?? []).map(rpcUrl));
+    const candidates = new Set([...(previous[chainId] ?? []), ...(history.removedOverrideRpcs?.[chainId] ?? [])]);
+    const urls = [...candidates].filter(
+      (url) => !currentUrls.has(url) && baselineUrls.has(url) && !snapshotUrls.has(url),
+    );
+    if (urls.length > 0) removed[chainId] = urls;
+  }
+
+  return { overrideRpcs: current, removedOverrideRpcs: removed };
+}
+
+// ---------------------------------------------------------------------------
 // Diff logic
 // ---------------------------------------------------------------------------
 
@@ -151,10 +218,15 @@ export interface AddressedChange {
  * Diff snapshot vs baseline and return:
  *   addDescriptions: human-readable lines for additions (immediate)
  *   reductiveChanges: changes that need stability tracking
+ *
+ * `removedOverrideRpcs` lists the URLs that were removed from
+ * chain-overrides.json by hand (see trackOverrideRpcs). Their removal is
+ * deterministic, so it is included immediately instead of being tracked.
  */
 export function diffSnapshots(
   baseline: Snapshot,
   snapshot: Snapshot,
+  removedOverrideRpcs: RpcUrlsByChain = {},
 ): {
   addDescriptions: string[];
   reductiveChanges: AddressedChange[];
@@ -236,8 +308,14 @@ export function diffSnapshots(
       }
     }
 
+    const removedOverrides = new Set(removedOverrideRpcs[chainId] ?? []);
     for (const [url] of baseRpcs) {
-      if (!snapRpcs.has(url)) {
+      if (snapRpcs.has(url)) continue;
+      if (removedOverrides.has(url)) {
+        addDescriptions.push(
+          `Removed override RPC ${url} for chain ${chainId} (${chainName}) — removed from chain-overrides.json`,
+        );
+      } else {
         reductiveChanges.push({
           key: `remove-rpc-${chainId}-${url}`,
           pending: { type: "remove-rpc", chainId: chainNum, provider: url },
@@ -672,15 +750,28 @@ async function main() {
     }
   }
 
+  // Override RPCs removed from chain-overrides.json by hand are not tracked
+  const overrides: ChainOverrides = JSON.parse(
+    fs.readFileSync(path.join(REPO_ROOT, "chain-overrides.json"), "utf8"),
+  );
+  const overrideState = trackOverrideRpcs(history, overrides, baseline, snapshot);
+  const removedCount = Object.values(overrideState.removedOverrideRpcs).reduce((n, urls) => n + urls.length, 0);
+  if (!history.overrideRpcs) {
+    console.log("  No override RPC state in history yet — recording chain-overrides.json for the next run");
+  }
+  console.log(`  ${removedCount} override RPC(s) removed from chain-overrides.json — removed immediately`);
+
   // Diff
   console.log("Diffing snapshot vs baseline...");
-  const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot);
+  const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot, overrideState.removedOverrideRpcs);
 
   console.log(`  ${addDescriptions.length} additive change(s) — included immediately`);
   console.log(`  ${reductiveChanges.length} reductive/mutating change(s) — tracking with threshold ${THRESHOLD}`);
 
   // Update history
   const { updatedHistory, stabilized, pendingSummary } = updateHistory(history, reductiveChanges, now);
+  updatedHistory.overrideRpcs = overrideState.overrideRpcs;
+  updatedHistory.removedOverrideRpcs = overrideState.removedOverrideRpcs;
 
   console.log(`  ${stabilized.length} stabilized (>= ${THRESHOLD} consecutive runs) — included`);
   console.log(`  ${pendingSummary.length} pending (< ${THRESHOLD} runs) — held back`);

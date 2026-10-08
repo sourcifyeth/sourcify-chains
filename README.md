@@ -248,8 +248,11 @@ External APIs are flaky — dRPC sometimes drops chains, Routescan is inconsiste
 | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | New chain, new RPC, new traceSupport, new fetchUsing key, new etherscanApi, new discoveredBy source                                                  | **Immediate** (1 run)  |
 | Chain removed, RPC removed, traceSupport changed/removed, fetchUsing key removed or value changed, etherscanApi removed, discoveredBy source removed | **5 consecutive runs** |
+| RPC removed from `chain-overrides.json` by hand                                                                                                      | **Immediate** (1 run)  |
 
 If a reductive change disappears between runs (API flake recovered), its counter resets and it is not included.
+
+An RPC that was removed from `chain-overrides.json` by hand is not an API flake, so `sync.ts` removes it right away. To detect this, the state records the override RPC URLs listed in `chain-overrides.json` on the last run (`overrideRpcs`). A URL that is no longer listed is kept in `removedOverrideRpcs` until the committed file no longer contains it, so the removal stays immediate on every run until the regenerate PR is merged. If another source still provides the URL (for example a public RPC from chainid.network), it is not recorded and stays a regular RPC. An override RPC that is still listed but fails its liveness probe keeps the threshold. On the first run after this state was introduced, the URLs are only recorded, so earlier removals keep the threshold.
 
 **State** is persisted in `change-history.json` on an orphan branch `chain-sync-state`. The workflow fetches it at the start of each run and pushes the updated counters back at the end.
 

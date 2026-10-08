@@ -5,6 +5,9 @@ import {
   updateHistory,
   buildStabilizedOutput,
   buildPrDescription,
+  overrideRpcUrls,
+  trackOverrideRpcs,
+  type ChainOverrides,
   type Snapshot,
   type ChangeHistory,
   type PendingChange,
@@ -33,6 +36,16 @@ const QN_RPC = {
   apiKeyEnvName: "QUICKNODE_API_KEY",
   subDomainEnvName: "QUICKNODE_SUBDOMAIN",
 };
+
+const OVERRIDE_RPC = {
+  type: "FetchRequest" as const,
+  url: "https://rpc.mainnet.example.io",
+  headers: [{ headerName: "X-API-Key", headerEnvName: "EXAMPLE_API_KEY" }],
+};
+
+const OVERRIDE_URL = OVERRIDE_RPC.url;
+
+const PLAIN_OVERRIDE_URL = "https://rpc.hoodi.example.io";
 
 function chain(overrides: Partial<Snapshot[string]> = {}): Snapshot[string] {
   return {
@@ -310,6 +323,145 @@ describe("diffSnapshots", () => {
     const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot);
     assert.equal(addDescriptions.length, 0);
     assert.equal(reductiveChanges.length, 0);
+  });
+
+  it("RPC listed in removedOverrideRpcs → immediate, not reductive", () => {
+    const baseline: Snapshot = { "1": chain({ rpc: [OVERRIDE_RPC, DRPC_RPC, PLAIN_OVERRIDE_URL] }) };
+    const snapshot: Snapshot = { "1": chain({ rpc: [DRPC_RPC] }) };
+    const removed = { "1": [OVERRIDE_URL, PLAIN_OVERRIDE_URL] };
+    const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot, removed);
+    assert.equal(reductiveChanges.length, 0);
+    assert.equal(addDescriptions.length, 2);
+    assert.ok(addDescriptions.some((d) => d.includes(`Removed override RPC ${OVERRIDE_URL}`)));
+    assert.ok(addDescriptions.some((d) => d.includes(`Removed override RPC ${PLAIN_OVERRIDE_URL}`)));
+    assert.ok(addDescriptions[0].includes("chain-overrides.json"));
+  });
+
+  it("removedOverrideRpcs only applies to its own chain", () => {
+    const baseline: Snapshot = {
+      "1": chain({ rpc: [DRPC_RPC, PLAIN_OVERRIDE_URL] }),
+      "2": chain({ rpc: [DRPC_RPC, PLAIN_OVERRIDE_URL] }),
+    };
+    const snapshot: Snapshot = {
+      "1": chain({ rpc: [DRPC_RPC] }),
+      "2": chain({ rpc: [DRPC_RPC] }),
+    };
+    const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot, { "1": [PLAIN_OVERRIDE_URL] });
+    assert.equal(addDescriptions.length, 1);
+    assert.equal(reductiveChanges.length, 1);
+    assert.equal(reductiveChanges[0].key, `remove-rpc-2-${PLAIN_OVERRIDE_URL}`);
+  });
+
+  it("removed RPC not in removedOverrideRpcs → reductive as before", () => {
+    const baseline: Snapshot = { "1": chain({ rpc: [DRPC_RPC, PLAIN_OVERRIDE_URL] }) };
+    const snapshot: Snapshot = { "1": chain({ rpc: [DRPC_RPC] }) };
+    const { addDescriptions, reductiveChanges } = diffSnapshots(baseline, snapshot, {});
+    assert.equal(addDescriptions.length, 0);
+    assert.equal(reductiveChanges.length, 1);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// trackOverrideRpcs
+// ---------------------------------------------------------------------------
+
+describe("trackOverrideRpcs", () => {
+  const OVERRIDES: ChainOverrides = { "1": { rpc: [OVERRIDE_RPC, PLAIN_OVERRIDE_URL] }, "2": { rpc: ["https://rpc.two.io"] } };
+  const BASELINE: Snapshot = {
+    "1": chain({ rpc: [OVERRIDE_RPC, DRPC_RPC, PLAIN_OVERRIDE_URL] }),
+    "2": chain({ rpc: ["https://rpc.two.io"] }),
+  };
+  // Snapshot of a run where the plain override URL is gone
+  const SNAPSHOT: Snapshot = { ...BASELINE, "1": chain({ rpc: [OVERRIDE_RPC, DRPC_RPC] }) };
+
+  it("overrideRpcUrls → URLs per chain, chains without rpc omitted", () => {
+    const urls = overrideRpcUrls({ ...OVERRIDES, "3": {}, "4": { rpc: [] } });
+    assert.deepEqual(urls, { "1": [OVERRIDE_URL, PLAIN_OVERRIDE_URL], "2": ["https://rpc.two.io"] });
+  });
+
+  it("first run (no state) → records current URLs, nothing removed", () => {
+    const { overrideRpcs, removedOverrideRpcs } = trackOverrideRpcs({}, OVERRIDES, BASELINE, SNAPSHOT);
+    assert.deepEqual(overrideRpcs, overrideRpcUrls(OVERRIDES));
+    assert.deepEqual(removedOverrideRpcs, {});
+  });
+
+  it("URL removed from chain-overrides.json since the last run → recorded as removed", () => {
+    const state = { overrideRpcs: overrideRpcUrls(OVERRIDES) };
+    const current: ChainOverrides = { ...OVERRIDES, "1": { rpc: [OVERRIDE_RPC] } };
+    const { overrideRpcs, removedOverrideRpcs } = trackOverrideRpcs(state, current, BASELINE, SNAPSHOT);
+    assert.deepEqual(removedOverrideRpcs, { "1": [PLAIN_OVERRIDE_URL] });
+    assert.deepEqual(overrideRpcs["1"], [OVERRIDE_URL]);
+  });
+
+  it("whole chain entry removed → all of its URLs are recorded as removed", () => {
+    const state = { overrideRpcs: overrideRpcUrls(OVERRIDES) };
+    const current: ChainOverrides = { "2": OVERRIDES["2"] };
+    const snapshot: Snapshot = { ...BASELINE, "1": chain({ rpc: [DRPC_RPC] }) };
+    const { removedOverrideRpcs } = trackOverrideRpcs(state, current, BASELINE, snapshot);
+    assert.deepEqual(removedOverrideRpcs, { "1": [OVERRIDE_URL, PLAIN_OVERRIDE_URL] });
+  });
+
+  it("removal stays recorded on later runs while the baseline still has the URL", () => {
+    const current: ChainOverrides = { ...OVERRIDES, "1": { rpc: [OVERRIDE_RPC] } };
+    const state = { overrideRpcs: overrideRpcUrls(current), removedOverrideRpcs: { "1": [PLAIN_OVERRIDE_URL] } };
+    const { removedOverrideRpcs } = trackOverrideRpcs(state, current, BASELINE, SNAPSHOT);
+    assert.deepEqual(removedOverrideRpcs, { "1": [PLAIN_OVERRIDE_URL] });
+  });
+
+  it("removal is dropped once the baseline no longer has the URL (PR merged)", () => {
+    const current: ChainOverrides = { ...OVERRIDES, "1": { rpc: [OVERRIDE_RPC] } };
+    const state = { overrideRpcs: overrideRpcUrls(current), removedOverrideRpcs: { "1": [PLAIN_OVERRIDE_URL] } };
+    const merged: Snapshot = { ...BASELINE, "1": chain({ rpc: [OVERRIDE_RPC, DRPC_RPC] }) };
+    const { removedOverrideRpcs } = trackOverrideRpcs(state, current, merged, SNAPSHOT);
+    assert.deepEqual(removedOverrideRpcs, {});
+  });
+
+  it("removal is dropped when the URL is listed in chain-overrides.json again", () => {
+    const previous: ChainOverrides = { ...OVERRIDES, "1": { rpc: [OVERRIDE_RPC] } };
+    const state = { overrideRpcs: overrideRpcUrls(previous), removedOverrideRpcs: { "1": [PLAIN_OVERRIDE_URL] } };
+    const { removedOverrideRpcs } = trackOverrideRpcs(state, OVERRIDES, BASELINE, SNAPSHOT);
+    assert.deepEqual(removedOverrideRpcs, {});
+  });
+
+  it("removed URL still in the snapshot from another source → not recorded, later flake keeps threshold", () => {
+    // chainid.network also lists the URL, so it stays in the output as a public RPC
+    const current: ChainOverrides = { ...OVERRIDES, "1": { rpc: [OVERRIDE_RPC] } };
+    const state = { overrideRpcs: overrideRpcUrls(OVERRIDES) };
+    const { removedOverrideRpcs } = trackOverrideRpcs(state, current, BASELINE, BASELINE);
+    assert.deepEqual(removedOverrideRpcs, {});
+    // A later run where the URL fails its probe is a regular removal
+    const later = trackOverrideRpcs({ overrideRpcs: overrideRpcUrls(current), removedOverrideRpcs }, current, BASELINE, SNAPSHOT);
+    assert.deepEqual(later.removedOverrideRpcs, {});
+    const { addDescriptions, reductiveChanges } = diffSnapshots(BASELINE, SNAPSHOT, later.removedOverrideRpcs);
+    assert.equal(addDescriptions.length, 0);
+    assert.equal(reductiveChanges.length, 1);
+    assert.equal(reductiveChanges[0].key, `remove-rpc-1-${PLAIN_OVERRIDE_URL}`);
+  });
+
+  it("URL removed from chain-overrides.json that the baseline never had → not recorded", () => {
+    const state = { overrideRpcs: { ...overrideRpcUrls(OVERRIDES), "1": [OVERRIDE_URL, PLAIN_OVERRIDE_URL, "https://never.example.io"] } };
+    const { removedOverrideRpcs } = trackOverrideRpcs(state, OVERRIDES, BASELINE, SNAPSHOT);
+    assert.deepEqual(removedOverrideRpcs, {});
+  });
+
+  it("removal recorded → sync applies it, drops the stale counter, and keeps it out of the output", () => {
+    const current: ChainOverrides = { ...OVERRIDES, "1": { rpc: [OVERRIDE_RPC] } };
+    const state = { overrideRpcs: overrideRpcUrls(OVERRIDES) };
+    const { removedOverrideRpcs } = trackOverrideRpcs(state, current, BASELINE, SNAPSHOT);
+    const snapshot: Snapshot = { ...BASELINE, "1": chain({ rpc: [OVERRIDE_RPC, DRPC_RPC] }) };
+    const { addDescriptions, reductiveChanges } = diffSnapshots(BASELINE, snapshot, removedOverrideRpcs);
+    assert.equal(addDescriptions.length, 1);
+    assert.equal(reductiveChanges.length, 0);
+    const history = historyWithEntry(
+      `remove-rpc-1-${PLAIN_OVERRIDE_URL}`,
+      { type: "remove-rpc", chainId: 1, provider: PLAIN_OVERRIDE_URL },
+      3,
+    );
+    const { updatedHistory, pendingSummary } = updateHistory(history, reductiveChanges, NOW);
+    assert.equal(Object.keys(updatedHistory.pendingChanges).length, 0);
+    assert.equal(pendingSummary.length, 0);
+    const output = buildStabilizedOutput(BASELINE, snapshot, updatedHistory.pendingChanges);
+    assert.deepEqual(output["1"].rpc, [OVERRIDE_RPC, DRPC_RPC]);
   });
 });
 
