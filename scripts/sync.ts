@@ -174,13 +174,17 @@ export function overrideRpcUrls(overrides: ChainOverrides): RpcUrlsByChain {
  * A URL that was listed in chain-overrides.json on the last run but is not
  * listed now was removed by hand. It is recorded in `removedOverrideRpcs` and
  * stays there until the baseline no longer contains it (the removal was
- * merged) or the URL is listed again. On the first run there is no previous
- * state, so nothing is recorded and every removal keeps the threshold.
+ * merged) or the URL is listed again. A URL that is still in this run's
+ * snapshot is not recorded either: another source (e.g. chainid.network)
+ * provides it now, so it is a regular RPC and a later probe failure must keep
+ * the threshold. On the first run there is no previous state, so nothing is
+ * recorded and every removal keeps the threshold.
  */
 export function trackOverrideRpcs(
   history: Pick<ChangeHistory, "overrideRpcs" | "removedOverrideRpcs">,
   overrides: ChainOverrides,
   baseline: Snapshot,
+  snapshot: Snapshot,
 ): { overrideRpcs: RpcUrlsByChain; removedOverrideRpcs: RpcUrlsByChain } {
   const current = overrideRpcUrls(overrides);
   const previous = history.overrideRpcs ?? current;
@@ -190,8 +194,11 @@ export function trackOverrideRpcs(
   for (const chainId of chainIds) {
     const currentUrls = new Set(current[chainId] ?? []);
     const baselineUrls = new Set((baseline[chainId]?.rpc ?? []).map(rpcUrl));
+    const snapshotUrls = new Set((snapshot[chainId]?.rpc ?? []).map(rpcUrl));
     const candidates = new Set([...(previous[chainId] ?? []), ...(history.removedOverrideRpcs?.[chainId] ?? [])]);
-    const urls = [...candidates].filter((url) => !currentUrls.has(url) && baselineUrls.has(url));
+    const urls = [...candidates].filter(
+      (url) => !currentUrls.has(url) && baselineUrls.has(url) && !snapshotUrls.has(url),
+    );
     if (urls.length > 0) removed[chainId] = urls;
   }
 
@@ -747,7 +754,7 @@ async function main() {
   const overrides: ChainOverrides = JSON.parse(
     fs.readFileSync(path.join(REPO_ROOT, "chain-overrides.json"), "utf8"),
   );
-  const overrideState = trackOverrideRpcs(history, overrides, baseline);
+  const overrideState = trackOverrideRpcs(history, overrides, baseline, snapshot);
   const removedCount = Object.values(overrideState.removedOverrideRpcs).reduce((n, urls) => n + urls.length, 0);
   if (!history.overrideRpcs) {
     console.log("  No override RPC state in history yet — recording chain-overrides.json for the next run");
