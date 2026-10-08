@@ -19,7 +19,7 @@ import {
 
 const DRPC_RPC = {
   type: "APIKeyRPC" as const,
-  url: "https://lb.drpc.org/ogrpc?network=ethereum&dkey={API_KEY}",
+  url: "https://lb.drpc.live/ethereum/{API_KEY}",
   apiKeyEnvName: "DRPC_API_KEY",
 };
 

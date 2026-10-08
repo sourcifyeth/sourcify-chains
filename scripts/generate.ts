@@ -192,7 +192,7 @@ function buildQuickNodeRpc(qn: QuickNodeChainData): RpcEntry {
 function buildDrpcRpc(shortName: string): RpcEntry {
   return {
     type: "APIKeyRPC",
-    url: `https://lb.drpc.org/ogrpc?network=${shortName}&dkey={API_KEY}`,
+    url: `https://lb.drpc.live/${shortName}/{API_KEY}`,
     apiKeyEnvName: "DRPC_API_KEY",
   };
 }
