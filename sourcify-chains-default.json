@@ -1950,7 +1950,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/hyperliquid/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       },
       {
         "type": "APIKeyRPC",
@@ -2245,7 +2246,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/moonriver/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -4117,7 +4119,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/klaytn/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -4188,8 +4191,8 @@
         "traceSupport": "trace_transaction"
       },
       "https://mainnet.base.org/",
-      "https://developer-access-mainnet.base.org/",
-      "https://base.gateway.tenderly.co"
+      "https://base.gateway.tenderly.co",
+      "https://developer-access-mainnet.base.org/"
     ]
   },
   "8822": {
@@ -5308,7 +5311,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/etherlink/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -7008,6 +7012,12 @@
     "rpc": [
       {
         "type": "APIKeyRPC",
+        "url": "https://lb.drpc.live/pharos-atlantic-testnet/{API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      },
+      {
+        "type": "APIKeyRPC",
         "url": "https://lb.drpc.org/ogrpc?network=pharos-atlantic-testnet&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
@@ -7814,9 +7824,7 @@
         "url": "https://lb.drpc.org/ogrpc?network=aurora&dkey={API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://mainnet.aurora.dev",
-      "https://aurora.drpc.org"
+      }
     ]
   },
   "1666600000": {
