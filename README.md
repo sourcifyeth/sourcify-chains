@@ -40,9 +40,9 @@ Every QuickNode and dRPC chain is probed on each run. Probing:
 
 QuickNode and dRPC are probed independently — they may expose different trace methods for the same chain. Each probe has a 45 s total timeout (accommodates retries across individual RPC calls).
 
-Routescan and third-party Blockscout instances do **not** qualify a chain for inclusion on their own — they only contribute `fetchContractCreationTxUsing` data.
+Routescan and third-party Blockscout instances do **not** qualify a chain for inclusion on their own — they only contribute `fetchContractCreationTxUsing` data. We also make use of the [chainid.network/chains.json](https://chainid.network/chains.json) (a.k.a "chainlist") file to get the public RPCs of the chains if no paid provider RPCs are available.
 
-Every `blockscoutApi` entry carries a `proApi` flag. It is `true` when the chain is listed in the [Blockscout PRO API chains config](https://github.com/blockscout/backend-configs/blob/main/pro-api/prod/chains-config.json), which is the list the [PRO API](https://docs.blockscout.com/devs/pro-api) gateway (`api.blockscout.com`) serves. The flag is also set on manual `blockscoutApi` overrides. Not every Blockscout-hosted instance is in that list, so `hostedBy === "blockscout"` alone is not enough to use the PRO API. Entries with `proApi: false` must use the instance `url` directly. We also make use of the [chainid.network/chains.json](https://chainid.network/chains.json) (a.k.a "chainlist") file to get the public RPCs of the chains if no paid provider RPCs are available.
+Every `blockscoutApi` entry carries a `proApi` flag. It is `true` when the chain is listed in the [Blockscout PRO API chains config](https://github.com/blockscout/backend-configs/blob/main/pro-api/prod/chains-config.json), which is the list the [PRO API](https://docs.blockscout.com/devs/pro-api) gateway (`api.blockscout.com`) serves. The flag is also set on manual `blockscoutApi` overrides. Not every Blockscout-hosted instance is in that list, so `hostedBy === "blockscout"` alone is not enough to use the PRO API. Entries with `proApi: false` must use the instance `url` directly.
 
 Beyond auto-discovery, chains can also be manually included or excluded:
 
