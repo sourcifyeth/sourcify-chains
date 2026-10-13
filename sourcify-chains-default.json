@@ -12,7 +12,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://eth.blockscout.com/"
+        "url": "https://eth.blockscout.com/",
+        "proApi": true
       },
       "routescanApi": {
         "type": "mainnet"
@@ -89,7 +90,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://explorer.optimism.io/"
+        "url": "https://explorer.optimism.io/",
+        "proApi": true
       },
       "routescanApi": {
         "type": "mainnet"
@@ -125,7 +127,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://flare-explorer.flare.network/"
+        "url": "https://flare-explorer.flare.network/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -158,7 +161,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://songbird-explorer.flare.network/"
+        "url": "https://songbird-explorer.flare.network/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -197,7 +201,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://rootstock.blockscout.com/"
+        "url": "https://rootstock.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -218,7 +223,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://rootstock-testnet.blockscout.com/"
+        "url": "https://rootstock-testnet.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -239,7 +245,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://teloscan.io/"
+        "url": "https://teloscan.io/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -373,7 +380,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://etc.blockscout.com/"
+        "url": "https://etc.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -393,7 +401,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://etc-mordor.blockscout.com/"
+        "url": "https://etc-mordor.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -437,7 +446,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://shibuya.blockscout.com/"
+        "url": "https://shibuya.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -560,7 +570,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://gnosisscan.io/"
+        "url": "https://gnosisscan.io/",
+        "proApi": true
       }
     },
     "etherscanApi": {
@@ -647,7 +658,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.fuse.io/"
+        "url": "https://explorer.fuse.io/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -667,7 +679,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.fusespark.io/"
+        "url": "https://explorer.fusespark.io/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -686,7 +699,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://unichain.blockscout.com"
+        "url": "https://unichain.blockscout.com",
+        "proApi": true
       }
     },
     "etherscanApi": {
@@ -736,7 +750,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://polygon.blockscout.com/"
+        "url": "https://polygon.blockscout.com/",
+        "proApi": true
       }
     },
     "etherscanApi": {
@@ -852,7 +867,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://hsk.blockscout.com/"
+        "url": "https://hsk.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -958,7 +974,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://mainnet-backend.bsquared.network"
+        "url": "https://mainnet-backend.bsquared.network",
+        "proApi": false
       }
     },
     "rpc": [
@@ -994,7 +1011,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.tac.build/"
+        "url": "https://explorer.tac.build/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -1094,7 +1112,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.orderly.network/"
+        "url": "https://explorer.orderly.network/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -1148,7 +1167,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://zksync-sepolia.blockscout.com/"
+        "url": "https://zksync-sepolia.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -1176,7 +1196,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://filecoin.blockscout.com/"
+        "url": "https://filecoin.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -1197,7 +1218,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://zksync.blockscout.com/"
+        "url": "https://zksync.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -1252,7 +1274,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://shapescan.xyz/"
+        "url": "https://shapescan.xyz/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -1268,7 +1291,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://api.scan.pulsechain.com/"
+        "url": "https://api.scan.pulsechain.com/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -1307,7 +1331,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://testnet.ozonescan.io/"
+        "url": "https://testnet.ozonescan.io/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -1333,7 +1358,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://worldchain-mainnet.explorer.alchemy.com"
+        "url": "https://worldchain-mainnet.explorer.alchemy.com",
+        "proApi": true
       }
     },
     "etherscanApi": {
@@ -1370,7 +1396,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://blackfortscan.com/"
+        "url": "https://blackfortscan.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -1394,7 +1421,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://testnet.evm.flow.com/"
+        "url": "https://testnet.evm.flow.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -1423,7 +1451,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://astar.blockscout.com/"
+        "url": "https://astar.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -1463,7 +1492,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://matchscan.io/"
+        "url": "https://matchscan.io/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -1478,7 +1508,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://eden.blockscout.com/"
+        "url": "https://eden.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -1495,7 +1526,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://evm.flow.com/"
+        "url": "https://evm.flow.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -1530,7 +1562,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.worldmobile.io/"
+        "url": "https://explorer.worldmobile.io/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -1881,7 +1914,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://blockscout.lisk.com"
+        "url": "https://blockscout.lisk.com",
+        "proApi": true
       }
     },
     "rpc": [
@@ -1963,7 +1997,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://unichain-sepolia.blockscout.com"
+        "url": "https://unichain-sepolia.blockscout.com",
+        "proApi": true
       }
     },
     "etherscanApi": {
@@ -1994,7 +2029,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://aeneid.datanetscan.io/"
+        "url": "https://aeneid.datanetscan.io/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -2108,7 +2144,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://www.datanetscan.io/"
+        "url": "https://www.datanetscan.io/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -2193,7 +2230,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.reya.network/"
+        "url": "https://explorer.reya.network/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -2252,7 +2290,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.playblock.io/"
+        "url": "https://explorer.playblock.io/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -2269,7 +2308,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://soneium.blockscout.com"
+        "url": "https://soneium.blockscout.com",
+        "proApi": true
       }
     },
     "rpc": [
@@ -2296,7 +2336,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.testnet.whitechain.io/"
+        "url": "https://explorer.testnet.whitechain.io/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -2311,7 +2352,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://phoenix.lightlink.io/"
+        "url": "https://phoenix.lightlink.io/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -2326,7 +2368,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://pegasus.lightlink.io/"
+        "url": "https://pegasus.lightlink.io/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -2372,7 +2415,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://soneium-minato.blockscout.com/"
+        "url": "https://soneium-minato.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -2438,7 +2482,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.roninchain.com/"
+        "url": "https://explorer.roninchain.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -2547,7 +2592,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://scan.mocachain.org/"
+        "url": "https://scan.mocachain.org/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -2582,7 +2628,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://kitescan.ai/"
+        "url": "https://kitescan.ai/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -2602,7 +2649,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://testnet.kitescan.ai/"
+        "url": "https://testnet.kitescan.ai/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -2617,7 +2665,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://spb.explorer.tac.build/"
+        "url": "https://spb.explorer.tac.build/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -2648,7 +2697,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer-testnet.hausserver.xyz/"
+        "url": "https://explorer-testnet.hausserver.xyz/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -2770,7 +2820,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://scan.goalpha.org"
+        "url": "https://scan.goalpha.org",
+        "proApi": false
       }
     },
     "rpc": [
@@ -2884,7 +2935,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.mainnet.citrea.xyz"
+        "url": "https://explorer.mainnet.citrea.xyz",
+        "proApi": false
       }
     },
     "rpc": [
@@ -2899,7 +2951,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.risechain.com/"
+        "url": "https://explorer.risechain.com/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -2937,7 +2990,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://sepolia-blockscout.lisk.com/"
+        "url": "https://sepolia-blockscout.lisk.com/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -2985,7 +3039,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://megaeth.blockscout.com/"
+        "url": "https://megaeth.blockscout.com/",
+        "proApi": true
       }
     },
     "etherscanApi": {
@@ -3040,7 +3095,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://testnet-explorer.orderly.org/"
+        "url": "https://testnet-explorer.orderly.org/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -3063,7 +3119,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://robinhoodchain.blockscout.com/"
+        "url": "https://robinhoodchain.blockscout.com/",
+        "proApi": true
       }
     },
     "etherscanApi": {
@@ -3118,7 +3175,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://worldchain-sepolia.explorer.alchemy.com/"
+        "url": "https://worldchain-sepolia.explorer.alchemy.com/",
+        "proApi": true
       }
     },
     "etherscanApi": {
@@ -3149,7 +3207,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://testnet.blackfortscan.com/"
+        "url": "https://testnet.blackfortscan.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -3238,7 +3297,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://explorer.arc.io/"
+        "url": "https://explorer.arc.io/",
+        "proApi": true
       }
     },
     "etherscanApi": {
@@ -3269,7 +3329,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.testnet.citrea.xyz"
+        "url": "https://explorer.testnet.citrea.xyz",
+        "proApi": false
       }
     },
     "rpc": [
@@ -3393,7 +3454,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://awaji.blockscout.com/"
+        "url": "https://awaji.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -3408,7 +3470,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://mizuhiki.blockscout.com"
+        "url": "https://mizuhiki.blockscout.com",
+        "proApi": true
       }
     },
     "rpc": [
@@ -3424,7 +3487,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://zetascan.com/"
+        "url": "https://zetascan.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -3445,7 +3509,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://testnet.zetascan.com/"
+        "url": "https://testnet.zetascan.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -3584,7 +3649,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://base.blockscout.com/"
+        "url": "https://base.blockscout.com/",
+        "proApi": true
       }
     },
     "etherscanApi": {
@@ -3617,7 +3683,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.evm.iota.org/"
+        "url": "https://explorer.evm.iota.org/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -3632,7 +3699,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer-testnet.rabbitchain.org/"
+        "url": "https://explorer-testnet.rabbitchain.org/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -3767,7 +3835,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://gnosis-chiado.blockscout.com/"
+        "url": "https://gnosis-chiado.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -3837,7 +3906,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://sepolia.shapescan.xyz"
+        "url": "https://sepolia.shapescan.xyz",
+        "proApi": true
       }
     },
     "rpc": [
@@ -3919,7 +3989,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.immutable.com/"
+        "url": "https://explorer.immutable.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -3947,7 +4018,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.testnet.immutable.com/"
+        "url": "https://explorer.testnet.immutable.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -4160,7 +4232,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://testnet.kubscan.com/"
+        "url": "https://testnet.kubscan.com/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -4233,7 +4306,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://zilliqa.blockscout.com/"
+        "url": "https://zilliqa.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -4255,7 +4329,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://testnet.zilliqa.blockscout.com/"
+        "url": "https://testnet.zilliqa.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -4324,7 +4399,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.mode.network/"
+        "url": "https://explorer.mode.network/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -4413,7 +4489,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://arbitrum.blockscout.com/"
+        "url": "https://arbitrum.blockscout.com/",
+        "proApi": true
       }
     },
     "etherscanApi": {
@@ -4447,7 +4524,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://arbitrum-nova.blockscout.com/"
+        "url": "https://arbitrum-nova.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -4479,7 +4557,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://celo.blockscout.com/"
+        "url": "https://celo.blockscout.com/",
+        "proApi": true
       }
     },
     "etherscanApi": {
@@ -4573,7 +4652,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.etherlink.com/"
+        "url": "https://explorer.etherlink.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -4732,7 +4812,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://xexplorer.neo.org/"
+        "url": "https://xexplorer.neo.org/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -4812,7 +4893,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.testedge2.haqq.network/"
+        "url": "https://explorer.testedge2.haqq.network/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -4839,7 +4921,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer-zk.tanenbaum.io/"
+        "url": "https://explorer-zk.tanenbaum.io/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -4856,7 +4939,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.inkonchain.com/"
+        "url": "https://explorer.inkonchain.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5017,7 +5101,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://alchemy-sepolia.explorer.alchemy.com/"
+        "url": "https://alchemy-sepolia.explorer.alchemy.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5237,7 +5322,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://base-sepolia.blockscout.com/"
+        "url": "https://base-sepolia.blockscout.com/",
+        "proApi": true
       }
     },
     "etherscanApi": {
@@ -5271,7 +5357,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer-testnet.doma.xyz/"
+        "url": "https://explorer-testnet.doma.xyz/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5292,7 +5379,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.doma.xyz/"
+        "url": "https://explorer.doma.xyz/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5312,7 +5400,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://pepuscan.com/"
+        "url": "https://pepuscan.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5328,7 +5417,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.plume.org"
+        "url": "https://explorer.plume.org",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5349,7 +5439,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://testnet-explorer.plume.org"
+        "url": "https://testnet-explorer.plume.org",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5382,7 +5473,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.stabilityprotocol.com/"
+        "url": "https://explorer.stabilityprotocol.com/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -5398,7 +5490,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://creditcoin.blockscout.com"
+        "url": "https://creditcoin.blockscout.com",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5419,7 +5512,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://creditcoin-testnet.blockscout.com/"
+        "url": "https://creditcoin-testnet.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5438,7 +5532,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://creditcoin-devnet.blockscout.com"
+        "url": "https://creditcoin-devnet.blockscout.com",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5497,7 +5592,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://shadownet.explorer.etherlink.com/"
+        "url": "https://shadownet.explorer.etherlink.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5573,7 +5669,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://sepolia-explorer.hpp.io"
+        "url": "https://sepolia-explorer.hpp.io",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5589,7 +5686,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.hpp.io"
+        "url": "https://explorer.hpp.io",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5627,7 +5725,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://saigon-explorer.roninchain.com"
+        "url": "https://saigon-explorer.roninchain.com",
+        "proApi": false
       }
     },
     "rpc": [
@@ -5647,7 +5746,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://auroria.explorer.xertra.com"
+        "url": "https://auroria.explorer.xertra.com",
+        "proApi": false
       }
     },
     "rpc": [
@@ -5670,7 +5770,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://testnet-scan.mocachain.org"
+        "url": "https://testnet-scan.mocachain.org",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5706,7 +5807,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://filecoin-testnet.blockscout.com"
+        "url": "https://filecoin-testnet.blockscout.com",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5733,7 +5835,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://testnet-explorer.worldmobile.net/"
+        "url": "https://testnet-explorer.worldmobile.net/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5787,7 +5890,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://arbitrum-sepolia.blockscout.com/"
+        "url": "https://arbitrum-sepolia.blockscout.com/",
+        "proApi": true
       },
       "routescanApi": {
         "type": "testnet"
@@ -5835,7 +5939,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.btcw.tech/"
+        "url": "https://explorer.btcw.tech/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -5850,7 +5955,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://testnet-scan.goalpha.org"
+        "url": "https://testnet-scan.goalpha.org",
+        "proApi": false
       }
     },
     "rpc": [
@@ -5891,7 +5997,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://scrollscan.com"
+        "url": "https://scrollscan.com",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5932,7 +6039,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://eth-hoodi.blockscout.com/"
+        "url": "https://eth-hoodi.blockscout.com/",
+        "proApi": true
       },
       "routescanApi": {
         "type": "testnet"
@@ -5977,7 +6085,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://testnet.crossscan.io/"
+        "url": "https://testnet.crossscan.io/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -5992,7 +6101,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://www.crossscan.io/"
+        "url": "https://www.crossscan.io/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -6028,7 +6138,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.xai-chain.net/"
+        "url": "https://explorer.xai-chain.net/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -6043,7 +6154,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://gensyn-testnet.explorer.alchemy.com/"
+        "url": "https://gensyn-testnet.explorer.alchemy.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -6058,7 +6170,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://gensyn-mainnet.explorer.alchemy.com/"
+        "url": "https://gensyn-mainnet.explorer.alchemy.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -6180,7 +6293,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer-sepolia.inkonchain.com"
+        "url": "https://explorer-sepolia.inkonchain.com",
+        "proApi": true
       }
     },
     "rpc": [
@@ -6313,7 +6427,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://testnet.arcscan.app/"
+        "url": "https://testnet.arcscan.app/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -6348,7 +6463,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": false,
       "blockscoutApi": {
-        "url": "https://lasna-api.reactscan.net"
+        "url": "https://lasna-api.reactscan.net",
+        "proApi": false
       }
     },
     "rpc": [
@@ -6408,7 +6524,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.zora.energy"
+        "url": "https://explorer.zora.energy",
+        "proApi": false
       }
     },
     "rpc": [
@@ -6431,7 +6548,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://celo-sepolia.blockscout.com/"
+        "url": "https://celo-sepolia.blockscout.com/",
+        "proApi": true
       }
     },
     "etherscanApi": {
@@ -6460,7 +6578,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://eth-sepolia.blockscout.com/"
+        "url": "https://eth-sepolia.blockscout.com/",
+        "proApi": true
       },
       "routescanApi": {
         "type": "testnet"
@@ -6509,7 +6628,8 @@
     "fetchContractCreationTxUsing": {
       "etherscanApi": true,
       "blockscoutApi": {
-        "url": "https://testnet-explorer.optimism.io/"
+        "url": "https://testnet-explorer.optimism.io/",
+        "proApi": true
       },
       "routescanApi": {
         "type": "testnet"
@@ -6543,7 +6663,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.testnet.riselabs.xyz/"
+        "url": "https://explorer.testnet.riselabs.xyz/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -6558,7 +6679,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://xt4scan.ngd.network"
+        "url": "https://xt4scan.ngd.network",
+        "proApi": false
       }
     },
     "rpc": [
@@ -6580,7 +6702,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.testnet.stabilityprotocol.com/"
+        "url": "https://explorer.testnet.stabilityprotocol.com/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -6665,7 +6788,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://neon.blockscout.com/"
+        "url": "https://neon.blockscout.com/",
+        "proApi": true
       }
     },
     "rpc": [
@@ -6748,7 +6872,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://sepolia.explorer.zora.energy/"
+        "url": "https://sepolia.explorer.zora.energy/",
+        "proApi": false
       }
     },
     "rpc": [
@@ -6768,7 +6893,8 @@
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
-        "url": "https://explorer.mainnet.aurora.dev/"
+        "url": "https://explorer.mainnet.aurora.dev/",
+        "proApi": false
       }
     },
     "rpc": [

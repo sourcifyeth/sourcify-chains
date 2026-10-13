@@ -12,6 +12,10 @@
  * Routescan and third-party Blockscout instances do not qualify a chain for
  * inclusion on their own (used for fetchContractCreationTxUsing only).
  *
+ * Every blockscoutApi entry gets `proApi: true` when the chain is in the
+ * Blockscout PRO API chains config, else `proApi: false`. Not every
+ * Blockscout-hosted instance is served by the PRO API gateway.
+ *
  * RPC priority for each chain (cost-based):
  *   1. Manual override RPCs (from chain-overrides.json)
  *   2. dRPC APIKeyRPC — preferred due to lower cost
@@ -29,7 +33,7 @@ import type { DrpcChainData } from "./providers/drpc.js";
 import { fetchAvalancheChains } from "./otherAPIs/avalanche.js";
 import { fetchEtherscanChains } from "./block-explorers/etherscan.js";
 import type { EtherscanChainData } from "./block-explorers/etherscan.js";
-import { fetchBlockscoutChains } from "./block-explorers/blockscout.js";
+import { fetchBlockscoutChains, fetchBlockscoutProApiChains } from "./block-explorers/blockscout.js";
 import type { BlockscoutChainData } from "./block-explorers/blockscout.js";
 import { fetchRoutescanChains } from "./block-explorers/routescan.js";
 import type { RoutescanChainData } from "./block-explorers/routescan.js";
@@ -274,7 +278,16 @@ async function main() {
       ? "Fetching chainid.network only (--only mode)..."
       : "Fetching chain list and provider/explorer data in parallel...",
   );
-  const [chainList, quicknodeChains, drpcChains, avalancheChains, etherscanChains, blockscoutChains, routescanChains] =
+  const [
+    chainList,
+    quicknodeChains,
+    drpcChains,
+    avalancheChains,
+    etherscanChains,
+    blockscoutChains,
+    blockscoutProApiChains,
+    routescanChains,
+  ] =
     await Promise.all([
       fetchWithRetry("chainid.network", fetchChainList),
       onlyIds || !quicknodeApiKey
@@ -284,6 +297,7 @@ async function main() {
       onlyIds ? Promise.resolve(new Set<number>()) : fetchWithRetrySet("Avalanche", fetchAvalancheChains),
       onlyIds ? Promise.resolve(new Map<number, EtherscanChainData>()) : fetchWithRetry("Etherscan", fetchEtherscanChains),
       onlyIds ? Promise.resolve(new Map<number, BlockscoutChainData>()) : fetchWithRetry("Blockscout", fetchBlockscoutChains),
+      onlyIds ? Promise.resolve(new Set<number>()) : fetchWithRetrySet("Blockscout PRO API", fetchBlockscoutProApiChains),
       onlyIds ? Promise.resolve(new Map<number, RoutescanChainData>()) : fetchWithRetry("Routescan", fetchRoutescanChains),
     ]);
 
@@ -611,6 +625,12 @@ async function main() {
     }
     if (blockscout?.hostedBy === "blockscout" && !fetchUsing["blockscoutApi"]) {
       fetchUsing["blockscoutApi"] = { url: blockscout.url };
+    }
+    // Mark PRO API support on every blockscoutApi entry, including manual
+    // overrides. The PRO API gateway serves a subset of the hosted instances.
+    const blockscoutApi = fetchUsing["blockscoutApi"];
+    if (blockscoutApi && typeof blockscoutApi === "object") {
+      fetchUsing["blockscoutApi"] = { ...blockscoutApi, proApi: blockscoutProApiChains.has(chainId) };
     }
     if (routescan && !fetchUsing["routescanApi"]) {
       fetchUsing["routescanApi"] = { type: routescan.type };

@@ -40,7 +40,9 @@ Every QuickNode and dRPC chain is probed on each run. Probing:
 
 QuickNode and dRPC are probed independently — they may expose different trace methods for the same chain. Each probe has a 45 s total timeout (accommodates retries across individual RPC calls).
 
-Routescan and third-party Blockscout instances do **not** qualify a chain for inclusion on their own — they only contribute `fetchContractCreationTxUsing` data. We also make use of the [chainid.network/chains.json](https://chainid.network/chains.json) (a.k.a "chainlist") file to get the public RPCs of the chains if no paid provider RPCs are available.
+Routescan and third-party Blockscout instances do **not** qualify a chain for inclusion on their own — they only contribute `fetchContractCreationTxUsing` data.
+
+Every `blockscoutApi` entry carries a `proApi` flag. It is `true` when the chain is listed in the [Blockscout PRO API chains config](https://github.com/blockscout/backend-configs/blob/main/pro-api/prod/chains-config.json), which is the list the [PRO API](https://docs.blockscout.com/devs/pro-api) gateway (`api.blockscout.com`) serves. The flag is also set on manual `blockscoutApi` overrides. Not every Blockscout-hosted instance is in that list, so `hostedBy === "blockscout"` alone is not enough to use the PRO API. Entries with `proApi: false` must use the instance `url` directly. We also make use of the [chainid.network/chains.json](https://chainid.network/chains.json) (a.k.a "chainlist") file to get the public RPCs of the chains if no paid provider RPCs are available.
 
 Beyond auto-discovery, chains can also be manually included or excluded:
 
@@ -80,7 +82,7 @@ Allowed fields per entry:
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sourcifyName`                 | Display name (overrides chainid.network name)                                                                                                                                          |
 | `etherscanApi`                 | Opt into Etherscan-compatible explorer support for a chain not in the Etherscan registry: `{ "supported": true, "url": "<base-url>", "apiKeyEnvName"?: "<ENV>" }`. `apiKeyEnvName` is optional — omit it for explorers that don't require an API key. |
-| `fetchContractCreationTxUsing` | Additional fetch methods (`blockscoutApi`, `avalancheApi`, etc.)                                                                                                                       |
+| `fetchContractCreationTxUsing` | Additional fetch methods (`blockscoutApi`, `avalancheApi`, etc.). A `blockscoutApi` override needs only the `url`; the `proApi` flag is set by the generator.                           |
 | `rpc`                          | RPCs defined here have higher priority than auto-discovered provider RPCs                                                                                                              |
 | `hidden`                       | If `true`, the chain is omitted from `GET /chains` and from `GET /v2/contract/all-chains/:address` on the Sourcify server. Verification and explicit per-`chainId` lookups still work. |
 
@@ -184,7 +186,7 @@ Example output entry for Ethereum Mainnet:
   "fetchContractCreationTxUsing": {
     "avalancheApi": true,
     "etherscanApi": true,
-    "blockscoutApi": { "url": "https://eth.blockscout.com/" }
+    "blockscoutApi": { "url": "https://eth.blockscout.com/", "proApi": true }
   },
   "etherscanApi": { "supported": true, "apiKeyEnvName": "ETHERSCAN_API_KEY_MAINNET" },
   "rpc": [

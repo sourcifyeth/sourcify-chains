@@ -60,3 +60,43 @@ export async function fetchBlockscoutChains(): Promise<
 
   return result;
 }
+
+// Chains served by the Blockscout PRO API gateway (api.blockscout.com).
+// This is the source the PRO API docs load their supported-chains list from.
+const BLOCKSCOUT_PRO_API_CHAINS_URL =
+  "https://raw.githubusercontent.com/blockscout/backend-configs/main/pro-api/prod/chains-config.json";
+
+/**
+ * Parses the PRO API chains config. The config maps chain IDs to instance
+ * URLs. Only numeric keys are accepted.
+ */
+export function parseBlockscoutProApiChains(data: unknown): Set<number> {
+  if (data === null || typeof data !== "object" || Array.isArray(data)) {
+    throw new Error("Blockscout PRO API chains config is not an object");
+  }
+  const result = new Set<number>();
+  for (const chainIdStr of Object.keys(data)) {
+    if (/^\d+$/.test(chainIdStr)) {
+      result.add(parseInt(chainIdStr, 10));
+    }
+  }
+  return result;
+}
+
+/**
+ * Fetches the set of chain IDs supported by the Blockscout PRO API.
+ * Not every Blockscout-hosted instance is in this set.
+ */
+export async function fetchBlockscoutProApiChains(): Promise<Set<number>> {
+  const response = await fetch(BLOCKSCOUT_PRO_API_CHAINS_URL, {
+    signal: AbortSignal.timeout(15_000),
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `Blockscout PRO API chains config returned ${response.status}: ${await response.text()}`,
+    );
+  }
+
+  return parseBlockscoutProApiChains(await response.json());
+}
