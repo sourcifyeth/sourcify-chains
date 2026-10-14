@@ -1205,7 +1205,11 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/filecoin/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      }
+      },
+      "https://api.node.glif.io/",
+      "https://rpc.ankr.com/filecoin",
+      "https://filfox.info/rpc/v1",
+      "https://filecoin.drpc.org"
     ]
   },
   "324": {
@@ -4293,9 +4297,12 @@
   },
   "32026": {
     "sourcifyName": "Numen Mainnet",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://rpc.numen-network.org"
     ]
   },
   "32769": {
@@ -5822,9 +5829,12 @@
   },
   "320261": {
     "sourcifyName": "Numen Testnet",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://testnet.rpc.numen-network.org"
     ]
   },
   "323432": {
@@ -6015,8 +6025,8 @@
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
       },
-      "https://1rpc.io/scroll",
-      "https://rpc.scroll.io"
+      "https://rpc.scroll.io",
+      "https://1rpc.io/scroll"
     ]
   },
   "543210": {
