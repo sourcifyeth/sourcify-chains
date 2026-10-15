@@ -596,13 +596,9 @@
   },
   "106": {
     "sourcifyName": "Velas Mainnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "additional-chains"
-    ],
-    "rpc": [
-      "https://evmexplorer.velas.com/rpc",
-      "https://explorer.velas.com/rpc"
     ]
   },
   "108": {
@@ -1681,7 +1677,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/stable/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
