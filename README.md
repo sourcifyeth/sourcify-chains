@@ -208,6 +208,8 @@ For each chain, the generator builds the RPC list in this priority order:
 
 ## How to add a chain
 
+The step-by-step guide for adding a chain, including test contracts and the local test setup, is in the Sourcify docs: [Requesting Chain Support](https://docs.sourcify.dev/docs/chain-support/). The sections below are the short version.
+
 ### Chain is auto-discovered (appears on QuickNode / dRPC / Etherscan / Blockscout-hosted)
 
 Wait for the next nightly run — it will be picked up automatically. If you need to override a field (e.g. add a custom RPC or `fetchContractCreationTxUsing`), open a PR adding an entry to `chain-overrides.json`.
