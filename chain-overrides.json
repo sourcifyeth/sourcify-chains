@@ -489,5 +489,19 @@
     "fetchContractCreationTxUsing": {
       "blockscoutApi": { "url": "https://explorer.btcw.tech/" }
     }
+  },
+  "7741": {
+    "sourcifyName": "RWA Chain",
+    "rpc": ["https://rpc.rwa-chain.io"],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": { "url": "https://explorer.rwa-chain.io/" }
+    }
+  },
+  "77410": {
+    "sourcifyName": "RWA Chain Sepolia",
+    "rpc": ["https://sepolia-rpc.rwa-chain.io"],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": { "url": "https://sepolia-explorer.rwa-chain.io/" }
+    }
   }
 }
