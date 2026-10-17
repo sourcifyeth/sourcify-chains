@@ -1201,11 +1201,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/filecoin/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://api.node.glif.io/",
-      "https://rpc.ankr.com/filecoin",
-      "https://filfox.info/rpc/v1",
-      "https://filecoin.drpc.org"
+      }
     ]
   },
   "324": {
@@ -1692,7 +1688,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/hyperliquid-testnet/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -2916,9 +2913,12 @@
   },
   "4000": {
     "sourcifyName": "Ozone Chain Mainnet",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://node1.ozonechain.io"
     ]
   },
   "4002": {
@@ -6494,7 +6494,7 @@
     ]
   },
   "6281971": {
-    "sourcifyName": "DogeOS Testnet",
+    "sourcifyName": "DogeOS Chikyu Testnet",
     "supported": true,
     "discoveredBy": [
       "drpc"
