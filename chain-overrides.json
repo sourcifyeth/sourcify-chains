@@ -487,5 +487,16 @@
         "url": "https://explorer.testnet.whitechain.io/"
       }
     }
+  },
+  "4000": {
+    "sourcifyName": "Ozone Chain Mainnet",
+    "rpc": [
+      "https://node1.ozonechain.io"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://ozonescan.io/"
+      }
+    }
   }
 }
