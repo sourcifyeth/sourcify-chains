@@ -3580,6 +3580,13 @@
       "deprecated"
     ]
   },
+  "7741": {
+    "sourcifyName": "RWA Chain",
+    "supported": false,
+    "discoveredBy": [
+      "chain-overrides"
+    ]
+  },
   "7771": {
     "sourcifyName": "Bitrock Testnet",
     "supported": false,
@@ -5149,6 +5156,13 @@
       "deprecated"
     ]
   },
+  "77410": {
+    "sourcifyName": "RWA Chain Sepolia",
+    "supported": false,
+    "discoveredBy": [
+      "chain-overrides"
+    ]
+  },
   "78430": {
     "sourcifyName": "Amplify Subnet",
     "supported": false,
@@ -5205,7 +5219,7 @@
         "url": "https://{SUBDOMAIN}.matic-amoy.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
+        "traceSupport": "debug_traceTransaction"
       },
       "https://polygon-amoy-bor-rpc.publicnode.com"
     ]
@@ -6022,8 +6036,8 @@
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
       },
-      "https://rpc.scroll.io",
-      "https://1rpc.io/scroll"
+      "https://1rpc.io/scroll",
+      "https://rpc.scroll.io"
     ]
   },
   "543210": {
