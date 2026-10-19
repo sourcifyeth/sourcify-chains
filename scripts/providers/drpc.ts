@@ -2,16 +2,20 @@ import YAML from "yaml";
 
 export interface DrpcChainData {
   shortName: string;
+  /** Human-readable name, e.g. "Mova Mainnet". Absent when the YAML has no label. */
+  name?: string;
 }
 
 // chains.yaml shape (only the fields we consume).
 interface DrpcYamlChain {
+  id?: string;
   "chain-id"?: string | number;
   "short-names"?: string[];
 }
 
 interface DrpcYamlProtocol {
   type?: string;
+  label?: string;
   chains?: DrpcYamlChain[];
 }
 
@@ -41,12 +45,31 @@ function parseChainId(raw: string | number | undefined): number | null {
 }
 
 /**
+ * Build a display name from a protocol label and a network id, e.g.
+ * `label: Mova` + `id: Mainnet` -> "Mova Mainnet".
+ *
+ * Two touch-ups keep the result readable:
+ *  - When the network id already starts with the label (`megaETH` +
+ *    `MegaETH Testnet`, `Moonriver` + `Moonriver`), the label is dropped
+ *    instead of repeated.
+ *  - An all-lowercase network id (only `mainnet` today) is capitalised.
+ */
+export function buildDrpcChainName(label: string | undefined, networkId: string | undefined): string | undefined {
+  if (!label) return undefined;
+  if (!networkId) return label;
+
+  const network = /^[a-z]+$/.test(networkId) ? networkId[0].toUpperCase() + networkId.slice(1) : networkId;
+  if (network.toLowerCase().startsWith(label.toLowerCase())) return network;
+  return `${label} ${network}`;
+}
+
+/**
  * Fetches the list of EVM chains supported by dRPC from their public
  * chains.yaml config.
  *
  * Each chain exposes a `short-names` array; the first entry is the canonical
  * network slug used in the RPC URL:
- *   https://lb.drpc.org/ogrpc?network={shortName}&dkey={API_KEY}
+ *   https://lb.drpc.live/{shortName}/{API_KEY}
  *
  * Only `type: eth` protocols are kept. When the same chain id appears more than
  * once (the file has at least one such collision), the first occurrence wins so
@@ -78,7 +101,7 @@ export async function fetchDrpcChains(): Promise<Map<number, DrpcChainData>> {
 
       // First occurrence wins — don't let a later mislabelled entry overwrite.
       if (!result.has(chainId)) {
-        result.set(chainId, { shortName });
+        result.set(chainId, { shortName, name: buildDrpcChainName(protocol.label, chain.id) });
       }
     }
   }

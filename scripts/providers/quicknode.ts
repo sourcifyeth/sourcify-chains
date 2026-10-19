@@ -1,3 +1,5 @@
+import { withConcurrency } from "../probe.js";
+
 export interface QuickNodeChainData {
   networkSlug: string;
   name: string;
@@ -14,52 +16,124 @@ interface QuickNodeChainGroup {
   networks: QuickNodeNetwork[];
 }
 
-interface QuickNodeResponse {
+export interface QuickNodeResponse {
   data: QuickNodeChainGroup[];
   error: string | null;
 }
 
-function parseQuickNodeResponse(
+/**
+ * Resolves the chain id a QuickNode network slug serves by asking the RPC
+ * (eth_chainId). Returns null when the endpoint does not answer eth_chainId
+ * with a chain id — i.e. it is not an EVM chain, or it is not usable. The
+ * `log` callback receives the per-attempt failure details.
+ */
+export type QuickNodeChainIdResolver = (networkSlug: string, log: (msg: string) => void) => Promise<number | null>;
+
+// QuickNode slugs that require an /ext/bc/C/rpc/ path suffix (Avalanche/Flare subnets)
+const QUICKNODE_SUBNET_SLUGS = new Set(["avalanche-mainnet", "avalanche-testnet", "flare-mainnet", "flare-coston2"]);
+
+/**
+ * Builds the RPC URL template for a QuickNode network slug. `{SUBDOMAIN}` and
+ * `{API_KEY}` are placeholders filled in by the Sourcify server (APIKeyRPC) or
+ * by the generator when probing.
+ */
+export function buildQuickNodeRpcUrl(networkSlug: string): string {
+  if (networkSlug === "mainnet") {
+    // Ethereum mainnet: slug is not embedded in the subdomain
+    return `https://{SUBDOMAIN}.quiknode.pro/{API_KEY}/`;
+  }
+  if (QUICKNODE_SUBNET_SLUGS.has(networkSlug)) {
+    // Avalanche/Flare: require /ext/bc/C/rpc/ path suffix
+    return `https://{SUBDOMAIN}.${networkSlug}.quiknode.pro/{API_KEY}/ext/bc/C/rpc/`;
+  }
+  return `https://{SUBDOMAIN}.${networkSlug}.quiknode.pro/{API_KEY}/`;
+}
+
+const RESOLVE_CONCURRENCY = 10;
+
+/**
+ * Turns a QuickNode /v0/chains response into a chain id → network map.
+ *
+ * The API returns `chain_id: null` for every non-EVM network (Solana, Bitcoin,
+ * Sui, ...) but also for a number of EVM networks (Robinhood, Monad, Ink,
+ * Soneium, ...). A null chain id alone therefore can't tell the two apart.
+ * When a `resolveChainId` callback is given, every null-chain-id network is
+ * asked for its chain id via eth_chainId; networks that answer are EVM chains
+ * and are included, networks that don't are skipped. We don't distinguish
+ * "not an EVM chain" from "not reachable right now" — either way the network
+ * doesn't qualify for this run; the resolver's log lines show which it was.
+ * Without a resolver (no RPC credentials) null-chain-id networks are skipped
+ * entirely.
+ *
+ * A chain id that the API reports explicitly always wins over a resolved one,
+ * and among resolved networks the first one wins — a later duplicate can't
+ * clobber an earlier mapping.
+ */
+export async function parseQuickNodeResponse(
   data: QuickNodeResponse,
-): Map<number, QuickNodeChainData> {
+  resolveChainId?: QuickNodeChainIdResolver,
+  log: (msg: string) => void = () => {},
+): Promise<Map<number, QuickNodeChainData>> {
   const result = new Map<number, QuickNodeChainData>();
+  const unresolved: QuickNodeChainData[] = [];
+
   for (const chainGroup of data.data) {
     for (const network of chainGroup.networks) {
-      // Only include EVM chains (chain_id !== null)
+      const entry: QuickNodeChainData = { networkSlug: network.slug, name: network.name };
       if (network.chain_id !== null) {
-        result.set(network.chain_id, {
-          networkSlug: network.slug,
-          name: network.name,
-        });
+        result.set(network.chain_id, entry);
+      } else {
+        unresolved.push(entry);
       }
     }
   }
-  return result;
-}
 
-/**
- * Parses a locally cached QuickNode API response from a JSON file.
- */
-export async function loadQuickNodeChainsFromFile(
-  filePath: string,
-): Promise<Map<number, QuickNodeChainData>> {
-  const fs = await import("fs");
-  const data = JSON.parse(
-    fs.readFileSync(filePath, "utf8"),
-  ) as QuickNodeResponse;
-  if (data.error) {
-    throw new Error(`QuickNode data error: ${data.error}`);
+  if (!resolveChainId || unresolved.length === 0) return result;
+
+  log(`  QuickNode: resolving ${unresolved.length} network(s) with a null chain_id via eth_chainId...`);
+  const resolved = await withConcurrency(
+    unresolved.map((entry) => async () => ({
+      entry,
+      chainId: await resolveChainId(entry.networkSlug, (msg) => log(`  QuickNode: ${entry.networkSlug}: ${msg.trim()}`)),
+    })),
+    RESOLVE_CONCURRENCY,
+  );
+
+  let added = 0;
+  const skipped: string[] = [];
+  for (const { entry, chainId } of resolved) {
+    if (chainId === null) {
+      skipped.push(entry.networkSlug);
+      continue;
+    }
+    const existing = result.get(chainId);
+    if (existing) {
+      log(
+        `  QuickNode: ${entry.networkSlug} resolved to chain ${chainId}, already mapped to ${existing.networkSlug} — keeping ${existing.networkSlug}`,
+      );
+      continue;
+    }
+    result.set(chainId, entry);
+    added++;
+    log(`  QuickNode: ${entry.networkSlug} → chain ${chainId} (${entry.name})`);
   }
-  return parseQuickNodeResponse(data);
+  log(`  QuickNode: resolved ${added} network(s), skipped ${skipped.length} (no eth_chainId): ${skipped.join(", ")}`);
+
+  return result;
 }
 
 /**
  * Fetches the list of EVM chains supported by QuickNode.
  * Requires a Console API key (different from an RPC endpoint token).
  * RPC URL template: https://{SUBDOMAIN}.{networkSlug}.quiknode.pro/{API_KEY}
+ *
+ * See parseQuickNodeResponse for how networks the API lists with a null
+ * chain_id are handled via `resolveChainId`.
  */
 export async function fetchQuickNodeChains(
   consoleApiKey: string,
+  resolveChainId?: QuickNodeChainIdResolver,
+  log: (msg: string) => void = () => {},
 ): Promise<Map<number, QuickNodeChainData>> {
   const response = await fetch("https://api.quicknode.com/v0/chains", {
     headers: {
@@ -79,5 +153,5 @@ export async function fetchQuickNodeChains(
     throw new Error(`QuickNode API error: ${data.error}`);
   }
 
-  return parseQuickNodeResponse(data);
+  return parseQuickNodeResponse(data, resolveChainId, log);
 }

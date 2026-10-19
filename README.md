@@ -1,11 +1,5 @@
 # sourcify-chains
 
-TODO: Use node v22
-TODO: Check why zetachain lost RPC support
-TODO: Handle cases when there's blockscout but no RPC.
-TODO: Add probing for Etherscan creation tx fetching, some instances don't support free tier
-TODO: Add https://docs.nodereal.io/reference/nr_getcontractcreationtransaction probing
-
 Canonical chain configuration for [Sourcify](https://sourcify.dev) — the open-source smart contract verification service. The Sourcify server fetches [`sourcify-chains-default.json`](./sourcify-chains-default.json) from this repository at startup.
 
 ## How it works
@@ -19,7 +13,7 @@ Canonical chain configuration for [Sourcify](https://sourcify.dev) — the open-
 
 A chain is **auto-included** if it appears in any of:
 
-- QuickNode console API — and is not dead (see probing below)
+- QuickNode console API — and is not dead (see probing below). The API reports `chain_id: null` for every non-EVM network but also for some EVM networks (e.g. Robinhood, Monad, Ink, Soneium). Each null-chain-id network is asked for its chain id via `eth_chainId` on its QuickNode endpoint; networks that answer with a chain id are included, the rest are skipped (non-EVM, or not usable). This needs `QUICKNODE_API_KEY` + `QUICKNODE_SUBDOMAIN`; without them null-chain-id networks are skipped.
 - dRPC chains config (`https://raw.githubusercontent.com/drpcorg/public/main/chains.yaml`, `type: eth` entries) — and is not dead (see probing below)
 - Etherscan chainlist API
 - Blockscout's own hosted instances (where `hostedBy === "blockscout"`)
@@ -30,10 +24,11 @@ Every QuickNode and dRPC chain is probed on each run. Probing:
 
 1. Calls `eth_getBlockByNumber("latest")` on the provider URL to get the current block number. If the provider returns an error (e.g. "Unknown network"), the chain is **dead** on that provider.
 2. Verifies `eth_chainId` matches the chain id the URL is mapped to (retried a few times). If the RPC reports a **different** chain id — a provider repointed a network slug to a renumbered chain — or if `eth_chainId` can't be confirmed after retries, the chain is **dead** on that provider. Confirmed mismatches are written to `chainid-mismatches.json` and surfaced in the regenerate PR description.
-3. Looks up a cached transaction hash from `tx-cache.json` (keyed by chain ID). If one exists, it is used directly and the block scan is skipped. Otherwise, scans blocks `[latest-50 .. latest-550]` (a 500-block window) looking for a transaction. Skipping the most recent 50 blocks avoids transactions whose traces may not yet be indexed. If no transaction is found in that window, the chain is treated as **inactive** (dead).
-4. If a transaction is found, calls `trace_transaction` then `debug_traceTransaction` on it to detect which trace method the provider supports for that chain.
+3. Calls `eth_getCode` (zero address, `latest`). Sourcify needs `eth_getCode` to fetch a contract's bytecode during verification, so an RPC that does not serve it is **dead** even if it answers blocks and `eth_chainId` (e.g. QuickNode's Hyperliquid endpoints return an empty HTTP 404 for it).
+4. Looks up a cached transaction hash from `tx-cache.json` (keyed by chain ID). If one exists, it is used directly and the block scan is skipped. Otherwise, scans blocks `[latest-50 .. latest-550]` (a 500-block window) looking for a transaction. Skipping the most recent 50 blocks avoids transactions whose traces may not yet be indexed. If no transaction is found in that window, the chain is treated as **inactive** (dead).
+5. If a transaction is found, calls `trace_transaction` then `debug_traceTransaction` on it to detect which trace method the provider supports for that chain.
 
-**Dead** chains (step 1–3 failed) are excluded from the provider's RPC list and do not count as a discovery source. A chain left with no live RPC is kept in the output as `supported: false` (deprecated) so it stays discoverable, rather than being removed entirely. The same applies to a chain that drops out of every discovery source (e.g. a provider stops listing a sunset network): it is carried forward from the previous output as `supported: false` rather than hard-removed. Deprecation — not removal — is the terminal state for a chain that has been generated at least once.
+**Dead** chains (step 1–4 failed) are excluded from the provider's RPC list and do not count as a discovery source. A chain left with no live RPC is kept in the output as `supported: false` (deprecated) so it stays discoverable, rather than being removed entirely. The same applies to a chain that drops out of every discovery source (e.g. a provider stops listing a sunset network): it is carried forward from the previous output as `supported: false` rather than hard-removed. Deprecation — not removal — is the terminal state for a chain that has been generated at least once.
 
 **Trace support** result per provider:
 | Value | Meaning |
@@ -46,6 +41,8 @@ Every QuickNode and dRPC chain is probed on each run. Probing:
 QuickNode and dRPC are probed independently — they may expose different trace methods for the same chain. Each probe has a 45 s total timeout (accommodates retries across individual RPC calls).
 
 Routescan and third-party Blockscout instances do **not** qualify a chain for inclusion on their own — they only contribute `fetchContractCreationTxUsing` data. We also make use of the [chainid.network/chains.json](https://chainid.network/chains.json) (a.k.a "chainlist") file to get the public RPCs of the chains if no paid provider RPCs are available.
+
+Every `blockscoutApi` entry carries a `proApi` flag. It is `true` when the chain is listed in the [Blockscout PRO API chains config](https://github.com/blockscout/backend-configs/blob/main/pro-api/prod/chains-config.json), which is the list the [PRO API](https://docs.blockscout.com/devs/pro-api) gateway (`api.blockscout.com`) serves. The flag is also set on manual `blockscoutApi` overrides. Not every Blockscout-hosted instance is in that list, so `hostedBy === "blockscout"` alone is not enough to use the PRO API. Entries with `proApi: false` must use the instance `url` directly.
 
 Beyond auto-discovery, chains can also be manually included or excluded:
 
@@ -85,7 +82,7 @@ Allowed fields per entry:
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sourcifyName`                 | Display name (overrides chainid.network name)                                                                                                                                          |
 | `etherscanApi`                 | Opt into Etherscan-compatible explorer support for a chain not in the Etherscan registry: `{ "supported": true, "url": "<base-url>", "apiKeyEnvName"?: "<ENV>" }`. `apiKeyEnvName` is optional — omit it for explorers that don't require an API key. |
-| `fetchContractCreationTxUsing` | Additional fetch methods (`blockscoutApi`, `avalancheApi`, etc.)                                                                                                                       |
+| `fetchContractCreationTxUsing` | Additional fetch methods (`blockscoutApi`, `avalancheApi`, etc.). A `blockscoutApi` override needs only the `url`; the `proApi` flag is set by the generator.                           |
 | `rpc`                          | RPCs defined here have higher priority than auto-discovered provider RPCs                                                                                                              |
 | `hidden`                       | If `true`, the chain is omitted from `GET /chains` and from `GET /v2/contract/all-chains/:address` on the Sourcify server. Verification and explicit per-`chainId` lookups still work. |
 
@@ -189,12 +186,12 @@ Example output entry for Ethereum Mainnet:
   "fetchContractCreationTxUsing": {
     "avalancheApi": true,
     "etherscanApi": true,
-    "blockscoutApi": { "url": "https://eth.blockscout.com/" }
+    "blockscoutApi": { "url": "https://eth.blockscout.com/", "proApi": true }
   },
   "etherscanApi": { "supported": true, "apiKeyEnvName": "ETHERSCAN_API_KEY_MAINNET" },
   "rpc": [
     { "type": "FetchRequest", "url": "https://rpc.mainnet.ethpandaops.io", "headers": [...] },
-    { "type": "APIKeyRPC", "url": "https://lb.drpc.org/ogrpc?network=ethereum&dkey={API_KEY}", "apiKeyEnvName": "DRPC_API_KEY", "traceSupport": "trace_transaction" },
+    { "type": "APIKeyRPC", "url": "https://lb.drpc.live/ethereum/{API_KEY}", "apiKeyEnvName": "DRPC_API_KEY", "traceSupport": "trace_transaction" },
     { "type": "APIKeyRPC", "url": "https://{SUBDOMAIN}.quiknode.pro/{API_KEY}/", "apiKeyEnvName": "QUICKNODE_API_KEY", "subDomainEnvName": "QUICKNODE_SUBDOMAIN", "traceSupport": "trace_transaction" }
   ]
 }
@@ -210,6 +207,8 @@ For each chain, the generator builds the RPC list in this priority order:
 4. **Public RPCs** from chainid.network — only if none of the above exist
 
 ## How to add a chain
+
+The step-by-step guide for adding a chain, including test contracts and the local test setup, is in the Sourcify docs: [Requesting Chain Support](https://docs.sourcify.dev/docs/chain-support/). The sections below are the short version.
 
 ### Chain is auto-discovered (appears on QuickNode / dRPC / Etherscan / Blockscout-hosted)
 
@@ -253,8 +252,11 @@ External APIs are flaky — dRPC sometimes drops chains, Routescan is inconsiste
 | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | New chain, new RPC, new traceSupport, new fetchUsing key, new etherscanApi, new discoveredBy source                                                  | **Immediate** (1 run)  |
 | Chain removed, RPC removed, traceSupport changed/removed, fetchUsing key removed or value changed, etherscanApi removed, discoveredBy source removed | **5 consecutive runs** |
+| RPC removed from `chain-overrides.json` by hand                                                                                                      | **Immediate** (1 run)  |
 
 If a reductive change disappears between runs (API flake recovered), its counter resets and it is not included.
+
+An RPC that was removed from `chain-overrides.json` by hand is not an API flake, so `sync.ts` removes it right away. To detect this, the state records the override RPC URLs listed in `chain-overrides.json` on the last run (`overrideRpcs`). A URL that is no longer listed is kept in `removedOverrideRpcs` until the committed file no longer contains it, so the removal stays immediate on every run until the regenerate PR is merged. If another source still provides the URL (for example a public RPC from chainid.network), it is not recorded and stays a regular RPC. An override RPC that is still listed but fails its liveness probe keeps the threshold. On the first run after this state was introduced, the URLs are only recorded, so earlier removals keep the threshold.
 
 **State** is persisted in `change-history.json` on an orphan branch `chain-sync-state`. The workflow fetches it at the start of each run and pushes the updated counters back at the end.
 

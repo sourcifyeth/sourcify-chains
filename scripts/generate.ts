@@ -12,6 +12,10 @@
  * Routescan and third-party Blockscout instances do not qualify a chain for
  * inclusion on their own (used for fetchContractCreationTxUsing only).
  *
+ * Every blockscoutApi entry gets `proApi: true` when the chain is in the
+ * Blockscout PRO API chains config, else `proApi: false`. Not every
+ * Blockscout-hosted instance is served by the PRO API gateway.
+ *
  * RPC priority for each chain (cost-based):
  *   1. Manual override RPCs (from chain-overrides.json)
  *   2. dRPC APIKeyRPC — preferred due to lower cost
@@ -22,18 +26,18 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import { fetchQuickNodeChains } from "./providers/quicknode.js";
+import { fetchQuickNodeChains, buildQuickNodeRpcUrl } from "./providers/quicknode.js";
 import type { QuickNodeChainData } from "./providers/quicknode.js";
 import { fetchDrpcChains } from "./providers/drpc.js";
 import type { DrpcChainData } from "./providers/drpc.js";
 import { fetchAvalancheChains } from "./otherAPIs/avalanche.js";
 import { fetchEtherscanChains } from "./block-explorers/etherscan.js";
 import type { EtherscanChainData } from "./block-explorers/etherscan.js";
-import { fetchBlockscoutChains } from "./block-explorers/blockscout.js";
+import { fetchBlockscoutChains, fetchBlockscoutProApiChains } from "./block-explorers/blockscout.js";
 import type { BlockscoutChainData } from "./block-explorers/blockscout.js";
 import { fetchRoutescanChains } from "./block-explorers/routescan.js";
 import type { RoutescanChainData } from "./block-explorers/routescan.js";
-import { probeChain, withConcurrency, checkLiveness } from "./probe.js";
+import { probeChain, withConcurrency, checkLiveness, fetchReportedChainId } from "./probe.js";
 import type { TraceCacheValue, ProbeChainResult } from "./probe.js";
 import fs from "fs";
 import path from "path";
@@ -180,23 +184,10 @@ function getProbeableUrl(rpc: string | RpcEntry): string | null {
   return rpc.url.includes("{") ? null : rpc.url;
 }
 
-// QuickNode slugs that require an /ext/bc/C/rpc/ path suffix (Avalanche/Flare subnets)
-const QUICKNODE_SUBNET_SLUGS = new Set(["avalanche-mainnet", "avalanche-testnet", "flare-mainnet", "flare-coston2"]);
-
 function buildQuickNodeRpc(qn: QuickNodeChainData): RpcEntry {
-  let url: string;
-  if (qn.networkSlug === "mainnet") {
-    // Ethereum mainnet: slug is not embedded in the subdomain
-    url = `https://{SUBDOMAIN}.quiknode.pro/{API_KEY}/`;
-  } else if (QUICKNODE_SUBNET_SLUGS.has(qn.networkSlug)) {
-    // Avalanche/Flare: require /ext/bc/C/rpc/ path suffix
-    url = `https://{SUBDOMAIN}.${qn.networkSlug}.quiknode.pro/{API_KEY}/ext/bc/C/rpc/`;
-  } else {
-    url = `https://{SUBDOMAIN}.${qn.networkSlug}.quiknode.pro/{API_KEY}/`;
-  }
   return {
     type: "APIKeyRPC",
-    url,
+    url: buildQuickNodeRpcUrl(qn.networkSlug),
     apiKeyEnvName: "QUICKNODE_API_KEY",
     subDomainEnvName: "QUICKNODE_SUBDOMAIN",
   };
@@ -205,7 +196,7 @@ function buildQuickNodeRpc(qn: QuickNodeChainData): RpcEntry {
 function buildDrpcRpc(shortName: string): RpcEntry {
   return {
     type: "APIKeyRPC",
-    url: `https://lb.drpc.org/ogrpc?network=${shortName}&dkey={API_KEY}`,
+    url: `https://lb.drpc.live/${shortName}/{API_KEY}`,
     apiKeyEnvName: "DRPC_API_KEY",
   };
 }
@@ -260,6 +251,24 @@ async function main() {
     );
   }
 
+  // QuickNode's chain list reports `chain_id: null` for some EVM networks
+  // (Robinhood, Monad, Ink, ...) as well as for every non-EVM one. With RPC
+  // credentials we ask each such network for its chain id via eth_chainId;
+  // without them those networks can't be told apart from non-EVM ones and
+  // are skipped.
+  const resolveQuickNodeChainId = canProbeQuickNode
+    ? (networkSlug: string, log: (msg: string) => void) =>
+        fetchReportedChainId(
+          buildQuickNodeRpcUrl(networkSlug).replace("{API_KEY}", quicknodeRpcKey!).replace("{SUBDOMAIN}", quicknodeSubdomain!),
+          log,
+        )
+    : undefined;
+  if (!onlyIds && quicknodeApiKey && !canProbeQuickNode) {
+    console.warn(
+      "Warning: QUICKNODE_API_KEY+QUICKNODE_SUBDOMAIN not set — QuickNode networks with a null chain_id will be skipped"
+    );
+  }
+
   // In --only mode every provider/explorer fetch is skipped; only chainid.network
   // is consulted. All other sources resolve to empty so the candidate-building
   // logic below falls back to the manual config in chain-overrides.json /
@@ -269,16 +278,26 @@ async function main() {
       ? "Fetching chainid.network only (--only mode)..."
       : "Fetching chain list and provider/explorer data in parallel...",
   );
-  const [chainList, quicknodeChains, drpcChains, avalancheChains, etherscanChains, blockscoutChains, routescanChains] =
+  const [
+    chainList,
+    quicknodeChains,
+    drpcChains,
+    avalancheChains,
+    etherscanChains,
+    blockscoutChains,
+    blockscoutProApiChains,
+    routescanChains,
+  ] =
     await Promise.all([
       fetchWithRetry("chainid.network", fetchChainList),
       onlyIds || !quicknodeApiKey
         ? Promise.resolve<Map<number, QuickNodeChainData> | null>(null)
-        : fetchWithRetry("QuickNode", () => fetchQuickNodeChains(quicknodeApiKey)),
+        : fetchWithRetry("QuickNode", () => fetchQuickNodeChains(quicknodeApiKey, resolveQuickNodeChainId, console.log)),
       onlyIds ? Promise.resolve(new Map<number, DrpcChainData>()) : fetchWithRetry("dRPC", fetchDrpcChains),
       onlyIds ? Promise.resolve(new Set<number>()) : fetchWithRetrySet("Avalanche", fetchAvalancheChains),
       onlyIds ? Promise.resolve(new Map<number, EtherscanChainData>()) : fetchWithRetry("Etherscan", fetchEtherscanChains),
       onlyIds ? Promise.resolve(new Map<number, BlockscoutChainData>()) : fetchWithRetry("Blockscout", fetchBlockscoutChains),
+      onlyIds ? Promise.resolve(new Set<number>()) : fetchWithRetrySet("Blockscout PRO API", fetchBlockscoutProApiChains),
       onlyIds ? Promise.resolve(new Map<number, RoutescanChainData>()) : fetchWithRetry("Routescan", fetchRoutescanChains),
     ]);
 
@@ -535,6 +554,7 @@ async function main() {
       etherscan?.chainName ??
       blockscoutName ??
       meta?.name ??
+      drpc?.name ??
       `Chain ${chainId}`;
 
     const rpcSlots: RpcSlot[] = [];
@@ -605,6 +625,12 @@ async function main() {
     }
     if (blockscout?.hostedBy === "blockscout" && !fetchUsing["blockscoutApi"]) {
       fetchUsing["blockscoutApi"] = { url: blockscout.url };
+    }
+    // Mark PRO API support on every blockscoutApi entry, including manual
+    // overrides. The PRO API gateway serves a subset of the hosted instances.
+    const blockscoutApi = fetchUsing["blockscoutApi"];
+    if (blockscoutApi && typeof blockscoutApi === "object") {
+      fetchUsing["blockscoutApi"] = { ...blockscoutApi, proApi: blockscoutProApiChains.has(chainId) };
     }
     if (routescan && !fetchUsing["routescanApi"]) {
       fetchUsing["routescanApi"] = { type: routescan.type };
@@ -749,6 +775,19 @@ async function main() {
   // an error for chains it doesn't know — making dead chains flap in and out of
   // the output on each run.
   if (noRpcChains.length > 0) {
+    // --only mode builds the config for a chain being added in a PR. Deprecating
+    // it here would be silent: it lands as supported:false, the chain test skips
+    // unsupported chains, and the run fails much later with a message about a
+    // missing test contract. Fail now, while the [dead] URLs are still on screen.
+    if (onlyIds) {
+      throw new Error(
+        `--only chain(s) ${noRpcChains
+          .map((c) => `${c.sourcifyName} (#${c.chainId})`)
+          .join(", ")} have no live RPC: every RPC URL failed the liveness ` +
+          `probe (see the [dead] lines above). Fix or replace the chain's RPC ` +
+          `URLs in chain-overrides.json / additional-chains.json.`,
+      );
+    }
     console.log(`\n${noRpcChains.length} chain(s) have no live RPC — keeping as supported:false`);
     for (const c of noRpcChains) {
       console.log(`  [deprecate] #${c.chainId} ${c.sourcifyName}`);

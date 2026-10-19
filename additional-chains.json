@@ -17,14 +17,17 @@
   "888": {
     "sourcifyName": "Wanchain Mainnet"
   },
-  "1030": {
-    "sourcifyName": "Conflux eSpace"
-  },
   "1122": {
     "sourcifyName": "LuxePorts MainNet"
   },
   "1597": {
     "sourcifyName": "Reactive Network Mainnet"
+  },
+  "1643": {
+    "sourcifyName": "XGR Mainnet"
+  },
+  "2017": {
+    "sourcifyName": "Telcoin Network Testnet"
   },
   "4000": {
     "sourcifyName": "Ozone Chain Mainnet"
@@ -44,6 +47,9 @@
   "19011": {
     "sourcifyName": "HOME Verse Mainnet"
   },
+  "32026": {
+    "sourcifyName": "Numen Mainnet"
+  },
   "59902": {
     "sourcifyName": "Metis Sepolia Testnet"
   },
@@ -52,5 +58,8 @@
   },
   "200810": {
     "sourcifyName": "Bitlayer Testnet"
+  },
+  "320261": {
+    "sourcifyName": "Numen Testnet"
   }
 }
