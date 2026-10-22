@@ -456,7 +456,7 @@
         "url": "https://{SUBDOMAIN}.joc-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "trace_transaction"
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -2782,8 +2782,7 @@
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.morph-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       }
     ]
   },
@@ -3582,9 +3581,18 @@
   },
   "7741": {
     "sourcifyName": "RWA Chain",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
       "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.rwa-chain.io/",
+        "proApi": false
+      }
+    },
+    "rpc": [
+      "https://rpc.rwa-chain.io"
     ]
   },
   "7771": {
@@ -4356,7 +4364,7 @@
     ]
   },
   "33111": {
-    "sourcifyName": "ApeChain Curtis Testnet",
+    "sourcifyName": "Curtis",
     "supported": true,
     "discoveredBy": [
       "drpc",
@@ -4379,7 +4387,7 @@
     ]
   },
   "33139": {
-    "sourcifyName": "ApeChain Mainnet",
+    "sourcifyName": "ApeChain",
     "supported": true,
     "discoveredBy": [
       "drpc",
@@ -5158,9 +5166,18 @@
   },
   "77410": {
     "sourcifyName": "RWA Chain Sepolia",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
       "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://sepolia-explorer.rwa-chain.io/",
+        "proApi": false
+      }
+    },
+    "rpc": [
+      "https://sepolia-rpc.rwa-chain.io"
     ]
   },
   "78430": {
@@ -5287,7 +5304,7 @@
     ]
   },
   "81457": {
-    "sourcifyName": "Blast Mainnet",
+    "sourcifyName": "Blast",
     "supported": true,
     "discoveredBy": [
       "drpc",
@@ -6036,8 +6053,8 @@
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
       },
-      "https://1rpc.io/scroll",
-      "https://rpc.scroll.io"
+      "https://rpc.scroll.io",
+      "https://1rpc.io/scroll"
     ]
   },
   "543210": {
