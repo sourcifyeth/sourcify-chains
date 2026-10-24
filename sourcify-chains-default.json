@@ -596,9 +596,13 @@
   },
   "106": {
     "sourcifyName": "Velas Mainnet",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
       "additional-chains"
+    ],
+    "rpc": [
+      "https://evmexplorer.velas.com/rpc",
+      "https://explorer.velas.com/rpc"
     ]
   },
   "108": {
@@ -662,8 +666,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/fuse/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -928,16 +931,8 @@
     "sourcifyName": "opBNB Mainnet",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "etherscan"
+      "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "etherscanApi": true
-    },
-    "etherscanApi": {
-      "supported": true,
-      "apiKeyEnvName": "ETHERSCAN_API_KEY"
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -2857,8 +2852,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/edge/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -2985,15 +2979,8 @@
     "sourcifyName": "Lisk Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "blockscoutApi": {
-        "url": "https://sepolia-blockscout.lisk.com/",
-        "proApi": false
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -3187,8 +3174,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/worldchain-sepolia/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -3356,16 +3342,8 @@
     "sourcifyName": "opBNB Testnet",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "etherscan"
+      "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "etherscanApi": true
-    },
-    "etherscanApi": {
-      "supported": true,
-      "apiKeyEnvName": "ETHERSCAN_API_KEY"
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -4367,16 +4345,8 @@
     "sourcifyName": "Curtis",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "etherscan"
+      "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "etherscanApi": true
-    },
-    "etherscanApi": {
-      "supported": true,
-      "apiKeyEnvName": "ETHERSCAN_API_KEY"
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -4390,16 +4360,8 @@
     "sourcifyName": "ApeChain",
     "supported": true,
     "discoveredBy": [
-      "drpc",
-      "etherscan"
+      "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "etherscanApi": true
-    },
-    "etherscanApi": {
-      "supported": true,
-      "apiKeyEnvName": "ETHERSCAN_API_KEY"
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -4679,8 +4641,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/etherlink/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -4879,6 +4840,23 @@
     "supported": false,
     "discoveredBy": [
       "deprecated"
+    ]
+  },
+  "52014": {
+    "sourcifyName": "Electroneum",
+    "supported": true,
+    "discoveredBy": [
+      "blockscout"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://electroneum.blockscout.com",
+        "proApi": false
+      }
+    },
+    "rpc": [
+      "https://rpc.electroneum.com",
+      "https://rpc.ankr.com/electroneum"
     ]
   },
   "53302": {
@@ -5308,18 +5286,12 @@
     "supported": true,
     "discoveredBy": [
       "drpc",
-      "etherscan",
       "quicknode"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
       "routescanApi": {
         "type": "mainnet"
       }
-    },
-    "etherscanApi": {
-      "supported": true,
-      "apiKeyEnvName": "ETHERSCAN_API_KEY_BLAST"
     },
     "rpc": [
       {
@@ -6485,6 +6457,22 @@
       }
     ]
   },
+  "5201420": {
+    "sourcifyName": "Electroneum Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "blockscout"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://electroneum-testnet.blockscout.com",
+        "proApi": false
+      }
+    },
+    "rpc": [
+      "https://rpc.ankr.com/electroneum_testnet"
+    ]
+  },
   "5278000": {
     "sourcifyName": "Kaigan",
     "supported": false,
@@ -6773,18 +6761,12 @@
     "sourcifyName": "Blast Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
-      "etherscan",
       "quicknode"
     ],
     "fetchContractCreationTxUsing": {
-      "etherscanApi": true,
       "routescanApi": {
         "type": "testnet"
       }
-    },
-    "etherscanApi": {
-      "supported": true,
-      "apiKeyEnvName": "ETHERSCAN_API_KEY"
     },
     "rpc": [
       {
@@ -6941,7 +6923,9 @@
         "url": "https://lb.drpc.live/aurora/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      }
+      },
+      "https://mainnet.aurora.dev",
+      "https://aurora.drpc.org"
     ]
   },
   "1666600000": {
