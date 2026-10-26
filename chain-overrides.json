@@ -168,14 +168,6 @@
       "https://1rpc.io/scroll"
     ]
   },
-  "534351": {
-    "sourcifyName": "Scroll Sepolia Testnet",
-    "rpc": [
-      "https://sepolia-rpc.scroll.io",
-      "https://scroll-sepolia-rpc.publicnode.com",
-      "https://rpc.ankr.com/scroll_sepolia_testnet"
-    ]
-  },
   "80002": {
     "sourcifyName": "Polygon Amoy Testnet",
     "rpc": [
