@@ -19,53 +19,11 @@ type BlockscoutResponse = Record<string, BlockscoutChainEntry>;
 const BLOCKSCOUT_CHAINS_URL = "https://chains.blockscout.com/api/chains";
 
 /**
- * Returns true for an explorer URL the server may talk to. The server sends
- * its Blockscout API key in the query string, so only HTTPS instances qualify.
+ * Rewrites a plain-HTTP explorer URL to HTTPS. The server sends its Blockscout
+ * API key in the query string, so it must never talk to an instance over HTTP.
  */
-export function isUsableExplorerUrl(url: string | undefined): url is string {
-  if (!url) return false;
-  try {
-    return new URL(url).protocol === "https:";
-  } catch {
-    return false;
-  }
-}
-
-/**
- * Parses the chains.blockscout.com payload. The response keys are chain IDs;
- * only purely numeric keys are accepted (some entries like "1__" have
- * suffixes). For each chain the first explorer with a usable HTTPS URL is
- * taken; chains without one are left out.
- */
-export function parseBlockscoutChains(
-  data: unknown,
-): Map<number, BlockscoutChainData> {
-  if (data === null || typeof data !== "object" || Array.isArray(data)) {
-    throw new Error("Blockscout chains response is not an object");
-  }
-  const result = new Map<number, BlockscoutChainData>();
-
-  for (const [chainIdStr, entry] of Object.entries(
-    data as BlockscoutResponse,
-  )) {
-    if (!/^\d+$/.test(chainIdStr)) {
-      continue;
-    }
-    const chainId = parseInt(chainIdStr, 10);
-
-    const explorer = entry.explorers?.find((candidate) =>
-      isUsableExplorerUrl(candidate?.url),
-    );
-    if (explorer) {
-      result.set(chainId, {
-        url: explorer.url,
-        hostedBy: explorer.hostedBy,
-        name: entry.name,
-      });
-    }
-  }
-
-  return result;
+export function forceHttps(url: string): string {
+  return url.replace(/^http:\/\//i, "https://");
 }
 
 /**
@@ -85,7 +43,26 @@ export async function fetchBlockscoutChains(): Promise<
     );
   }
 
-  const result = parseBlockscoutChains(await response.json());
+  const data = (await response.json()) as BlockscoutResponse;
+  const result = new Map<number, BlockscoutChainData>();
+
+  for (const [chainIdStr, entry] of Object.entries(data)) {
+    // Only accept purely numeric keys (some entries like "1__" have suffixes)
+    if (!/^\d+$/.test(chainIdStr)) {
+      continue;
+    }
+    const chainId = parseInt(chainIdStr, 10);
+
+    // Use the first explorer URL
+    const explorer = entry.explorers?.[0];
+    if (explorer?.url) {
+      result.set(chainId, {
+        url: forceHttps(explorer.url),
+        hostedBy: explorer.hostedBy,
+        name: entry.name,
+      });
+    }
+  }
 
   console.log(`Blockscout: ${result.size} chains, ${Array.from(result.values()).filter(c => c.hostedBy === "blockscout").length} hosted by Blockscout`);
 
