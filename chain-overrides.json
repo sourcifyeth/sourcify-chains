@@ -495,5 +495,13 @@
     "fetchContractCreationTxUsing": {
       "blockscoutApi": { "url": "https://sepolia-explorer.rwa-chain.io/" }
     }
+  },
+  "6292": {
+    "sourcifyName": "MAYA CHAIN",
+    "rpc": ["https://rpc.mayachain.io"],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": { "url": "https://scan.mayachain.io/" }
+    }
   }
 }
+
