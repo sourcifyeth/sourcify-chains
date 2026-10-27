@@ -2548,17 +2548,9 @@
   },
   "2221": {
     "sourcifyName": "Kava Testnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.live/kava-testnet/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
-      }
     ]
   },
   "2222": {
@@ -2663,6 +2655,7 @@
       }
     },
     "rpc": [
+      "https://rpc-public-spb.tac.build",
       "https://spb.rpc.tac.build",
       "https://rpc.ankr.com/tac_spb"
     ]
@@ -2831,7 +2824,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/peaq/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -3386,6 +3380,22 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "trace_transaction"
       }
+    ]
+  },
+  "6292": {
+    "sourcifyName": "MAYA CHAIN",
+    "supported": true,
+    "discoveredBy": [
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://scan.mayachain.io/",
+        "proApi": false
+      }
+    },
+    "rpc": [
+      "https://rpc.mayachain.io"
     ]
   },
   "6321": {
@@ -6122,16 +6132,9 @@
   },
   "656476": {
     "sourcifyName": "EDU Chain Testnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.live/open-campus-codex-sepolia/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
-      }
     ]
   },
   "660279": {
@@ -6895,7 +6898,8 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/zora-sepolia/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      }
+      },
+      "https://sepolia.rpc.zora.energy"
     ]
   },
   "1313161554": {
