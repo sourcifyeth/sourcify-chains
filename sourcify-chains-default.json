@@ -462,12 +462,9 @@
   },
   "82": {
     "sourcifyName": "Meter Mainnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "additional-chains"
-    ],
-    "rpc": [
-      "https://rpc.meter.io"
     ]
   },
   "83": {
@@ -2655,9 +2652,7 @@
       }
     },
     "rpc": [
-      "https://rpc-public-spb.tac.build",
-      "https://spb.rpc.tac.build",
-      "https://rpc.ankr.com/tac_spb"
+      "https://rpc-public-spb.tac.build"
     ]
   },
   "2442": {
@@ -4904,7 +4899,8 @@
         "url": "https://lb.drpc.live/haqq-testnet/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      }
+      },
+      "https://rpc.eth.testedge2.haqq.network"
     ]
   },
   "57000": {
@@ -5988,7 +5984,6 @@
     "sourcifyName": "Scroll Sepolia Testnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides",
       "drpc"
     ],
     "rpc": [
