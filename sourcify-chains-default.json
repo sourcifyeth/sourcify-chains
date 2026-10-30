@@ -2545,9 +2545,17 @@
   },
   "2221": {
     "sourcifyName": "Kava Testnet",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
       "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.live/kava-testnet/{API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      }
     ]
   },
   "2222": {
@@ -5459,6 +5467,21 @@
       }
     ]
   },
+  "99801": {
+    "sourcifyName": "Elysium Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.live/elysium-testnet/{API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      }
+    ]
+  },
   "100009": {
     "sourcifyName": "VeChain Mainnet",
     "supported": true,
@@ -6916,7 +6939,9 @@
         "url": "https://lb.drpc.live/aurora/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      }
+      },
+      "https://mainnet.aurora.dev",
+      "https://aurora.drpc.org"
     ]
   },
   "1666600000": {
