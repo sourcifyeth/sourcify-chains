@@ -2680,18 +2680,9 @@
   },
   "2443": {
     "sourcifyName": "Haus Chain Testnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "chain-overrides"
-    ],
-    "fetchContractCreationTxUsing": {
-      "blockscoutApi": {
-        "url": "https://explorer-testnet.hausserver.xyz/",
-        "proApi": false
-      }
-    },
-    "rpc": [
-      "https://rpc-testnet.hausserver.xyz"
     ]
   },
   "2522": {
@@ -4907,8 +4898,7 @@
         "url": "https://lb.drpc.live/haqq-testnet/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://rpc.eth.testedge2.haqq.network"
+      }
     ]
   },
   "57000": {
@@ -6916,8 +6906,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/zora-sepolia/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://sepolia.rpc.zora.energy"
+      }
     ]
   },
   "1313161554": {
@@ -6940,8 +6929,8 @@
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       },
-      "https://mainnet.aurora.dev",
-      "https://aurora.drpc.org"
+      "https://aurora.drpc.org",
+      "https://mainnet.aurora.dev"
     ]
   },
   "1666600000": {
