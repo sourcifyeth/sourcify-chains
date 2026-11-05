@@ -502,6 +502,12 @@
     "fetchContractCreationTxUsing": {
       "blockscoutApi": { "url": "https://scan.mayachain.io/" }
     }
+  },
+  "2700": {
+    "sourcifyName": "Orbinum Testnet",
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": { "url": "https://explorer.testnet.orbinum.network" }
+    }
   }
 }
 
