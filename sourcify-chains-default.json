@@ -2515,9 +2515,16 @@
   },
   "2221": {
     "sourcifyName": "Kava Testnet",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
       "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.live/kava-testnet/{API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY"
+      }
     ]
   },
   "2222": {
@@ -3976,16 +3983,9 @@
   },
   "13505": {
     "sourcifyName": "Gravity Alpha Testnet Sepolia",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.live/gravity-alpha-sepolia/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
-      }
     ]
   },
   "14601": {
@@ -6842,8 +6842,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/zora-sepolia/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
-      },
-      "https://sepolia.rpc.zora.energy"
+      }
     ]
   },
   "1313161554": {
