@@ -508,6 +508,10 @@
     "fetchContractCreationTxUsing": {
       "blockscoutApi": { "url": "https://explorer.testnet.orbinum.network" }
     }
+  },
+  "12142816": {
+    "sourcifyName": "Winmar Chain",
+    "rpc": ["https://rpc.winmarchain.io"]
   }
 }
 
