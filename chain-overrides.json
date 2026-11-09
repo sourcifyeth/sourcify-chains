@@ -508,6 +508,11 @@
     "fetchContractCreationTxUsing": {
       "blockscoutApi": { "url": "https://explorer.testnet.orbinum.network" }
     }
+  },
+  "99901": {
+    "sourcifyName": "Elysium",
+    "rpc": [
+      "https://rpc.elyscan.live"
+    ]
   }
 }
-
