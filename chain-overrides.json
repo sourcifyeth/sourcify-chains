@@ -514,5 +514,19 @@
     "rpc": [
       "https://rpc.elyscan.live"
     ]
+  },
+  "1213549903": {
+    "sourcifyName": "Mirasmanda",
+    "rpc": ["https://rpc.evm.mirasmanda.uz"],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": { "url": "https://blockscout-backend.evm.mirasmanda.uz" }
+    }
+  },
+  "1215655279": {
+    "sourcifyName": "Mirasmanda UAT Testnet",
+    "rpc": ["https://rpc-uat.evm.mirasmanda.uz"],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": { "url": "https://blockscout-backend-uat.evm.mirasmanda.uz" }
+    }
   }
 }
