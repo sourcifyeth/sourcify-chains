@@ -1670,7 +1670,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/hyperliquid-testnet/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -5537,8 +5538,7 @@
     "sourcifyName": "Creditcoin Testnet",
     "supported": true,
     "discoveredBy": [
-      "blockscout",
-      "drpc"
+      "blockscout"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -5547,11 +5547,6 @@
       }
     },
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.live/creditcoin-testnet/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
-      },
       "https://rpc.cc3-testnet.creditcoin.network"
     ]
   },
@@ -6008,16 +6003,7 @@
     "sourcifyName": "Scroll Sepolia Testnet",
     "supported": false,
     "discoveredBy": [
-      "deprecated",
-      "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.live/scroll-sepolia/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
-      }
+      "deprecated"
     ]
   },
   "534352": {
@@ -6916,6 +6902,38 @@
         "url": "https://lb.drpc.live/zora-sepolia/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
       }
+    ]
+  },
+  "1213549903": {
+    "sourcifyName": "Mirasmanda",
+    "supported": true,
+    "discoveredBy": [
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://blockscout-backend.evm.mirasmanda.uz",
+        "proApi": false
+      }
+    },
+    "rpc": [
+      "https://rpc.evm.mirasmanda.uz"
+    ]
+  },
+  "1215655279": {
+    "sourcifyName": "Mirasmanda UAT Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://blockscout-backend-uat.evm.mirasmanda.uz",
+        "proApi": false
+      }
+    },
+    "rpc": [
+      "https://rpc-uat.evm.mirasmanda.uz"
     ]
   },
   "1313161554": {
