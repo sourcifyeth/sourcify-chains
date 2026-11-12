@@ -337,7 +337,10 @@
       "nodeRealApi": {
         "url": "https://bsc-mainnet.nodereal.io/v1/${API_KEY}"
       },
-      "etherscanApi": true
+      "etherscanApi": true,
+      "routescanApi": {
+        "type": "mainnet"
+      }
     },
     "etherscanApi": {
       "supported": true,
@@ -748,6 +751,9 @@
       "blockscoutApi": {
         "url": "https://polygon.blockscout.com/",
         "proApi": true
+      },
+      "routescanApi": {
+        "type": "mainnet"
       }
     },
     "etherscanApi": {
@@ -3063,6 +3069,9 @@
       "blockscoutApi": {
         "url": "https://robinhoodchain.blockscout.com/",
         "proApi": true
+      },
+      "routescanApi": {
+        "type": "mainnet"
       }
     },
     "etherscanApi": {
@@ -3240,6 +3249,9 @@
       "blockscoutApi": {
         "url": "https://explorer.arc.io/",
         "proApi": true
+      },
+      "routescanApi": {
+        "type": "mainnet"
       }
     },
     "etherscanApi": {
@@ -3616,6 +3628,9 @@
       "blockscoutApi": {
         "url": "https://base.blockscout.com/",
         "proApi": true
+      },
+      "routescanApi": {
+        "type": "mainnet"
       }
     },
     "etherscanApi": {
@@ -4428,6 +4443,9 @@
       "blockscoutApi": {
         "url": "https://arbitrum.blockscout.com/",
         "proApi": true
+      },
+      "routescanApi": {
+        "type": "mainnet"
       }
     },
     "etherscanApi": {
@@ -5231,6 +5249,21 @@
       }
     ]
   },
+  "81224": {
+    "sourcifyName": "Codex",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.live/codex/{API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
+      }
+    ]
+  },
   "81457": {
     "sourcifyName": "Blast",
     "supported": true,
@@ -6000,6 +6033,9 @@
       "blockscoutApi": {
         "url": "https://scrollscan.com",
         "proApi": true
+      },
+      "routescanApi": {
+        "type": "mainnet"
       }
     },
     "rpc": [
@@ -6332,6 +6368,21 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/bob-testnet/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY"
+      }
+    ]
+  },
+  "812242": {
+    "sourcifyName": "Codex Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.live/codex-testnet/{API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -6871,7 +6922,8 @@
     "sourcifyName": "Aurora Mainnet",
     "supported": true,
     "discoveredBy": [
-      "chain-overrides"
+      "chain-overrides",
+      "drpc"
     ],
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
@@ -6880,6 +6932,12 @@
       }
     },
     "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.live/aurora/{API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      },
       "https://mainnet.aurora.dev"
     ]
   },
