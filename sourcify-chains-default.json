@@ -1780,11 +1780,6 @@
       "chain-overrides",
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "mainnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -2057,8 +2052,7 @@
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.sei-pacific.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       }
     ]
   },
@@ -2703,8 +2697,8 @@
       }
     },
     "rpc": [
-      "https://rpc-1.testnet.orbinum.io",
-      "https://rpc-2.testnet.orbinum.io"
+      "https://rpc-2.testnet.orbinum.io",
+      "https://rpc-1.testnet.orbinum.io"
     ]
   },
   "2741": {
@@ -4103,11 +4097,6 @@
     "discoveredBy": [
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "testnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -4316,8 +4305,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/apechain-curtis/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -5921,9 +5909,6 @@
       "blockscoutApi": {
         "url": "https://arbitrum-sepolia.blockscout.com/",
         "proApi": true
-      },
-      "routescanApi": {
-        "type": "testnet"
       }
     },
     "etherscanApi": {
@@ -6670,9 +6655,6 @@
       "blockscoutApi": {
         "url": "https://testnet-explorer.optimism.io/",
         "proApi": true
-      },
-      "routescanApi": {
-        "type": "testnet"
       }
     },
     "etherscanApi": {
@@ -6955,23 +6937,14 @@
         "url": "https://lb.drpc.live/aurora/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://mainnet.aurora.dev"
+      }
     ]
   },
   "1666600000": {
     "sourcifyName": "Harmony Mainnet Shard 0",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.live/harmony-0/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
-      }
     ]
   },
   "2494104990": {
