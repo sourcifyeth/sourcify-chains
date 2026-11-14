@@ -1,0 +1,252 @@
+{
+  "lastRunAt": "2026-11-14T08:35:58.254Z",
+  "pendingChanges": {
+    "change-traceSupport-33111-https://lb.drpc.live/apechain-curtis/{API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 33111,
+      "provider": "https://lb.drpc.live/apechain-curtis/{API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 7,
+      "firstSeenAt": "2026-11-11T21:04:29.996Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "remove-rpc-1313161554-https://mainnet.aurora.dev": {
+      "type": "remove-rpc",
+      "chainId": 1313161554,
+      "provider": "https://mainnet.aurora.dev",
+      "consecutiveRuns": 7,
+      "firstSeenAt": "2026-11-11T21:04:29.996Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "remove-rpc-1666600000-https://lb.drpc.live/harmony-0/{API_KEY}": {
+      "type": "remove-rpc",
+      "chainId": 1666600000,
+      "provider": "https://lb.drpc.live/harmony-0/{API_KEY}",
+      "consecutiveRuns": 7,
+      "firstSeenAt": "2026-11-11T21:04:29.996Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "change-traceSupport-1329-https://{SUBDOMAIN}.sei-pacific.quiknode.pro/{API_KEY}/": {
+      "type": "change-traceSupport",
+      "chainId": 1329,
+      "provider": "https://{SUBDOMAIN}.sei-pacific.quiknode.pro/{API_KEY}/",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 6,
+      "firstSeenAt": "2026-11-12T09:17:23.192Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "remove-fetchUsing-1088-routescanApi": {
+      "type": "remove-fetchUsing",
+      "chainId": 1088,
+      "key": "routescanApi",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-11-12T15:32:00.013Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "remove-fetchUsing-17000-routescanApi": {
+      "type": "remove-fetchUsing",
+      "chainId": 17000,
+      "key": "routescanApi",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-11-12T15:32:00.013Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "remove-fetchUsing-421614-routescanApi": {
+      "type": "remove-fetchUsing",
+      "chainId": 421614,
+      "key": "routescanApi",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-11-12T15:32:00.013Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "remove-fetchUsing-11155420-routescanApi": {
+      "type": "remove-fetchUsing",
+      "chainId": 11155420,
+      "key": "routescanApi",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-11-12T15:32:00.013Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "change-traceSupport-133-https://lb.drpc.live/hashkey-testnet/{API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 133,
+      "provider": "https://lb.drpc.live/hashkey-testnet/{API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 4,
+      "firstSeenAt": "2026-11-12T21:18:50.467Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "remove-rpc-1287-https://lb.drpc.live/moonbase-alpha/{API_KEY}": {
+      "type": "remove-rpc",
+      "chainId": 1287,
+      "provider": "https://lb.drpc.live/moonbase-alpha/{API_KEY}",
+      "consecutiveRuns": 3,
+      "firstSeenAt": "2026-11-13T09:05:07.251Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "change-traceSupport-239-https://lb.drpc.live/tac/{API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 239,
+      "provider": "https://lb.drpc.live/tac/{API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 2,
+      "firstSeenAt": "2026-11-13T20:46:25.719Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "change-traceSupport-16661-https://lb.drpc.live/0g-mainnet/{API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 16661,
+      "provider": "https://lb.drpc.live/0g-mainnet/{API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": "trace_transaction",
+      "consecutiveRuns": 2,
+      "firstSeenAt": "2026-11-13T20:46:25.719Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "remove-rpc-54211-https://lb.drpc.live/haqq-testnet/{API_KEY}": {
+      "type": "remove-rpc",
+      "chainId": 54211,
+      "provider": "https://lb.drpc.live/haqq-testnet/{API_KEY}",
+      "consecutiveRuns": 2,
+      "firstSeenAt": "2026-11-13T20:46:25.719Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "remove-fetchUsing-54211-blockscoutApi": {
+      "type": "remove-fetchUsing",
+      "chainId": 54211,
+      "key": "blockscoutApi",
+      "consecutiveRuns": 2,
+      "firstSeenAt": "2026-11-13T20:46:25.719Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "remove-discoveredBy-54211-drpc": {
+      "type": "remove-discoveredBy",
+      "chainId": 54211,
+      "key": "drpc",
+      "consecutiveRuns": 2,
+      "firstSeenAt": "2026-11-13T20:46:25.719Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "remove-rpc-2700-https://rpc-1.testnet.orbinum.io": {
+      "type": "remove-rpc",
+      "chainId": 2700,
+      "provider": "https://rpc-1.testnet.orbinum.io",
+      "consecutiveRuns": 1,
+      "firstSeenAt": "2026-11-14T08:35:58.254Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    },
+    "remove-rpc-534352-https://1rpc.io/scroll": {
+      "type": "remove-rpc",
+      "chainId": 534352,
+      "provider": "https://1rpc.io/scroll",
+      "consecutiveRuns": 1,
+      "firstSeenAt": "2026-11-14T08:35:58.254Z",
+      "lastSeenAt": "2026-11-14T08:35:58.254Z"
+    }
+  },
+  "overrideRpcs": {
+    "1": [
+      "https://mainnet.rpc.ethnodeops.xyz"
+    ],
+    "369": [
+      "https://rpc.pulsechain.com",
+      "https://pulsechain-rpc.publicnode.com",
+      "wss://pulsechain-rpc.publicnode.com",
+      "https://rpc-pulsechain.g4mm4.io"
+    ],
+    "401": [
+      "https://node2.testnet.ozonechain.io"
+    ],
+    "1030": [
+      "https://evm.confluxrpc.com"
+    ],
+    "1088": [
+      "https://andromeda.metis.io/?owner=1088",
+      "https://metis.drpc.org",
+      "wss://metis.drpc.org"
+    ],
+    "1874": [
+      "https://rpc.testnet.whitechain.io"
+    ],
+    "2443": [
+      "https://rpc-testnet.hausserver.xyz"
+    ],
+    "5000": [
+      "https://rpc.mantle.xyz",
+      "https://mantle-rpc.publicnode.com"
+    ],
+    "5003": [
+      "https://rpc.sepolia.mantle.xyz"
+    ],
+    "6292": [
+      "https://rpc.mayachain.io"
+    ],
+    "7741": [
+      "https://rpc.rwa-chain.io"
+    ],
+    "8453": [
+      "https://mainnet.base.org/",
+      "https://developer-access-mainnet.base.org/",
+      "https://base.gateway.tenderly.co"
+    ],
+    "9280": [
+      "https://rpc-testnet.rabbitchain.org"
+    ],
+    "26217": [
+      "https://evm.integralayer.com"
+    ],
+    "42170": [
+      "https://nova.arbitrum.io/rpc",
+      "https://arbitrum-nova.gateway.tenderly.co",
+      "https://arbitrum-nova-rpc.publicnode.com"
+    ],
+    "57057": [
+      "https://rpc-zk.tanenbaum.io/"
+    ],
+    "77410": [
+      "https://sepolia-rpc.rwa-chain.io"
+    ],
+    "80002": [
+      "https://rpc-amoy.polygon.technology",
+      "https://polygon-amoy-bor-rpc.publicnode.com"
+    ],
+    "84532": [
+      "https://sepolia.base.org",
+      "https://base-sepolia-rpc.publicnode.com"
+    ],
+    "99901": [
+      "https://rpc.elyscan.live"
+    ],
+    "181228": [
+      "https://sepolia.hpp.io"
+    ],
+    "190415": [
+      "https://mainnet.hpp.io"
+    ],
+    "482120": [
+      "https://rpc.btcw.tech"
+    ],
+    "534352": [
+      "https://rpc.scroll.io",
+      "https://scroll.blockpi.network/v1/rpc/public",
+      "https://1rpc.io/scroll"
+    ],
+    "560048": [
+      "https://hoodi.rpc.ethnodeops.xyz"
+    ],
+    "11155111": [
+      "https://sepolia.rpc.ethnodeops.xyz"
+    ],
+    "1213549903": [
+      "https://rpc.evm.mirasmanda.uz"
+    ],
+    "1215655279": [
+      "https://rpc-uat.evm.mirasmanda.uz"
+    ]
+  },
+  "removedOverrideRpcs": {}
+}
