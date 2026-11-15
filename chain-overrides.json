@@ -522,6 +522,10 @@
       "blockscoutApi": { "url": "https://blockscout-backend.evm.mirasmanda.uz" }
     }
   },
+  "973164827": {
+    "sourcifyName": "MobileNode Chain",
+    "rpc": ["https://rpc.mnc.mobi/"]
+  },
   "1215655279": {
     "sourcifyName": "Mirasmanda UAT Testnet",
     "rpc": ["https://rpc-uat.evm.mirasmanda.uz"],
