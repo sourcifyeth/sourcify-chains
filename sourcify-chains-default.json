@@ -732,8 +732,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/hashkey-testnet/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1364,7 +1363,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/worldchain/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -1780,11 +1780,6 @@
       "chain-overrides",
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "mainnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -1937,17 +1932,9 @@
   },
   "1287": {
     "sourcifyName": "Moonbase Alpha",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.live/moonbase-alpha/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
-      }
     ]
   },
   "1291": {
@@ -2057,8 +2044,7 @@
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.sei-pacific.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       }
     ]
   },
@@ -2308,6 +2294,22 @@
     },
     "rpc": [
       "https://rpc.testnet.whitechain.io"
+    ]
+  },
+  "1875": {
+    "sourcifyName": "Whitechain",
+    "supported": true,
+    "discoveredBy": [
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer.whitechain.io/",
+        "proApi": false
+      }
+    },
+    "rpc": [
+      "https://rpc.whitechain.io"
     ]
   },
   "1890": {
@@ -2703,8 +2705,8 @@
       }
     },
     "rpc": [
-      "https://rpc-1.testnet.orbinum.io",
-      "https://rpc-2.testnet.orbinum.io"
+      "https://rpc-2.testnet.orbinum.io",
+      "https://rpc-1.testnet.orbinum.io"
     ]
   },
   "2741": {
@@ -3589,7 +3591,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/klaytn/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -4103,11 +4106,6 @@
     "discoveredBy": [
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "testnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -4852,24 +4850,9 @@
   },
   "54211": {
     "sourcifyName": "Haqq Chain Testnet",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
-      "chain-overrides",
-      "drpc"
-    ],
-    "fetchContractCreationTxUsing": {
-      "blockscoutApi": {
-        "url": "https://explorer.testedge2.haqq.network/",
-        "proApi": false
-      }
-    },
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.live/haqq-testnet/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
-      }
+      "chain-overrides"
     ]
   },
   "57000": {
@@ -5921,9 +5904,6 @@
       "blockscoutApi": {
         "url": "https://arbitrum-sepolia.blockscout.com/",
         "proApi": true
-      },
-      "routescanApi": {
-        "type": "testnet"
       }
     },
     "etherscanApi": {
@@ -6670,9 +6650,6 @@
       "blockscoutApi": {
         "url": "https://testnet-explorer.optimism.io/",
         "proApi": true
-      },
-      "routescanApi": {
-        "type": "testnet"
       }
     },
     "etherscanApi": {
@@ -6955,23 +6932,14 @@
         "url": "https://lb.drpc.live/aurora/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
-      },
-      "https://mainnet.aurora.dev"
+      }
     ]
   },
   "1666600000": {
     "sourcifyName": "Harmony Mainnet Shard 0",
-    "supported": true,
+    "supported": false,
     "discoveredBy": [
       "drpc"
-    ],
-    "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.live/harmony-0/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
-      }
     ]
   },
   "2494104990": {
