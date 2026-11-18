@@ -1702,16 +1702,9 @@
     "sourcifyName": "Kaia Kairos Testnet",
     "supported": true,
     "discoveredBy": [
-      "drpc",
       "quicknode"
     ],
     "rpc": [
-      {
-        "type": "APIKeyRPC",
-        "url": "https://lb.drpc.live/klaytn-baobab/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
-      },
       {
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.kaia-kairos.quiknode.pro/{API_KEY}/",
@@ -4818,7 +4811,7 @@
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://electroneum.blockscout.com",
-        "proApi": false
+        "proApi": true
       }
     },
     "rpc": [
@@ -6467,7 +6460,7 @@
     "fetchContractCreationTxUsing": {
       "blockscoutApi": {
         "url": "https://electroneum-testnet.blockscout.com",
-        "proApi": false
+        "proApi": true
       }
     },
     "rpc": [
