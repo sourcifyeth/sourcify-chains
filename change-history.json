@@ -1,0 +1,259 @@
+{
+  "lastRunAt": "2026-11-20T21:42:22.771Z",
+  "pendingChanges": {
+    "change-traceSupport-8217-https://lb.drpc.live/klaytn/{API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 8217,
+      "provider": "https://lb.drpc.live/klaytn/{API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 8,
+      "firstSeenAt": "2026-11-17T10:11:25.389Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "change-traceSupport-1480-https://{SUBDOMAIN}.vana-mainnet.quiknode.pro/{API_KEY}/": {
+      "type": "change-traceSupport",
+      "chainId": 1480,
+      "provider": "https://{SUBDOMAIN}.vana-mainnet.quiknode.pro/{API_KEY}/",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-11-18T21:43:50.278Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "remove-rpc-2017-https://rpc.telcoin.network": {
+      "type": "remove-rpc",
+      "chainId": 2017,
+      "provider": "https://rpc.telcoin.network",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-11-18T21:43:50.278Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "remove-rpc-2017-https://adiri.tel": {
+      "type": "remove-rpc",
+      "chainId": 2017,
+      "provider": "https://adiri.tel",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-11-18T21:43:50.278Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "remove-rpc-2017-https://node1.telcoin.network": {
+      "type": "remove-rpc",
+      "chainId": 2017,
+      "provider": "https://node1.telcoin.network",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-11-18T21:43:50.278Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "remove-rpc-2017-https://node2.telcoin.network": {
+      "type": "remove-rpc",
+      "chainId": 2017,
+      "provider": "https://node2.telcoin.network",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-11-18T21:43:50.278Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "remove-rpc-2017-https://node3.telcoin.network": {
+      "type": "remove-rpc",
+      "chainId": 2017,
+      "provider": "https://node3.telcoin.network",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-11-18T21:43:50.278Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "remove-rpc-2017-https://node4.telcoin.network": {
+      "type": "remove-rpc",
+      "chainId": 2017,
+      "provider": "https://node4.telcoin.network",
+      "consecutiveRuns": 5,
+      "firstSeenAt": "2026-11-18T21:43:50.278Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "change-traceSupport-480-https://lb.drpc.live/worldchain/{API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 480,
+      "provider": "https://lb.drpc.live/worldchain/{API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 4,
+      "firstSeenAt": "2026-11-19T09:53:33.088Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "change-traceSupport-16661-https://lb.drpc.live/0g-mainnet/{API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 16661,
+      "provider": "https://lb.drpc.live/0g-mainnet/{API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": "trace_transaction",
+      "consecutiveRuns": 4,
+      "firstSeenAt": "2026-11-19T09:53:33.088Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "remove-rpc-2700-https://rpc-2.testnet.orbinum.io": {
+      "type": "remove-rpc",
+      "chainId": 2700,
+      "provider": "https://rpc-2.testnet.orbinum.io",
+      "consecutiveRuns": 3,
+      "firstSeenAt": "2026-11-19T21:59:42.102Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "remove-rpc-2700-https://rpc-1.testnet.orbinum.io": {
+      "type": "remove-rpc",
+      "chainId": 2700,
+      "provider": "https://rpc-1.testnet.orbinum.io",
+      "consecutiveRuns": 3,
+      "firstSeenAt": "2026-11-19T21:59:42.102Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "remove-fetchUsing-2700-blockscoutApi": {
+      "type": "remove-fetchUsing",
+      "chainId": 2700,
+      "key": "blockscoutApi",
+      "consecutiveRuns": 3,
+      "firstSeenAt": "2026-11-19T21:59:42.102Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "change-traceSupport-988-https://lb.drpc.live/stable/{API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 988,
+      "provider": "https://lb.drpc.live/stable/{API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 2,
+      "firstSeenAt": "2026-11-20T09:40:49.834Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "change-traceSupport-3338-https://lb.drpc.live/peaq/{API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 3338,
+      "provider": "https://lb.drpc.live/peaq/{API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 1,
+      "firstSeenAt": "2026-11-20T21:42:22.771Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "change-traceSupport-33111-https://lb.drpc.live/apechain-curtis/{API_KEY}": {
+      "type": "change-traceSupport",
+      "chainId": 33111,
+      "provider": "https://lb.drpc.live/apechain-curtis/{API_KEY}",
+      "from": "debug_traceTransaction",
+      "to": null,
+      "consecutiveRuns": 1,
+      "firstSeenAt": "2026-11-20T21:42:22.771Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    },
+    "remove-fetchUsing-81457-routescanApi": {
+      "type": "remove-fetchUsing",
+      "chainId": 81457,
+      "key": "routescanApi",
+      "consecutiveRuns": 1,
+      "firstSeenAt": "2026-11-20T21:42:22.771Z",
+      "lastSeenAt": "2026-11-20T21:42:22.771Z"
+    }
+  },
+  "overrideRpcs": {
+    "1": [
+      "https://mainnet.rpc.ethnodeops.xyz"
+    ],
+    "369": [
+      "https://rpc.pulsechain.com",
+      "https://pulsechain-rpc.publicnode.com",
+      "wss://pulsechain-rpc.publicnode.com",
+      "https://rpc-pulsechain.g4mm4.io"
+    ],
+    "401": [
+      "https://node2.testnet.ozonechain.io"
+    ],
+    "1030": [
+      "https://evm.confluxrpc.com"
+    ],
+    "1088": [
+      "https://andromeda.metis.io/?owner=1088",
+      "https://metis.drpc.org",
+      "wss://metis.drpc.org"
+    ],
+    "1874": [
+      "https://rpc.testnet.whitechain.io"
+    ],
+    "1875": [
+      "https://rpc.whitechain.io"
+    ],
+    "2443": [
+      "https://rpc-testnet.hausserver.xyz"
+    ],
+    "5000": [
+      "https://rpc.mantle.xyz",
+      "https://mantle-rpc.publicnode.com"
+    ],
+    "5003": [
+      "https://rpc.sepolia.mantle.xyz"
+    ],
+    "6292": [
+      "https://rpc.mayachain.io"
+    ],
+    "7741": [
+      "https://rpc.rwa-chain.io"
+    ],
+    "8453": [
+      "https://mainnet.base.org/",
+      "https://developer-access-mainnet.base.org/",
+      "https://base.gateway.tenderly.co"
+    ],
+    "9280": [
+      "https://rpc-testnet.rabbitchain.org"
+    ],
+    "26217": [
+      "https://evm.integralayer.com"
+    ],
+    "42170": [
+      "https://nova.arbitrum.io/rpc",
+      "https://arbitrum-nova.gateway.tenderly.co",
+      "https://arbitrum-nova-rpc.publicnode.com"
+    ],
+    "57057": [
+      "https://rpc-zk.tanenbaum.io/"
+    ],
+    "77410": [
+      "https://sepolia-rpc.rwa-chain.io"
+    ],
+    "80002": [
+      "https://rpc-amoy.polygon.technology",
+      "https://polygon-amoy-bor-rpc.publicnode.com"
+    ],
+    "84532": [
+      "https://sepolia.base.org",
+      "https://base-sepolia-rpc.publicnode.com"
+    ],
+    "99901": [
+      "https://rpc.elyscan.live"
+    ],
+    "181228": [
+      "https://sepolia.hpp.io"
+    ],
+    "190415": [
+      "https://mainnet.hpp.io"
+    ],
+    "482120": [
+      "https://rpc.btcw.tech"
+    ],
+    "534352": [
+      "https://rpc.scroll.io",
+      "https://scroll.blockpi.network/v1/rpc/public",
+      "https://1rpc.io/scroll"
+    ],
+    "560048": [
+      "https://hoodi.rpc.ethnodeops.xyz"
+    ],
+    "11155111": [
+      "https://sepolia.rpc.ethnodeops.xyz"
+    ],
+    "1213549903": [
+      "https://rpc.evm.mirasmanda.uz"
+    ],
+    "1215655279": [
+      "https://rpc-uat.evm.mirasmanda.uz"
+    ]
+  },
+  "removedOverrideRpcs": {}
+}
