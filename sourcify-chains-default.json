@@ -135,7 +135,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/flare/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -2081,8 +2082,7 @@
         "type": "APIKeyRPC",
         "url": "https://{SUBDOMAIN}.vana-mainnet.quiknode.pro/{API_KEY}/",
         "apiKeyEnvName": "QUICKNODE_API_KEY",
-        "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
-        "traceSupport": "debug_traceTransaction"
+        "subDomainEnvName": "QUICKNODE_SUBDOMAIN"
       }
     ]
   },
@@ -2426,12 +2426,9 @@
       "additional-chains"
     ],
     "rpc": [
-      "https://rpc.telcoin.network",
-      "https://adiri.tel",
-      "https://node1.telcoin.network",
-      "https://node2.telcoin.network",
-      "https://node3.telcoin.network",
-      "https://node4.telcoin.network"
+      "https://rpc.adiri.tel",
+      "https://rpc.adiri.telcoin.network",
+      "https://adiri.rpc.telcoin.network"
     ]
   },
   "2020": {
@@ -3584,8 +3581,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/klaytn/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -4329,6 +4325,21 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/apechain/{API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      }
+    ]
+  },
+  "33431": {
+    "sourcifyName": "Edge Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.live/edge-testnet/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
         "traceSupport": "debug_traceTransaction"
       }
@@ -6930,9 +6941,17 @@
   },
   "1666600000": {
     "sourcifyName": "Harmony Mainnet Shard 0",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
       "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.live/harmony-0/{API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
+      }
     ]
   },
   "2494104990": {
