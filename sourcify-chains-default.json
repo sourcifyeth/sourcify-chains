@@ -371,8 +371,8 @@
     ],
     "rpc": [
       "https://rpc.syscoin.org",
-      "https://57.rpc.thirdweb.com",
-      "https://syscoin-evm.publicnode.com"
+      "https://syscoin-evm.publicnode.com",
+      "https://57.rpc.thirdweb.com"
     ]
   },
   "61": {
@@ -1364,8 +1364,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/worldchain/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -1926,9 +1925,17 @@
   },
   "1287": {
     "sourcifyName": "Moonbase Alpha",
-    "supported": false,
+    "supported": true,
     "discoveredBy": [
       "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.live/moonbase-alpha/{API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
+      }
     ]
   },
   "1291": {
@@ -2695,8 +2702,8 @@
       }
     },
     "rpc": [
-      "https://rpc-2.testnet.orbinum.io",
-      "https://rpc-1.testnet.orbinum.io"
+      "https://rpc-1.testnet.orbinum.io",
+      "https://rpc-2.testnet.orbinum.io"
     ]
   },
   "2741": {
@@ -3581,7 +3588,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/klaytn/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       },
       {
         "type": "APIKeyRPC",
@@ -5927,6 +5935,21 @@
         "apiKeyEnvName": "QUICKNODE_API_KEY",
         "subDomainEnvName": "QUICKNODE_SUBDOMAIN",
         "traceSupport": "debug_traceTransaction"
+      }
+    ]
+  },
+  "424242": {
+    "sourcifyName": "Fastex Chain testnet",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.live/qms-stagenet/{API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
