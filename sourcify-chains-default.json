@@ -1655,8 +1655,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/stable/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -4311,8 +4310,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/apechain-curtis/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -4348,8 +4346,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/edge-testnet/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -5266,11 +5263,6 @@
     "discoveredBy": [
       "drpc"
     ],
-    "fetchContractCreationTxUsing": {
-      "routescanApi": {
-        "type": "mainnet"
-      }
-    },
     "rpc": [
       {
         "type": "APIKeyRPC",
@@ -6391,6 +6383,22 @@
     "supported": false,
     "discoveredBy": [
       "deprecated"
+    ]
+  },
+  "1234571": {
+    "sourcifyName": "Primium Testnet",
+    "supported": true,
+    "discoveredBy": [
+      "chain-overrides"
+    ],
+    "fetchContractCreationTxUsing": {
+      "blockscoutApi": {
+        "url": "https://explorer-testnet.codexnetwork.org/",
+        "proApi": false
+      }
+    },
+    "rpc": [
+      "https://node1-testnet.codexnetwork.org"
     ]
   },
   "1440000": {
