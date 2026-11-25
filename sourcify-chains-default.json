@@ -1028,7 +1028,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/cronos-zkevm-testnet/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -1364,7 +1365,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/worldchain/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       },
       {
         "type": "APIKeyRPC",
@@ -1918,7 +1920,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/moonriver/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -3587,8 +3590,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/klaytn/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       },
       {
         "type": "APIKeyRPC",
@@ -6352,7 +6354,8 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/bob-testnet/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY"
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
       }
     ]
   },
