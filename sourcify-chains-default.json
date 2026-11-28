@@ -371,8 +371,8 @@
     ],
     "rpc": [
       "https://rpc.syscoin.org",
-      "https://syscoin-evm.publicnode.com",
-      "https://57.rpc.thirdweb.com"
+      "https://57.rpc.thirdweb.com",
+      "https://syscoin-evm.publicnode.com"
     ]
   },
   "61": {
@@ -940,8 +940,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/opbnb/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -991,8 +990,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/lens/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -1294,11 +1292,6 @@
       "https://pulsechain-rpc.publicnode.com",
       {
         "url": "https://rpc.pulsechain.com",
-        "type": "BaseRPC",
-        "traceSupport": "trace_transaction"
-      },
-      {
-        "url": "https://rpc-pulsechain.g4mm4.io",
         "type": "BaseRPC",
         "traceSupport": "trace_transaction"
       }
@@ -3819,8 +3812,7 @@
       {
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/gnosis-chiado/{API_KEY}",
-        "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "apiKeyEnvName": "DRPC_API_KEY"
       }
     ]
   },
@@ -4125,6 +4117,21 @@
     "supported": false,
     "discoveredBy": [
       "additional-chains"
+    ]
+  },
+  "20310": {
+    "sourcifyName": "Alpen Testnet III",
+    "supported": true,
+    "discoveredBy": [
+      "drpc"
+    ],
+    "rpc": [
+      {
+        "type": "APIKeyRPC",
+        "url": "https://lb.drpc.live/alpen-testnet/{API_KEY}",
+        "apiKeyEnvName": "DRPC_API_KEY",
+        "traceSupport": "trace_transaction"
+      }
     ]
   },
   "22776": {
@@ -4848,7 +4855,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/superseed-sepolia/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
@@ -4938,7 +4945,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/linea-sepolia/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "trace_transaction"
+        "traceSupport": "debug_traceTransaction"
       }
     ]
   },
@@ -4995,7 +5002,7 @@
         "type": "APIKeyRPC",
         "url": "https://lb.drpc.live/bob/{API_KEY}",
         "apiKeyEnvName": "DRPC_API_KEY",
-        "traceSupport": "debug_traceTransaction"
+        "traceSupport": "trace_transaction"
       }
     ]
   },
